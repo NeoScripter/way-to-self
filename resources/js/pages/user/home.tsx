@@ -1,6 +1,9 @@
+import UserLayout from "@/layouts/user/user-layout";
 
 export default function Home () {
     return (
-        <div>This is home page</div>
+        <UserLayout layoutClass="text-text-black bg-main-page-bg px-4 sm:px-11 lg:px-25 2xl:px-40">
+            <div className="">This is home page</div>
+        </UserLayout>
     )
 }

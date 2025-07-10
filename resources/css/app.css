@@ -15,10 +15,7 @@
     --font-inter:
         'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-cursive:
-        'Disruptors Script', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+    --font-cursive: 'Disruptors Script', 'Brush Script MT';
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -75,6 +72,7 @@
     --color-very-bright-salad: oklch(0.886 0.1475 132.38);
     --color-card-backdrop-gray: oklch(0.4683 0.0218 150.17 / 52%);
     --color-dark-swamp: oklch(0.3869 0.0463 135.91);
+    --color-light-swamp: oklch(0.4684 0.046 131.62);
     --color-main-page-bg: oklch(0.7751 0.0385 107.27);
     --color-soul-page-bg: oklch(0.8214 0.0513 109.96);
     --color-text-black: oklch(0 0 0);
@@ -180,5 +178,32 @@
 
     body {
         @apply bg-background text-foreground;
+    }
+}
+
+.shine-element {
+    position: absolute;
+    top: 0;
+    left: -75%;
+    z-index: 2;
+    display: block;
+    content: '';
+    width: 50%;
+    height: 100%;
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+    -webkit-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+}
+
+@-webkit-keyframes shine {
+    100% {
+        left: 125%;
+    }
+}
+
+@keyframes shine {
+    100% {
+        left: 125%;
     }
 }
