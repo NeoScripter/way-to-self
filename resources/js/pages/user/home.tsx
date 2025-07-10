@@ -1,8 +1,5 @@
-type HomeProps = {
 
-}
-
-export default function Home ({}: HomeProps) {
+export default function Home () {
     return (
         <div>This is home page</div>
     )
