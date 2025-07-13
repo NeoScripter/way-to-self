@@ -1,3 +1,4 @@
+import UserFooter from "@/components/user/molecules/user-footer";
 import UserHeader from "@/components/user/molecules/user-header";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +17,8 @@ export default function UserLayout({ children, layoutClass, pageClass }: UserLay
             <main className={cn("", pageClass)}>
                 {children}
             </main>
+
+            <UserFooter />
         </div>
     )
 }

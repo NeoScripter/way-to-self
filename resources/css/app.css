@@ -68,6 +68,7 @@
 
     --color-red-purple: oklch(0.4135 0.1309 24.95);
     --color-red-favourite: oklch(0.5578 0.218 28.2);
+    --color-red-bright: oklch(0.6558 0.158 22.42);
     --color-bright-salad: oklch(0.6594 0.1429 133.07);
     --color-very-bright-salad: oklch(0.886 0.1475 132.38);
     --color-card-backdrop-gray: oklch(0.4683 0.0218 150.17 / 52%);
