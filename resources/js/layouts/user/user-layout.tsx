@@ -10,11 +10,11 @@ type UserLayoutProps = {
 
 export default function UserLayout({ children, layoutClass, pageClass }: UserLayoutProps) {
     return (
-        <div className={cn("min-h-screen", layoutClass)}>
+        <div className={cn("min-h-screen relative z-5", layoutClass)}>
 
             <UserHeader />
 
-            <main className={cn("", pageClass)}>
+            <main className={cn(pageClass)}>
                 {children}
             </main>
 
