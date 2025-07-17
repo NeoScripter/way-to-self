@@ -1,6 +1,7 @@
 import UserLayout from "@/layouts/user/user-layout";
 import { lazy } from "react";
 import HeroSection from "@/components/user/organisms/home/hero-section";
+import IntroSection from "@/components/user/organisms/home/intro-section";
 const BackgroundHome = lazy(() => import('@/components/user/atoms/background-home'));
 
 export default function Home() {
@@ -12,6 +13,11 @@ export default function Home() {
             <section className="mt-11 sm:mt-14 md:mt-20 lg:mt-26 xl:mt-40 text-white">
                 <HeroSection />
             </section>
+
+            <section className="mt-11 sm:mt-14 md:mt-20 lg:mt-26 xl:mt-40 text-white">
+                <IntroSection />
+            </section>
+
         </UserLayout>
     )
 }

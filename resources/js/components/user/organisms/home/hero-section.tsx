@@ -153,7 +153,7 @@ export default function HeroSection() {
     const Card3 = () => {
         return (
             <HomeCardLayout
-                className="pt-24 sm:px-5 sm:flex sm:justify-between sm:items-center md:px-11 md:ml-auto md:py-11 lg:py-14 lg:gap-10 xl:w-3/4 xl:gap-12"
+                className="pt-24 mb-0 sm:px-5 sm:flex sm:justify-between sm:items-center md:px-11 md:ml-auto md:py-11 lg:py-14 lg:gap-10 xl:w-3/4 xl:gap-12"
                 ariaDesc="body-section-description"
                 ariaLabel="body-section-heading">
                 <div
