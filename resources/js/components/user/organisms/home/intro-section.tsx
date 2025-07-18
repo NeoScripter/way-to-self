@@ -12,15 +12,15 @@ export default function IntroSection() {
                 />
             </h3>
 
-            <div className="relative overflow-visible xl:flex">
-                <div className="rounded-[6rem] border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50 absolute inset-0 -z-1 top-1/5 sm:top-1/4 md:top-1/3 xl:top-0" aria-hidden="true"></div>
+            <div className="relative overflow-visible xl:flex max-w-162 mx-auto xl:justify-between xl:max-w-full">
+                <div className="rounded-[6rem] border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50 absolute inset-0 -z-1 top-1/5 sm:top-1/4 md:top-1/3 xl:top-0 xl:right-1/7" aria-hidden="true"></div>
 
-                <div className="xl:shrink-0 xl:h-full">
+                <div className="xl:shrink-0 !xl:h-full xl:order-2 xl:mb-0.5">
                     <img src={Intro} className="size-full object-contain" alt="Женщина с закрытыми глазами улыбается на фоне иконок, символизирующих медитацию, питание и физическую активность"/>
                 </div>
 
-                <div className="text-sm text-center text-balance px-6 pb-12 pt-10 sm:pb-14 sm:px-10 sm:pt-11.5 md:text-base 2xl:text-xl">
-                    <div className="mb-8 space-y-6 sm:mb-12">
+                <div className="text-sm px-8 pb-12 pt-10 sm:pb-14 sm:px-12 sm:pt-11.5 sm:text-base xl:text-base xl:pb-8 xl:pl-16 xl:text-left xl:text-wrap xl:flex xl:flex-col xl:justify-between xl:text-[1.2vw] 2xl:pb-12 2xl:text-[1.1vw] 3xl:text-lg">
+                    <div className="mb-8 space-y-6 sm:mb-12 xl:mb-8 xl:flex xl:flex-col xl:justify-between xl:flex-1 xl:gap-4 xl:space-y-0 3xl:mb-10">
                         <p>
                             Мы часто думаем о здоровье как о чём-то одном: теле, питании или эмоциональном состоянии. Но всё связано. Этот проект — про целостность и баланс. Про то, как еда влияет на настроение, как тело откликается на стресс, и как тишина внутри помогает услышать свои настоящие потребности.
                         </p>

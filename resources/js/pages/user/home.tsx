@@ -6,15 +6,15 @@ const BackgroundHome = lazy(() => import('@/components/user/atoms/background-hom
 
 export default function Home() {
     return (
-        <UserLayout layoutClass="text-text-black bg-main-page-bg" pageClass="px-4 sm:px-11 lg:px-25 2xl:px-40 overflow-visible">
+        <UserLayout layoutClass="text-text-black bg-main-page-bg" pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible">
 
             <BackgroundHome />
 
-            <section className="mt-11 sm:mt-14 md:mt-20 lg:mt-26 xl:mt-40 text-white">
+            <section className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-white">
                 <HeroSection />
             </section>
 
-            <section className="mt-11 sm:mt-14 md:mt-20 lg:mt-26 xl:mt-40 text-white">
+            <section className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-white">
                 <IntroSection />
             </section>
 
