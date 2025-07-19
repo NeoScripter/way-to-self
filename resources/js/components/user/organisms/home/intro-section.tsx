@@ -5,20 +5,30 @@ import Intro from "@/assets/images/home/hero-4.webp";
 export default function IntroSection() {
     return (
         <>
-            <h3 className="mb-11">
+            <h3 id="intro-heading" className="mb-11 xl:mb-14">
                 <SpanHighlight
                     text="Что внутри?"
-                    className="text-[4rem] sm:text-[6rem] mx-auto mt-[0.1em] 2xl:text-[6rem]"
+                    className="text-[4rem] sm:text-[8rem] mx-auto mt-[0.1em]"
                 />
             </h3>
 
             <div className="relative overflow-visible xl:flex max-w-162 mx-auto xl:justify-between xl:max-w-full">
-                <div className="rounded-[6rem] border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50 absolute inset-0 -z-1 top-1/5 sm:top-1/4 md:top-1/3 xl:top-0 xl:right-1/7" aria-hidden="true"></div>
+                {/* Decorative backdrop */}
+                <div
+                    className="rounded-[6rem] border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50 absolute inset-0 -z-1 top-1/5 sm:top-1/4 md:top-1/3 xl:top-0 xl:right-1/7"
+                    aria-hidden="true"
+                ></div>
 
-                <div className="xl:shrink-0 !xl:h-full xl:order-2 xl:mb-0.5">
-                    <img src={Intro} className="size-full object-contain" alt="Женщина с закрытыми глазами улыбается на фоне иконок, символизирующих медитацию, питание и физическую активность"/>
-                </div>
+                {/* Illustration */}
+                <figure className="xl:shrink-0 !xl:h-full xl:order-2 xl:mb-0.5">
+                    <img
+                        src={Intro}
+                        className="size-full object-contain"
+                        alt="Женщина с закрытыми глазами улыбается на фоне иконок, символизирующих медитацию, питание и физическую активность"
+                    />
+                </figure>
 
+                {/* Description + CTA */}
                 <div className="text-sm px-8 pb-12 pt-10 sm:pb-14 sm:px-12 sm:pt-11.5 sm:text-base xl:text-base xl:pb-8 xl:pl-16 xl:text-left xl:text-wrap xl:flex xl:flex-col xl:justify-between xl:text-[1.2vw] 2xl:pb-12 2xl:text-[1.1vw] 3xl:text-lg">
                     <div className="mb-8 space-y-6 sm:mb-12 xl:mb-8 xl:flex xl:flex-col xl:justify-between xl:flex-1 xl:gap-4 xl:space-y-0 3xl:mb-10">
                         <p>
