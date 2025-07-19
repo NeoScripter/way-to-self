@@ -72,6 +72,7 @@ export default function UserFooter({ className }: UserFooterProps) {
         <footer
             role="contentinfo"
             aria-label="Подвал сайта"
+            id="footer"
             className={cn("bg-footer-bg text-footer-text py-9 px-15 sm:pt-12 sm:pb-20 sm:px-25", className)}
         >
             <Logo className="text-4xl text-center text-white sm:text-left sm:text-6xl" />

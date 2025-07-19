@@ -186,6 +186,10 @@
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .shine-element {
     position: absolute;
     top: 0;
