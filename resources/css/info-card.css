@@ -9,6 +9,11 @@
     margin-bottom: -0.1em;
 }
 
+.info-card__large.info-card__medium {
+    font-size: 1.8rem;
+    margin-bottom: 0;
+}
+
 .info-card__right {
     margin-left: auto;
     display: block;

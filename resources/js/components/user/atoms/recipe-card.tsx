@@ -3,6 +3,8 @@ import ClockSvg from "@/assets/svgs/clock.svg";
 import StarSvg from "@/assets/svgs/star.svg";
 import DishSvg from "@/assets/svgs/dish.svg";
 import { cn } from "@/lib/utils";
+import { shortenDescription } from "@/lib/helpers/shortenDescription";
+import { roundDuration } from "@/lib/helpers/roundDuration";
 
 type RecipeCardProps = {
     recipe: RecipeData;
@@ -10,17 +12,11 @@ type RecipeCardProps = {
 }
 
 const MAX_WORDS = 15;
-const MINUTES_IN_HOUR = 60;
 
 export default function RecipeCard({ recipe, className }: RecipeCardProps) {
-    const description = recipe.description
-        .split(" ")
-        .slice(0, MAX_WORDS)
-        .join(" ") + (recipe.description.split(" ").length > MAX_WORDS ? "..." : "");
+    const description = shortenDescription(recipe.description, MAX_WORDS);
 
-    const cookingTime = recipe.prepTime > MINUTES_IN_HOUR
-        ? (Math.round(recipe.prepTime / (MINUTES_IN_HOUR / 2)) / 2) + " ч."
-        : recipe.prepTime + " мин.";
+    const cookingTime = roundDuration(recipe.prepTime);
 
     return (
         <li

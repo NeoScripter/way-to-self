@@ -3,6 +3,8 @@ import { lazy } from "react";
 import HeroSection from "@/components/user/organisms/home/hero-section";
 import IntroSection from "@/components/user/organisms/home/intro-section";
 import FoodSection from "@/components/user/organisms/home/food-section";
+import SoulSection from "@/components/user/organisms/home/soul-section";
+import BodySection from "@/components/user/organisms/home/body-section";
 const BackgroundHome = lazy(() => import('@/components/user/atoms/background-home'));
 
 export default function Home() {
@@ -23,7 +25,13 @@ export default function Home() {
                 <FoodSection />
             </section>
 
+            <section aria-labelledby="soul-section-title" className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-text-black">
+                <SoulSection />
+            </section>
 
+            <section aria-labelledby="body-section-title" className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-text-black">
+                <BodySection />
+            </section>
         </UserLayout>
     )
 }
