@@ -2,6 +2,7 @@ import SpanHighlight from "../../atoms/span-highlight";
 import InfoCard from "../../atoms/info-card";
 import SecondaryHeading from "../../atoms/secondary-heading";
 import { soulCardData } from "@/lib/data/card-data";
+import AudioPlayer from "../../atoms/audio-player";
 
 export default function SoulSection() {
     return (
@@ -24,6 +25,8 @@ export default function SoulSection() {
             </ul>
 
             <SecondaryHeading text="Пример медитации" className="mb-17" />
+
+            <AudioPlayer />
         </>
     );
 }
