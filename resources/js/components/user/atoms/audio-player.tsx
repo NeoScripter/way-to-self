@@ -1,9 +1,9 @@
 import ExampleTrack from "@/assets/audio/example-meditation.mp3";
 import ExamplePreview from "@/assets/images/home/example-meditation.webp";
 import ExamplePreview2 from "@/assets/images/home/exercise-1.webp";
-import { BackwardIcon, ForwardIcon, PlayPauseIcon } from "@heroicons/react/24/solid";
-import { PlayCircle } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { BackwardIcon, ForwardIcon, PlayIcon, PlayPauseIcon } from "@heroicons/react/24/solid";
+import { CirclePause, CirclePlay, Play, PlayCircle, SkipBack, SkipForward } from "lucide-react";
+import { useRef, useState } from "react";
 import "../../../../css/audio-player.css";
 type AudioPlayerProps = {};
 
@@ -102,23 +102,29 @@ export default function AudioPlayer({ }: AudioPlayerProps) {
                     />
                 </div>
 
+
+
                 <div>
                     <p className="text-xl mb-3 sm:text-2xl sm:mb-4 lg:mb-5 lg:text-3xl">{title}</p>
                     <p className="text-sm mb-6 sm:text-base lg:mb-8">{description}</p>
 
                     <div className="max-w-75 sm:max-w-100 mx-auto lg:ml-0">
-                        <input
-                            type="range"
-                            value={trackProgress}
-                            step="1"
-                            min="0"
-                            max={duration || 0}
-                            className="mt-4 audio-track"
-                            onChange={(e) => onScrub(e.target.value)}
-                            onMouseUp={onScrubEnd}
-                            onKeyUp={onScrubEnd}
-                        />
+                        <div className="flex items-center gap-1 mt-4">
+                            <div className="text-xs w-10">{trackProgress.toFixed(1)}</div>
+                            <input
+                                type="range"
+                                value={trackProgress}
+                                step="1"
+                                min="0"
+                                max={duration || 0}
+                                className="audio-track"
+                                onChange={(e) => onScrub(e.target.value)}
+                                onMouseUp={onScrubEnd}
+                                onKeyUp={onScrubEnd}
+                            />
+                            <div className="text-xs w-10 text-end">{!isNaN(duration) && duration.toFixed(1)}</div>
 
+                        </div>
                         <AudioControls
                             isPlaying={isPlaying}
                             onPrevClick={toPrevTrack}
@@ -151,32 +157,32 @@ function AudioControls({
     onPauseClick
 }: AudioControlsProps) {
     return (
-        <div className="flex justify-between items-center my-4 text-white">
+        <div className="flex justify-between max-w-55 mx-auto items-center my-4 text-white">
             <button
                 type="button"
                 className="size-10 cursor-pointer"
                 aria-label="Previous"
                 onClick={onPrevClick}
             >
-                <BackwardIcon className="size-full" />
+                <SkipBack className="size-full" />
             </button>
             {isPlaying ? (
                 <button
                     type="button"
-                    className="size-14 cursor-pointer"
+                    className="size-16 cursor-pointer"
                     onClick={onPauseClick}
                     aria-label="Pause"
                 >
-                    <PlayPauseIcon className="size-full" />
+                    <CirclePause className="size-full" />
                 </button>
             ) : (
                 <button
                     type="button"
-                    className="size-14 cursor-pointer"
+                    className="size-16 cursor-pointer"
                     onClick={onPlayClick}
                     aria-label="Play"
                 >
-                    <PlayCircle className="size-full" />
+                    <CirclePlay className="size-full text-white" />
                 </button>
             )}
             <button
@@ -185,7 +191,7 @@ function AudioControls({
                 aria-label="Next"
                 onClick={onNextClick}
             >
-                <ForwardIcon className="size-full" />
+                <SkipForward className="size-full" />
             </button>
         </div>
     );
