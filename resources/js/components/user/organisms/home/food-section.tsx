@@ -5,8 +5,8 @@ import RecipeCard3 from "@/assets/images/home/recipe-3.webp";
 import RecipeCard4 from "@/assets/images/home/recipe-4.webp";
 import InfoCard from "../../atoms/info-card";
 import SecondaryHeading from "../../atoms/secondary-heading";
-import RecipeCard from "../../atoms/recipe-card";
 import { foodCardData } from "@/lib/data/card-data";
+import ContentCard from "../../atoms/content-card";
 
 export default function FoodSection() {
     return (
@@ -24,7 +24,7 @@ export default function FoodSection() {
 
             <ul className="mb-17 grid gap-11 sm:grid-cols-2 xl:grid-cols-4" role="list">
                 {foodCardData.map(card => (
-                    <InfoCard html={card.text} key={card.id} img={card.img} alt={card.alt}/>
+                    <InfoCard html={card.text} key={card.id} img={card.img} alt={card.alt} />
                 ))}
             </ul>
 
@@ -32,7 +32,20 @@ export default function FoodSection() {
 
             <ul className="mb-17 grid gap-11 grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] md:max-w-200 md:mx-auto 2xl:max-w-full" role="list">
                 {recipes.map(recipe => (
-                    <RecipeCard key={recipe.id} recipe={recipe} className="mx-auto" />
+                    <ContentCard
+                        key={recipe.id}
+                        type="recipe"
+                        className="mx-auto"
+                        data={{
+                            name: recipe.name,
+                            img: recipe.img,
+                            alt: recipe.alt,
+                            description: recipe.description,
+                            duration: recipe.prepTime,
+                            rating: recipe.rating,
+                            category: recipe.category,
+                        }} />
+
                 ))}
             </ul>
         </>

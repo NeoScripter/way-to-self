@@ -21,7 +21,7 @@ export default function AudioPlayer({ tracks }: AudioPlayerProps) {
     const [trackIndex, setTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [order, setOrder] = useState<"default" | "random" | "repeat">("random");
+    const [order, setOrder] = useState<"default" | "random" | "repeat">("default");
 
     const { title, description, image, audioSrc } = tracks[trackIndex];
     const audioRef = useRef<HTMLAudioElement>(new Audio(audioSrc));
@@ -113,10 +113,8 @@ export default function AudioPlayer({ tracks }: AudioPlayerProps) {
         setIsPlaying(false);
     }
 
-
-
     return (
-        <div className="text-white relative bg-card-backdrop-gray p-8 rounded-[3.5rem] sm:rounded-[6rem] sm:px-17 sm:mt-44 sm:pb-14 sm:pt-50 lg:pt-14 lg:pb-14 3xl:pl-46 3xl:pr-33">
+        <div className="text-white relative p-8 rounded-[3.5rem] sm:rounded-[6rem] sm:px-17 sm:mt-44 sm:pb-14 sm:pt-50 lg:pt-14 lg:pb-14 lg:mt-0 3xl:pl-46 3xl:pr-33 border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50">
             <div className="text-center lg:flex lg:items-start lg:gap-16 lg:justify-between lg:text-left">
                 <div className="rounded-xl overflow-clip mx-auto mb-5 sm:mb-6 max-w-60 sm:size-75 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:top-0 sm:-translate-y-2/5 sm:max-w-full lg:static lg:translate-0 lg:mx-0 lg:shrink-0 lg:size-75 lg:basis-75 lg:self-center">
                     <img

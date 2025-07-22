@@ -5,8 +5,8 @@ import ExerciseCard3 from "@/assets/images/home/exercise-3.webp";
 import ExerciseCard4 from "@/assets/images/home/exercise-4.webp";
 import InfoCard from "../../atoms/info-card";
 import SecondaryHeading from "../../atoms/secondary-heading";
-import ExerciseCard from "../../atoms/exercise-card";
 import { bodyCardData } from "@/lib/data/card-data";
+import ContentCard from "../../atoms/content-card";
 
 export default function BodySection() {
     return (
@@ -35,7 +35,18 @@ export default function BodySection() {
                 role="list"
             >
                 {exercises.map(exercise => (
-                    <ExerciseCard key={exercise.id} exercise={exercise} className="mx-auto" />
+                    <ContentCard
+                        key={exercise.id}
+                        className="mx-auto"
+                        type="exercise" data={{
+                            name: exercise.name,
+                            img: exercise.img,
+                            alt: exercise.alt,
+                            description: exercise.description,
+                            duration: exercise.duration,
+                            rating: exercise.rating,
+                            category: exercise.category,
+                        }} />
                 ))}
             </ul>
         </>

@@ -5,6 +5,8 @@ import IntroSection from "@/components/user/organisms/home/intro-section";
 import FoodSection from "@/components/user/organisms/home/food-section";
 import SoulSection from "@/components/user/organisms/home/soul-section";
 import BodySection from "@/components/user/organisms/home/body-section";
+import { cn } from "@/lib/utils";
+import RatesSection from "@/components/user/organisms/home/rates-section";
 const BackgroundHome = lazy(() => import('@/components/user/atoms/background-home'));
 
 export default function Home() {
@@ -13,25 +15,47 @@ export default function Home() {
 
             <BackgroundHome />
 
-            <section className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-white">
+            <AppSection className="text-white">
                 <HeroSection />
-            </section>
+            </AppSection>
 
-            <section aria-labelledby="intro-heading" className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-white">
+            <AppSection className="text-white" ariaLabelledBy="intro-heading">
                 <IntroSection />
-            </section>
+            </AppSection>
 
-            <section aria-labelledby="nutrition-section-title" className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-text-black">
+            <AppSection className="text-text-black" ariaLabelledBy="nutrition-section-title">
                 <FoodSection />
-            </section>
+            </AppSection>
 
-            <section aria-labelledby="soul-section-title" className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-text-black">
+            <AppSection className="text-text-black" ariaLabelledBy="soul-section-title">
                 <SoulSection />
-            </section>
+            </AppSection>
 
-            <section aria-labelledby="body-section-title" className="my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40 text-text-black">
+            <AppSection className="text-text-black" ariaLabelledBy="body-section-title">
                 <BodySection />
-            </section>
+            </AppSection>
+
+            <AppSection className="text-text-black">
+                <RatesSection />
+            </AppSection>
+
         </UserLayout>
     )
+}
+
+type AppSectionProps = {
+    className?: string;
+    children: React.ReactNode;
+    ariaLabelledBy?: string;
+}
+
+function AppSection({ className, children, ariaLabelledBy }: AppSectionProps) {
+    return (
+        <section
+            {...(ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : {})}
+            className={cn("my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40", className)}
+        >
+            {children}
+        </section>
+    );
 }
