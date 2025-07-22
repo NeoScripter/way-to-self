@@ -1,8 +1,11 @@
+import ExampleTrack from "@/assets/audio/example-meditation.mp3";
+import ExamplePreview from "@/assets/images/home/example-meditation.webp";
+import ExamplePreview2 from "@/assets/images/home/exercise-1.webp";
 import SpanHighlight from "../../atoms/span-highlight";
 import InfoCard from "../../atoms/info-card";
 import SecondaryHeading from "../../atoms/secondary-heading";
 import { soulCardData } from "@/lib/data/card-data";
-import AudioPlayer from "../../atoms/audio-player";
+import AudioPlayer, { Track } from "../../atoms/audio-player";
 
 export default function SoulSection() {
     return (
@@ -26,8 +29,41 @@ export default function SoulSection() {
 
             <SecondaryHeading text="Пример медитации" className="mb-17" />
 
-            <AudioPlayer />
+            <AudioPlayer tracks={tracks} />
         </>
     );
 }
+
+const tracks: Track[] = [
+    {
+        title: "Название медитации",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
+        audioSrc: ExampleTrack,
+        image: ExamplePreview,
+    },
+    {
+        title: "Название 2",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
+        audioSrc: ExampleTrack,
+        image: ExamplePreview2,
+    },
+    {
+        title: "Название 3",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
+        audioSrc: ExampleTrack,
+        image: ExamplePreview2,
+    },
+    {
+        title: "Название 4",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
+        audioSrc: ExampleTrack,
+        image: ExamplePreview2,
+    },
+    {
+        title: "Название 5",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
+        audioSrc: ExampleTrack,
+        image: ExamplePreview2,
+    },
+];
 
