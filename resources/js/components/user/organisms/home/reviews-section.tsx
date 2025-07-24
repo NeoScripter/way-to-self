@@ -95,7 +95,7 @@ export default function ReviewsSection() {
 
     return (
         <>
-            <h3 id="reviews-section-title" className="mb-11 sm:mb-16 xl:mb-20">
+            <h3 className="mb-11 sm:mb-16 xl:mb-20">
                 <SpanHighlight
                     text='Отзывы участников'
                     className="text-white text-[4rem] sm:text-[8rem] mx-auto mt-[0.1em]"

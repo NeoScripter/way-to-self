@@ -8,6 +8,7 @@ import BodySection from "@/components/user/organisms/home/body-section";
 import { cn } from "@/lib/utils";
 import RatesSection from "@/components/user/organisms/home/rates-section";
 import ReviewsSection from "@/components/user/organisms/home/reviews-section";
+import FAQSection from "@/components/user/organisms/shared/faq-section";
 const BackgroundHome = lazy(() => import('@/components/user/atoms/background-home'));
 
 export default function Home() {
@@ -43,6 +44,11 @@ export default function Home() {
             <AppSection className="text-text-black -mx-4 sm:-mx-11 2xl:-mx-25 3xl:-mx-40">
                 <ReviewsSection />
             </AppSection>
+
+            <AppSection className="text-text-black">
+                <FAQSection />
+            </AppSection>
+
 
         </UserLayout>
     )

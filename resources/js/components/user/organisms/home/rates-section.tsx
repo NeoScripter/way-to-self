@@ -9,7 +9,7 @@ import PrimaryBtn from "../../atoms/primary-btn";
 export default function RatesSection() {
     return (
         <>
-            <h3 id="rates-section-title" className="mb-11 xl:mb-14">
+            <h3 className="mb-11 xl:mb-14">
                 <SpanHighlight
                     text='Тарифы'
                     className="text-white text-[4rem] sm:text-[8rem] mx-auto mt-[0.1em]"
