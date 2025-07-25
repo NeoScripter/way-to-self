@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Support\FaqItemFixtures;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
@@ -21,5 +22,9 @@ class FaqItemFactory extends Factory
             'title' => str(fake()->sentence)->beforeLast('.'),
             'body' => Collection::times(3, fn () => fake()->realText(420))->join(PHP_EOL.PHP_EOL),
         ];
+    }
+
+    public function withFixture(): static {
+        return $this->sequence(...FaqItemFixtures::getFixtures());
     }
 }
