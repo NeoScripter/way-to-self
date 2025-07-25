@@ -2,8 +2,12 @@ import useToggle from "@/hooks/use-toggle";
 import SpanHighlight from "../../atoms/span-highlight";
 import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
+import { usePage } from "@inertiajs/react";
+import type { FaqItem } from "@/types/model";
 
 export default function FAQSection() {
+    const { faqs } = usePage<{ faqs: FaqItem[] }>().props;
+
     return (
         <>
             <h3 className="flex flex-wrap items-center justify-center mb-11 sm:mb-16 xl:mb-20">
@@ -27,7 +31,7 @@ export default function FAQSection() {
 
             <ul className="mb-11 space-y-4 sm:mb-16 sm:space-y-6 lg:space-y-8 xl:mb-20 2xl:space-y-10">
                 {faqs.map(faq => (
-                    <AccordionItem key={faq.id} id={faq.id} title={faq.title} description={faq.description} />
+                    <AccordionItem key={faq.id} id={faq.id} title={faq.title} description={faq.html} />
                 ))}
             </ul>
 
@@ -36,7 +40,7 @@ export default function FAQSection() {
 }
 
 type AccordionItemProps = {
-    id: string;
+    id: number;
     title: string;
     description: string;
 }
@@ -100,8 +104,7 @@ function AccordionItem({ id, title, description }: AccordionItemProps) {
                 aria-labelledby={`accordion-button-${id}`}
                 aria-hidden={!show}
             >
-                <span className="my-3 block text-sm sm:text-base lg:text-lg lg:mt-5 2xl:text-xl">
-                    {description}
+                <span dangerouslySetInnerHTML={{ __html: description }} className="my-3 prose prose-sm max-w-full text-black block sm:prose-md lg:prose-lg lg:mt-5 2xl:prose-xl">
                 </span>
             </div>
         </li>
@@ -114,7 +117,7 @@ type FAQItem = {
     description: string;
 }
 
-const faqs: FAQItem[] = [
+const faqsFake: FAQItem[] = [
     {
         id: uuidv4(),
         title: "С чего начать переход к здоровому образу жизни?",
