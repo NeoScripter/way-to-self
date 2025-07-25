@@ -6,11 +6,21 @@ export type FaqItem = {
     created_at?: string;
     updated_at?: string;
 };
-export type User = {
+export type Image = {
     id: number;
-    name: string;
-    email: string;
-    email_verified_at?: string;
+    path: string;
+    alt: string;
+    imageable_type: string;
+    imageable_id: number;
     created_at?: string;
     updated_at?: string;
+    imageable?: any;
+};
+export type Review = {
+    id: number;
+    body: string;
+    author: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
 };

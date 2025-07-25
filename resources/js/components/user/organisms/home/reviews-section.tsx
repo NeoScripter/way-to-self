@@ -13,6 +13,8 @@ import { range } from "@/lib/helpers/range";
 import { cn } from "@/lib/utils";
 import useWindowSize from "@/hooks/use-window-size";
 import calculateSlideOffset from "@/lib/helpers/calculateSlideOffset";
+import { Review } from "@/types/model";
+import { usePage } from "@inertiajs/react";
 
 type State = {
     currentIdx: number;
@@ -45,6 +47,10 @@ function reducer(state: State, action: Action) {
 }
 
 export default function ReviewsSection() {
+    const { reviews } = usePage<{ reviews: Review[] }>().props;
+
+    console.log(reviews);
+
     const [state, dispatch] = useReducer(reducer, { currentIdx: 0 });
     const { width: windowSize } = useWindowSize();
     const touchStart = useRef<number | null>(null);
@@ -108,7 +114,7 @@ export default function ReviewsSection() {
                     onTouchEnd={handleTouchEnd}
                     className="flex items-start w-max gap-4 sm:gap-6 md:gap-8 xl:gap-10 ml-4 sm:ml-11 2xl:ml-25 3xl:ml-40 transition-transform duration-400 ease-in-out" style={{ transform: `translateX(-${offset * state.currentIdx}px)` }}>
                     {reviews.map(review => (
-                        <ReviewCard key={review.id} img={review.img} alt={review.alt} review={review.review} author={review.author} id={review.id} />
+                        <ReviewCard key={review.id} img={review.image?.path} alt={review.image?.alt} review={review.body} author={review.author} id={review.id} />
                     ))}
                 </ul>
             </div>
@@ -132,58 +138,3 @@ export default function ReviewsSection() {
         </>
     );
 }
-
-type ReviewCardContent = {
-    id: string;
-    img: string;
-    alt: string;
-    review: string;
-    author: string;
-    className?: string;
-}
-
-const reviews: ReviewCardContent[] = [
-    {
-        id: uuidv4(),
-        img: Review0,
-        alt: "Молодая женщина с распущенными светлыми волосами в зелёном свитере на фоне природы",
-        review: `Я сначала оформила доступ только к разделу "Питание", думала — посмотрю, что это вообще. А в итоге уже через неделю взяла все три. Потому что оно как-то всё работает вместе: утром включаю дыхание из "Души", потом лёгкую растяжку из "Тела", а рецепты — это вообще находка, простые и реально вкусные. Мне нравится, что никто не давит, нет ощущения "ты что-то должен", но в то же время появляется желание заботиться о себе. Всё очень бережно, без перегрузки, и при этом ты чувствуешь, что движешься. Спасибо, что сделали такой уютный и честный ресурс`,
-        author: "Катя, 32 года"
-    },
-    {
-        id: uuidv4(),
-        img: Review1,
-        alt: "Мужчина с бородой и очками, в тёмной рубашке на светлом фоне — цифровая иллюстрация",
-        review: `Не думал, что платформа окажется такой живой. Всё сделано по-доброму, без "мотивационного насилия". Я начал с дыхания и медитаций, потом постепенно добавил рецепты. Всё подаётся просто, с уважением, и это ценно.`,
-        author: "Вася, 41 год"
-    },
-    {
-        id: uuidv4(),
-        img: Review2,
-        alt: "Иллюстрация молодой женщины с длинными каштановыми волосами и очками в синем кардигане",
-        review: `Очень тёплый проект. Заметила, что с первых дней перестала себя ругать — даже если не успеваю всё сделать. Упражнения короткие, но дают ощущение заботы, а практики для души помогли наконец-то высыпаться. Чувствую, как возвращается энергия.`,
-        author: "Ольга, 29 лет"
-    },
-    {
-        id: uuidv4(),
-        img: Review3,
-        alt: "Иллюстрированная девушка с тёмными волосами и ожерельем на сером фоне",
-        review: `Для меня стало утренним ритуалом: включить 10-минутную практику и начать день спокойно. Без гонки, без перегруза. Даже физические упражнения — это не про "прокачай себя", а про "почувствуй тело". Такая редкость.`,
-        author: "Анна, 35 лет"
-    },
-    {
-        id: uuidv4(),
-        img: Review4,
-        alt: "Милая женщина с короткими каштановыми волосами и очками, на фоне улицы — полуиллюстрация",
-        review: `Очень понравился подход — можно выбрать только один раздел, а потом расширить. Я начал с "Тела", потому что сидячая работа даёт о себе знать. Стало легче двигаться, меньше боли в спине. Сейчас подключаю и "Питание".`,
-        author: "Вероника, 38 лет"
-    },
-    {
-        id: uuidv4(),
-        img: Review5,
-        alt: "Женщина с длинными тёмными волосами и очками в светлой одежде — портрет на нейтральном фоне",
-        review: `Я в восторге от рецептов — простые, натуральные, вкусные. Но самое главное — общее настроение платформы. Такое ощущение, что тебя принимают полностью, без осуждения. Для меня это важно.`,
-        author: "Елена, 46 лет"
-    }
-];
-
