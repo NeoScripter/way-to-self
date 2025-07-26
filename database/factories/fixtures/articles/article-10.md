@@ -1,6 +1,6 @@
-reviews/article-10.webp  
+articles/article-10.webp  
 
-reviews/article-tiny-10.webp  
+articles/article-tiny-10.webp  
 
 Польза растяжки: не только для гибкости
 

@@ -1,6 +1,6 @@
-reviews/article-11.webp  
+articles/article-11.webp  
 
-reviews/article-tiny-11.webp  
+articles/article-tiny-11.webp  
 
 Как выбрать витамины: на что обратить внимание?
 

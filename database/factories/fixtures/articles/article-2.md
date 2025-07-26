@@ -1,6 +1,6 @@
-reviews/article-2.webp
+articles/article-2.webp
 
-reviews/article-tiny-2.webp
+articles/article-tiny-2.webp
 
 Как не переедать вечером
 

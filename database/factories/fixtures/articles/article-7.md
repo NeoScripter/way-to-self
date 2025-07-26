@@ -1,6 +1,6 @@
-reviews/article-7.webp  
+articles/article-7.webp  
 
-reviews/article-tiny-7.webp  
+articles/article-tiny-7.webp  
 
 Как перейти на правильное питание без стресса
 

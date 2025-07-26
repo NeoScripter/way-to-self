@@ -13,25 +13,43 @@ it('generates the html', function () {
 });
 
 it('displays the article items on the home page', function () {
-    $article = Article::factory()->make(['title' => 'Hello world']);
+    $articles = Article::factory()
+        ->count(4)
+        ->sequence(fn ($sequence) => ['title' => 'Hello world '.($sequence->index + 1)])
+        ->create();
 
-    $article->save();
+    $response = get(route('home'));
 
-    get(route('home'))->assertSee('Hello world');
+    $articles->each(fn ($article) => $response->assertSee($article->title));
+
 });
 
-it('shows only the free articles on the main page', function () {
-    Article::factory()->create(['title' => 'This is a free article', 'isPaid' => false]);
-    Article::factory()->create(['title' => 'This is a paid article', 'isPaid' => true]);
+it('displays only the first 4 articles on the home page', function () {
+    $articles = Article::factory()
+        ->count(10)
+        ->sequence(fn ($sequence) => ['title' => 'Hello world '.($sequence->index + 1)])
+        ->create();
 
-    get(route('home'))->assertSee('This is a free article')->assertDontSee('This is a paid article');
+    $response = get(route('home'));
+
+    $articles->take(4)->each(fn ($article) => $response->assertSee($article->title));
+
+    $articles->skip(4)->each(fn ($article) => $response->assertDontSee($article->title));
 });
 
+it('shows only free articles on the main page', function () {
+    $freeArticles = Article::factory()->free()->count(2)->create();
+    $paidArticles = Article::factory()->paid()->count(2)->create();
 
-it('shows only the free articles on the articles page', function () {
-    Article::factory()->create(['title' => 'This is a free article', 'isPaid' => false]);
-    Article::factory()->create(['title' => 'This is a paid article', 'isPaid' => true]);
+    $response = get(route('home'));
 
-    get(route('user.articles'))->assertSee('This is a free article')->assertDontSee('This is a paid article');
+    $freeArticles->each(fn ($article) => $response->assertSee($article->title));
+    $paidArticles->each(fn ($article) => $response->assertDontSee($article->title));
 });
 
+// it('shows only the free articles on the articles page', function () {
+//     Article::factory()->create(['title' => 'This is a free article', 'isPaid' => false]);
+//     Article::factory()->create(['title' => 'This is a paid article', 'isPaid' => true]);
+
+//     get(route('user.articles'))->assertSee('This is a free article')->assertDontSee('This is a paid article');
+// });

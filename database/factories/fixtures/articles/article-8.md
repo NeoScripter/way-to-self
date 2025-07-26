@@ -1,6 +1,6 @@
-reviews/article-8.webp  
+articles/article-8.webp  
 
-reviews/article-tiny-8.webp  
+articles/article-tiny-8.webp  
 
 Силовые тренировки для женщин: мифы и правда  
 

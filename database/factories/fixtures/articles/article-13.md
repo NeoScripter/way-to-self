@@ -1,6 +1,6 @@
-reviews/article-13.webp  
+articles/article-13.webp  
 
-reviews/article-tiny-13.webp  
+articles/article-tiny-13.webp  
 
 Медитация для начинающих: как перестать нервничать?
 

@@ -7,9 +7,9 @@ export type Article = {
     isPaid: any;
     created_at?: string;
     updated_at?: string;
-    images?: Image[];
-    image?: Image[];
-    thumbnail?: Image[];
+    images?: Image;
+    image?: Image;
+    thumbnail?: Image;
 };
 export type FaqItem = {
     id: number;

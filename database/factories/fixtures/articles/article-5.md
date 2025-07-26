@@ -1,6 +1,6 @@
-reviews/article-5.webp
+articles/article-5.webp
 
-reviews/article-tiny-5.webp
+articles/article-tiny-5.webp
 
 Что есть до и после тренировки
 

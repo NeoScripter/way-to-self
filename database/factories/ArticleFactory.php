@@ -24,4 +24,14 @@ class ArticleFactory extends Factory
             'isPaid' => false,
         ];
     }
+
+    public function free(): static
+    {
+        return $this->state(['isPaid' => false]);
+    }
+
+    public function paid(): static
+    {
+        return $this->state(['isPaid' => true]);
+    }
 }

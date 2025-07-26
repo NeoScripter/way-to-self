@@ -1,6 +1,6 @@
-reviews/article-4.webp
+articles/article-4.webp
 
-reviews/article-tiny-4.webp
+articles/article-tiny-4.webp
 
 Как не сорваться с диеты: 5 проверенных стратегий
 

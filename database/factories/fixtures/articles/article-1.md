@@ -1,6 +1,6 @@
-reviews/article-1.webp
+articles/article-1.webp
 
-reviews/article-tiny-1.webp
+articles/article-tiny-1.webp
 
 Совет по составлению рациона
 

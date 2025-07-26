@@ -1,6 +1,6 @@
-reviews/article-9.webp  
+articles/article-9.webp  
 
-reviews/article-tiny-9.webp  
+articles/article-tiny-9.webp  
 
 Как сохранить мотивацию к ЗОЖ?
 

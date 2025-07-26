@@ -43,6 +43,7 @@ export default function ContentCard({ type, data, className }: ContentCardProps)
                 <img
                     src={img}
                     alt={alt}
+                    loading="lazy"
                     className="size-full object-center object-cover"
                 />
             </div>

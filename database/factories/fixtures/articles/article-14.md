@@ -1,6 +1,6 @@
-reviews/article-14.webp  
+articles/article-14.webp  
 
-reviews/article-tiny-14.webp  
+articles/article-tiny-14.webp  
 
 ЗОЖ без фанатизма: как не перестараться?
 

@@ -1,6 +1,6 @@
-reviews/article-6.webp  
+articles/article-6.webp  
 
-reviews/article-tiny-6.webp  
+articles/article-tiny-6.webp  
 
 Почему сон важнее тренировок?
 

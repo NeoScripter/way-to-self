@@ -23,7 +23,7 @@ export default function LazyImage({ parentClass, imgClass, img }: LazyImageProps
                 alt={img.alt}
                 loading="lazy"
                 className={cn(
-                    'object-center object-cover size-full transition-opacity duration-500 ease-in-out', imgClass,
+                    'object-center object-cover size-full transition duration-500 ease-in-out', imgClass,
                     isLoading && 'opacity-0'
                 )}
                 aria-hidden={isLoading}

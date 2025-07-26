@@ -1,19 +1,27 @@
-import { usePage } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import SecondaryHeading from "../../atoms/secondary-heading"
 import { Article } from "@/types/model";
+import ArticleCard from "../../atoms/article-card";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 
 export default function ArticlesSection() {
     const { articles } = usePage<{articles: Article[]}>().props;
 
-    console.log(articles)
-
     return (
         <>
-            <SecondaryHeading text="Примеры упражнений" className="mb-17" />
+            <SecondaryHeading text="Последние новости" className="font-medium text-dark-green" />
 
-            <ul className="mb-11 space-y-4 sm:mb-16 sm:space-y-6 lg:space-y-8 xl:mb-20 2xl:space-y-10">
+            <Link
+                href="/"
+                className="text-gray-500 tracking-wider mb-10 mt-7 sm:mb-12 sm:mt-9 block w-max mx-auto lg:mr-0 transiton-colors duration-200 ease-in hover:text-bright-salad"
+            >
+                Все записи
+                <ChevronDoubleRightIcon className="inline text-inherit size-3.5 ml-3" />
+            </Link>
+
+            <ul className="mb-11 grid grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] place-content-center gap-y-14 gap-x-7.5 sm:mb-16 xl:mb-20">
                 {articles.map(article => (
-                    <li key={article.id}>{article.title}</li>
+                    <ArticleCard key={article.id} article={article} />
                 ))}
             </ul>
 
@@ -21,3 +29,4 @@ export default function ArticlesSection() {
 
     )
 }
+

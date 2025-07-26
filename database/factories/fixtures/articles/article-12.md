@@ -1,6 +1,6 @@
-reviews/article-12.webp  
+articles/article-12.webp  
 
-reviews/article-tiny-12.webp  
+articles/article-tiny-12.webp  
 
 Почему шагомер — ваш лучший помощник?
 

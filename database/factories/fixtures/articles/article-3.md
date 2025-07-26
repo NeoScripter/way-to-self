@@ -1,6 +1,6 @@
-reviews/article-3.webp
+articles/article-3.webp
 
-reviews/article-tiny-3.webp
+articles/article-tiny-3.webp
 
 Как питаться с умом в условиях стресса
 
