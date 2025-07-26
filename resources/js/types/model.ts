@@ -1,3 +1,16 @@
+export type Article = {
+    id: number;
+    title: string;
+    description: string;
+    body: string;
+    html: string;
+    isPaid: any;
+    created_at?: string;
+    updated_at?: string;
+    images?: Image[];
+    image?: Image[];
+    thumbnail?: Image[];
+};
 export type FaqItem = {
     id: number;
     title: string;
@@ -13,6 +26,7 @@ export type Image = {
     alt: string;
     imageable_type: string;
     imageable_id: number;
+    type: string;
     created_at?: string;
     updated_at?: string;
     imageable?: any;

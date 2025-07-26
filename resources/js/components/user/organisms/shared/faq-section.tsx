@@ -1,6 +1,5 @@
 import useToggle from "@/hooks/use-toggle";
 import SpanHighlight from "../../atoms/span-highlight";
-import { v4 as uuidv4 } from "uuid";
 import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";
 import type { FaqItem } from "@/types/model";

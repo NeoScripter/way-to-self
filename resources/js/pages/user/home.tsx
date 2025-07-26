@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import RatesSection from "@/components/user/organisms/home/rates-section";
 import ReviewsSection from "@/components/user/organisms/home/reviews-section";
 import FAQSection from "@/components/user/organisms/shared/faq-section";
+import ArticlesSection from "@/components/user/organisms/home/articles-section";
 const BackgroundHome = lazy(() => import('@/components/user/atoms/background-home'));
 
 export default function Home() {
@@ -49,6 +50,9 @@ export default function Home() {
                 <FAQSection />
             </AppSection>
 
+            <AppSection>
+                <ArticlesSection />
+            </AppSection>
 
         </UserLayout>
     )

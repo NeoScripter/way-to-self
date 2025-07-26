@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
 use App\Models\Review;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -26,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::enforceMorphMap([
             'review' => Review::class,
+            'article' => Article::class,
         ]);
     }
 }

@@ -42,7 +42,6 @@ function reducer(state: State, action: Action) {
 export default function ReviewsSection() {
     const { reviews } = usePage<{ reviews: Review[] }>().props;
 
-    console.log(reviews);
 
     const [state, dispatch] = useReducer(reducer, { currentIdx: 0 });
     const { width: windowSize } = useWindowSize();
