@@ -1,11 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
 import SpanHighlight from "../../atoms/span-highlight";
-import Review0 from "@/assets/images/home/user-0.webp";
-import Review1 from "@/assets/images/home/user-1.webp";
-import Review2 from "@/assets/images/home/user-2.webp";
-import Review3 from "@/assets/images/home/user-3.webp";
-import Review4 from "@/assets/images/home/user-4.webp";
-import Review5 from "@/assets/images/home/user-5.webp";
 import ReviewCard from "../../atoms/review-card";
 import { useReducer, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -114,7 +107,7 @@ export default function ReviewsSection() {
                     onTouchEnd={handleTouchEnd}
                     className="flex items-start w-max gap-4 sm:gap-6 md:gap-8 xl:gap-10 ml-4 sm:ml-11 2xl:ml-25 3xl:ml-40 transition-transform duration-400 ease-in-out" style={{ transform: `translateX(-${offset * state.currentIdx}px)` }}>
                     {reviews.map(review => (
-                        <ReviewCard key={review.id} img={review.image?.path} alt={review.image?.alt} review={review.body} author={review.author} id={review.id} />
+                        <ReviewCard key={review.id} img={review.image} review={review.body} author={review.author} id={review.id} />
                     ))}
                 </ul>
             </div>

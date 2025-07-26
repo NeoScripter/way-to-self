@@ -6,7 +6,6 @@ use App\Models\Image;
 use App\Models\Review;
 use App\Support\ReviewFixtures;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
 
 class ReviewSeeder extends Seeder
 {
@@ -24,14 +23,15 @@ class ReviewSeeder extends Seeder
                     'body' => $raw['body'],
                 ]
             )
-                ->afterCreating(function ($review) use ($raw) {
-                    Image::factory()->create([
-                        'imageable_id' => $review,
-                        'alt' => $raw['alt'],
-                        'path' => asset('storage/models/'.$raw['image']),
-                    ]);
-                })
-                ->create();
+            ->afterCreating(function ($review) use ($raw) {
+                Image::factory()->create([
+                    'imageable_id' => $review,
+                    'alt' => $raw['alt'],
+                    'path' => asset('storage/models/'.$raw['image']),
+                    'tiny_path' => asset('storage/models/'.$raw['tiny_image']),
+                ]);
+            })
+            ->create();
         });
 
     }

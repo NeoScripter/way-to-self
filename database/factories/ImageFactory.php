@@ -19,6 +19,7 @@ class ImageFactory extends Factory
     {
         return [
             'path' => fake()->url(),
+            'tiny_path' => fake()->url(),
             'alt' => fake()->sentence(6),
             'imageable_type' => $this->imageableType(...),
             'imageable_id' => Review::factory(),

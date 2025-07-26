@@ -9,6 +9,7 @@ export type FaqItem = {
 export type Image = {
     id: number;
     path: string;
+    tiny_path: string;
     alt: string;
     imageable_type: string;
     imageable_id: number;

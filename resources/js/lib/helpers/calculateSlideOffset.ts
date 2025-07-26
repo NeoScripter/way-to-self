@@ -11,7 +11,7 @@ export default function calculateSlideOffset(windowSize: number) {
         slideWidth = 672;
     } else if (windowSize > 1024 && windowSize < 1536) {
         slideWidth = 964;
-        slideGap = 40;
+        slideGap = 32;
     } else if (windowSize > 1536) {
         slideWidth = 1170;
         slideGap = 40;
