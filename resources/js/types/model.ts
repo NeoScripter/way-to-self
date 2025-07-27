@@ -4,7 +4,7 @@ export type Article = {
     description: string;
     body: string;
     html: string;
-    isPaid: any;
+    type: string;
     created_at?: string;
     updated_at?: string;
     images?: Image;

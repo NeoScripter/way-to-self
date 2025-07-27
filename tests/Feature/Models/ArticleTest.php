@@ -47,9 +47,3 @@ it('shows only free articles on the main page', function () {
     $paidArticles->each(fn ($article) => $response->assertDontSee($article->title));
 });
 
-// it('shows only the free articles on the articles page', function () {
-//     Article::factory()->create(['title' => 'This is a free article', 'isPaid' => false]);
-//     Article::factory()->create(['title' => 'This is a paid article', 'isPaid' => true]);
-
-//     get(route('user.articles'))->assertSee('This is a free article')->assertDontSee('This is a paid article');
-// });

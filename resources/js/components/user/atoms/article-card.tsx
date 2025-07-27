@@ -7,7 +7,7 @@ type ArticleCardProps = {
 }
 
 export default function ArticleCard({ article }: ArticleCardProps) {
-    const articleUrl = route('user.article.show', article.id);
+    const articleUrl = route('user.articles.show', article.id);
 
     return (
         <li className="">
@@ -21,7 +21,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                 {article.thumbnail != null &&
                     <LazyImage
                         img={article.thumbnail}
-                        parentClass="rounded-xl aspect-video mb-3.5"
+                        parentClass="rounded-2xl aspect-video mb-3.5"
                         imgClass="group-hover:scale-120" />
                 }
 
@@ -35,7 +35,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
 
                     <p
                         id={`article-description-${article.id}`}
-                        className="text-base leading-relaxed"
+                        className="text-sm leading-relaxed"
                     >
                         {article.description}
                     </p>

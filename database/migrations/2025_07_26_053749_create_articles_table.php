@@ -1,5 +1,6 @@
 <?php
 
+use App\ArticleType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->text("description");
             $table->text("body");
             $table->text("html");
-            $table->boolean("isPaid")->default(true);
+            $table->string("type")->default(ArticleType::NEWS);
             $table->timestamps();
         });
     }

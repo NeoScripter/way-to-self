@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\ArticleType;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,12 @@ class Article extends Model
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory;
     use ConvertsMarkdownToHtml;
+
+    protected $with = ['image', 'thumbnail'];
+
+    public $casts = [
+        'type' => ArticleType::class,
+    ];
 
     public function images(): MorphOne
     {
