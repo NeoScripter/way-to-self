@@ -11,7 +11,7 @@ export default function FAQSection() {
 
     return (
         <>
-            <h3 className="flex flex-wrap items-center justify-center mb-11 sm:mb-16 xl:mb-20">
+            <h3 className="flex flex-wrap relative z-11 items-center justify-center mb-11 sm:mb-16 xl:mb-20">
                 <SpanHighlight
                     text='Ответы'
                     className="text-black bg-very-bright-salad text-[4rem] sm:text-[8rem] mt-[0.1em]"
@@ -30,7 +30,7 @@ export default function FAQSection() {
                 />
             </h3>
 
-            <ul className="mb-11 space-y-4 sm:mb-16 sm:space-y-6 lg:space-y-8 xl:mb-20 2xl:space-y-10">
+            <ul className="mb-11 space-y-4 relative z-11 sm:mb-16 sm:space-y-6 lg:space-y-8 xl:mb-20 2xl:space-y-10">
                 {faqs.map(faq => (
                     <AccordionItem key={faq.id} id={faq.id} title={faq.title} description={faq.html} />
                 ))}

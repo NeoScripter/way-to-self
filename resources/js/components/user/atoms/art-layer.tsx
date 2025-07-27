@@ -8,7 +8,7 @@ type ArtLayerProps = {
 
 export default function ArtLayer({ img, className, imgClassName }: ArtLayerProps) {
     return (
-        <figure aria-hidden="true" className={cn("absolute overflow-clip", className)}>
+        <figure aria-hidden="true" className={cn("absolute overflow-clip pointer-events-none", className)}>
             <img src={img} alt="" loading="lazy" className={cn("size-full object-center object-contain", imgClassName)} />
         </figure>
     )
