@@ -33,7 +33,7 @@ export default function BackToTopBtn({ className }: BackToTopBtnProps) {
     if (!show) return null;
 
     return (
-        <button onClick={handleClick} className={cn("hidden md:flex rounded-full z-50 border border-white/20 cursor-pointer bg-card-backdrop-gray items-center justify-center size-30 fixed bottom-10 right-10 2xl:right-25 2xl:bottom-25 transition-scale duration-200 ease-in hover:scale-110", className)}>
+        <button onClick={handleClick} className={cn("hidden md:flex rounded-full z-50 border border-white/20 cursor-pointer bg-card-backdrop-gray items-center justify-center size-30 fixed bottom-10 right-10 2xl:right-25 2xl:bottom-25 transition duration-200 ease-in hover:scale-110 glow-shadow", className)}>
             <ArrowLongUpIcon className="text-white size-20" />
         </button>
     )
