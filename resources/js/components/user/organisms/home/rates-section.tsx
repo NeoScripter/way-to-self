@@ -17,13 +17,13 @@ export default function RatesSection() {
             </h3>
 
 
-            <ul className="mt-30 grid gap-30 sm:mt-44 sm:gap-40 xl:gap-9 xl:grid-cols-3" role="list">
+            <ul className="mt-30 relative z-11 grid gap-30 sm:mt-44 sm:gap-40 xl:gap-9 xl:grid-cols-3" role="list">
                 {rateCards.map(card => (
                     <RateCard key={card.id} image={card.img} alt={card.alt} title={card.title} description={card.description} className="mx-auto" price={card.price}/>
                 ))}
             </ul>
 
-            <p className="block my-14 mx-auto text-sm text-center font-semibold sm:text-base lg:max-w-3/4 2xl:text-xl 2xl:my-17">
+            <p className="block my-14 mx-auto relative z-11 text-sm text-center font-semibold sm:text-base lg:max-w-3/4 2xl:text-xl 2xl:my-17">
                 Мы сделали три варианта подписки — чтобы вы могли выбрать тот, который подходит именно вам. Хочется начать с малого? Или сразу погрузиться в целостный подход? Всё возможно! Главное — начать.
                 Вы всегда сможете расширить доступ при необходимости.
                 Подписка дает доступ к ресурсу на год с момента оформления.

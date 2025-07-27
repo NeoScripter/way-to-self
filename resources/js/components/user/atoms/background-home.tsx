@@ -1,11 +1,11 @@
-import MobileBg from "@/assets/images/home/mobile.webp";
-import TabletBg from "@/assets/images/home/tablet.webp";
-import DesktopBg from "@/assets/images/home/desktop.webp";
+import MobileBg from "@/assets/images/home/hero/mobile.webp";
+import TabletBg from "@/assets/images/home/hero/tablet.webp";
+import DesktopBg from "@/assets/images/home/hero/desktop.webp";
 
 export default function BackgroundHome() {
     return (
         <div aria-hidden="true" className="absolute bg-main-page-bg inset-0 -z-5">
-            <picture className="size-full block bg-main-page-bg">
+            <picture className="w-full block bg-main-page-bg">
                 <source
                     srcSet={DesktopBg}
                     media="(min-width: 1024px)"
@@ -17,7 +17,7 @@ export default function BackgroundHome() {
                 <img
                     src={MobileBg}
                     alt=""
-                    className="object-cover object-top w-full h-full block"
+                    className="object-cover object-left-top w-full block"
                 />
             </picture>
         </div>

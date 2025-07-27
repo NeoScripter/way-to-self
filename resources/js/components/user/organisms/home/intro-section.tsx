@@ -12,7 +12,7 @@ export default function IntroSection() {
                 />
             </h3>
 
-            <div className="relative overflow-visible xl:flex max-w-162 mx-auto xl:justify-between xl:max-w-full">
+            <div className="relative z-11 overflow-visible xl:flex max-w-162 mx-auto xl:justify-between xl:max-w-full">
                 {/* Decorative backdrop */}
                 <div
                     className="rounded-[6rem] border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50 absolute inset-0 -z-1 top-1/5 sm:top-1/4 md:top-1/3 xl:top-0 xl:right-1/7"

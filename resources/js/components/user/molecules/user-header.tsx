@@ -65,7 +65,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                 aria-label="Основная навигация"
                 className="mt-15 mb-50 md:mt-0 md:mb-0 md:mx-auto">
                 <ul className="space-y-15 text-xl md:text-sm xl:text-base text-center md:space-y-0 md:flex md:items-center md:justify-between md:gap-6 lg:gap-10 xl:gap-15">
-                    <NavLink><Link href="/">О чем</Link></NavLink>
+                    <NavLink><Link href={route('home')}>О чем</Link></NavLink>
                     <NavLink><Link href="/">Тарифы</Link></NavLink>
                     <NavLink><Link href="/">Новости</Link></NavLink>
                     <NavLink><RedBtn href="/" className="mx-auto py-[0.3rem]">Магазин</RedBtn></NavLink>

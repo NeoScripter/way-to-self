@@ -11,18 +11,18 @@ import ContentCard from "../../atoms/content-card";
 export default function FoodSection() {
     return (
         <>
-            <h3 id="nutrition-section-title" className="mb-11 xl:mb-14">
+            <h3 id="nutrition-section-title" className="mb-11 xl:mb-14 relative z-11">
                 <SpanHighlight
                     text='Раздел &quot;Питание&quot;'
                     className="text-white text-[4rem] sm:text-[8rem] mx-auto mt-[0.1em]"
                 />
             </h3>
 
-            <p className="block mb-17 mx-auto text-sm text-center font-semibold sm:text-base lg:max-w-3/4 2xl:text-xl">
+            <p className="block mb-17 mx-auto text-sm text-center font-semibold relative z-11 sm:text-base lg:max-w-3/4 2xl:text-xl">
                 Питание — это не про ограничения. Это про поддержку, энергию и уважение к себе. В этом разделе вы найдете рецепты, которые не требуют часов у плиты, рекомендации, которые легко встроить в реальную жизнь, и главное — подход без вины и диет. Здесь нет запретов, подсчёта калорий и жёстких рамок. Только осознанный выбор, гибкость и возможность слушать своё тело, а не следовать чужим правилам. Раздел постоянно пополняется.
             </p>
 
-            <ul className="mb-17 grid gap-11 sm:grid-cols-2 xl:grid-cols-4" role="list">
+            <ul className="mb-17 relative z-11 grid gap-11 sm:grid-cols-2 xl:grid-cols-4" role="list">
                 {foodCardData.map(card => (
                     <InfoCard html={card.text} key={card.id} img={card.img} alt={card.alt} />
                 ))}
@@ -30,7 +30,7 @@ export default function FoodSection() {
 
             <SecondaryHeading text="Примеры рецептов" className="mb-17" />
 
-            <ul className="mb-17 grid gap-11 grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] md:max-w-200 md:mx-auto 2xl:max-w-full" role="list">
+            <ul className="mb-17 relative z-11 grid gap-11 grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] md:max-w-200 md:mx-auto 2xl:max-w-full" role="list">
                 {recipes.map(recipe => (
                     <ContentCard
                         key={recipe.id}

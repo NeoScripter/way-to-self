@@ -18,20 +18,20 @@ export default function BodySection() {
                 />
             </h3>
 
-            <p className="block mb-17 mx-auto text-sm text-center font-semibold sm:text-base lg:max-w-3/4 2xl:text-xl">
+            <p className="block mb-17 relative z-11 mx-auto text-sm text-center font-semibold sm:text-base lg:max-w-3/4 2xl:text-xl">
                 Движение — это способ почувствовать себя живым. Не ради формы, а ради энергии, лёгкости и внутренней опоры. В этом разделе — тренировки и практики, которые помогают телу просыпаться, становиться сильнее, выносливее, гибче. Упражнения подобраны так, чтобы каждый мог заниматься в своём темпе — без перегрузки, но с результатом.
             </p>
 
-            <ul className="mb-17 grid gap-11 sm:grid-cols-2 xl:grid-cols-4" role="list">
+            <ul className="mb-17 relative z-11 grid gap-11 sm:grid-cols-2 xl:grid-cols-4" role="list">
                 {bodyCardData.map(card => (
                     <InfoCard html={card.text} key={card.id} img={card.img} alt={card.alt} />
                 ))}
             </ul>
 
-            <SecondaryHeading text="Примеры упражнений" className="mb-17" />
+            <SecondaryHeading text="Примеры упражнений" className="mb-17 relative z-11" />
 
             <ul
-                className="mb-17 grid gap-11 grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] md:max-w-200 md:mx-auto 2xl:max-w-full"
+                className="mb-17 grid gap-11 relative z-11 grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] md:max-w-200 md:mx-auto 2xl:max-w-full"
                 role="list"
             >
                 {exercises.map(exercise => (
