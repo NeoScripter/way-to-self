@@ -16,33 +16,35 @@ class ArticleSeeder extends Seeder
     {
         $articleData = ArticleFixtures::getFixtures();
 
-        $articleData->each(function (array $raw) {
-            article::factory(
-                [
-                    'title' => $raw['title'],
-                    'description' => $raw['description'],
-                    'body' => $raw['body'],
-                ]
-            )
-                ->afterCreating(function ($article) use ($raw) {
-                    Image::factory()->create([
-                        'imageable_id' => $article,
-                        'type' => 'image',
-                        'alt' => $raw['description'],
-                        'path' => asset('storage/models/'.$raw['image']),
-                        'tiny_path' => asset('storage/models/'.$raw['tiny_image']),
-                    ]);
-                    Image::factory()->create([
-                        'imageable_id' => $article,
-                        'type' => 'thumbnail',
-                        'alt' => $raw['description'],
-                        'path' => asset('storage/models/'.$raw['thumb']),
-                        'tiny_path' => asset('storage/models/'.$raw['tiny_thumb']),
-                    ]);
+        for ($i = 0; $i < 6; $i++) {
+            $articleData->each(function (array $raw) {
+                article::factory(
+                    [
+                        'title' => $raw['title'],
+                        'description' => $raw['description'],
+                        'body' => $raw['body'],
+                    ]
+                )
+                    ->afterCreating(function ($article) use ($raw) {
+                        Image::factory()->create([
+                            'imageable_id' => $article,
+                            'type' => 'image',
+                            'alt' => $raw['description'],
+                            'path' => asset('storage/models/'.$raw['image']),
+                            'tiny_path' => asset('storage/models/'.$raw['tiny_image']),
+                        ]);
+                        Image::factory()->create([
+                            'imageable_id' => $article,
+                            'type' => 'thumbnail',
+                            'alt' => $raw['description'],
+                            'path' => asset('storage/models/'.$raw['thumb']),
+                            'tiny_path' => asset('storage/models/'.$raw['tiny_thumb']),
+                        ]);
 
-                })
-                ->create();
-        });
+                    })
+                    ->create();
+            });
 
+        }
     }
 }

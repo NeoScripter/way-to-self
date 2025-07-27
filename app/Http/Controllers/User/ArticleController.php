@@ -10,7 +10,7 @@ use Inertia\Inertia;
 class ArticleController extends Controller
 {
     public function index() {
-        $articles = Article::where('type', ArticleType::NEWS)->get();
+        $articles = Article::select(['id', 'description', 'title'])->where('type', ArticleType::NEWS)->with(['thumbnail'])->paginate(16);
 
         return Inertia::render('user/articles', [
             'articles' => $articles

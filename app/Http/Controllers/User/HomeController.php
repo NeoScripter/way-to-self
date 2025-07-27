@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $faqs = FaqItem::latest()->get();
         $reviews = Review::with(['image'])->latest()->get();
-        $articles = Article::where('type', ArticleType::NEWS)->latest()->limit(4)->get();
+        $articles = Article::where('type', ArticleType::NEWS)->with(['thumbnail'])->latest()->limit(4)->get();
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,

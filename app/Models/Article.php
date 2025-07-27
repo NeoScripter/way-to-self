@@ -14,7 +14,7 @@ class Article extends Model
     use HasFactory;
     use ConvertsMarkdownToHtml;
 
-    protected $with = ['image', 'thumbnail'];
+    // protected $with = ['image', 'thumbnail'];
 
     public $casts = [
         'type' => ArticleType::class,
