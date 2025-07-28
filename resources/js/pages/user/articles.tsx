@@ -9,7 +9,6 @@ import { usePage } from "@inertiajs/react";
 export default function Articles() {
     const { articles } = usePage<{ articles: PaginationMeta<Article> }>().props;
 
-
     return (
         <UserLayout layoutClass="bg-fade-olive-theme" pageClass="px-8 md:px-20 xl:px-22">
 
@@ -26,7 +25,7 @@ export default function Articles() {
                 ))}
             </ul>
 
-            <Pagination meta={articles} />
+            <Pagination meta={articles} label="статьи" className="max-w-330 mx-auto" />
 
         </UserLayout>
     )
