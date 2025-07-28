@@ -11,6 +11,8 @@ export default function ArticlesSection() {
         <>
             <SecondaryHeading text="Последние новости" className="font-medium text-dark-green" />
 
+            <span className="sr-only" id="articles-section-title">Последние новости</span>
+
             <Link
                 href={route('user.articles.index')}
                 className="text-gray-500 tracking-wider mb-10 mt-7 sm:mb-12 sm:mt-9 block w-max mx-auto lg:mr-0 transiton-colors duration-200 ease-in hover:text-bright-salad"

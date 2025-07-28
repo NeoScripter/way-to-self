@@ -1,21 +1,12 @@
 
 export default function calculateSlideOffset(windowSize: number) {
-    let slideWidth = 0;
-    let slideGap = 0;
+    const breakpoints = [
+        { max: 768, width: 300, gap: 16 },
+        { max: 1024, width: 672, gap: 32 },
+        { max: 1536, width: 964, gap: 32 },
+        { max: Infinity, width: 1170, gap: 40 }
+    ];
 
-    if (windowSize < 768) {
-        slideWidth = 300;
-        slideGap = 16;
-    } else if (windowSize < 1024 && windowSize > 768) {
-        slideGap = 32;
-        slideWidth = 672;
-    } else if (windowSize > 1024 && windowSize < 1536) {
-        slideWidth = 964;
-        slideGap = 32;
-    } else if (windowSize > 1536) {
-        slideWidth = 1170;
-        slideGap = 40;
-    }
-
-    return slideWidth + slideGap;
+    const config = breakpoints.find(bp => windowSize < bp.max) || breakpoints[breakpoints.length - 1];
+    return config.width + config.gap;
 }

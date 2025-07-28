@@ -4,15 +4,18 @@ namespace App\Models;
 
 use App\ArticleType;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Article extends Model
 {
+    use ConvertsMarkdownToHtml;
+
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory;
-    use ConvertsMarkdownToHtml;
 
     // protected $with = ['image', 'thumbnail'];
 
@@ -33,5 +36,16 @@ class Article extends Model
     public function thumbnail(): MorphOne
     {
         return $this->images()->where('type', 'thumbnail');
+    }
+
+    public function isFree(): bool
+    {
+        return $this->type === ArticleType::NEWS;
+    }
+
+    #[Scope]
+    protected function free(Builder $query): void
+    {
+        $query->where('type', ArticleType::NEWS);
     }
 }

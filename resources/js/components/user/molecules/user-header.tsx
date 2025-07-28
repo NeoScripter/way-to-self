@@ -16,7 +16,10 @@ export default function UserHeader({ className }: UserHeaderProps) {
     const [show, toggleShow] = useToggle(false);
 
     return (
-        <header className={cn("flex z-100 backdrop-blur-lg sticky top-0 items-center justify-between gap-x-5 border-b border-gray-200 text-white px-7 md:px-0 md:mx-7 md:static lg:mx-14 xl:ml-27 xl:mr-23 2xl:ml-41 2xl:mr-28", className)}>
+        <header className={cn("flex z-100 backdrop-blur-lg sticky top-0 items-center justify-between gap-x-5 border-b border-gray-200 text-white px-7 md:px-0 md:mx-7 md:relative lg:mx-14 xl:ml-27 xl:mr-23 2xl:ml-41 2xl:mr-28", className)}>
+
+            <div aria-hidden="true" className={cn("absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-screen -z-10", className)}></div>
+
             <Logo className="text-4xl sm:text-6xl mt-2.5 sm:mt-5 sm:mb-4 md:mt-7 md:mb-5 mb-2 ml-1 md:text-4xl lg:text-6xl" />
 
             <NavMenu show={show} close={() => toggleShow(false)} />

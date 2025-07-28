@@ -7,13 +7,14 @@ type UserLayoutProps = {
     children: React.ReactNode;
     layoutClass?: string;
     pageClass?: string;
+    headerClass?: string;
 }
 
-export default function UserLayout({ children, layoutClass, pageClass }: UserLayoutProps) {
+export default function UserLayout({ children, layoutClass, pageClass, headerClass }: UserLayoutProps) {
     return (
         <div className={cn("min-h-screen relative z-5", layoutClass)}>
 
-            <UserHeader />
+            <UserHeader className={headerClass} />
 
             <BackToTopBtn />
 

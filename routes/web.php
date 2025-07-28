@@ -9,7 +9,7 @@ Route::get('/', HomeController::class)->name('home');
 
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-    Route::get('/article/{:id}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::get('/article/{article}', [ArticleController::class, 'show'])->name('articles.show');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

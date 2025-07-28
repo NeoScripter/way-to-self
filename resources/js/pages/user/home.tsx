@@ -70,7 +70,7 @@ export default function Home() {
                 <ArtLayer img={BottomRadish} className="hidden w-50 right-30 top-1/4 xl:block xl:top-3/5 xl:right-10 2xl:top-4/5" />
             </AppSection>
 
-            <AppSection className="text-text-black relative">
+            <AppSection className="text-text-black relative" ariaLabelledBy="rates-section-title">
                 <RatesSection />
 
                 <ArtLayer img={Tomatoes} className=" w-1/2 max-w-75 right-0 xl:hidden bottom-20 md:right-auto md:left-0 md:bottom-1/2" />
@@ -79,11 +79,11 @@ export default function Home() {
                 <ArtLayer img={CutBellPepper} className="max-w-102 w-3/5 top-1/5 -right-20 sm:right-auto sm:top-0 sm:-left-20 xl:top-auto xl:-bottom-40" />
             </AppSection>
 
-            <AppSection className="text-text-black -mx-4 sm:-mx-11 2xl:-mx-25 3xl:-mx-40">
+            <AppSection className="text-text-black -mx-4 sm:-mx-11 2xl:-mx-25 3xl:-mx-40" ariaLabelledBy="reviews-section-title">
                 <ReviewsSection />
             </AppSection>
 
-            <AppSection className="text-text-black relative">
+            <AppSection className="text-text-black relative" ariaLabelledBy="faq-section-title">
                 <FAQSection />
 
                 <ArtLayer img={TopWholeChilli} className="w-15 -top-15 -left-5 md:w-20 lg:-top-40 3xl:-left-30" />
@@ -91,7 +91,7 @@ export default function Home() {
                 <ArtLayer img={BottomWholeChilli} className="w-15 -top-0 left-15 md:w-20 lg:-top-30 3xl:-left-10" />
             </AppSection>
 
-            <AppSection>
+            <AppSection ariaLabelledBy="articles-section-title">
                 <ArticlesSection />
             </AppSection>
 

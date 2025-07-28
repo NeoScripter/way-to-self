@@ -69,10 +69,12 @@ export default function ReviewsSection() {
     }
 
     function handleTouchStart(e: React.TouchEvent) {
+        e.preventDefault();
         touchStart.current = e.touches[0].clientX;
     }
 
     function handleTouchEnd(e: React.TouchEvent) {
+        e.preventDefault();
         if (touchStart.current === null) return;
 
         const deltaX = e.changedTouches[0].clientX - touchStart.current;
@@ -93,7 +95,7 @@ export default function ReviewsSection() {
 
     return (
         <>
-            <h3 className="mb-11 sm:mb-16 xl:mb-20">
+            <h3 id="reviews-section-title" className="mb-11 sm:mb-16 xl:mb-20">
                 <SpanHighlight
                     text='Отзывы участников'
                     className="text-white text-[4rem] sm:text-[8rem] mx-auto mt-[0.1em]"

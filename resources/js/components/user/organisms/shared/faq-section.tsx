@@ -30,6 +30,8 @@ export default function FAQSection() {
                 />
             </h3>
 
+            <span className="sr-only" id="faq-section-title">Ответы на популярные вопросы о портале</span>
+
             <ul className="mb-11 space-y-4 relative z-11 sm:mb-16 sm:space-y-6 lg:space-y-8 xl:mb-20 2xl:space-y-10">
                 {faqs.map(faq => (
                     <AccordionItem key={faq.id} id={faq.id} title={faq.title} description={faq.html} />

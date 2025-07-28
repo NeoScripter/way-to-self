@@ -2,7 +2,6 @@
 
 use App\ArticleType;
 use App\Models\Article;
-use Inertia\Testing\AssertableInertia as Assert;
 
 use function Pest\Laravel\get;
 
@@ -27,7 +26,6 @@ it('shows only the free articles on the articles page', function () {
         ->count(5)
         ->sequence(fn ($sequence) => [
             'title' => 'Free Article '.($sequence->index + 1),
-            'type' => ArticleType::NEWS  // Add this line
         ])
         ->create();
 
@@ -36,7 +34,6 @@ it('shows only the free articles on the articles page', function () {
         ->count(5)
         ->sequence(fn ($sequence) => [
             'title' => 'Paid Article '.($sequence->index + 1),
-            'type' => ArticleType::SOUL
         ])
         ->create();
 
@@ -50,6 +47,14 @@ it('shows only the free articles on the articles page', function () {
 });
 
 it('paginates articles on the public article page', function () {
-    // TODO
-    return true;
+    $articles = Article::factory()
+        ->free()
+        ->count(40)
+        ->sequence(fn ($sequence) => ['title' => 'title ' . $sequence->index])
+        ->create();
+
+    $response = get(route('user.articles.index'));
+
+    $articles->take(16)->each(fn ($article) => $response->assertSee($article->title));
+    $articles->skip(16)->each(fn ($article) => $response->assertDontSee($article->title));
 });

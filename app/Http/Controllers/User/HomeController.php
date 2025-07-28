@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\ArticleType;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\FaqItem;
@@ -18,7 +17,7 @@ class HomeController extends Controller
     {
         $faqs = FaqItem::latest()->get();
         $reviews = Review::with(['image'])->latest()->get();
-        $articles = Article::where('type', ArticleType::NEWS)->with(['thumbnail'])->latest()->limit(4)->get();
+        $articles = Article::select(['id', 'description', 'title'])->free()->with(['thumbnail'])->latest()->limit(4)->get();
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,
