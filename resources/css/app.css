@@ -87,6 +87,7 @@
     --color-footer-bg: oklch(0.3869 0.0463 135.91);
     --color-footer-text: oklch(0.7751 0.0385 107.27);
     --color-light-bg: oklch(0.9548 0.0316 106.98);
+    --color-gray-text-bg: oklch(0.601 0.0387 118.13);
 
     --gradient-fade-olive: linear-gradient(
         180deg,

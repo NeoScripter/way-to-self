@@ -30,7 +30,10 @@ import RightRadish from "@/assets/images/home/veggies/right-radish.webp";
 
 export default function Home() {
     return (
-        <UserLayout layoutClass="text-text-black bg-main-page-bg" pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible">
+        <UserLayout
+            layoutClass="text-text-black bg-main-page-bg"
+            pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
+        >
 
             <BackgroundHome />
 

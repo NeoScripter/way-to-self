@@ -86,8 +86,8 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                     <NavLink>
                         <Link
                             as="button"
-                            className={cn(url === '/cart' ? "text-bright-salad underline underline-offset-3" : "cursor-pointer")}
-                            href={route('home')}>Тарифы</Link>
+                            className={cn(url === '/tiers' ? "text-bright-salad underline underline-offset-3" : "cursor-pointer")}
+                            href={route('tiers.index')}>Тарифы</Link>
                     </NavLink>
                     <NavLink>
                         <Link
@@ -96,7 +96,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                             href={route('user.articles.index')}>Новости</Link>
                     </NavLink>
                     <NavLink>
-                        <RedBtn href="/" className="mx-auto py-[0.3rem]">Магазин</RedBtn>
+                        <RedBtn href={route('shop')} className="mx-auto py-[0.3rem]">Магазин</RedBtn>
                     </NavLink>
                     <NavLink>
                         <button
