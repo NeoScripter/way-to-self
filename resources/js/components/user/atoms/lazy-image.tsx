@@ -1,29 +1,30 @@
 import { cn } from "@/lib/utils";
-import { Image } from "@/types/model";
 import { useState } from "react";
 
 type LazyImageProps = {
     parentClass?: string;
     imgClass?: string;
-    img: Image;
+    img: string;
+    alt: string;
+    tinyImg: string;
 }
 
-export default function LazyImage({ parentClass, imgClass, img }: LazyImageProps) {
+export default function LazyImage({ parentClass, imgClass, img, alt, tinyImg }: LazyImageProps) {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
         <figure
             role="img"
             className={cn("overflow-clip relative", parentClass)}
-            aria-label={img.alt}
+            aria-label={alt}
         >
             <img
                 onLoad={() => setIsLoading(false)}
-                src={img.path}
-                alt={img.alt}
+                src={img}
+                alt={alt}
                 loading="lazy"
                 className={cn(
-                    'object-center object-cover size-full transition duration-500 ease-in-out', imgClass,
+                    'object-center object-cover size-full transition-all duration-500 ease-in-out', imgClass,
                     isLoading && 'opacity-0'
                 )}
                 aria-hidden={isLoading}
@@ -41,7 +42,7 @@ export default function LazyImage({ parentClass, imgClass, img }: LazyImageProps
 
                     <img
                         aria-hidden={!isLoading}
-                        src={img.tiny_path} alt={img.alt} className="object-center object-cover size-full"
+                        src={tinyImg} alt={alt} className="object-center object-cover size-full"
                     />
                 </div>
             )}

@@ -20,7 +20,9 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             >
                 {article.thumbnail != null &&
                     <LazyImage
-                        img={article.thumbnail}
+                        img={article.thumbnail.path}
+                        alt={article.thumbnail.alt}
+                        tinyImg={article.thumbnail.tiny_path}
                         parentClass="rounded-2xl aspect-video mb-3.5"
                         imgClass="group-hover:scale-120" />
                 }

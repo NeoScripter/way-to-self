@@ -15,7 +15,7 @@ export default function Article() {
                 </h1>
 
                 {article.image &&
-                    <LazyImage parentClass="aspect-video rounded-2xl my-9 md:my-12.5 xl:my-15" img={article.image} />
+                    <LazyImage parentClass="aspect-video rounded-2xl my-9 md:my-12.5 xl:my-15" img={article.image.path} alt={article.image.alt} tinyImg={article.image.tiny_path} />
                 }
 
                 <div className="mb-43 prose prose-neutral prose-sm md:prose-base xl:prose-xl md:mb-47 xl:mb-63 max-w-full" dangerouslySetInnerHTML={{ __html: article.html }}>

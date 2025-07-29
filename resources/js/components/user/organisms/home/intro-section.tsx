@@ -1,6 +1,8 @@
+import LazyImage from "../../atoms/lazy-image";
 import PrimaryBtn from "../../atoms/primary-btn";
 import SpanHighlight from "../../atoms/span-highlight";
 import Intro from "@/assets/images/home/hero-4.webp";
+import IntroTiny from "@/assets/images/home/hero-4-tiny.webp";
 
 export default function IntroSection() {
     return (
@@ -20,13 +22,13 @@ export default function IntroSection() {
                 ></div>
 
                 {/* Illustration */}
-                <figure className="xl:shrink-0 !xl:h-full xl:order-2 xl:mb-0.5">
-                    <img
-                        src={Intro}
-                        className="size-full object-contain"
-                        alt="Женщина с закрытыми глазами улыбается на фоне иконок, символизирующих медитацию, питание и физическую активность"
-                    />
-                </figure>
+                <LazyImage
+                    parentClass="lg:min-h-163 xl:shrink-0 !xl:h-full xl:order-2 xl:mb-0.5"
+                    imgClass="size-full object-contain"
+                    img={Intro}
+                    alt="Женщина с закрытыми глазами улыбается на фоне иконок, символизирующих медитацию, питание и физическую активность"
+                    tinyImg={IntroTiny}
+                />
 
                 {/* Description + CTA */}
                 <div className="text-sm px-8 pb-12 pt-10 sm:pb-14 sm:px-12 sm:pt-11.5 sm:text-base xl:text-base xl:pb-8 xl:pl-16 xl:text-left xl:text-wrap xl:flex xl:flex-col xl:justify-between xl:text-[1.2vw] 2xl:pb-12 2xl:text-[1.1vw] 3xl:text-lg">

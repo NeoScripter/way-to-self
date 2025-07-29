@@ -2,9 +2,13 @@ import SecondaryBtn from "@/components/user/atoms/secondary-btn";
 import SpanHighlight from "@/components/user/atoms/span-highlight";
 import { PlayIcon } from '@heroicons/react/24/solid'
 import Hero1 from "@/assets/images/home/hero-1.webp";
+import TinyHero1 from "@/assets/images/home/hero-1-tiny.webp";
 import Hero2 from "@/assets/images/home/hero-2.webp";
+import TinyHero2 from "@/assets/images/home/hero-2-tiny.webp";
 import Hero3 from "@/assets/images/home/hero-3.webp";
+import TinyHero3 from "@/assets/images/home/hero-3-tiny.webp";
 import HomeCardLayout from "@/components/user/molecules/home-card-layout";
+import LazyImage from "../../atoms/lazy-image";
 
 export default function HeroSection() {
 
@@ -64,16 +68,13 @@ export default function HeroSection() {
                 className="pt-35.5 sm:max-w-171 sm:ml-auto xl:ml-0 xl:max-w-full xl:pt-60"
                 ariaDesc="soul-section-description"
                 ariaLabel="soul-section-heading">
-                <div
-                    className="absolute size-57 -top-23 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:size-70 xl:translate-y-0 xl:-translate-x-1/2 xl:left-1/2 xl:-top-28 xl:size-87"
-                    aria-hidden="true"
-                >
-                    <img
-                        src={Hero1}
-                        alt="Девушка в позе лотоса медитирует, сидя на полу в зелёной спортивной одежде"
-                        className="size-full object-center object-contain"
-                    />
-                </div>
+
+                <LazyImage
+                    img={Hero1}
+                    tinyImg={TinyHero1}
+                    alt="Девушка в позе лотоса медитирует, сидя на полу в зелёной спортивной одежде"
+                    parentClass="absolute size-57 -top-23 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:size-70 xl:translate-y-0 xl:-translate-x-1/2 xl:left-1/2 xl:-top-28 xl:size-87"
+                />
 
                 <div className="sm:max-w-98.5 sm:ml-auto xl:max-w-full z-5">
                     <header>
@@ -111,16 +112,14 @@ export default function HeroSection() {
                 className="pt-24 sm:px-5 sm:flex sm:justify-between sm:items-center sm:gap-5 md:px-11 md:mr-auto md:py-11 lg:py-14 lg:gap-10 xl:w-3/4 xl:gap-12"
                 ariaDesc="food-section-description"
                 ariaLabel="food-section-heading">
-                <div
-                    className="absolute size-57 -top-28 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:order-2 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:-order-1 md:w-75"
-                    aria-hidden="true"
-                >
-                    <img
-                        src={Hero2}
-                        alt="Зелёная миска, наполненная свежим овощным салатом с помидорами, огурцами и зеленью"
-                        className="size-full object-center object-contain"
-                    />
-                </div>
+
+                <LazyImage
+                    img={Hero2}
+                    tinyImg={TinyHero2}
+                    alt="Зелёная миска, наполненная свежим овощным салатом с помидорами, огурцами и зеленью"
+                    parentClass="absolute size-57 -top-28 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:order-2 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:-order-1 md:w-75"
+                />
+
 
                 <div className="md:max-w-full z-5">
                     <header>
@@ -156,16 +155,13 @@ export default function HeroSection() {
                 className="pt-24 mb-0 sm:px-5 sm:flex sm:justify-between sm:items-center md:px-11 md:ml-auto md:py-11 lg:py-14 lg:gap-10 xl:w-3/4 xl:gap-12"
                 ariaDesc="body-section-description"
                 ariaLabel="body-section-heading">
-                <div
-                    className="absolute w-44 -top-24 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:order-2 md:w-65 xl:w-75"
-                    aria-hidden="true"
-                >
-                    <img
-                        src={Hero3}
-                        alt="Пара зелёных гантелей для фитнеса"
-                        className="size-full object-center object-contain"
-                    />
-                </div>
+
+                <LazyImage
+                    img={Hero3}
+                    tinyImg={TinyHero3}
+                    alt="Пара зелёных гантелей для фитнеса"
+                    parentClass="absolute w-44 -top-24 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:order-2 md:w-65 xl:w-75"
+                />
 
                 <div className="md:max-w-full z-5">
                     <header>
