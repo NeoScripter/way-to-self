@@ -85,7 +85,7 @@ function PaginationBtn({ link, isNavigationButton, children }: PaginationBtnProp
             // Active state
             "text-white bg-bright-salad ring-transparent": link.active,
             // Inactive state
-            "text-dark-green ring-dark-swamp ring-inset hover:scale-110 glow-shadow-green": !link.active && link.url,
+            "text-dark-green cursor-pointer ring-dark-swamp ring-inset hover:scale-110 glow-shadow-green": !link.active && link.url,
             // Navigation buttons (prev/next)
             "w-20 h-12 sm:w-12 sm:h-8 2xl:h-12 2xl:w-20 text-white bg-bright-salad ring-transparent": isNavigationButton,
             // Disabled state
@@ -102,7 +102,7 @@ function PaginationBtn({ link, isNavigationButton, children }: PaginationBtnProp
     const shouldUseDangerousHtml = !isNavigationButton && typeof children === 'string' && children.includes('&');
 
     return (
-        <Link
+        <Link as="button"
             href={link.url}
             className={baseClasses}
             {...(shouldUseDangerousHtml && {

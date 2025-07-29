@@ -8,7 +8,7 @@ type LogoProps = {
 export default function Logo({ className }: LogoProps) {
     return (
         <div className={cn("font-cursive", className)}>
-            <Link href="/" className="text-inherit no-underline" aria-label="Главная страница" rel="home">
+            <Link as="button" href="/" className="cursor-pointer text-inherit no-underline" aria-label="Главная страница" rel="home">
                 <span className="sr-only">Мария Юданова — логотип</span>
                 <span aria-hidden="true">Мария Юданова</span>
             </Link>

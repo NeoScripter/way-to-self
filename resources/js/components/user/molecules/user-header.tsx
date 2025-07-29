@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
 import MobileBtnSvg from "@/assets/svgs/mobile-btn.svg";
 import MenuBg from "@/assets/images/shared/mobile-nav-bg.webp";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import PrimaryBtn from "../atoms/primary-btn";
 import RedBtn from "../atoms/red-btn";
 import Logo from "../atoms/logo";
@@ -43,6 +43,15 @@ type NavMenuProps = {
 }
 
 function NavMenu({ className, close, show }: NavMenuProps) {
+    const { url } = usePage();
+
+    function handleScrollDown() {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+
     return (
         <div
             className={cn("transition-transform overflow-y-auto max-h-screen h-200 duration-500 ease-in-out fixed bg-cover !bg-bottom-left bg-light-swamp top-0 left-0 right-0 z-10 md:static md:flex md:items-center md:justify-between md:h-auto md:!bg-none md:bg-transparent md:flex-1 md:gap-5", className, show ? "translate-x-0" : "translate-x-full md:translate-x-0")}
@@ -68,11 +77,35 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                 aria-label="Основная навигация"
                 className="mt-15 mb-50 md:mt-0 md:mb-0 md:mx-auto">
                 <ul className="space-y-15 text-xl md:text-sm xl:text-base text-center md:space-y-0 md:flex md:items-center md:justify-between md:gap-6 lg:gap-10 xl:gap-15">
-                    <NavLink><Link href={route('home')}>О чем</Link></NavLink>
-                    <NavLink><Link href="/">Тарифы</Link></NavLink>
-                    <NavLink><Link href={route('user.articles.index')}>Новости</Link></NavLink>
-                    <NavLink><RedBtn href="/" className="mx-auto py-[0.3rem]">Магазин</RedBtn></NavLink>
-                    <NavLink><a href="#footer">Контакты</a></NavLink>
+                    <NavLink>
+                        <Link
+                            as="button"
+                            className={cn(url === '/' ? "text-bright-salad underline underline-offset-3" : "cursor-pointer")}
+                            href={route('home')}>О чем</Link>
+                    </NavLink>
+                    <NavLink>
+                        <Link
+                            as="button"
+                            className={cn(url === '/cart' ? "text-bright-salad underline underline-offset-3" : "cursor-pointer")}
+                            href={route('home')}>Тарифы</Link>
+                    </NavLink>
+                    <NavLink>
+                        <Link
+                            as="button"
+                            className={cn(url === '/articles' ? "text-bright-salad underline underline-offset-3" : "cursor-pointer")}
+                            href={route('user.articles.index')}>Новости</Link>
+                    </NavLink>
+                    <NavLink>
+                        <RedBtn href="/" className="mx-auto py-[0.3rem]">Магазин</RedBtn>
+                    </NavLink>
+                    <NavLink>
+                        <button
+                            className="cursor-pointer"
+                            onClick={handleScrollDown}
+                        >
+                            Контакты
+                        </button>
+                    </NavLink>
                 </ul>
             </nav>
         </div>

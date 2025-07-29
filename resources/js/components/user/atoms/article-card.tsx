@@ -12,11 +12,12 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     return (
         <li className="">
             <Link
+                as="button"
                 href={articleUrl}
                 preserveScroll
                 aria-labelledby={`article-title-${article.id}`}
                 aria-describedby={`article-description-${article.id}`}
-                className="text-dark-green text-lg block group"
+                className="text-dark-green cursor-pointer text-lg block group"
             >
                 {article.thumbnail != null &&
                     <LazyImage
