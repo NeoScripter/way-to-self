@@ -1,9 +1,12 @@
 import Logo from "@/components/user/atoms/logo";
 import PrimaryBtn from "@/components/user/atoms/primary-btn";
 import { cn } from "@/lib/utils";
-import ErrorPageBg from "@/assets/images/shared/404.webp";
-import ErrorPageBgTablet from "@/assets/images/shared/404-tablet.webp";
+import LargeBg from "@/assets/images/shared/404.webp";
+import TinyLargeBg from "@/assets/images/shared/404-tiny.webp";
+import MobileBg from "@/assets/images/shared/404-tablet.webp";
+import TinyMobileBg from "@/assets/images/shared/404-tablet-tiny.webp";
 import useMediaQuery from "@/hooks/use-media-query";
+import LazyImage from "@/components/user/atoms/lazy-image";
 
 type ErrorPageProps = {
     status: string;
@@ -26,22 +29,43 @@ export default function ErrorPage({ status }: ErrorPageProps) {
         403: 'Sorry, you are forbidden from accessing this page.',
     }[status]
 
-    const bgImage = isLarge ? ErrorPageBg : ErrorPageBgTablet;
+    const largeImg = isLarge ? LargeBg : MobileBg;
+    const tinyImg = isLarge ? TinyLargeBg : TinyMobileBg;
 
     return (
-        <div className="min-h-screen relative z-5 bg-main-page-bg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${bgImage})`}}>
-            <header className={cn("flex backdrop-blur-lg bg-black/50 items-center justify-between gap-x-5 text-white px-7 md:px-0 md:mx-7 lg:mx-14 xl:ml-27 xl:mr-23 2xl:ml-41 2xl:mr-28")}>
+        <div className="min-h-screen flex flex-col relative gap-4 z-5 bg-main-page-bg">
 
-                <div aria-hidden="true" className={cn("absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-screen -z-10")}></div>
+            <header className={cn("flex shrink-0 bg-black/40 items-center justify-between relative z-20 gap-x-5 text-white p-4 sm:py-0 md:px-7 lg:px-14 xl:px-27")}>
+                <Logo className="text-3xl sm:text-5xl mt-2.5 sm:mt-5 sm:mb-4 md:mt-7 md:mb-5 mb-2 ml-1 md:text-6xl" />
 
-                <Logo className="text-4xl sm:text-6xl mt-2.5 sm:mt-5 sm:mb-4 md:mt-7 md:mb-5 mb-2 ml-1 md:text-4xl lg:text-6xl" />
-
-                <PrimaryBtn className="mx-auto text-xs shrink-0 xl:text-base md:mr-0 md:order-2" href="/">Личный кабинет</PrimaryBtn>
+                <PrimaryBtn className="text-xs shrink-0 md:text-base xl:text-lg" href="/">Личный кабинет</PrimaryBtn>
 
             </header>
 
-            <h1>{title}</h1>
-            <div>{description}</div>
+            <div
+                aria-hidden="true"
+                className="absolute inset-0 z-15 pointer-events-none"
+            >
+                <LazyImage
+                    img={largeImg}
+                    alt=""
+                    tinyImg={tinyImg}
+                    imgClass="md:object-top"
+                    parentClass="size-full"
+                />
+            </div>
+
+
+            <main className="flex-1 flex items-center justify-center h-full">
+                <article className="bg-white relative mb-30 z-10 rounded-4xl md:rounded-[5rem] px-7 py-10 sm:p-13 text-center w-4/5 max-w-178 text-dark-green font-heading">
+
+                    <h1 className="uppercase leading-[1.2em] text-[11vw] md:text-[6rem]">Ошибка</h1>
+                    <p className="uppercase text-[30vw] font-bold leading-[1em] md:text-[16rem]">404</p>
+                    <div className="text-[5.5vw] leading-[1em] md:text-5xl">страница не найдена</div>
+                    <PrimaryBtn className="absolute z-30 px-[2em] uppercase -bottom-[1.6em] left-1/2 -translate-x-1/2 text-[3vw] font-bold shadow-md shrink-0 md:text-lg" href="/">На главную</PrimaryBtn>
+                </article>
+
+            </main>
         </div>
     )
 }
