@@ -4,19 +4,43 @@ import Hero2 from "@/assets/images/tier/food.webp";
 import TinyHero2 from "@/assets/images/home/hero-2-tiny.webp";
 import Hero3 from "@/assets/images/home/hero-3.webp";
 import TinyHero3 from "@/assets/images/tier/sport.webp";
+import TierBg1 from "@/assets/images/tier/tier-bg-1.webp";
+import TierBgTiny1 from "@/assets/images/tier/tier-bg-tiny1.webp";
+import TierBg2 from "@/assets/images/tier/tier-bg-2.webp";
+import TierBgTiny2 from "@/assets/images/tier/tier-bg-tiny-2.webp"
 import SpanHighlight from "@/components/user/atoms/span-highlight";
 import UserLayout from "@/layouts/user/user-layout";
 import LazyImage from "@/components/user/atoms/lazy-image";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import CheckoutDisplay from "@/components/user/organisms/checkout-display";
 
 export default function Tiers() {
+    const [isCart, setCartPage] = useState(true);
+
+    function handlePaymentClick() {
+        setCartPage(false);
+    }
+
     return (
         <UserLayout
-            layoutClass="text-white bg-main-page-bg"
+            layoutClass="text-white relative bg-main-page-bg"
             pageClass="px-3 pb-25 sm:px-6.5 md:pb-23 xl:pb-33.5 2xl:px-25 2xl:pb-40 3xl:px-45"
         >
 
-            <h1 className="my-13 -mx-3 sm:mx-0 sm:my-20 lg:my-25">
+            <AmbientBackdrop
+                shouldFade={!isCart}
+                img={TierBg1}
+                tinyImg={TierBgTiny1}
+            />
+
+            <AmbientBackdrop
+                shouldFade={isCart}
+                img={TierBg2}
+                tinyImg={TierBgTiny2}
+            />
+
+            <h1 className="my-13 -mx-3 sm:mx-0 sm:my-20 lg:my-25 z-20 relative">
                 <SpanHighlight
                     text='Выберите разделы,'
                     className="text-white text-[4rem] sm:text-[6rem] lg:text-[8rem] mx-auto mt-[0.1em]"
@@ -27,7 +51,7 @@ export default function Tiers() {
                 </span>
             </h1>
 
-            <div className="flex flex-col gap-13 mt-26 sm:mt-16 xl:flex-row">
+            <div className="flex flex-col items-center gap-13 mt-26 sm:mt-16 xl:flex-row xl:items-start z-20 relative">
                 <ul className="space-y-24 sm:space-y-6 mx-auto">
                     {sections.map((section, idx) => (
                         <li key={section.id}>
@@ -36,7 +60,10 @@ export default function Tiers() {
                     ))}
                 </ul>
 
-                <div className="shrink-0 xl:w-110 2xl:w-135">placeholder</div>
+                <CheckoutDisplay
+                    onPaymentClick={handlePaymentClick}
+                    className="shrink-0 xl:w-110 2xl:w-135"
+                />
             </div>
 
         </UserLayout>
@@ -49,9 +76,10 @@ type TierCardProps = {
 }
 
 function TierCard({ tier, className }: TierCardProps) {
+
     return (
-        <button
-            className={cn("rounded-[4rem] border-2 border-white/20 relative max-w-85 backdrop-blur-sm bg-card-backdrop-gray/50 pt-22 px-9 pb-8 sm:flex sm:gap-4 sm:py-11 sm:px-6 sm:items-center sm:max-w-182 md:px-8 xl:px-10 xl:max-w-full", className)}>
+        <article
+            className={cn("rounded-[3rem] border-2 border-white/20 relative max-w-85 backdrop-blur-sm bg-card-backdrop-gray/50 pt-22 px-9 pb-8 sm:flex sm:gap-4 sm:py-11 sm:px-6 sm:items-center sm:max-w-182 md:px-8 xl:px-10 xl:max-w-full", className)}>
 
             <LazyImage
                 img={tier.img}
@@ -77,10 +105,32 @@ function TierCard({ tier, className }: TierCardProps) {
                 </p>
 
             </div>
-        </button>
+        </article>
     )
 }
 
+type AmbientBackdropProps = {
+    shouldFade: boolean;
+    img: string;
+    tinyImg: string;
+}
+
+function AmbientBackdrop({ shouldFade, img, tinyImg }: AmbientBackdropProps) {
+    return (<div
+        aria-hidden="true"
+        className={cn("absolute pointer-events-none inset-0 transition-opacity duration-1000 ease-in-out", shouldFade && "opacity-0")}
+    >
+        <LazyImage
+            img={img}
+            tinyImg={tinyImg}
+            alt=""
+            parentClass="size-full"
+            imgClass="object-right"
+        />
+
+        <div className="bg-fade-olive-theme absolute inset-0 opacity-50"></div>
+    </div>)
+}
 
 type Section = {
     id: number;

@@ -7,7 +7,11 @@ export default function Article() {
     const { article } = usePage<{ article: ArticleType }>().props;
 
     return (
-        <UserLayout layoutClass="bg-light-bg" pageClass="px-3 md:px-11 xl:px-25" headerClass="bg-light-swamp">
+        <UserLayout
+            layoutClass="bg-light-bg"
+            pageClass="px-3 md:px-11 xl:px-25"
+            headerClass="bg-light-swamp"
+        >
 
             <article className="max-w-330 mx-auto">
                 <h1 className="font-heading font-medium uppercase text-center text-2xl md:text-5xl xl:text-6xl mt-10 md:mt-20 xl:mt-30">
