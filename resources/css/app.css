@@ -17,7 +17,7 @@
         'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-cursive: 'Disruptors Script', 'Brush Script MT';
-    --font-heading: 'Bodoni';
+    --font-heading: 'Bodoni', 'Georgia';
 
     --breakpoint-3xl: 110rem;
 

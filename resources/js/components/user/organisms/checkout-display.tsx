@@ -1,20 +1,12 @@
-import { cn } from "@/lib/utils";
-import { Field, Input, Label } from "@headlessui/react";
-import { ArrowRight, Check, Tag } from "lucide-react";
-import PrimaryBtn from "@/components/user/atoms/primary-btn";
+import PrimaryBtn from '@/components/user/atoms/primary-btn';
+import { cn } from '@/lib/utils';
+import { Field, Input, Label } from '@headlessui/react';
+import { ArrowRight, Check, Tag } from 'lucide-react';
 
-function CheckoutItem({ name, price }: {
-    name: string;
-    price: number;
-}) {
-
+function CheckoutItem({ name, price }: { name: string; price: number }) {
     return (
-        <li
-            className="flex sm:text-lg items-center justify-between gap-2"
-        >
-            <span className="leading-relaxed">
-                {name}
-            </span>
+        <li className="flex items-center justify-between gap-2 sm:text-lg">
+            <span className="leading-relaxed">{name}</span>
             <span
                 className="tabular-nums"
                 aria-label={`Цена: ${price}`}
@@ -25,51 +17,58 @@ function CheckoutItem({ name, price }: {
     );
 }
 
-
 type Discount = {
     percents: number;
     amount: number;
-}
+};
 
 const discount: Discount = {
     percents: 20,
-    amount: 1794
+    amount: 1794,
 };
 
 const items = [
     { id: '1', name: 'Раздел душа', price: 2990 },
     { id: '2', name: 'Раздел душа', price: 2990 },
-    { id: '3', name: 'Раздел душа', price: 2990 }
+    { id: '3', name: 'Раздел душа', price: 2990 },
 ];
-
 
 type CheckoutDisplayProps = {
     className?: string;
-    errorMessage?: string
+    errorMessage?: string;
     onPaymentClick: () => void;
-}
+    isCart: boolean;
+};
 
-export default function CheckoutDisplay({ onPaymentClick, className, errorMessage}: CheckoutDisplayProps) {
+export default function CheckoutDisplay({
+    isCart,
+    onPaymentClick,
+    className,
+    errorMessage,
+}: CheckoutDisplayProps) {
     const price = 11212;
 
     return (
         <section
-            className={cn("rounded-3xl sm:rounded-[3rem] py-12 px-7 sm:px-10 border-2 border-white/20 max-w-85 sm:max-w-182 sm:w-full backdrop-blur-sm bg-card-backdrop-gray/50", className)}
+            className={cn(
+                'max-w-85 rounded-3xl border-2 border-white/20 bg-card-backdrop-gray/50 px-7 py-12 backdrop-blur-sm sm:w-full sm:max-w-182 sm:rounded-[3rem] sm:px-10',
+                className,
+            )}
             role="region"
             aria-labelledby="checkout-heading"
         >
             <h3
                 id="checkout-heading"
-                className="font-bold text-xl sm:text-2xl mb-6.5"
+                className="mb-6.5 text-xl font-bold sm:text-2xl"
             >
                 Выбрано:
             </h3>
             <ul
-                className="space-y-3 mb-5 sm:mb-7"
+                className="mb-5 space-y-3 sm:mb-7"
                 role="list"
                 aria-label="Выбранные товары"
             >
-                {items.map(item => (
+                {items.map((item) => (
                     <CheckoutItem
                         key={item.id}
                         price={item.price}
@@ -83,41 +82,41 @@ export default function CheckoutDisplay({ onPaymentClick, className, errorMessag
                     <Field className="relative w-full">
                         <Label className="sr-only">Промокод</Label>
                         <Input
-                            className="w-full peer bg-white placeholder:text-gray-500 text-slate-700 text-sm sm:text-base border-2 border-slate-200 rounded-full h-full pr-5 pl-11 py-2 transition duration-300 ease focus:outline-none focus:border-light-swamp hover:border-light-swamp shadow-sm focus:shadow" placeholder="Промокод"
+                            className="peer ease h-full w-full rounded-full border-2 border-slate-200 bg-white py-2 pr-5 pl-11 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-gray-500 hover:border-light-swamp focus:border-light-swamp focus:shadow focus:outline-none sm:text-base"
+                            placeholder="Промокод"
                         />
-                        <Tag className="size-5 absolute top-1/2 -translate-y-1/2 left-4 transition duration-300 ease text-slate-500 peer-focus:text-light-swamp" />
+                        <Tag className="ease absolute top-1/2 left-4 size-5 -translate-y-1/2 text-slate-500 transition duration-300 peer-focus:text-light-swamp" />
                     </Field>
 
-                    <PrimaryBtn
-                        className="size-11 sm:w-auto flex p-1 sm:px-6 shrink-0 items-center justify-center"
-                    >
+                    <PrimaryBtn className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6">
                         <Check className="size-4/5 text-white sm:hidden" />
                         <span className="hidden sm:block">Применить</span>
                     </PrimaryBtn>
                 </div>
-                {errorMessage != null &&
+                {errorMessage != null && (
                     <div
                         role="alert"
                         aria-live="polite"
-                        className="mt-5 text-red-500 text-xl sm:text-2xl"
+                        className="mt-5 text-xl text-red-500 sm:text-2xl"
                     >
                         {errorMessage}
-                    </div>}
-                {discount != null &&
+                    </div>
+                )}
+                {discount != null && (
                     <div
                         role="status"
                         aria-live="polite"
                         aria-label={`Применена скидка ${discount.percents} процентов на сумму ${discount.amount} рублей`}
-                        className="flex mt-5 sm:mt-7 text-xl sm:text-2xl text-very-bright-salad items-center gap-2 justify-between"
+                        className="mt-5 flex items-center justify-between gap-2 text-xl text-very-bright-salad sm:mt-7 sm:text-2xl"
                     >
                         <span>{`Скидка ${discount.percents}%`}</span>
                         <span>{`-${discount.amount} Р`}</span>
                     </div>
-                }
+                )}
             </div>
 
             <div
-                className="flex mt-5 text-xl sm:text-2xl sm:mt-7 text-white font-bold items-center gap-2 justify-between"
+                className="mt-5 flex items-center justify-between gap-2 text-xl font-bold text-white sm:mt-7 sm:text-2xl"
                 role="group"
                 aria-label="Итоговая сумма заказа"
             >
@@ -132,13 +131,17 @@ export default function CheckoutDisplay({ onPaymentClick, className, errorMessag
 
             <PrimaryBtn
                 onClick={onPaymentClick}
-                className="w-full mt-10 sm:text-lg"
+                className="mt-10 w-full sm:text-lg"
             >
-                Перейти к оплате
-                <ArrowRight className="inline size-5 sm:size-6 ml-2 text-white" />
+                {isCart ? (
+                    <span>
+                        Перейти к оплате
+                        <ArrowRight className="ml-2 inline size-5 text-white sm:size-6" />
+                    </span>
+                ) : (
+                    <span className='font-bold uppercase'>Оплатить</span>
+                )}
             </PrimaryBtn>
-
-
         </section>
-    )
+    );
 }
