@@ -1,18 +1,19 @@
-import TinyHero1 from '@/assets/images/tier/tiers-soul-tiny.webp';
+import TierBgTiny1 from '@/assets/images/tier/tiers-bg-1-tiny.webp';
+import TierBg1 from '@/assets/images/tier/tiers-bg-1.webp';
+import TierBgTiny2 from '@/assets/images/tier/tiers-bg-2-tiny.webp';
+import TierBg2 from '@/assets/images/tier/tiers-bg-2.webp';
 import TinyHero2 from '@/assets/images/tier/tiers-food-tiny.webp';
+import Hero2 from '@/assets/images/tier/tiers-food.webp';
+import TinyHero1 from '@/assets/images/tier/tiers-soul-tiny.webp';
+import Hero1 from '@/assets/images/tier/tiers-soul.webp';
 import TinyHero3 from '@/assets/images/tier/tiers-sport-tiny.webp';
 import Hero3 from '@/assets/images/tier/tiers-sport.webp';
-import Hero2 from '@/assets/images/tier/tiers-food.webp';
-import Hero1 from '@/assets/images/tier/tiers-soul.webp';
-import TierBg1 from '@/assets/images/tier/tiers-bg-1.webp';
-import TierBg2 from '@/assets/images/tier/tiers-bg-2.webp';
-import TierBgTiny2 from '@/assets/images/tier/tiers-bg-2-tiny.webp';
-import TierBgTiny1 from '@/assets/images/tier/tiers-bg-1-tiny.webp';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import CheckoutDisplay from '@/components/user/organisms/checkout-display';
 import UserLayout from '@/layouts/user/user-layout';
 import { cn } from '@/lib/utils';
+import { Checkbox } from '@headlessui/react';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
@@ -124,13 +125,36 @@ type TierCardProps = {
 };
 
 function TierCard({ tier, className }: TierCardProps) {
+    const [enabled, setEnabled] = useState(false);
+
     return (
         <article
             className={cn(
-                'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
-                className,
+                'relative max-w-85 rounded-[3rem] transition duration-500 ease-in border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
+                className, !enabled && 'grayscale'
             )}
         >
+            <Checkbox
+                checked={enabled}
+                onChange={setEnabled}
+                className="group block size-12 absolute -left-3 -top-3 rounded-md cursor-pointer ring-5 ring-slate-700/20 bg-dark-white"
+            >
+                {/* Checkmark icon */}
+                <svg
+                    className="stroke-slate-700 opacity-0 group-data-checked:opacity-100"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                >
+                    <path
+                        transform="translate(0, -1)"
+                        d="M3 8L6 11L11 5.5"
+                        strokeWidth={1}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                    />
+                </svg>
+            </Checkbox>
+
             <LazyImage
                 img={tier.img}
                 tinyImg={tier.tinyImage}
