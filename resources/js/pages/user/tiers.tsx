@@ -10,6 +10,7 @@ import TinyHero3 from '@/assets/images/tier/tiers-sport-tiny.webp';
 import Hero3 from '@/assets/images/tier/tiers-sport.webp';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
+import TierSignUp from '@/components/user/molecules/tier-sign-up';
 import CheckoutDisplay from '@/components/user/organisms/checkout-display';
 import UserLayout from '@/layouts/user/user-layout';
 import { cn } from '@/lib/utils';
@@ -19,6 +20,23 @@ import { useState } from 'react';
 
 export default function Tiers() {
     const [isCart, setCartPage] = useState(true);
+    const [username, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [telegram, setTelegram] = useState('');
+    const [agreedData, setAgreedData] = useState(false);
+    const [agreedPolicy, setAgreedPolicy] = useState(false);
+
+    function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
+        setEmail(e.target.value);
+    }
+
+    function changeUserName(e: React.ChangeEvent<HTMLInputElement>) {
+        setUserName(e.target.value);
+    }
+
+    function changeTelegram(e: React.ChangeEvent<HTMLInputElement>) {
+        setTelegram(e.target.value);
+    }
 
     function handlePaymentClick() {
         setCartPage(false);
@@ -45,12 +63,17 @@ export default function Tiers() {
                 tinyImg={TierBgTiny2}
             />
 
-            <h1 className="relative z-20 -mx-3 my-13 sm:mx-0 sm:my-20 lg:my-25">
+            <h1
+                className={cn(
+                    'relative z-20 -mx-3 my-13 sm:mt-20 lg:mt-25',
+                    !isCart && 'mb-4 sm:mb-8 lg:mb-10',
+                )}
+            >
                 <SpanHighlight
                     text={cn(
                         isCart ? 'Выберите разделы,' : 'Оформление заказа',
                     )}
-                    className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
+                    className="mx-auto mt-[0.1em] text-[3.8rem] text-white sm:text-[6rem] lg:text-[8rem]"
                 />
                 <span
                     className={cn(
@@ -62,14 +85,19 @@ export default function Tiers() {
                 </span>
             </h1>
 
-            <div className="relative z-20 mt-26 flex flex-col items-center gap-13 sm:mt-16 xl:flex-row xl:items-start">
-                <div className="relative flex-1">
+            <div
+                className={cn(
+                    'relative z-20 flex flex-col items-center gap-13 xl:flex-row xl:items-start',
+                    isCart ? 'mt-26 sm:mt-16' : 'mt-13 sm:mt-8',
+                )}
+            >
+                <div className="relative">
                     <ul
                         className={cn(
-                            'mx-auto space-y-24 transition-all duration-1000 ease-in-out sm:space-y-6',
+                            'mx-auto space-y-24 overflow-y-clip pt-5 transition-all duration-1500 ease-in-out sm:space-y-6',
                             !isCart
-                                ? 'pointer-events-none absolute top-0 left-0 opacity-0'
-                                : '',
+                                ? 'pointer-events-none max-h-0 opacity-0'
+                                : 'max-h-500',
                         )}
                     >
                         {sections.map((section, idx) => (
@@ -86,20 +114,27 @@ export default function Tiers() {
 
                     <div
                         className={cn(
-                            'transition-opacity duration-1000 ease-in-out',
+                            'overflow-hidden transition-all duration-1500 ease-in-out',
                             isCart
-                                ? 'pointer-events-none absolute inset-0 opacity-0'
-                                : 'opacity-100',
+                                ? 'pointer-events-none max-h-0 opacity-0'
+                                : 'max-h-500',
                         )}
                     >
-                        placeholder
+                        <TierSignUp
+                            email={email}
+                            userName={username}
+                            telegram={telegram}
+                            changeTelegram={changeTelegram}
+                            changeEmail={changeEmail}
+                            changeName={changeUserName}
+                        />
                     </div>
                 </div>
 
                 <CheckoutDisplay
                     isCart={isCart}
                     onPaymentClick={handlePaymentClick}
-                    className="shrink-0 xl:w-110 2xl:w-135"
+                    className="mt-5 shrink-0 xl:w-110 2xl:w-135"
                 />
             </div>
 
@@ -130,14 +165,15 @@ function TierCard({ tier, className }: TierCardProps) {
     return (
         <article
             className={cn(
-                'relative max-w-85 rounded-[3rem] transition duration-500 ease-in border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
-                className, !enabled && 'grayscale'
+                'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm transition duration-500 ease-in sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
+                className,
+                !enabled && 'grayscale',
             )}
         >
             <Checkbox
                 checked={enabled}
                 onChange={setEnabled}
-                className="group block size-12 absolute -left-3 -top-3 rounded-md cursor-pointer ring-5 ring-slate-700/20 bg-dark-white"
+                className="group absolute -top-3 -left-3 block size-12 cursor-pointer rounded-md bg-dark-white ring-5 ring-slate-700/20"
             >
                 {/* Checkmark icon */}
                 <svg
