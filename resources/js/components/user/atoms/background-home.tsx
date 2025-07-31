@@ -1,16 +1,26 @@
-import MobileBg from "@/assets/images/home/hero/mobile.webp";
-import TabletBg from "@/assets/images/home/hero/tablet.webp";
-import DesktopBg from "@/assets/images/home/hero/desktop.webp";
-import TinyDesktopBg from "@/assets/images/home/hero/desktop-tiny.webp";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import TinyDesktopBg from '@/assets/images/home/hero/home-bg-desktop-tiny.webp';
+import TinyTabletBg from '@/assets/images/home/hero/home-bg-tablet-tiny.webp';
+import TinyMobileBg from '@/assets/images/home/hero/home-bg-mobile-tiny.webp';
+import DesktopBg from '@/assets/images/home/hero/home-bg-desktop.webp';
+import MobileBg from '@/assets/images/home/hero/home-bg-mobile.webp';
+import TabletBg from '@/assets/images/home/hero/home-bg-tablet.webp';
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 export default function BackgroundHome() {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
-        <div aria-hidden="true" className="absolute bg-main-page-bg inset-0 -z-5 overflow-clip pointer-events-none">
-            <picture className={cn("w-full block object-center object-cover size-full transition-all duration-500 ease-in-out", isLoading && 'opacity-0')}>
+        <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-5 overflow-clip bg-main-page-bg"
+        >
+            <picture
+                className={cn(
+                    'block size-full w-full object-cover object-center transition-all duration-500 ease-in-out',
+                    isLoading && 'opacity-0',
+                )}
+            >
                 <source
                     srcSet={DesktopBg}
                     media="(min-width: 1024px)"
@@ -23,24 +33,44 @@ export default function BackgroundHome() {
                     onLoad={() => setIsLoading(false)}
                     src={MobileBg}
                     alt=""
-                    className="object-cover object-left-top w-full block"
+                    className="block w-full object-cover object-left-top"
                 />
             </picture>
 
             <div
                 role="status"
                 aria-label="Фото загружается"
-                className="inset-0 absolute -z-5 flex items-center justify-center w-full h-full max-h-screen"
+                className="absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center"
             >
                 <div
                     aria-hidden="true"
-                    className={cn(isLoading && "animate-pulse size-full bg-gray-200/50 absolute inset-0")}
+                    className={cn(
+                        isLoading &&
+                            'absolute inset-0 size-full animate-pulse bg-gray-200/50',
+                    )}
                 ></div>
 
-                <img
+                <picture
                     aria-hidden="true"
-                    src={TinyDesktopBg} alt="" className="object-center object-cover size-full"
-                />
+                    className={cn(
+                        'block size-full w-full object-cover object-center transition-all duration-500 ease-in-out'
+                    )}
+                >
+                    <source
+                        srcSet={TinyDesktopBg}
+                        media="(min-width: 1024px)"
+                    />
+                    <source
+                        srcSet={TinyTabletBg}
+                        media="(min-width: 640px)"
+                    />
+                    <img
+                        onLoad={() => setIsLoading(false)}
+                        src={TinyMobileBg}
+                        alt=""
+                        className="block w-full object-cover object-left-top"
+                    />
+                </picture>
             </div>
         </div>
     );

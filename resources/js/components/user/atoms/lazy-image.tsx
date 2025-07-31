@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { cn } from '@/lib/utils';
+import { useState } from 'react';
 
 type LazyImageProps = {
     parentClass?: string;
@@ -7,15 +7,21 @@ type LazyImageProps = {
     img: string;
     alt: string;
     tinyImg: string;
-}
+};
 
-export default function LazyImage({ parentClass, imgClass, img, alt, tinyImg }: LazyImageProps) {
+export default function LazyImage({
+    parentClass,
+    imgClass,
+    img,
+    alt,
+    tinyImg,
+}: LazyImageProps) {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
         <figure
             role="img"
-            className={cn("overflow-clip relative", parentClass)}
+            className={cn('relative overflow-clip', parentClass)}
             aria-label={alt}
         >
             <img
@@ -24,8 +30,9 @@ export default function LazyImage({ parentClass, imgClass, img, alt, tinyImg }: 
                 alt={alt}
                 loading="lazy"
                 className={cn(
-                    'object-center object-cover size-full transition-all duration-500 ease-in-out', imgClass,
-                    isLoading && 'opacity-0'
+                    'size-full object-cover object-center transition-all duration-500 ease-in-out',
+                    imgClass,
+                    isLoading && 'opacity-0',
                 )}
                 aria-hidden={isLoading}
             />
@@ -33,19 +40,21 @@ export default function LazyImage({ parentClass, imgClass, img, alt, tinyImg }: 
                 <div
                     role="status"
                     aria-label="Фото загружается"
-                    className="inset-0 absolute z-10 flex items-center justify-center"
+                    className="absolute inset-0 z-10 flex items-center justify-center"
                 >
                     <div
                         aria-hidden="true"
-                        className="animate-pulse size-full bg-gray-200/50 absolute z-10 inset-0"
+                        className="absolute inset-0 z-10 size-full animate-pulse bg-gray-200/50"
                     ></div>
 
                     <img
                         aria-hidden={!isLoading}
-                        src={tinyImg} alt={alt} className="object-center object-cover size-full"
+                        src={tinyImg}
+                        alt={alt}
+                        className="size-full object-cover object-center"
                     />
                 </div>
             )}
         </figure>
-    )
+    );
 }

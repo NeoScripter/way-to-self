@@ -1,8 +1,8 @@
 import Logo from "@/components/user/atoms/logo";
 import PrimaryBtn from "@/components/user/atoms/primary-btn";
 import { cn } from "@/lib/utils";
-import LargeBg from "@/assets/images/shared/404.webp";
-import TinyLargeBg from "@/assets/images/shared/404-tiny.webp";
+import LargeBg from "@/assets/images/shared/404-desktop.webp";
+import TinyLargeBg from "@/assets/images/shared/404-desktop-tiny.webp";
 import MobileBg from "@/assets/images/shared/404-tablet.webp";
 import TinyMobileBg from "@/assets/images/shared/404-tablet-tiny.webp";
 import useMediaQuery from "@/hooks/use-media-query";

@@ -1,12 +1,12 @@
 import SecondaryBtn from "@/components/user/atoms/secondary-btn";
 import SpanHighlight from "@/components/user/atoms/span-highlight";
 import { PlayIcon } from '@heroicons/react/24/solid'
-import Hero1 from "@/assets/images/home/hero-1.webp";
-import TinyHero1 from "@/assets/images/home/hero-1-tiny.webp";
-import Hero2 from "@/assets/images/home/hero-2.webp";
-import TinyHero2 from "@/assets/images/home/hero-2-tiny.webp";
-import Hero3 from "@/assets/images/home/hero-3.webp";
-import TinyHero3 from "@/assets/images/home/hero-3-tiny.webp";
+import Hero1 from "@/assets/images/home/home-soul.webp";
+import TinyHero1 from "@/assets/images/home/home-soul-tiny.webp";
+import Hero2 from "@/assets/images/home/home-food.webp";
+import TinyHero2 from "@/assets/images/home/home-food-tiny.webp";
+import Hero3 from "@/assets/images/home/home-sport.webp";
+import TinyHero3 from "@/assets/images/home/home-sport-tiny.webp";
 import HomeCardLayout from "@/components/user/molecules/home-card-layout";
 import LazyImage from "../../atoms/lazy-image";
 

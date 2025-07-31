@@ -2,7 +2,7 @@ import useToggle from "@/hooks/use-toggle";
 import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
 import MobileBtnSvg from "@/assets/svgs/mobile-btn.svg";
-import MenuBg from "@/assets/images/shared/mobile-nav-bg.webp";
+import MenuBg from "@/assets/images/home/home-nav-bg.webp";
 import { Link, usePage } from "@inertiajs/react";
 import PrimaryBtn from "../atoms/primary-btn";
 import RedBtn from "../atoms/red-btn";
