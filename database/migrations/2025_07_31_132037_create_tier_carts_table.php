@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tiers', function (Blueprint $table) {
+        Schema::create('tier_carts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->unsignedInteger('price');
-            $table->unsignedInteger('tier_cart_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->string('session_id')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tiers');
+        Schema::dropIfExists('tier_carts');
     }
 };

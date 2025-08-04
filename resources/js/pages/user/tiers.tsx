@@ -14,11 +14,17 @@ import TierSignUp from '@/components/user/molecules/tier-sign-up';
 import CheckoutDisplay from '@/components/user/organisms/checkout-display';
 import UserLayout from '@/layouts/user/user-layout';
 import { cn } from '@/lib/utils';
+import { Tier } from '@/types/model';
 import { Checkbox } from '@headlessui/react';
+import { usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Tiers() {
+    const { tiers } = usePage<{tiers: Tier[]}>().props;
+
+    console.log(tiers);
+
     const [isCart, setCartPage] = useState(true);
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -100,10 +106,10 @@ export default function Tiers() {
                                 : 'max-h-500',
                         )}
                     >
-                        {sections.map((section, idx) => (
-                            <li key={section.id}>
+                        {tiers.map((tier, idx) => (
+                            <li key={tier.id}>
                                 <TierCard
-                                    tier={section}
+                                    tier={tier}
                                     className={cn(
                                         idx !== 1 ? 'pt-28' : 'sm:gap-10',
                                     )}
@@ -127,6 +133,10 @@ export default function Tiers() {
                             changeTelegram={changeTelegram}
                             changeEmail={changeEmail}
                             changeName={changeUserName}
+                            agreedData={agreedData}
+                            agreedPolicy={agreedPolicy}
+                            setAgreedData={setAgreedData}
+                            setAgreedPolicy={setAgreedPolicy}
                         />
                     </div>
                 </div>
@@ -155,7 +165,7 @@ export default function Tiers() {
 }
 
 type TierCardProps = {
-    tier: Section;
+    tier: Tier;
     className?: string;
 };
 
@@ -191,18 +201,18 @@ function TierCard({ tier, className }: TierCardProps) {
                 </svg>
             </Checkbox>
 
-            <LazyImage
-                img={tier.img}
-                tinyImg={tier.tinyImage}
-                alt={tier.altText}
+            {tier.image && <LazyImage
+                img={tier.image.path}
+                tinyImg={tier.image.tiny_path}
+                alt={tier.image.alt}
                 parentClass="absolute -top-24 left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 w-48 mb-4 sm:w-60 sm:shrink-0 sm:mx-0"
                 imgClass="object-contain"
-            />
+            />}
 
             <div className="">
                 <header>
                     <h2 className="mb-4 text-center font-heading text-4xl sm:text-left sm:text-5xl md:mb-7 lg:text-6xl">
-                        {tier.title}
+                        {tier.name}
                     </h2>
                 </header>
 
@@ -241,44 +251,3 @@ function AmbientBackdrop({ shouldFade, img, tinyImg }: AmbientBackdropProps) {
         </div>
     );
 }
-
-type Section = {
-    id: number;
-    title: string;
-    description: string;
-    img: string;
-    tinyImage: string;
-    altText: string;
-};
-
-const sections: Section[] = [
-    {
-        id: 1,
-        title: 'Душа',
-        description:
-            'Если вы часто испытываете стресс, сталкиваетесь с проблемами со сном, ваши мысли постоянно кружатся в голове, и вы чувствуете нервозность и беспокойство, ищите душевный баланс — этот раздел создан для вас.',
-        img: Hero1,
-        tinyImage: TinyHero1,
-        altText:
-            'Девушка в позе лотоса медитирует, сидя на полу в зелёной спортивной одежде',
-    },
-    {
-        id: 2,
-        title: 'Питание',
-        description:
-            'Если вы сталкиваетесь с избыточным весом, проблемами ЖКТ и общими сложностями со здоровьем, нутрициолог предложил вам план питания, но рецептов недостаточно и их сложно организовать, и вы ищете идеи для здоровых и питательных блюд — этот раздел для вас.',
-        img: Hero2,
-        tinyImage: TinyHero2,
-        altText:
-            'Зелёная миска, наполненная свежим овощным салатом с помидорами, огурцами и зеленью',
-    },
-    {
-        id: 3,
-        title: 'Тело',
-        description:
-            'Если у вас нет времени на поддержание физической активности, но вы хотите поддерживать свое тело в хорошей форме, испытываете одышку при активности, плохое самочувствие без особых причин, страдаете от избыточного веса и ощущения скованности и прочего — этот раздел создан для вас.',
-        img: Hero3,
-        tinyImage: TinyHero3,
-        altText: 'Пара зелёных гантелей для фитнеса',
-    },
-];

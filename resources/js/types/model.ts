@@ -39,3 +39,21 @@ export type Review = {
     updated_at?: string;
     image?: Image;
 };
+export type Tier = {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    tier_cart_id?: number;
+    created_at?: string;
+    updated_at?: string;
+    images?: Image;
+    image?: Image;
+};
+export type TierCart = {
+    id: number;
+    user_id?: number;
+    session_id?: string;
+    created_at?: string;
+    updated_at?: string;
+};
