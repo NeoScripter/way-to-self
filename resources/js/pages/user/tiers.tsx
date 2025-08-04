@@ -2,12 +2,6 @@ import TierBgTiny1 from '@/assets/images/tier/tiers-bg-1-tiny.webp';
 import TierBg1 from '@/assets/images/tier/tiers-bg-1.webp';
 import TierBgTiny2 from '@/assets/images/tier/tiers-bg-2-tiny.webp';
 import TierBg2 from '@/assets/images/tier/tiers-bg-2.webp';
-import TinyHero2 from '@/assets/images/tier/tiers-food-tiny.webp';
-import Hero2 from '@/assets/images/tier/tiers-food.webp';
-import TinyHero1 from '@/assets/images/tier/tiers-soul-tiny.webp';
-import Hero1 from '@/assets/images/tier/tiers-soul.webp';
-import TinyHero3 from '@/assets/images/tier/tiers-sport-tiny.webp';
-import Hero3 from '@/assets/images/tier/tiers-sport.webp';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import TierSignUp from '@/components/user/molecules/tier-sign-up';
@@ -16,14 +10,13 @@ import UserLayout from '@/layouts/user/user-layout';
 import { cn } from '@/lib/utils';
 import { Tier } from '@/types/model';
 import { Checkbox } from '@headlessui/react';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Tiers() {
-    const { tiers } = usePage<{tiers: Tier[]}>().props;
-
-    console.log(tiers);
+    const { tiers, added } = usePage<{ tiers: Tier[]; added: number[] }>()
+        .props;
 
     const [isCart, setCartPage] = useState(true);
     const [username, setUserName] = useState('');
@@ -110,6 +103,7 @@ export default function Tiers() {
                             <li key={tier.id}>
                                 <TierCard
                                     tier={tier}
+                                    selected={added.includes(tier.id)}
                                     className={cn(
                                         idx !== 1 ? 'pt-28' : 'sm:gap-10',
                                     )}
@@ -167,22 +161,25 @@ export default function Tiers() {
 type TierCardProps = {
     tier: Tier;
     className?: string;
+    selected: boolean;
 };
 
-function TierCard({ tier, className }: TierCardProps) {
-    const [enabled, setEnabled] = useState(false);
+function TierCard({ tier, className, selected }: TierCardProps) {
+    function onChange() {
+        router.visit(`/tier-cart/${tier.id}`, { method: 'post',  preserveScroll: true, preserveState: true });
+    }
 
     return (
         <article
             className={cn(
                 'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm transition duration-500 ease-in sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
                 className,
-                !enabled && 'grayscale',
+                !selected && 'grayscale',
             )}
         >
             <Checkbox
-                checked={enabled}
-                onChange={setEnabled}
+                checked={selected}
+                onChange={onChange}
                 className="group absolute -top-3 -left-3 block size-12 cursor-pointer rounded-md bg-dark-white ring-5 ring-slate-700/20"
             >
                 {/* Checkmark icon */}
@@ -201,13 +198,15 @@ function TierCard({ tier, className }: TierCardProps) {
                 </svg>
             </Checkbox>
 
-            {tier.image && <LazyImage
-                img={tier.image.path}
-                tinyImg={tier.image.tiny_path}
-                alt={tier.image.alt}
-                parentClass="absolute -top-24 left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 w-48 mb-4 sm:w-60 sm:shrink-0 sm:mx-0"
-                imgClass="object-contain"
-            />}
+            {tier.image && (
+                <LazyImage
+                    img={tier.image.path}
+                    tinyImg={tier.image.tiny_path}
+                    alt={tier.image.alt}
+                    parentClass="absolute -top-24 left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 w-48 mb-4 sm:w-60 sm:shrink-0 sm:mx-0"
+                    imgClass="object-contain"
+                />
+            )}
 
             <div className="">
                 <header>

@@ -49,6 +49,7 @@ export type Tier = {
     updated_at?: string;
     images?: Image;
     image?: Image;
+    cart?: TierCart;
 };
 export type TierCart = {
     id: number;
@@ -56,4 +57,5 @@ export type TierCart = {
     session_id?: string;
     created_at?: string;
     updated_at?: string;
+    items?: Tier[];
 };

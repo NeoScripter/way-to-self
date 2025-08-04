@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\TierController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\TierCartController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,6 +13,7 @@ Route::get('/shop', function () {
 })->name('shop');
 
 Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
+Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('cart.tiers.update');
 
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
