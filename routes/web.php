@@ -14,6 +14,7 @@ Route::get('/shop', function () {
 
 Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
 Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('cart.tiers.update');
+Route::post('/empty-cart', [TierCartController::class, 'empty'])->name('cart.tiers.empty');
 
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

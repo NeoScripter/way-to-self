@@ -44,12 +44,11 @@ export type Tier = {
     name: string;
     description: string;
     price: number;
-    tier_cart_id?: number;
     created_at?: string;
     updated_at?: string;
     images?: Image;
     image?: Image;
-    cart?: TierCart;
+    cart?: TierCart[];
 };
 export type TierCart = {
     id: number;
@@ -57,5 +56,5 @@ export type TierCart = {
     session_id?: string;
     created_at?: string;
     updated_at?: string;
-    items?: Tier[];
+    tiers?: Tier[];
 };

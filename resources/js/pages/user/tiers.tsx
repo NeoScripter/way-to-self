@@ -48,7 +48,7 @@ export default function Tiers() {
     return (
         <UserLayout
             layoutClass="text-white relative bg-main-page-bg"
-            pageClass="px-3 pb-18 sm:px-6.5 md:pb-16 xl:pb-33.5 2xl:px-14 2xl:pb-20 3xl:px-45"
+            pageClass="px-3 pb-18 sm:px-6.5 md:pb-16 xl:pb-23.5 2xl:px-14 2xl:pb-20 3xl:px-45"
         >
             <AmbientBackdrop
                 shouldFade={!isCart}
@@ -93,7 +93,7 @@ export default function Tiers() {
                 <div className="relative">
                     <ul
                         className={cn(
-                            'mx-auto space-y-24 overflow-y-clip pt-5 transition-all duration-1500 ease-in-out sm:space-y-6',
+                            'mx-auto space-y-24 md:overflow-y-clip pt-5 transition-all duration-1500 ease-in-out sm:space-y-6',
                             !isCart
                                 ? 'pointer-events-none max-h-0 opacity-0'
                                 : 'max-h-500',
@@ -114,7 +114,7 @@ export default function Tiers() {
 
                     <div
                         className={cn(
-                            'overflow-hidden transition-all duration-1500 ease-in-out',
+                            'md:overflow-clip transition-all duration-1500 ease-in-out',
                             isCart
                                 ? 'pointer-events-none max-h-0 opacity-0'
                                 : 'max-h-500',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Tier;
 use App\Models\TierCart;
+use App\Models\User;
 
 class TierCartController extends Controller
 {
@@ -12,11 +13,13 @@ class TierCartController extends Controller
     {
         $cart = TierCart::getCart();
 
-        if ($cart->items()->where('id', $tier->id)->exists()) {
-            $cart->items()->where('id', $tier->id)->update(['tier_cart_id' => null]);
-        } else {
-            $cart->items()->save($tier);
-        }
+        $cart->tiers()->toggle($tier->id);
 
+    }
+
+    public function empty()
+    {
+        $cart = TierCart::getCart();
+        $cart->tiers()->detach();
     }
 }

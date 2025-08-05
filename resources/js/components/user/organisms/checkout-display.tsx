@@ -1,6 +1,9 @@
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
+import formatCurrency from '@/lib/helpers/formatCurrency';
 import { cn } from '@/lib/utils';
+import { Tier } from '@/types/model';
 import { Field, Input, Label } from '@headlessui/react';
+import { router, usePage } from '@inertiajs/react';
 import { ArrowRight, Check, Tag } from 'lucide-react';
 
 function CheckoutItem({ name, price }: { name: string; price: number }) {
@@ -11,7 +14,7 @@ function CheckoutItem({ name, price }: { name: string; price: number }) {
                 className="tabular-nums"
                 aria-label={`Цена: ${price}`}
             >
-                {`${price} P`}
+                {formatCurrency(price)}
             </span>
         </li>
     );
@@ -21,17 +24,6 @@ type Discount = {
     percents: number;
     amount: number;
 };
-
-const discount: Discount = {
-    percents: 20,
-    amount: 1794,
-};
-
-const items = [
-    { id: '1', name: 'Раздел душа', price: 2990 },
-    { id: '2', name: 'Раздел душа', price: 2990 },
-    { id: '3', name: 'Раздел душа', price: 2990 },
-];
 
 type CheckoutDisplayProps = {
     className?: string;
@@ -46,7 +38,22 @@ export default function CheckoutDisplay({
     className,
     errorMessage,
 }: CheckoutDisplayProps) {
-    const price = 11212;
+    const { tiers, added, total, discount} = usePage<{
+        tiers: Tier[];
+        added: number[];
+        total: number;
+        discount: Discount
+    }>().props;
+
+    const items = tiers.filter(tier => added.includes(tier.id));
+
+    function handleEmptyCart() {
+        router.visit(route('cart.tiers.empty'), {
+            method: 'post',
+            preserveScroll: true,
+            preserveState: true,
+        });
+    }
 
     return (
         <section
@@ -88,7 +95,9 @@ export default function CheckoutDisplay({
                         <Tag className="ease absolute top-1/2 left-4 size-5 -translate-y-1/2 text-slate-500 transition duration-300 peer-focus:text-light-swamp" />
                     </Field>
 
-                    <PrimaryBtn className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6">
+                    <PrimaryBtn
+                        className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6"
+                    >
                         <Check className="size-4/5 text-white sm:hidden" />
                         <span className="hidden sm:block">Применить</span>
                     </PrimaryBtn>
@@ -110,7 +119,7 @@ export default function CheckoutDisplay({
                         className="mt-5 flex items-center justify-between gap-2 text-xl text-very-bright-salad sm:mt-7 sm:text-2xl"
                     >
                         <span>{`Скидка ${discount.percents}%`}</span>
-                        <span>{`-${discount.amount} Р`}</span>
+                        <span>{formatCurrency(discount.amount)}</span>
                     </div>
                 )}
             </div>
@@ -122,15 +131,15 @@ export default function CheckoutDisplay({
             >
                 <span
                     className="tabular-nums"
-                    aria-label={`Итого к оплате: ${price}`}
+                    aria-label={`Итого к оплате: ${total}`}
                 >
                     Итого
                 </span>
-                <span>{`${price} Р`}</span>
+                <span>{formatCurrency(total)}</span>
             </div>
 
             <PrimaryBtn
-                onClick={onPaymentClick}
+                onClick={isCart ? onPaymentClick : handleEmptyCart}
                 className="mt-10 w-full sm:text-lg"
             >
                 {isCart ? (
@@ -139,7 +148,7 @@ export default function CheckoutDisplay({
                         <ArrowRight className="ml-2 inline size-5 text-white sm:size-6" />
                     </span>
                 ) : (
-                    <span className='font-bold uppercase'>Оплатить</span>
+                    <span className="font-bold uppercase">Оплатить</span>
                 )}
             </PrimaryBtn>
         </section>

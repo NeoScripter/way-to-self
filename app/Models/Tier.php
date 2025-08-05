@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
@@ -27,30 +28,8 @@ class Tier extends Model
         return $this->images()->where('type', 'image');
     }
 
-    public function cart(): BelongsTo
+    public function cart(): BelongsToMany
     {
-        return $this->belongsTo(TierCart::class);
-    }
-
-    protected function price(): Attribute
-    {
-        return Attribute::make(
-            get: function (int $value) {
-                return new Money($value, new Currency('RUB'));
-            }
-        );
-    }
-
-    public function getDecimalPrice(): string
-    {
-        if (! $this->price) {
-            return '';
-        }
-
-        $currencies = new ISOCurrencies;
-        $formatter = new DecimalMoneyFormatter($currencies);
-        $decimal = $formatter->format($this->price);
-
-        return $decimal;
+        return $this->belongsToMany(TierCart::class);
     }
 }
