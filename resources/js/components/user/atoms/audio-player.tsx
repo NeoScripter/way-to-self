@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import "../../../../css/audio-player.css";
 import PlayBtn from "@/assets/svgs/play.svg";
 import NextBtn from "@/assets/svgs/next.svg";
 import PauseBtn from "@/assets/svgs/pаuse.svg";

@@ -106,7 +106,7 @@ export default function ReviewsSection() {
                 <ul
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
-                    className="flex items-start w-max gap-4 sm:gap-6 md:gap-8 xl:gap-10 ml-4 sm:ml-11 2xl:ml-25 3xl:ml-40 transition-transform duration-400 ease-in-out" style={{ transform: `translateX(-${offset * state.currentIdx}px)` }}>
+                    className="flex w-max gap-4 sm:gap-6 md:gap-8 xl:gap-10 ml-4 sm:ml-11 2xl:ml-25 3xl:ml-40 transition-transform duration-400 ease-in-out" style={{ transform: `translateX(-${offset * state.currentIdx}px)` }}>
                     {reviews.map(review => (
                         <ReviewCard key={review.id} img={review.image} review={review.body} author={review.author} id={review.id} />
                     ))}

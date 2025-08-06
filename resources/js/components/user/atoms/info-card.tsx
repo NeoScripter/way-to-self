@@ -1,5 +1,3 @@
-import "../../../../css/info-card.css";
-
 type InfoCardProps = {
     img: string;
     alt: string;

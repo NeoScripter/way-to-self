@@ -26,6 +26,10 @@ export default function LazyImage({
         >
             <img
                 onLoad={() => setIsLoading(false)}
+                onError={(e) => {
+                    console.error('Image failed to load:', img, e);
+                    setIsLoading(false);
+                }}
                 src={img}
                 alt={alt}
                 loading="lazy"

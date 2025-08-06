@@ -29,7 +29,7 @@ export default function RatesSection() {
                 Подписка дает доступ к ресурсу на год с момента оформления.
             </p>
 
-            <PrimaryBtn className="mx-auto 2xl:text-xl">Получить доступ</PrimaryBtn>
+            <PrimaryBtn href={route('tiers.index')} className="mx-auto 2xl:text-xl">Получить доступ</PrimaryBtn>
         </>
     );
 }

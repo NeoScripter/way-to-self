@@ -1,17 +1,17 @@
-import SecondaryBtn from "@/components/user/atoms/secondary-btn";
-import SpanHighlight from "@/components/user/atoms/span-highlight";
-import { PlayIcon } from '@heroicons/react/24/solid'
-import Hero1 from "@/assets/images/home/home-soul.webp";
-import TinyHero1 from "@/assets/images/home/home-soul-tiny.webp";
-import Hero2 from "@/assets/images/home/home-food.webp";
-import TinyHero2 from "@/assets/images/home/home-food-tiny.webp";
-import Hero3 from "@/assets/images/home/home-sport.webp";
-import TinyHero3 from "@/assets/images/home/home-sport-tiny.webp";
-import HomeCardLayout from "@/components/user/molecules/home-card-layout";
-import LazyImage from "../../atoms/lazy-image";
+import TinyHero2 from '@/assets/images/home/home-food-tiny.webp';
+import Hero2 from '@/assets/images/home/home-food.webp';
+import TinyHero1 from '@/assets/images/home/home-soul-tiny.webp';
+import Hero1 from '@/assets/images/home/home-soul.webp';
+import TinyHero3 from '@/assets/images/home/home-sport-tiny.webp';
+import Hero3 from '@/assets/images/home/home-sport.webp';
+import SecondaryBtn from '@/components/user/atoms/secondary-btn';
+import SpanHighlight from '@/components/user/atoms/span-highlight';
+import HomeCardLayout from '@/components/user/molecules/home-card-layout';
+import scrollTo from '@/lib/helpers/scrollTo';
+import { PlayIcon } from '@heroicons/react/24/solid';
+import LazyImage from '../../atoms/lazy-image';
 
 export default function HeroSection() {
-
     const Hero = () => (
         <article
             className="max-w-141 2xl:max-w-175"
@@ -21,54 +21,56 @@ export default function HeroSection() {
             <header>
                 <h1
                     id="portal-title"
-                    className="text-4xl font-heading mb-7 sm:mb-10 sm:text-6xl max-w-73.5 sm:max-w-full 2xl:text-8xl"
+                    className="mb-7 max-w-73.5 font-heading text-4xl sm:mb-10 sm:max-w-full sm:text-6xl 2xl:text-8xl"
                 >
                     Время вспять
                     <br />
                     <SpanHighlight
                         text="путь к себе"
-                        className="text-[4rem] sm:text-[6rem] ml-auto mt-[0.1em] 2xl:text-[6rem]"
+                        className="mt-[0.1em] ml-auto text-[4rem] sm:text-[6rem] 2xl:text-[6rem]"
                     />
                 </h1>
             </header>
 
             <p
                 id="portal-description"
-                className="text-sm sm:text-base 2xl:text-xl mb-7 sm:mb-9"
+                className="mb-7 text-sm sm:mb-9 sm:text-base 2xl:text-xl"
             >
-                Портал о том, как улучшить или поддерживать свое здоровье и наслаждаться
-                жизнью в полной мере. Ресурс разделен на три ключевых аспекта человеческой
-                жизни, которые в совокупности способствуют общему благополучию: Душа, Тело
-                и Питание.
+                Портал о том, как улучшить или поддерживать свое здоровье и
+                наслаждаться жизнью в полной мере. Ресурс разделен на три
+                ключевых аспекта человеческой жизни, которые в совокупности
+                способствуют общему благополучию: Душа, Тело и Питание.
             </p>
 
-            <div className="flex items-center flex-wrap gap-4.5 text-sm sm:gap-7.5 sm:text-base xl:gap-9 2xl:text-xl">
-                <SecondaryBtn className="">Получить доступ</SecondaryBtn>
+            <div className="flex flex-wrap items-center gap-4.5 text-sm sm:gap-7.5 sm:text-base xl:gap-9 2xl:text-xl">
+                <SecondaryBtn href={route('tiers.index')}>
+                    Получить доступ
+                </SecondaryBtn>
 
                 <button
                     type="button"
-                    className="flex items-center gap-2 cursor-pointer hover:text-bright-salad transition-colors duration-200 ease-in group"
+                    className="group flex cursor-pointer items-center gap-2 transition-colors duration-200 ease-in hover:text-bright-salad"
                     aria-label="Смотреть видео о том, как это работает"
                 >
                     <span
-                        className="flex items-center justify-center border-2 group-hover:border-bright-salad transition-colors duration-200 ease-in border-white size-10.5 rounded-full sm:size-12.5"
+                        className="flex size-10.5 items-center justify-center rounded-full border-2 border-white transition-colors duration-200 ease-in group-hover:border-bright-salad sm:size-12.5"
                         aria-hidden="true"
                     >
-                        <PlayIcon className="size-6 ml-1 sm:size-7" />
+                        <PlayIcon className="ml-1 size-6 sm:size-7" />
                     </span>
                     Смотреть как это работает
                 </button>
             </div>
         </article>
-    )
+    );
 
     const Card1 = () => {
         return (
             <HomeCardLayout
-                className="pt-35.5 sm:max-w-171 sm:ml-auto xl:ml-0 xl:max-w-full xl:pt-60"
+                className="pt-35.5 sm:ml-auto sm:max-w-171 xl:ml-0 xl:max-w-full xl:pt-60"
                 ariaDesc="soul-section-description"
-                ariaLabel="soul-section-heading">
-
+                ariaLabel="soul-section-heading"
+            >
                 <LazyImage
                     img={Hero1}
                     tinyImg={TinyHero1}
@@ -76,11 +78,11 @@ export default function HeroSection() {
                     parentClass="absolute size-57 -top-23 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:size-70 xl:translate-y-0 xl:-translate-x-1/2 xl:left-1/2 xl:-top-28 xl:size-87"
                 />
 
-                <div className="sm:max-w-98.5 sm:ml-auto xl:max-w-full z-5">
+                <div className="z-5 sm:ml-auto sm:max-w-98.5 xl:max-w-full">
                     <header>
                         <h2
                             id="soul-section-heading"
-                            className="font-heading text-4xl text-center mb-4 sm:text-5xl md:text-6xl md:mb-7"
+                            className="mb-4 text-center font-heading text-4xl sm:text-5xl md:mb-7 md:text-6xl"
                         >
                             Душа
                         </h2>
@@ -88,31 +90,33 @@ export default function HeroSection() {
 
                     <p
                         id="soul-section-description"
-                        className="text-sm text-center text-balance sm:text-base 2xl:text-xl mb-5 md:mb-8"
+                        className="mb-5 text-center text-sm text-balance sm:text-base md:mb-8 2xl:text-xl"
                     >
-                        Если вы часто испытываете стресс, сталкиваетесь с проблемами со сном,
-                        ваши мысли постоянно кружатся в голове, и вы чувствуете нервозность и
-                        беспокойство, ищите душевный баланс — этот раздел создан для вас.
+                        Если вы часто испытываете стресс, сталкиваетесь с
+                        проблемами со сном, ваши мысли постоянно кружатся в
+                        голове, и вы чувствуете нервозность и беспокойство,
+                        ищите душевный баланс — этот раздел создан для вас.
                     </p>
 
                     <SecondaryBtn
-                        className="text-sm mx-auto sm:text-base 2xl:text-xl"
+                        onClick={() => scrollTo('#soul-section-title')}
+                        className="mx-auto text-sm sm:text-base 2xl:text-xl"
                         aria-label="Подробнее о душевном здоровье"
                     >
                         Подробнее
                     </SecondaryBtn>
                 </div>
-
-            </HomeCardLayout>)
-    }
+            </HomeCardLayout>
+        );
+    };
 
     const Card2 = () => {
         return (
             <HomeCardLayout
-                className="pt-24 sm:px-5 sm:flex sm:justify-between sm:items-center sm:gap-5 md:px-11 md:mr-auto md:py-11 lg:py-14 lg:gap-10 xl:w-3/4 xl:gap-12"
+                className="pt-24 sm:flex sm:items-center sm:justify-between sm:gap-5 sm:px-5 md:mr-auto md:px-11 md:py-11 lg:gap-10 lg:py-14 xl:w-3/4 xl:gap-12"
                 ariaDesc="food-section-description"
-                ariaLabel="food-section-heading">
-
+                ariaLabel="food-section-heading"
+            >
                 <LazyImage
                     img={Hero2}
                     tinyImg={TinyHero2}
@@ -120,12 +124,11 @@ export default function HeroSection() {
                     parentClass="absolute size-57 -top-28 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:order-2 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:-order-1 md:w-75"
                 />
 
-
-                <div className="md:max-w-full z-5">
+                <div className="z-5 md:max-w-full">
                     <header>
                         <h2
                             id="food-section-heading"
-                            className="font-heading text-4xl text-center mb-4 md:text-5xl lg:text-6xl md:mb-7"
+                            className="mb-4 text-center font-heading text-4xl md:mb-7 md:text-5xl lg:text-6xl"
                         >
                             Питание
                         </h2>
@@ -133,29 +136,34 @@ export default function HeroSection() {
 
                     <p
                         id="food-section-description"
-                        className="text-sm text-center text-balance md:text-base 2xl:text-xl mb-5 md:mb-8"
+                        className="mb-5 text-center text-sm text-balance md:mb-8 md:text-base 2xl:text-xl"
                     >
-                        Если вы сталкиваетесь с избыточным весом, проблемами ЖКТ и общими сложностями со здоровьем, нутрициолог предложил вам план питания, но рецептов недостаточно и их сложно организовать, и вы ищете идеи для здоровых и питательных блюд — этот раздел для вас.
+                        Если вы сталкиваетесь с избыточным весом, проблемами ЖКТ
+                        и общими сложностями со здоровьем, нутрициолог предложил
+                        вам план питания, но рецептов недостаточно и их сложно
+                        организовать, и вы ищете идеи для здоровых и питательных
+                        блюд — этот раздел для вас.
                     </p>
 
                     <SecondaryBtn
-                        className="text-sm mx-auto md:text-base 2xl:text-xl"
+                        onClick={() => scrollTo('#nutrition-section-title')}
+                        className="mx-auto text-sm sm:text-base 2xl:text-xl"
                         aria-label="Подробнее о питании"
                     >
                         Подробнее
                     </SecondaryBtn>
                 </div>
-
-            </HomeCardLayout>)
-    }
+            </HomeCardLayout>
+        );
+    };
 
     const Card3 = () => {
         return (
             <HomeCardLayout
-                className="pt-24 mb-0 sm:px-5 sm:flex sm:justify-between sm:items-center md:px-11 md:ml-auto md:py-11 lg:py-14 lg:gap-10 xl:w-3/4 xl:gap-12"
+                className="mb-0 pt-24 sm:flex sm:items-center sm:justify-between sm:px-5 md:ml-auto md:px-11 md:py-11 lg:gap-10 lg:py-14 xl:w-3/4 xl:gap-12"
                 ariaDesc="body-section-description"
-                ariaLabel="body-section-heading">
-
+                ariaLabel="body-section-heading"
+            >
                 <LazyImage
                     img={Hero3}
                     tinyImg={TinyHero3}
@@ -163,11 +171,11 @@ export default function HeroSection() {
                     parentClass="absolute w-44 -top-24 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:order-2 md:w-65 xl:w-75"
                 />
 
-                <div className="md:max-w-full z-5">
+                <div className="z-5 md:max-w-full">
                     <header>
                         <h2
                             id="body-section-heading"
-                            className="font-heading text-4xl text-center mb-4 md:text-5xl lg:text-6xl md:mb-7"
+                            className="mb-4 text-center font-heading text-4xl md:mb-7 md:text-5xl lg:text-6xl"
                         >
                             Тело
                         </h2>
@@ -175,21 +183,27 @@ export default function HeroSection() {
 
                     <p
                         id="body-section-description"
-                        className="text-sm text-center text-balance md:text-base 2xl:text-xl mb-5 md:mb-8"
+                        className="mb-5 text-center text-sm text-balance md:mb-8 md:text-base 2xl:text-xl"
                     >
-                        Если у вас нет времени на поддержание физической активности, но вы хотите поддерживать свое тело в хорошей форме, испытываете одышку при активности, плохое самочувствие без особых причин, страдаете от избыточного веса и ощущения скованности и прочего — этот раздел создан для вас.
+                        Если у вас нет времени на поддержание физической
+                        активности, но вы хотите поддерживать свое тело в
+                        хорошей форме, испытываете одышку при активности, плохое
+                        самочувствие без особых причин, страдаете от избыточного
+                        веса и ощущения скованности и прочего — этот раздел
+                        создан для вас.
                     </p>
 
                     <SecondaryBtn
-                        className="text-sm mx-auto md:text-base 2xl:text-xl"
-                        aria-label="Подробнее о питании"
+                        onClick={() => scrollTo('#body-section-title')}
+                        className="mx-auto text-sm sm:text-base 2xl:text-xl"
+                        aria-label="Подробнее о разделе тело"
                     >
                         Подробнее
                     </SecondaryBtn>
                 </div>
-
-            </HomeCardLayout>)
-    }
+            </HomeCardLayout>
+        );
+    };
 
     return (
         <>
@@ -203,5 +217,5 @@ export default function HeroSection() {
                 <Card3 />
             </div>
         </>
-    )
+    );
 }

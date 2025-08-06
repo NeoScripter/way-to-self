@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import LazyImage from "./lazy-image";
 
 type ArtLayerProps = {
     img: string;
@@ -8,8 +9,9 @@ type ArtLayerProps = {
 
 export default function ArtLayer({ img, className, imgClassName }: ArtLayerProps) {
     return (
-        <figure aria-hidden="true" className={cn("absolute overflow-clip pointer-events-none", className)}>
-            <img src={img} alt="" loading="lazy" className={cn("size-full object-center object-contain", imgClassName)} />
-        </figure>
+        <div aria-hidden="true" className={cn("absolute overflow-clip pointer-events-none", className)}>
+            <LazyImage img={img} tinyImg={img} alt="" imgClass={cn("size-full object-center object-contain", imgClassName)} />
+        </div>
+
     )
 }

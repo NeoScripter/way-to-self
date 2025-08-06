@@ -1,10 +1,10 @@
-import { Link } from "@inertiajs/react"
-import LazyImage from "./lazy-image"
-import { Article } from "@/types/model"
+import { Article } from '@/types/model';
+import { Link } from '@inertiajs/react';
+import LazyImage from './lazy-image';
 
 type ArticleCardProps = {
-    article: Article,
-}
+    article: Article;
+};
 
 export default function ArticleCard({ article }: ArticleCardProps) {
     const articleUrl = route('user.articles.show', article.id);
@@ -12,26 +12,27 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     return (
         <li className="">
             <Link
+                prefetch
                 as="button"
                 href={articleUrl}
-                preserveScroll
                 aria-labelledby={`article-title-${article.id}`}
                 aria-describedby={`article-description-${article.id}`}
-                className="text-dark-green cursor-pointer text-lg block group"
+                className="group block cursor-pointer text-lg text-dark-green"
             >
-                {article.thumbnail != null &&
+                {article.thumbnail != null && (
                     <LazyImage
                         img={article.thumbnail.path}
                         alt={article.thumbnail.alt}
                         tinyImg={article.thumbnail.tiny_path}
                         parentClass="rounded-2xl aspect-video mb-3.5"
-                        imgClass="group-hover:scale-120" />
-                }
+                        imgClass="group-hover:scale-120"
+                    />
+                )}
 
                 <div className="space-y-2">
                     <h4
                         id={`article-title-${article.id}`}
-                        className="mb-2 font-medium text-lg leading-tight"
+                        className="mb-2 text-lg leading-tight font-medium"
                     >
                         {article.title}
                     </h4>
@@ -42,7 +43,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                     >
                         {article.description}
                     </p>
-
                 </div>
 
                 <span className="sr-only">
@@ -50,5 +50,5 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                 </span>
             </Link>
         </li>
-    )
+    );
 }
