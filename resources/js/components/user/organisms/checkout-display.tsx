@@ -5,6 +5,7 @@ import { Tier } from '@/types/model';
 import { Field, Input, Label } from '@headlessui/react';
 import { router, usePage } from '@inertiajs/react';
 import { ArrowRight, Check, Tag } from 'lucide-react';
+import { useOptimistic } from 'react';
 
 function CheckoutItem({ name, price }: { name: string; price: number }) {
     return (
@@ -38,20 +39,29 @@ export default function CheckoutDisplay({
     className,
     errorMessage,
 }: CheckoutDisplayProps) {
-    const { tiers, added, total, discount} = usePage<{
+    const { tiers, added, total, discount } = usePage<{
         tiers: Tier[];
         added: number[];
         total: number;
-        discount: Discount
+        discount: Discount;
     }>().props;
 
-    const items = tiers.filter(tier => added.includes(tier.id));
+    const [optimisticAdded, setOptimisticAdded] = useOptimistic(
+        added,
+        () => [],
+    );
+    const items = tiers.filter((tier) => optimisticAdded.includes(tier.id));
 
     function handleEmptyCart() {
+        setOptimisticAdded([]);
         router.visit(route('cart.tiers.empty'), {
             method: 'post',
             preserveScroll: true,
             preserveState: true,
+            only: ['added', 'total'],
+            onError: () => {
+                setOptimisticAdded(added);
+            },
         });
     }
 
@@ -95,9 +105,7 @@ export default function CheckoutDisplay({
                         <Tag className="ease absolute top-1/2 left-4 size-5 -translate-y-1/2 text-slate-500 transition duration-300 peer-focus:text-light-swamp" />
                     </Field>
 
-                    <PrimaryBtn
-                        className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6"
-                    >
+                    <PrimaryBtn className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6">
                         <Check className="size-4/5 text-white sm:hidden" />
                         <span className="hidden sm:block">Применить</span>
                     </PrimaryBtn>

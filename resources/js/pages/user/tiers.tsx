@@ -12,11 +12,10 @@ import { Tier } from '@/types/model';
 import { Checkbox } from '@headlessui/react';
 import { router, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
-import { useState } from 'react';
+import { useOptimistic, useState } from 'react';
 
 export default function Tiers() {
-    const { tiers, added } = usePage<{ tiers: Tier[]; added: number[] }>()
-        .props;
+    const { tiers } = usePage<{ tiers: Tier[] }>().props;
 
     const [isCart, setCartPage] = useState(true);
     const [username, setUserName] = useState('');
@@ -93,7 +92,7 @@ export default function Tiers() {
                 <div className="relative">
                     <ul
                         className={cn(
-                            'mx-auto space-y-24 md:overflow-y-clip pt-5 transition-all duration-1500 ease-in-out sm:space-y-6',
+                            'mx-auto space-y-24 pt-5 transition-all duration-1500 ease-in-out sm:space-y-6 md:overflow-y-clip',
                             !isCart
                                 ? 'pointer-events-none max-h-0 opacity-0'
                                 : 'max-h-500',
@@ -103,7 +102,6 @@ export default function Tiers() {
                             <li key={tier.id}>
                                 <TierCard
                                     tier={tier}
-                                    selected={added.includes(tier.id)}
                                     className={cn(
                                         idx !== 1 ? 'pt-28' : 'sm:gap-10',
                                     )}
@@ -114,7 +112,7 @@ export default function Tiers() {
 
                     <div
                         className={cn(
-                            'md:overflow-clip transition-all duration-1500 ease-in-out',
+                            'transition-all duration-1500 ease-in-out md:overflow-clip',
                             isCart
                                 ? 'pointer-events-none max-h-0 opacity-0'
                                 : 'max-h-500',
@@ -161,13 +159,31 @@ export default function Tiers() {
 type TierCardProps = {
     tier: Tier;
     className?: string;
-    selected: boolean;
 };
 
-function TierCard({ tier, className, selected }: TierCardProps) {
+function TierCard({ tier, className }: TierCardProps) {
+    const { added } = usePage<{ added: number[] }>().props;
+
+    const [optimisticAdded, setOptimisticAdded] = useOptimistic(added);
+
     function onChange() {
-        router.visit(`/tier-cart/${tier.id}`, { method: 'post',  preserveScroll: true, preserveState: true });
+        setOptimisticAdded((prev) => {
+            return prev.includes(tier.id)
+                ? prev.filter((id) => id !== tier.id)
+                : [...prev, tier.id];
+        });
+        router.visit(`/tier-cart/${tier.id}`, {
+            method: 'post',
+            preserveScroll: true,
+            preserveState: true,
+            only: ['added', 'total'],
+            onError: () => {
+                setOptimisticAdded(added);
+            },
+        });
     }
+
+    const selected = optimisticAdded.includes(tier.id);
 
     return (
         <article

@@ -11,13 +11,12 @@ class TierController extends Controller
 {
     public function index()
     {
-        $tiers = Tier::select(['id', 'description', 'name', 'price'])->with(['image'])->latest()->get();
         $cart = TierCart::getCart();
         $selectedTiers = $cart->tiers()->pluck('id')->toArray();
         $total = $cart->total();
 
         return Inertia::render('user/tiers', [
-            'tiers' => $tiers,
+            'tiers' => fn () => Tier::select(['id', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
             'added' => $selectedTiers,
             'total' => $total,
         ]);

@@ -76,7 +76,7 @@ export default function Home() {
             <AppSection className="text-text-black relative" ariaLabelledBy="rates-section-title">
                 <RatesSection />
 
-                <ArtLayer img={Tomatoes} className=" w-1/2 max-w-75 right-0 xl:hidden bottom-20 md:right-auto md:left-0 md:bottom-1/2" />
+                <ArtLayer img={Tomatoes} className=" w-1/2 max-w-75 right-0 xl:hidden bottom-1/3 md:right-auto md:left-0 md:bottom-1/2" />
                 <ArtLayer img={RightRadish} className="hidden w-75 -right-30 top-1/2 md:block xl:hidden" />
                 <ArtLayer img={MiddleRadish} className="hidden w-50 -right-0 top-1/2 md:block xl:hidden" />
                 <ArtLayer img={CutBellPepper} className="max-w-102 w-3/5 top-1/5 -right-20 sm:right-auto sm:top-0 sm:-left-20 xl:top-auto xl:-bottom-40" />

@@ -32,7 +32,7 @@ export default function Pagination({ meta, label, className }: PaginationProps) 
         <div className={cn("flex items-center justify-between py-7 md:py-10 xl:py-14", className)}>
             <div className="flex flex-1 justify-between sm:hidden">
                 <PaginationBtn
-                    key="prev-mobile-pagination-btn"
+                    key="prev-mobile-pagination-btn-0"
                     link={links[0]}
                     isNavigationButton={true}
                 >
@@ -40,7 +40,7 @@ export default function Pagination({ meta, label, className }: PaginationProps) 
                 </PaginationBtn>
 
                 <PaginationBtn
-                    key="prev-mobile-pagination-btn"
+                    key="next-mobile-pagination-btn"
                     link={links[links.length - 1]}
                     isNavigationButton={true}
                 >
