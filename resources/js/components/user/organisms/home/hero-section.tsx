@@ -9,15 +9,47 @@ import SpanHighlight from '@/components/user/atoms/span-highlight';
 import HomeCardLayout from '@/components/user/molecules/home-card-layout';
 import scrollTo from '@/lib/helpers/scrollTo';
 import { PlayIcon } from '@heroicons/react/24/solid';
+import { usePage } from '@inertiajs/react';
+import ReactPlayer from 'react-player';
 import LazyImage from '../../atoms/lazy-image';
 
+type VideoOverlayProps = {
+    video: string;
+};
+
+function VideoOverlay({ video }: VideoOverlayProps) {
+
+    return (
+        <div className="fixed inset-50 bottom-0 z-100 bg-black">
+            <ReactPlayer
+                src={video}
+                controls
+                width="100%"
+                height="100%"
+                onError={(error) => {
+                    console.error('ReactPlayer error:', error);
+                }}
+                onReady={() => {
+                    console.log('ReactPlayer ready');
+                }}
+                playing={false}
+                light={false}
+                pip={false}
+            />
+        </div>
+    );
+}
+
 export default function HeroSection() {
+    const { video } = usePage().props;
+
     const Hero = () => (
         <article
             className="max-w-141 2xl:max-w-175"
             aria-labelledby="portal-title"
             aria-describedby="portal-description"
         >
+            <VideoOverlay video={video} />
             <header>
                 <h1
                     id="portal-title"

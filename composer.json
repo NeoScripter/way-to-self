@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "achyutn/laravel-hls": "^0.13.4",
         "doctrine/dbal": "^4.3",
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",

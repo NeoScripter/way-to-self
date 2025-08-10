@@ -1,4 +1,4 @@
-import ExampleTrack from "@/assets/audio/example-meditation.mp3";
+import ExampleTrack from "@/assets/audio/output.mp3"
 import ExamplePreview from "@/assets/images/home/example-meditation.webp";
 import ExamplePreview2 from "@/assets/images/home/exercise-1.webp";
 import SpanHighlight from "../../atoms/span-highlight";
@@ -46,24 +46,6 @@ const tracks: Track[] = [
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
         audioSrc: ExampleTrack,
         image: ExamplePreview2,
-    },
-    {
-        title: "Название 3",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
-        audioSrc: ExampleTrack,
-        image: ExamplePreview2,
-    },
-    {
-        title: "Название 4",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
-        audioSrc: ExampleTrack,
-        image: ExamplePreview2,
-    },
-    {
-        title: "Название 5",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
-        audioSrc: ExampleTrack,
-        image: ExamplePreview2,
-    },
+    }
 ];
 

@@ -12,10 +12,11 @@ import { Tier } from '@/types/model';
 import { Checkbox } from '@headlessui/react';
 import { router, usePage } from '@inertiajs/react';
 import { ArrowLeft } from 'lucide-react';
-import { useOptimistic, useState } from 'react';
+import { useState } from 'react';
 
 export default function Tiers() {
-    const { tiers } = usePage<{ tiers: Tier[] }>().props;
+    const { tiers, added } = usePage<{ tiers: Tier[]; added: number[] }>()
+        .props;
 
     const [isCart, setCartPage] = useState(true);
     const [username, setUserName] = useState('');
@@ -102,6 +103,7 @@ export default function Tiers() {
                             <li key={tier.id}>
                                 <TierCard
                                     tier={tier}
+                                    selected={added.includes(tier.id)}
                                     className={cn(
                                         idx !== 1 ? 'pt-28' : 'sm:gap-10',
                                     )}
@@ -159,31 +161,18 @@ export default function Tiers() {
 type TierCardProps = {
     tier: Tier;
     className?: string;
+    selected: boolean;
 };
 
-function TierCard({ tier, className }: TierCardProps) {
-    const { added } = usePage<{ added: number[] }>().props;
-
-    const [optimisticAdded, setOptimisticAdded] = useOptimistic(added);
-
+function TierCard({ tier, className, selected }: TierCardProps) {
     function onChange() {
-        setOptimisticAdded((prev) => {
-            return prev.includes(tier.id)
-                ? prev.filter((id) => id !== tier.id)
-                : [...prev, tier.id];
-        });
         router.visit(`/tier-cart/${tier.id}`, {
             method: 'post',
             preserveScroll: true,
             preserveState: true,
             only: ['added', 'total'],
-            onError: () => {
-                setOptimisticAdded(added);
-            },
         });
     }
-
-    const selected = optimisticAdded.includes(tier.id);
 
     return (
         <article

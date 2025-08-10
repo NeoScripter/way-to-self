@@ -58,3 +58,14 @@ export type TierCart = {
     updated_at?: string;
     tiers?: Tier[];
 };
+export type Video = {
+    id: number;
+    title: string;
+    video_path: string;
+    hls_path?: string;
+    conversion_progress: number;
+    created_at?: string;
+    updated_at?: string;
+    hls_playlist_url: any;
+    video_url: any;
+};
