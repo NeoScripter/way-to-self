@@ -1,6 +1,6 @@
 <?php
 
-use App\ArticleType;
+use App\Enums\ArticleType;
 use App\Models\Article;
 
 use function Pest\Laravel\get;

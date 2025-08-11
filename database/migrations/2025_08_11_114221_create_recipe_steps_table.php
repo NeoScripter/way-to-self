@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('recipe_steps', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('video_path');
-            $table->string('hls_path')->nullable();
-            $table->morphs('videoable');
-            $table->integer('conversion_progress')->default(0);
+            $table->foreignId('recipe_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('order')->default(1);
+            $table->text('body');
+            $table->text('html');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('recipe_steps');
     }
 };

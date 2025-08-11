@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ContentType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,13 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('video_path');
-            $table->string('hls_path')->nullable();
-            $table->morphs('videoable');
-            $table->integer('conversion_progress')->default(0);
+            $table->text('description');
+            $table->unsignedInteger('cooking_time');
+            $table->unsignedInteger('rating');
+            $table->string('type')->default(ContentType::PAID);
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('recipes');
     }
 };

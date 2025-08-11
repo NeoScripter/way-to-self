@@ -18,7 +18,16 @@ class VideoFactory extends Factory
     {
         return [
             'title' => 'recipe',
-            'video_path' => 'videos/recipe.mp4'
+            'videoable_type' => $this->videoableType(...),
+            'video_path' => 'videos/recipe.mp4',
         ];
+    }
+
+    protected function videoableType(array $values)
+    {
+        $type = $values['videoable_id'];
+        $modelName = $type instanceof Factory ? $type->modelName() : $type::class;
+
+        return (new $modelName)->getMorphClass();
     }
 }

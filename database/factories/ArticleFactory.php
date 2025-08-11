@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\ArticleType;
+use App\Enums\ArticleType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 

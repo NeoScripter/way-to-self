@@ -5,11 +5,12 @@ namespace App\Models;
 use AchyutN\LaravelHLS\Traits\ConvertsToHLS;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Video extends Model
 {
     /** @use HasFactory<\Database\Factories\VideoFactory> */
-    use HasFactory, ConvertsToHls;
+    use ConvertsToHls, HasFactory;
 
     protected $casts = [
         'conversion_progress' => 'integer',
@@ -28,5 +29,10 @@ class Video extends Model
     public function srcVideo()
     {
         return $this->video_path ? asset('storage/'.$this->video_path) : null;
+    }
+
+    public function videoable(): MorphTo
+    {
+        return $this->morphTo();
     }
 }

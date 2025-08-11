@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Article;
+use App\Models\Recipe;
+use App\Models\RecipeStep;
+use App\Models\RecipeInfo;
 use App\Models\Review;
 use App\Models\Tier;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +33,9 @@ class AppServiceProvider extends ServiceProvider
             'review' => Review::class,
             'article' => Article::class,
             'tier' => Tier::class,
+            'recipe' => Recipe::class,
+            'recipe_info' => RecipeInfo::class,
+            'recipe_step' => RecipeStep::class,
         ]);
     }
 }

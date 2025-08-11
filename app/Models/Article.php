@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\ArticleType;
+use App\Enums\ArticleType;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;

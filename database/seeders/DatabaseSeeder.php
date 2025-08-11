@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ReviewSeeder::class);
         $this->call(ArticleSeeder::class);
         $this->call(TierSeeder::class);
-        $this->call(VideoSeeder::class);
+        $this->call(RecipeSeeder::class);
     }
 }
