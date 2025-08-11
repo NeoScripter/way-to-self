@@ -21,17 +21,11 @@ class HomeController extends Controller
         $articles = Article::select(['id', 'description', 'title'])->free()->with(['thumbnail'])->latest()->limit(4)->get();
         $video = Video::all()->first();
 
-        $playlistUrl = route('hls.playlist', [
-            'model' => 'video',
-            'id' => $video->id,
-            'playlist' => 'playlist.m3u8',
-        ]);
-
         return Inertia::render('user/home', [
             'faqs' => $faqs,
             'reviews' => $reviews,
             'articles' => $articles,
-            'video' => $playlistUrl,
+            'video' => $video->hlsVideo(),
         ]);
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('video_path');
             $table->string('hls_path')->nullable();
+            // $table->morphs('videoable');
             $table->integer('conversion_progress')->default(0);
             $table->timestamps();
         });

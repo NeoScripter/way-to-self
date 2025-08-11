@@ -7,41 +7,16 @@ import Hero3 from '@/assets/images/home/home-sport.webp';
 import SecondaryBtn from '@/components/user/atoms/secondary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import HomeCardLayout from '@/components/user/molecules/home-card-layout';
-import scrollTo from '@/lib/helpers/scrollTo';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
-import ReactPlayer from 'react-player';
+import { useState } from 'react';
 import LazyImage from '../../atoms/lazy-image';
-
-type VideoOverlayProps = {
-    video: string;
-};
-
-function VideoOverlay({ video }: VideoOverlayProps) {
-
-    return (
-        <div className="fixed inset-50 bottom-0 z-100 bg-black">
-            <ReactPlayer
-                src={video}
-                controls
-                width="100%"
-                height="100%"
-                onError={(error) => {
-                    console.error('ReactPlayer error:', error);
-                }}
-                onReady={() => {
-                    console.log('ReactPlayer ready');
-                }}
-                playing={false}
-                light={false}
-                pip={false}
-            />
-        </div>
-    );
-}
+import DialogLayout from '../../molecules/dialog-layout';
+import VideoPlayer from '../../molecules/video-player';
 
 export default function HeroSection() {
-    const { video } = usePage().props;
+    const { video } = usePage<{ video: string }>().props;
+    const [showDialog, setShowDialog] = useState(false);
 
     const Hero = () => (
         <article
@@ -49,7 +24,6 @@ export default function HeroSection() {
             aria-labelledby="portal-title"
             aria-describedby="portal-description"
         >
-            <VideoOverlay video={video} />
             <header>
                 <h1
                     id="portal-title"
@@ -80,6 +54,7 @@ export default function HeroSection() {
                 </SecondaryBtn>
 
                 <button
+                    onClick={() => setShowDialog(true)}
                     type="button"
                     className="group flex cursor-pointer items-center gap-2 transition-colors duration-200 ease-in hover:text-bright-salad"
                     aria-label="Смотреть видео о том, как это работает"
@@ -96,157 +71,77 @@ export default function HeroSection() {
         </article>
     );
 
-    const Card1 = () => {
-        return (
-            <HomeCardLayout
-                className="pt-35.5 sm:ml-auto sm:max-w-171 xl:ml-0 xl:max-w-full xl:pt-60"
-                ariaDesc="soul-section-description"
-                ariaLabel="soul-section-heading"
-            >
-                <LazyImage
-                    img={Hero1}
-                    tinyImg={TinyHero1}
-                    alt="Девушка в позе лотоса медитирует, сидя на полу в зелёной спортивной одежде"
-                    parentClass="absolute size-57 -top-23 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:size-70 xl:translate-y-0 xl:-translate-x-1/2 xl:left-1/2 xl:-top-28 xl:size-87"
-                />
-
-                <div className="z-5 sm:ml-auto sm:max-w-98.5 xl:max-w-full">
-                    <header>
-                        <h2
-                            id="soul-section-heading"
-                            className="mb-4 text-center font-heading text-4xl sm:text-5xl md:mb-7 md:text-6xl"
-                        >
-                            Душа
-                        </h2>
-                    </header>
-
-                    <p
-                        id="soul-section-description"
-                        className="mb-5 text-center text-sm text-balance sm:text-base md:mb-8 2xl:text-xl"
-                    >
-                        Если вы часто испытываете стресс, сталкиваетесь с
-                        проблемами со сном, ваши мысли постоянно кружатся в
-                        голове, и вы чувствуете нервозность и беспокойство,
-                        ищите душевный баланс — этот раздел создан для вас.
-                    </p>
-
-                    <SecondaryBtn
-                        onClick={() => scrollTo('#soul-section-title')}
-                        className="mx-auto text-sm sm:text-base 2xl:text-xl"
-                        aria-label="Подробнее о душевном здоровье"
-                    >
-                        Подробнее
-                    </SecondaryBtn>
-                </div>
-            </HomeCardLayout>
-        );
-    };
-
-    const Card2 = () => {
-        return (
-            <HomeCardLayout
-                className="pt-24 sm:flex sm:items-center sm:justify-between sm:gap-5 sm:px-5 md:mr-auto md:px-11 md:py-11 lg:gap-10 lg:py-14 xl:w-3/4 xl:gap-12"
-                ariaDesc="food-section-description"
-                ariaLabel="food-section-heading"
-            >
-                <LazyImage
-                    img={Hero2}
-                    tinyImg={TinyHero2}
-                    alt="Зелёная миска, наполненная свежим овощным салатом с помидорами, огурцами и зеленью"
-                    parentClass="absolute size-57 -top-28 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:order-2 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:-order-1 md:w-75"
-                />
-
-                <div className="z-5 md:max-w-full">
-                    <header>
-                        <h2
-                            id="food-section-heading"
-                            className="mb-4 text-center font-heading text-4xl md:mb-7 md:text-5xl lg:text-6xl"
-                        >
-                            Питание
-                        </h2>
-                    </header>
-
-                    <p
-                        id="food-section-description"
-                        className="mb-5 text-center text-sm text-balance md:mb-8 md:text-base 2xl:text-xl"
-                    >
-                        Если вы сталкиваетесь с избыточным весом, проблемами ЖКТ
-                        и общими сложностями со здоровьем, нутрициолог предложил
-                        вам план питания, но рецептов недостаточно и их сложно
-                        организовать, и вы ищете идеи для здоровых и питательных
-                        блюд — этот раздел для вас.
-                    </p>
-
-                    <SecondaryBtn
-                        onClick={() => scrollTo('#nutrition-section-title')}
-                        className="mx-auto text-sm sm:text-base 2xl:text-xl"
-                        aria-label="Подробнее о питании"
-                    >
-                        Подробнее
-                    </SecondaryBtn>
-                </div>
-            </HomeCardLayout>
-        );
-    };
-
-    const Card3 = () => {
-        return (
-            <HomeCardLayout
-                className="mb-0 pt-24 sm:flex sm:items-center sm:justify-between sm:px-5 md:ml-auto md:px-11 md:py-11 lg:gap-10 lg:py-14 xl:w-3/4 xl:gap-12"
-                ariaDesc="body-section-description"
-                ariaLabel="body-section-heading"
-            >
-                <LazyImage
-                    img={Hero3}
-                    tinyImg={TinyHero3}
-                    alt="Пара зелёных гантелей для фитнеса"
-                    parentClass="absolute w-44 -top-24 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:order-2 md:w-65 xl:w-75"
-                />
-
-                <div className="z-5 md:max-w-full">
-                    <header>
-                        <h2
-                            id="body-section-heading"
-                            className="mb-4 text-center font-heading text-4xl md:mb-7 md:text-5xl lg:text-6xl"
-                        >
-                            Тело
-                        </h2>
-                    </header>
-
-                    <p
-                        id="body-section-description"
-                        className="mb-5 text-center text-sm text-balance md:mb-8 md:text-base 2xl:text-xl"
-                    >
-                        Если у вас нет времени на поддержание физической
-                        активности, но вы хотите поддерживать свое тело в
-                        хорошей форме, испытываете одышку при активности, плохое
-                        самочувствие без особых причин, страдаете от избыточного
-                        веса и ощущения скованности и прочего — этот раздел
-                        создан для вас.
-                    </p>
-
-                    <SecondaryBtn
-                        onClick={() => scrollTo('#body-section-title')}
-                        className="mx-auto text-sm sm:text-base 2xl:text-xl"
-                        aria-label="Подробнее о разделе тело"
-                    >
-                        Подробнее
-                    </SecondaryBtn>
-                </div>
-            </HomeCardLayout>
-        );
-    };
-
     return (
         <>
             <div className="flex flex-col gap-30 sm:gap-15 xl:flex-row 2xl:gap-39">
                 <Hero />
-                <Card1 />
+
+                <HomeCardLayout
+                    className="pt-35.5 sm:ml-auto sm:max-w-171 xl:ml-0 xl:max-w-full xl:pt-60"
+                    ariaDesc="soul-section-description"
+                    ariaLabel="soul-section-heading"
+                    description="Если вы часто испытываете стресс, сталкиваетесь с проблемами со сном, ваши мысли постоянно кружатся в голове, и вы чувствуете нервозность и беспокойство, ищите душевный баланс — этот раздел создан для вас."
+                    contentClassName="z-5 sm:ml-auto sm:max-w-98.5 xl:max-w-full"
+                    sectionNameRus="Душа"
+                    sectionNameEng="soul"
+                    btnAriaLabel="Подробнее о душевном здоровье"
+                >
+                    <LazyImage
+                        img={Hero1}
+                        tinyImg={TinyHero1}
+                        alt="Девушка в позе лотоса медитирует, сидя на полу в зелёной спортивной одежде"
+                        parentClass="absolute size-57 -top-23 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:left-0 sm:top-1/2 sm:-translate-y-1/2 sm:size-70 xl:translate-y-0 xl:-translate-x-1/2 xl:left-1/2 xl:-top-28 xl:size-87"
+                    />
+                </HomeCardLayout>
             </div>
 
+            <DialogLayout
+                show={showDialog}
+                onClose={() => setShowDialog(false)}
+            >
+                {' '}
+                <VideoPlayer
+                    src={video}
+                    className=""
+                />
+            </DialogLayout>
+
             <div className="space-y-30 2xl:space-y-39">
-                <Card2 />
-                <Card3 />
+                <HomeCardLayout
+                    className="pt-24 sm:flex sm:items-center sm:justify-between sm:gap-5 sm:px-5 md:mr-auto md:px-11 md:py-11 lg:gap-10 lg:py-14 xl:w-3/4 xl:gap-12"
+                    ariaDesc="nutrition-section-description"
+                    ariaLabel="nutrition-section-heading"
+                    contentClassName="z-5 md:max-w-full"
+                    description="Если вы сталкиваетесь с избыточным весом, проблемами ЖКТ и общими сложностями со здоровьем, нутрициолог предложил вам план питания, но рецептов недостаточно и их сложно организовать, и вы ищете идеи для здоровых и питательных блюд — этот раздел для вас."
+                    sectionNameRus="Питание"
+                    sectionNameEng="nutrition"
+                    btnAriaLabel="Подробнее о питании"
+                >
+                    <LazyImage
+                        img={Hero2}
+                        tinyImg={TinyHero2}
+                        alt="Зелёная миска, наполненная свежим овощным салатом с помидорами, огурцами и зеленью"
+                        parentClass="absolute size-57 -top-28 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:order-2 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:-order-1 md:w-75"
+                    />
+                </HomeCardLayout>
+
+                <HomeCardLayout
+                    className="mb-0 pt-24 sm:flex sm:items-center sm:justify-between sm:px-5 md:ml-auto md:px-11 md:py-11 lg:gap-10 lg:py-14 xl:w-3/4 xl:gap-12"
+                    ariaDesc="body-section-description"
+                    ariaLabel="body-section-heading"
+                    description="Если у вас нет времени на поддержание физической активности, но вы хотите поддерживать свое тело в хорошей форме, испытываете одышку при активности, плохое самочувствие без особых причин, страдаете от избыточного веса и ощущения скованности и прочего — этот раздел создан для вас."
+                    contentClassName="z-5 md:max-w-full"
+                    sectionNameRus="Тело"
+                    sectionNameEng="body"
+                    btnAriaLabel="Подробнее о разделе тело"
+                >
+                    <LazyImage
+                        img={Hero3}
+                        tinyImg={TinyHero3}
+                        alt="Пара зелёных гантелей для фитнеса"
+                        parentClass="absolute w-44 -top-24 left-1/2 -z-1 -translate-x-1/2 sm:translate-x-0 sm:w-52 sm:h-auto sm:shrink-0 sm:static md:order-2 md:w-65 xl:w-75"
+                    />
+                </HomeCardLayout>
             </div>
         </>
     );

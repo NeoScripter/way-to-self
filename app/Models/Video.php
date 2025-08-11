@@ -15,18 +15,17 @@ class Video extends Model
         'conversion_progress' => 'integer',
     ];
 
-    // Optional: Add helper method to get the HLS playlist URL
-    public function getHlsPlaylistUrlAttribute()
+    public function hlsVideo()
     {
-        if ($this->hls_path && $this->conversion_progress === 100) {
-            return route('hls.playlist', ['model' => 'video', 'id' => $this->id]);
-        }
+        return route('hls.playlist', [
+            'model' => 'video',
+            'id' => $this->id,
+            'playlist' => 'playlist.m3u8',
+        ]);
 
-        return null;
     }
 
-    // Optional: Add helper method to get original video URL
-    public function getVideoUrlAttribute()
+    public function srcVideo()
     {
         return $this->video_path ? asset('storage/'.$this->video_path) : null;
     }
