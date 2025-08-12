@@ -9,6 +9,7 @@ import { roundDuration } from '@/lib/helpers/roundDuration';
 import { cn } from '@/lib/utils';
 import { Image, Recipe as RecipeType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
+import { ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Recipe() {
@@ -64,9 +65,9 @@ export default function Recipe() {
                                             onClick={() =>
                                                 setZoomedImg(info.image)
                                             }
-                                            className="absolute top-5 right-5 z-20 size-10 rounded-full bg-bright-salad"
+                                            className="absolute bottom-2 right-2 sm:top-5 sm:right-5 z-20 flex items-center justify-center cursor-pointer size-10 rounded-full bg-bright-salad"
                                         >
-                                            X
+                                           <ZoomIn className='text-white size-3/4' />
                                         </button>
                                     </>
                                 )}
@@ -118,7 +119,7 @@ function LightBox({ img, onClose }: LightBoxProps) {
         <DialogLayout
             show={img != null}
             onClose={onClose}
-            className='max-w-140 mx-auto text-black'
+            className='max-w-180 mx-auto text-black'
         >
             <LazyImage
                 parentClass="aspect-video rounded-2xl"

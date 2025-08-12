@@ -98,6 +98,7 @@ export default function HeroSection() {
             <DialogLayout
                 show={showDialog}
                 onClose={() => setShowDialog(false)}
+                className='max-w-260 mx-auto'
             >
                 {' '}
                 <VideoPlayer

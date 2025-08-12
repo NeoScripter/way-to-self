@@ -19,7 +19,7 @@ export default function DialogLayout({
         <Dialog
             open={show}
             onClose={onClose}
-            className={cn("fixed inset-0 z-50 flex items-center justify-center overflow-y-auto", className)}
+            className={cn("fixed inset-0 z-50 text-white flex items-center justify-center overflow-y-auto", className)}
         >
             <DialogBackdrop
                 transition
@@ -34,7 +34,7 @@ export default function DialogLayout({
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 flex size-8 md:size-12 cursor-pointer items-center justify-center text-white/75 opacity-50 transition-opacity duration-200 ease-in hover:opacity-100"
+                    className="absolute top-2 right-2 z-20 flex size-8 md:size-12 cursor-pointer items-center justify-center opacity-50 transition-opacity duration-200 ease-in hover:opacity-100"
                 >
                     <X className="size-10" />
                 </button>
