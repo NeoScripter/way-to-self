@@ -10,7 +10,7 @@ it('displays the article to the user', function () {
         ->free()
         ->create();
 
-    Image::factory()->create(['imageable_id' => $article, 'type' => "image"]);
+    Image::factory()->create(['imageable_id' => $article, 'type' => 'image']);
     $response = get(route('user.articles.show', $article->id));
 
     $response->assertOk();

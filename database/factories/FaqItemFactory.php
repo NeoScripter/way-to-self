@@ -20,11 +20,12 @@ class FaqItemFactory extends Factory
     {
         return [
             'title' => str(fake()->sentence)->beforeLast('.'),
-            'body' => Collection::times(3, fn () => fake()->realText(420))->join(PHP_EOL.PHP_EOL),
+            'body' => Collection::times(3, fn () => fake()->realText(420))->join(PHP_EOL . PHP_EOL),
         ];
     }
 
-    public function withFixture(): static {
+    public function withFixture(): static
+    {
         return $this->sequence(...FaqItemFixtures::getFixtures());
     }
 }

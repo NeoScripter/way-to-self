@@ -1,20 +1,10 @@
 import LazyImage from '@/components/user/atoms/lazy-image';
 import UserLayout from '@/layouts/user/user-layout';
 import { Article as ArticleType } from '@/types/model';
-import { router, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 
 export default function Article() {
     const { article } = usePage<{ article: ArticleType }>().props;
-
-    // router.on('navigate', () => {
-    //     setTimeout(() => {
-    //         window.scrollTo({
-    //             top: 0,
-    //             behavior: 'smooth',
-    //         });
-    //     }, 200);
-    //     console.log('fired');
-    // });
 
     return (
         <UserLayout

@@ -19,7 +19,7 @@ class TierFactory extends Factory
         return [
             'name' => fake()->word(),
             'description' => fake()->sentence(20),
-            'price' => fake()->numberBetween(1000, 3000)
+            'price' => fake()->numberBetween(1000, 3000),
         ];
     }
 }

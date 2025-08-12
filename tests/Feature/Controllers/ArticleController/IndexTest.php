@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\ArticleType;
 use App\Models\Article;
 
 use function Pest\Laravel\get;
@@ -9,7 +8,7 @@ it('displays articles on the public article page', function () {
     $freeArticles = Article::factory()
         ->free()
         ->count(5)
-        ->sequence(fn ($sequence) => ['title' => 'Article Title  '.($sequence->index + 1)])
+        ->sequence(fn ($sequence) => ['title' => 'Article Title  ' . ($sequence->index + 1)])
         ->create();
 
     $response = get(route('user.articles.index'));
@@ -25,7 +24,7 @@ it('shows only the free articles on the articles page', function () {
         ->free()
         ->count(5)
         ->sequence(fn ($sequence) => [
-            'title' => 'Free Article '.($sequence->index + 1),
+            'title' => 'Free Article ' . ($sequence->index + 1),
         ])
         ->create();
 
@@ -33,7 +32,7 @@ it('shows only the free articles on the articles page', function () {
         ->paid()
         ->count(5)
         ->sequence(fn ($sequence) => [
-            'title' => 'Paid Article '.($sequence->index + 1),
+            'title' => 'Paid Article ' . ($sequence->index + 1),
         ])
         ->create();
 

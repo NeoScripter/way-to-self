@@ -28,7 +28,7 @@ class Video extends Model
 
     public function srcVideo()
     {
-        return $this->video_path ? asset('storage/'.$this->video_path) : null;
+        return $this->video_path ? asset('storage/' . $this->video_path) : null;
     }
 
     public function videoable(): MorphTo

@@ -23,15 +23,15 @@ class ReviewSeeder extends Seeder
                     'body' => $raw['body'],
                 ]
             )
-            ->afterCreating(function ($review) use ($raw) {
-                Image::factory()->create([
-                    'imageable_id' => $review,
-                    'alt' => $raw['alt'],
-                    'path' => asset('storage/models/'.$raw['image']),
-                    'tiny_path' => asset('storage/models/'.$raw['tiny_image']),
-                ]);
-            })
-            ->create();
+                ->afterCreating(function ($review) use ($raw) {
+                    Image::factory()->create([
+                        'imageable_id' => $review,
+                        'alt' => $raw['alt'],
+                        'path' => asset('storage/models/' . $raw['image']),
+                        'tiny_path' => asset('storage/models/' . $raw['tiny_image']),
+                    ]);
+                })
+                ->create();
         });
 
     }

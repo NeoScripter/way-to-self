@@ -15,7 +15,7 @@ it('generates the html', function () {
 it('displays the article items on the home page', function () {
     $articles = Article::factory()
         ->count(4)
-        ->sequence(fn ($sequence) => ['title' => 'Hello world '.($sequence->index + 1)])
+        ->sequence(fn ($sequence) => ['title' => 'Hello world ' . ($sequence->index + 1)])
         ->create();
 
     $response = get(route('home'));
@@ -31,4 +31,3 @@ it('shows only free articles on the main page', function () {
 
     $freeArticles->each(fn ($article) => $response->assertSee($article->title));
 });
-

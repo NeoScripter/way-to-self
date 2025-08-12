@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\User\TierController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\RecipeController;
 use App\Http\Controllers\User\TierCartController;
+use App\Http\Controllers\User\TierController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -19,6 +20,7 @@ Route::post('/empty-cart', [TierCartController::class, 'empty'])->name('cart.tie
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
     Route::get('/article/{article}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::get('/recipe/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -27,5 +29,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

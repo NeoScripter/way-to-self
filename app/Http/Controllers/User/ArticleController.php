@@ -17,7 +17,8 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function show(Article $article) {
+    public function show(Article $article)
+    {
         abort_unless($article->isFree(), 404);
 
         $article->load(['image']);

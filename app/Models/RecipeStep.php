@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class RecipeStep extends Model
 {
     /** @use HasFactory<\Database\Factories\RecipeStepFactory> */
-    use HasFactory, ConvertsMarkdownToHtml;
+    use ConvertsMarkdownToHtml, HasFactory;
 
+    protected $with = ['image'];
 
     public function image(): MorphOne
     {

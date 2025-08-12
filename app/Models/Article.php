@@ -40,7 +40,7 @@ class Article extends Model
 
     public function isFree(): bool
     {
-        return $this->type === ArticleType::NEWS;
+        return $this->type === ArticleType::NEWS->value;
     }
 
     #[Scope]

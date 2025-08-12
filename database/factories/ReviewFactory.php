@@ -18,7 +18,7 @@ class ReviewFactory extends Factory
     {
         return [
             'body' => fake()->sentence(3),
-            'author' => fake()->name()
+            'author' => fake()->name(),
         ];
     }
 }

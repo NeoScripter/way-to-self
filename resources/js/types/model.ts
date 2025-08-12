@@ -4,7 +4,7 @@ export type Article = {
     description: string;
     body: string;
     html: string;
-    type: string;
+    type: ArticleType;
     created_at?: string;
     updated_at?: string;
     images?: Image;
@@ -30,6 +30,50 @@ export type Image = {
     created_at?: string;
     updated_at?: string;
     imageable?: any;
+};
+export type Recipe = {
+    id: number;
+    title: string;
+    description: string;
+    cooking_time: number;
+    rating: number;
+    type: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
+    video?: Image;
+    infos?: RecipeInfo[];
+    steps?: RecipeStep[];
+    category?: RecipeCategory;
+};
+export type RecipeCategory = {
+    id: number;
+    recipe_id: number;
+    name: string;
+    created_at?: string;
+    updated_at?: string;
+};
+export type RecipeInfo = {
+    id: number;
+    recipe_id: number;
+    order: number;
+    title: string;
+    body?: string;
+    html?: string;
+    created_at?: string;
+    updated_at?: string;
+    recipe?: Recipe;
+    image?: Image;
+};
+export type RecipeStep = {
+    id: number;
+    recipe_id: number;
+    order: number;
+    body: string;
+    html: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
 };
 export type Review = {
     id: number;
@@ -63,9 +107,20 @@ export type Video = {
     title: string;
     video_path: string;
     hls_path?: string;
+    videoable_type: string;
+    videoable_id: number;
     conversion_progress: number;
     created_at?: string;
     updated_at?: string;
-    hls_playlist_url: any;
-    video_url: any;
+    videoable?: any;
 };
+export enum ArticleType {
+    NEWS = "news",
+    SOUL = "soul",
+    NUTRITION = "nutrition",
+    EXERCISE = "exercise"
+}
+export enum ContentType {
+    FREE = "free",
+    PAID = "paid"
+}

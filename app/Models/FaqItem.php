@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class FaqItem extends Model
 {
+    use ConvertsMarkdownToHtml;
+
     /** @use HasFactory<\Database\Factories\FaqItemFactory> */
     use HasFactory;
-    use ConvertsMarkdownToHtml;
 
     protected $guarded = ['id'];
 }

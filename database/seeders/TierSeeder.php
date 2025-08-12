@@ -57,8 +57,8 @@ class TierSeeder extends Seeder
                     Image::factory()->create([
                         'imageable_id' => $tierCard,
                         'alt' => $tier['alt'],
-                        'path' => asset('storage/tiers/'.$images[0]),
-                        'tiny_path' => asset('storage/tiers/'.$images[1]),
+                        'path' => asset('storage/tiers/' . $images[0]),
+                        'tiny_path' => asset('storage/tiers/' . $images[1]),
                     ]);
                 })
                 ->create();

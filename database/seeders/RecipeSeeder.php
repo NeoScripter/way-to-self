@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ContentType;
 use App\Models\Image;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
@@ -28,13 +27,13 @@ class RecipeSeeder extends Seeder
                     [
                         'title' => $raw['title'],
                         'description' => $raw['description'],
-                        'type' => ContentType::FREE,
                     ]
                 )
+                    ->free()
                     ->afterCreating(function ($recipe) use ($raw) {
 
-                        $img = asset('storage/models/'.$raw['image']);
-                        $tinyImg = asset('storage/models/'.$raw['tiny_image']);
+                        $img = asset('storage/models/' . $raw['image']);
+                        $tinyImg = asset('storage/models/' . $raw['tiny_image']);
 
                         Image::factory()->create([
                             'imageable_id' => $recipe,
@@ -50,11 +49,11 @@ class RecipeSeeder extends Seeder
 
                         RecipeCategory::factory([
                             'recipe_id' => $recipe->id,
-                            'name' => $raw['category']
+                            'name' => $raw['category'],
                         ])->create();
 
                         for ($i = 1; $i <= 4; $i++) {
-                            $this->createRecipeSteps($recipe->id, $raw['step'.$i], $img, $tinyImg);
+                            $this->createRecipeSteps($recipe->id, $raw['step' . $i], $img, $tinyImg, $i);
                         }
 
                     })
@@ -65,31 +64,28 @@ class RecipeSeeder extends Seeder
 
     }
 
-    protected function createRecipeSteps(int $recipe_id, string $body, string $img, string $tinyImg)
+    protected function createRecipeSteps(int $recipe_id, string $body, string $img, string $tinyImg, int $i)
     {
+        if ($i > 1) {
+            RecipeStep::factory([
+                'body' => $body,
+                'order' => $i,
+                'recipe_id' => $recipe_id,
+            ])->afterCreating(function ($recipeStep) use ($img, $tinyImg) {
+                Image::factory()->create([
+                    'imageable_id' => $recipeStep,
+                    'type' => 'image',
+                    'path' => $img,
+                    'tiny_path' => $tinyImg,
+                ]);
+            })->create();
 
-        for ($i = 1; $i <= 4; $i++) {
-            if ($i > 1) {
-                RecipeStep::factory([
-                    'body' => $body,
-                    'order' => $i,
-                    'recipe_id' => $recipe_id,
-                ])->afterCreating(function ($recipeStep) use ($img, $tinyImg) {
-                    Image::factory()->create([
-                        'imageable_id' => $recipeStep,
-                        'type' => 'image',
-                        'path' => $img,
-                        'tiny_path' => $tinyImg,
-                    ]);
-                })->create();
-
-            } else {
-                RecipeStep::factory([
-                    'body' => $body,
-                    'order' => $i,
-                    'recipe_id' => $recipe_id,
-                ])->create();
-            }
+        } else {
+            RecipeStep::factory([
+                'body' => $body,
+                'order' => $i,
+                'recipe_id' => $recipe_id,
+            ])->create();
         }
     }
 

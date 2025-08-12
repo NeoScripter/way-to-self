@@ -30,15 +30,15 @@ class ArticleSeeder extends Seeder
                             'imageable_id' => $article,
                             'type' => 'image',
                             'alt' => $raw['description'],
-                            'path' => asset('storage/models/'.$raw['image']),
-                            'tiny_path' => asset('storage/models/'.$raw['tiny_image']),
+                            'path' => asset('storage/models/' . $raw['image']),
+                            'tiny_path' => asset('storage/models/' . $raw['tiny_image']),
                         ]);
                         Image::factory()->create([
                             'imageable_id' => $article,
                             'type' => 'thumbnail',
                             'alt' => $raw['description'],
-                            'path' => asset('storage/models/'.$raw['thumb']),
-                            'tiny_path' => asset('storage/models/'.$raw['tiny_thumb']),
+                            'path' => asset('storage/models/' . $raw['thumb']),
+                            'tiny_path' => asset('storage/models/' . $raw['tiny_thumb']),
                         ]);
 
                     })

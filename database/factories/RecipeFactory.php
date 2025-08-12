@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\ContentType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,5 +23,15 @@ class RecipeFactory extends Factory
             'cooking_time' => fake()->numberBetween(15, 240),
             'rating' => fake()->numberBetween(1, 10),
         ];
+    }
+
+    public function free(): static
+    {
+        return $this->state(['type' => ContentType::FREE]);
+    }
+
+    public function paid(): static
+    {
+        return $this->state(['type' => ContentType::FREE]);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\ContentType;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,6 +16,8 @@ class Recipe extends Model
     /** @use HasFactory<\Database\Factories\RecipeFactory> */
     use HasFactory;
 
+    protected $with = ['category'];
+
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
@@ -20,7 +25,7 @@ class Recipe extends Model
 
     public function video(): MorphOne
     {
-        return $this->morphOne(Image::class, 'videoable');
+        return $this->morphOne(Video::class, 'videoable');
     }
 
     public function infos(): HasMany
@@ -36,5 +41,16 @@ class Recipe extends Model
     public function category(): HasOne
     {
         return $this->hasOne(RecipeCategory::class);
+    }
+
+    public function isFree(): bool
+    {
+        return $this->type === ContentType::FREE->value;
+    }
+
+    #[Scope]
+    public function free(Builder $query): void
+    {
+        $query->where('type', ContentType::FREE);
     }
 }

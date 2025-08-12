@@ -1,30 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\FaqItem;
+use App\Models\Recipe;
 use App\Models\Review;
 use App\Models\Video;
 use Inertia\Inertia;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
      * Handle the incoming request.
      */
     public function __invoke()
     {
-        $faqs = FaqItem::latest()->get();
-        $reviews = Review::with(['image'])->latest()->get();
-        $articles = Article::select(['id', 'description', 'title'])->free()->with(['thumbnail'])->latest()->limit(4)->get();
-        $video = Video::all()->first();
+        $faqs = FaqItem::latest()
+            ->get();
+
+        $reviews = Review::with(['image'])
+            ->latest()
+            ->get();
+
+        $articles = Article::select(['id', 'description', 'title'])
+            ->free()
+            ->with(['thumbnail'])
+            ->latest()
+            ->limit(4)
+            ->get();
+
+        $recipes = Recipe::select(['id', 'title', 'cooking_time', 'rating', 'type', 'description'])
+            ->free()
+            ->with(['image'])
+            ->latest()
+            ->limit(4)
+            ->get();
+
+        $video = Video::whereIn('videoable_id', $recipes->pluck('id'))->first();
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,
             'reviews' => $reviews,
             'articles' => $articles,
+            'recipes' => $recipes,
             'video' => $video->hlsVideo(),
         ]);
     }
