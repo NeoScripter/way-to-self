@@ -2,17 +2,20 @@ import DishSvg from '@/assets/svgs/dish-black.svg';
 import StarSvg from '@/assets/svgs/star-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import LazyImage from '@/components/user/atoms/lazy-image';
+import DialogLayout from '@/components/user/molecules/dialog-layout';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import UserLayout from '@/layouts/user/user-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
-import { Recipe as RecipeType } from '@/types/model';
+import { cn } from '@/lib/utils';
+import { Image, Recipe as RecipeType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Recipe() {
     const { recipe, video } = usePage<{ recipe: RecipeType; video: string }>()
         .props;
 
-    const roundedDuration = roundDuration(recipe.cooking_time);
+    const [zoomedImg, setZoomedImg] = useState<Image | null>(null);
 
     return (
         <UserLayout
@@ -21,82 +24,158 @@ export default function Recipe() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:text-6xl">
+                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:mt-24 xl:text-6xl">
                     {recipe.title}
                 </h1>
 
-                <p className="mt-6 text-center text-sm text-pretty text-gray-dark md:mt-12 sm:text-base md:text-lg xl:text-xl">
+                <p className="mt-6 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-12 md:text-lg xl:mt-16 xl:text-xl">
                     {recipe.description}
                 </p>
 
-                <div className="mx-auto max-w-75 my-6 flex text-sm items-center justify-between md:my-10 md:text-base md:max-w-80 xl:my-12">
-                    <div
-                        className="flex items-center gap-1 md:gap-2"
-                        aria-label={`${recipe.cooking_time} минут`}
-                    >
-                        <img
-                            src={ClockSvg}
-                            alt=""
-                            className="size-6 md:size-7"
-                            aria-hidden="true"
-                        />
-                        <span>{roundedDuration}</span>
-                    </div>
-
-                    <div
-                        className="flex items-center gap-1 md:gap-2"
-                        aria-label={`Оценка: ${recipe.rating} из 10`}
-                    >
-                        <img
-                            src={StarSvg}
-                            alt=""
-                            className="size-6 md:size-7"
-                            aria-hidden="true"
-                        />
-                        <span>{`${recipe.rating}/10`}</span>
-                    </div>
-
-                    <div
-                        className="flex items-center gap-1 md:gap-2"
-                        aria-label={`Категория: ${recipe.category?.name}`}
-                    >
-                        <img
-                            src={DishSvg}
-                            alt=""
-                            className="size-6 md:size-7"
-                            aria-hidden="true"
-                        />
-                        {recipe.category && (
-                            <span>
-                                {recipe.category.name}
-                            </span>
-                        )}
-                    </div>
-                </div>
+                <RecipeStats recipe={recipe} />
 
                 {video && <VideoPlayer src={video} />}
 
-                <div className="prose prose-sm mb-43 max-w-full prose-neutral md:prose-base md:mb-47 xl:prose-xl xl:mb-63">
-                    {recipe.steps?.map((step) => (
-                        <div
-                            key={step.id}
-                            className=""
-                        >
-                            {step.image && (
-                                <LazyImage
-                                    parentClass="my-10 aspect-video rounded-2xl"
-                                    img={step.image.path}
-                                    tinyImg={step.image.tiny_path}
-                                    alt={step.image.alt}
-                                />
-                            )}
-                            <div
-                                dangerouslySetInnerHTML={{ __html: step.html }}
-                            ></div>
-                        </div>
-                    ))}
+                <div className="mt-6 md:mt-16 lg:flex lg:items-start lg:gap-13 xl:gap-15">
+                    <div className="space-y-5 rounded-4xl bg-card-backdrop-gray p-4 md:space-y-6 md:p-6 lg:order-2">
+                        {recipe.infos?.map((info) => (
+                            <div className="relative rounded-3xl bg-white px-4 py-6 text-sm md:px-6 md:py-7 md:text-base lg:text-sm xl:text-base">
+                                <h3 className="mb-3 text-xl font-bold tracking-wider text-bright-salad uppercase md:text-2xl lg:text-xl xl:text-2xl">
+                                    {info.title}
+                                </h3>
+
+                                {info.html && (
+                                    <div
+                                        dangerouslySetInnerHTML={{
+                                            __html: info.html,
+                                        }}
+                                    ></div>
+                                )}
+
+                                {info.image && (
+                                    <>
+                                        <LazyImage
+                                            parentClass="aspect-video rounded-2xl"
+                                            img={info.image.path}
+                                            tinyImg={info.image.tiny_path}
+                                            alt={info.image.alt}
+                                        />
+                                        <button
+                                            onClick={() =>
+                                                setZoomedImg(info.image)
+                                            }
+                                            className="absolute top-5 right-5 z-20 size-10 rounded-full bg-bright-salad"
+                                        >
+                                            X
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    <LightBox
+                        img={zoomedImg}
+                        onClose={() => setZoomedImg(null)}
+                    />
+
+                    <div className="prose prose-sm mt-6 mb-33 max-w-172 prose-neutral md:prose-base md:mt-12 md:mb-37 lg:mt-0 xl:prose-xl xl:mb-53">
+                        {recipe.steps?.map((step, idx) => (
+                            <div key={step.id}>
+                                {step.image && (
+                                    <LazyImage
+                                        parentClass="my-6 md:my-10 aspect-video rounded-2xl"
+                                        img={step.image.path}
+                                        tinyImg={step.image.tiny_path}
+                                        alt={step.image.alt}
+                                    />
+                                )}
+                                <div
+                                    className={cn(
+                                        idx === 0 && 'no-heading-margin',
+                                    )}
+                                    dangerouslySetInnerHTML={{
+                                        __html: step.html,
+                                    }}
+                                ></div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </article>
         </UserLayout>
+    );
+}
+
+type LightBoxProps = {
+    img: Image | null;
+    onClose: () => void;
+};
+
+function LightBox({ img, onClose }: LightBoxProps) {
+    if (img == null) return null;
+
+    return (
+        <DialogLayout
+            show={img != null}
+            onClose={onClose}
+            className='max-w-140 mx-auto text-black'
+        >
+            <LazyImage
+                parentClass="aspect-video rounded-2xl"
+                img={img.path}
+                tinyImg={img.tiny_path}
+                alt={img.alt}
+            />
+        </DialogLayout>
+    );
+}
+
+type RecipeStatsType = {
+    recipe: RecipeType;
+};
+
+function RecipeStats({ recipe }: RecipeStatsType) {
+    const roundedDuration = roundDuration(recipe.cooking_time);
+    return (
+        <div className="mx-auto my-6 flex max-w-75 items-center justify-between text-sm md:my-10 md:max-w-80 md:text-base xl:my-12">
+            <div
+                className="flex items-center gap-1 md:gap-2"
+                aria-label={`${recipe.cooking_time} минут`}
+            >
+                <img
+                    src={ClockSvg}
+                    alt=""
+                    className="size-6 md:size-7"
+                    aria-hidden="true"
+                />
+                <span>{roundedDuration}</span>
+            </div>
+
+            <div
+                className="flex items-center gap-1 md:gap-2"
+                aria-label={`Оценка: ${recipe.rating} из 10`}
+            >
+                <img
+                    src={StarSvg}
+                    alt=""
+                    className="size-6 md:size-7"
+                    aria-hidden="true"
+                />
+                <span>{`${recipe.rating}/10`}</span>
+            </div>
+
+            <div
+                className="flex items-center gap-1 md:gap-2"
+                aria-label={`Категория: ${recipe.category?.name}`}
+            >
+                <img
+                    src={DishSvg}
+                    alt=""
+                    className="size-6 md:size-7"
+                    aria-hidden="true"
+                />
+                {recipe.category && <span>{recipe.category.name}</span>}
+            </div>
+        </div>
     );
 }

@@ -6,18 +6,20 @@ type DialogLayoutProps = {
     children: React.ReactNode;
     show: boolean;
     onClose: () => void;
+    className?: string;
 };
 
 export default function DialogLayout({
     show,
     children,
     onClose,
+    className
 }: DialogLayoutProps) {
     return (
         <Dialog
             open={show}
             onClose={onClose}
-            className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto"
+            className={cn("fixed inset-0 z-50 flex items-center justify-center overflow-y-auto", className)}
         >
             <DialogBackdrop
                 transition

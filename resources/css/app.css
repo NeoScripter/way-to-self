@@ -308,3 +308,6 @@ input[type='range'].audio-track {
     box-shadow: 0px 16px 11.3px 0px rgba(0, 0, 0, 0.09);
 }
 
+.no-heading-margin > *:first-child {
+    margin-top: 0 !important;
+}
