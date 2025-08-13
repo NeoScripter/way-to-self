@@ -1,6 +1,6 @@
-import scrollTo from '@/lib/helpers/scrollTo';
 import { cn } from '@/lib/utils';
 import SecondaryBtn from '../atoms/secondary-btn';
+import scrollToSection from '@/lib/helpers/scrollToSection';
 
 type HomeCardLayoutProps = {
     children: React.ReactNode;
@@ -54,7 +54,7 @@ export default function HomeCardLayout({
                 </p>
 
                 <SecondaryBtn
-                    onClick={() => scrollTo(`#${sectionNameEng}-section-title`)}
+                    onClick={() => scrollToSection(`#${sectionNameEng}-section-title`)}
                     className="mx-auto text-sm sm:text-base 2xl:text-xl"
                     aria-label={btnAriaLabel}
                 >

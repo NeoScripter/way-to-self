@@ -25,7 +25,7 @@
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         @inertiaHead
     </head>
-    <body class="font-inter overflow-x-clip antialiased min-h-screen max-w-480 mx-auto">
+    <body scroll-region class="font-inter overflow-x-clip antialiased min-h-screen max-w-480 mx-auto">
         @inertia
     </body>
 </html>

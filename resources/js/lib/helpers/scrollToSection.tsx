@@ -1,4 +1,4 @@
-export default function scrollTo(selector: string) {
+export default function scrollToSection(selector: string) {
     const element = document.querySelector(selector);
 
     if (!element) return;
