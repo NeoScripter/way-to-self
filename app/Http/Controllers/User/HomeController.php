@@ -6,6 +6,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Exercise;
 use App\Models\FaqItem;
 use App\Models\Recipe;
 use App\Models\Review;
@@ -40,6 +41,13 @@ final class HomeController extends Controller
             ->limit(4)
             ->get();
 
+        $exercises = Exercise::select(['id', 'title', 'duration', 'rating', 'type', 'description'])
+            ->free()
+            ->with(['image'])
+            ->latest()
+            ->limit(4)
+            ->get();
+
         $video = Video::whereIn('videoable_id', $recipes->pluck('id'))->first();
 
         return Inertia::render('user/home', [
@@ -47,6 +55,7 @@ final class HomeController extends Controller
             'reviews' => $reviews,
             'articles' => $articles,
             'recipes' => $recipes,
+            'exercises' => $exercises,
             'video' => $video->hlsVideo(),
         ]);
     }

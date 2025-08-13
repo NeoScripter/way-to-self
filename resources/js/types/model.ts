@@ -11,6 +11,28 @@ export type Article = {
     image?: Image;
     thumbnail?: Image;
 };
+export type Exercise = {
+    id: number;
+    title: string;
+    description: string;
+    body: string;
+    html: string;
+    duration: number;
+    rating: number;
+    type: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
+    video?: Video;
+    category?: ExerciseCategory;
+};
+export type ExerciseCategory = {
+    id: number;
+    exercise_id: number;
+    name: string;
+    created_at?: string;
+    updated_at?: string;
+};
 export type FaqItem = {
     id: number;
     title: string;
@@ -41,7 +63,7 @@ export type Recipe = {
     created_at?: string;
     updated_at?: string;
     image?: Image;
-    video?: Image;
+    video?: Video;
     infos?: RecipeInfo[];
     steps?: RecipeStep[];
     category?: RecipeCategory;

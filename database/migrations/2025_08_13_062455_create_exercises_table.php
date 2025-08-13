@@ -12,11 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipes', function (Blueprint $table) {
+        Schema::create('exercises', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->unsignedInteger('cooking_time');
+            $table->text('body');
+            $table->text('html');
+            $table->unsignedInteger('duration');
             $table->unsignedInteger('rating');
             $table->string('type')->default(ContentType::PAID->value);
             $table->timestamps();
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipes');
+        Schema::dropIfExists('exercises');
     }
 };
