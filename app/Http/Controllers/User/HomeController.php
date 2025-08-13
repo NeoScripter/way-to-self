@@ -56,7 +56,7 @@ final class HomeController extends Controller
             'articles' => $articles,
             'recipes' => $recipes,
             'exercises' => $exercises,
-            'video' => $video->hlsVideo(),
+            'video' => $video->srcVideo(),
         ]);
     }
 }

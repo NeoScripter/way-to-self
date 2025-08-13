@@ -29,6 +29,12 @@ import MiddleRadish from "@/assets/images/home/veggies/middle-radish.webp";
 import RightRadish from "@/assets/images/home/veggies/right-radish.webp";
 
 export default function Home() {
+
+    window.scrollTo({
+        top: 33000,
+        behavior: "instant"
+    });
+
     return (
         <UserLayout
             layoutClass="text-text-black bg-main-page-bg"

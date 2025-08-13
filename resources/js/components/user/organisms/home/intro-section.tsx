@@ -47,7 +47,9 @@ export default function IntroSection() {
                         </p>
                     </div>
 
-                    <PrimaryBtn className="border border-white mx-auto">
+                    <PrimaryBtn
+                        href={route('tiers.index')}
+                        className="border border-white mx-auto">
                         Получить доступ
                     </PrimaryBtn>
                 </div>

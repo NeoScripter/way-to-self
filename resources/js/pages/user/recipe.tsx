@@ -40,7 +40,7 @@ export default function Recipe() {
                 <div className="mt-6 md:mt-16 lg:flex lg:items-start lg:gap-13 xl:gap-15">
                     <div className="space-y-5 rounded-4xl bg-card-backdrop-gray p-4 md:space-y-6 md:p-6 lg:order-2">
                         {recipe.infos?.map((info) => (
-                            <div className="relative rounded-3xl bg-white px-4 py-6 text-sm md:px-6 md:py-7 md:text-base lg:text-sm xl:text-base">
+                            <div className="relative text-text-black rounded-3xl bg-white px-4 py-6 text-sm md:px-6 md:py-7 md:text-base lg:text-sm xl:text-base">
                                 <h3 className="mb-3 text-xl font-bold tracking-wider text-bright-salad uppercase md:text-2xl lg:text-xl xl:text-2xl">
                                     {info.title}
                                 </h3>
