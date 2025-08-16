@@ -12,10 +12,10 @@ export default function Articles() {
     return (
         <UserLayout layoutClass="bg-fade-olive-theme" pageClass="px-8 md:px-20 xl:px-22">
 
-            <h1 className="my-13 sm:my-20 lg:my-25">
+            <h1 className="my-13 -mx-8 sm:my-20 lg:my-25">
                 <SpanHighlight
                     text='Новости платформы'
-                    className="text-white text-[4rem] sm:text-[6rem] lg:text-[8rem] mx-auto mt-[0.1em]"
+                    className="text-white text-[4rem] sm:text-[6rem] mx-auto lg:text-[8rem] mt-[0.1em]"
                 />
             </h1>
 

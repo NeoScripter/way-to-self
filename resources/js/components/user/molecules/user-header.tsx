@@ -57,6 +57,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
     const { url } = usePage();
 
     function handleScrollDown() {
+        close();
         window.scrollTo({
             top: document.documentElement.scrollHeight,
             behavior: 'smooth',
