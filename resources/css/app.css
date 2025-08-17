@@ -75,6 +75,7 @@
     --color-bright-salad: oklch(0.6594 0.1429 133.07);
     --color-very-bright-salad: oklch(0.886 0.1475 132.38);
     --color-card-backdrop-gray: oklch(0.4683 0.0218 150.17 / 52%);
+    --color-display-backdrop-green: oklch(0.3221 0.0526 140.66 / 62%);
     --color-dark-swamp: oklch(0.3869 0.0463 135.91);
     --color-light-swamp: oklch(0.4684 0.046 131.62);
     --color-dark-green: oklch(0.3221 0.0526 140.66);

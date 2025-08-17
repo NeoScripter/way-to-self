@@ -5,7 +5,7 @@ import { FormEventHandler } from 'react';
 
 import TextLink from '@/components/starter-kit/text-link';
 import { Button } from '@/components/ui/button';
-import AuthLayout from '@/layouts/auth/auth-simple-layout';
+import AuthLayout from '@/layouts/auth/auth-layout';
 
 export default function VerifyEmail({ status }: { status?: string }) {
     const { post, processing } = useForm({});
@@ -17,7 +17,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout title="Verify email" description="Please verify your email address by clicking on the link we just emailed to you.">
+        <AuthLayout>
             <Head title="Email verification" />
 
             {status === 'verification-link-sent' && (

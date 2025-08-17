@@ -1,21 +1,18 @@
+import TinyLargeBg from '@/assets/images/auth/auth-bg-desktop-tiny.webp';
+import LargeBg from '@/assets/images/auth/auth-bg-desktop.webp';
+import TinyMobileBg from '@/assets/images/auth/auth-bg-tablet-tiny.webp';
+import MobileBg from '@/assets/images/auth/auth-bg-tablet.webp';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import Logo from '@/components/user/atoms/logo';
-import LargeBg from '@/assets/images/auth/auth-bg-desktop.webp';
-import MobileBg from '@/assets/images/auth/auth-bg-tablet.webp';
-import TinyLargeBg from '@/assets/images/auth/auth-bg-desktop-tiny.webp';
-import TinyMobileBg from '@/assets/images/auth/auth-bg-tablet-tiny.webp';
-import PrimaryBtn from '@/components/user/atoms/primary-btn';
+import RedBtn from '@/components/user/atoms/red-btn';
 import useMediaQuery from '@/hooks/use-media-query';
 import { cn } from '@/lib/utils';
-import RedBtn from '@/components/user/atoms/red-btn';
 
 interface AuthLayoutProps {
     children: React.ReactNode;
 }
 
-export default function AuthLayout({
-    children,
-}: AuthLayoutProps) {
+export default function AuthLayout({ children }: AuthLayoutProps) {
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
     const backgroundImage = isDesktop ? LargeBg : MobileBg;
@@ -36,7 +33,7 @@ export default function AuthLayout({
                 />
                 <RedBtn
                     href={route('shop')}
-                    className="py-[0.3rem] shrink-0 text-xs md:text-base xl:text-lg"
+                    className="shrink-0 py-[0.3rem] text-xs md:text-base xl:text-lg"
                 >
                     Магазин
                 </RedBtn>
@@ -63,7 +60,10 @@ export default function AuthLayout({
                 role="main"
                 aria-live="polite"
             >
-                {children}
+                <div className="relative z-20 rounded-[50px] w-9/10 max-w-192 border border-white bg-display-backdrop-green px-4 sm:px-6 py-13 backdrop-blur-md">
+
+                    {children}
+                </div>
             </main>
         </div>
     );
