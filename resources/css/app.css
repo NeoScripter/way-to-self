@@ -90,6 +90,7 @@
     --color-gray-text-bg: oklch(0.601 0.0387 118.13);
     --color-dark-white: oklch(0.8853 0 0);
     --color-gray-dark: oklch(0.2644 0.0057 91.58 / 60%);
+    --color-account-header-bg: oklch(0.3221 0.0526 140.66 / 70%);
 
     --gradient-fade-olive: linear-gradient(
         180deg,
@@ -284,7 +285,7 @@ input[type='range'].audio-track {
     display: block;
     width: 100%;
     line-height: 1em;
-    font-family: "Bodoni";
+    font-family: 'Bodoni';
     font-weight: 400;
     margin-bottom: -0.1em;
 }

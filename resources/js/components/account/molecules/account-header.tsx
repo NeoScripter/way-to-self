@@ -1,31 +1,31 @@
 import MenuBg from '@/assets/images/home/home-nav-bg.webp';
 import MobileBtnSvg from '@/assets/svgs/mobile-btn.svg';
+import Logo from '@/components/user/atoms/logo';
+import PrimaryBtn from '@/components/user/atoms/primary-btn';
+import RedBtn from '@/components/user/atoms/red-btn';
 import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
-import Logo from '../atoms/logo';
-import PrimaryBtn from '../atoms/primary-btn';
-import RedBtn from '../atoms/red-btn';
 
-type UserHeaderProps = {
+type AccountHeaderProps = {
     className?: string;
 };
 
-export default function UserHeader({ className }: UserHeaderProps) {
+export default function AccountHeader({ className }: AccountHeaderProps) {
     const [show, toggleShow] = useToggle(false);
 
     return (
         <header
             className={cn(
-                'sticky top-0 z-100 flex items-center justify-between gap-x-5 border-b border-gray-200 px-7 text-white backdrop-blur-lg md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
+                'sticky top-0 z-100 flex items-center justify-between gap-x-5 px-7 text-white backdrop-blur-lg md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
                 className,
             )}
         >
             <div
                 aria-hidden="true"
                 className={cn(
-                    'absolute top-0 bottom-0 left-1/2 -z-10 w-[120vw] -translate-x-1/2',
+                    'bg-account-header-bg absolute top-0 bottom-0 left-1/2 -z-10 w-[120vw] -translate-x-1/2',
                     className,
                 )}
             ></div>
@@ -100,48 +100,6 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                 className="mt-15 mb-50 md:mx-auto md:mt-0 md:mb-0"
             >
                 <ul className="space-y-15 text-center text-xl md:flex md:items-center md:justify-between md:gap-6 md:space-y-0 md:text-sm lg:gap-10 xl:gap-15 xl:text-base">
-                    <NavLink>
-                        <Link
-                            prefetch
-                            as="button"
-                            className={cn(
-                                url === '/'
-                                    ? 'text-bright-salad underline underline-offset-3'
-                                    : 'cursor-pointer',
-                            )}
-                            href={route('home')}
-                        >
-                            О чем
-                        </Link>
-                    </NavLink>
-                    <NavLink>
-                        <Link
-                            prefetch
-                            as="button"
-                            className={cn(
-                                url === '/tiers'
-                                    ? 'text-bright-salad underline underline-offset-3'
-                                    : 'cursor-pointer',
-                            )}
-                            href={route('tiers.index')}
-                        >
-                            Тарифы
-                        </Link>
-                    </NavLink>
-                    <NavLink>
-                        <Link
-                            prefetch
-                            as="button"
-                            className={cn(
-                                url === '/articles'
-                                    ? 'text-bright-salad underline underline-offset-3'
-                                    : 'cursor-pointer',
-                            )}
-                            href={route('user.articles.index')}
-                        >
-                            Новости
-                        </Link>
-                    </NavLink>
                     <NavLink>
                         <RedBtn
                             href={route('shop')}

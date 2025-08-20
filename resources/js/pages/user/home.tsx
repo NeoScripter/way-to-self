@@ -15,7 +15,7 @@ import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
 import CarrotTop from '@/assets/images/home/veggies/top-carrot.webp';
 import TopWholeChilli from '@/assets/images/home/veggies/top-whole-chilli.webp';
 import ArtLayer from '@/components/user/atoms/art-layer';
-import BackgroundHome from '@/components/user/atoms/background-home';
+import HomeBackground from '@/components/user/atoms/home-background';
 import ArticlesSection from '@/components/user/organisms/home/articles-section';
 import BodySection from '@/components/user/organisms/home/body-section';
 import FoodSection from '@/components/user/organisms/home/food-section';
@@ -36,7 +36,7 @@ export default function Home() {
             layoutClass="text-text-black bg-main-page-bg"
             pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
         >
-            <BackgroundHome />
+            <HomeBackground />
 
             <AppSection className="text-white">
                 <HeroSection />

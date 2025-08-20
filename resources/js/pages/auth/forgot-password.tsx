@@ -5,13 +5,13 @@ import { FormEventHandler } from 'react';
 
 import InputError from '@/components/starter-kit/input-error';
 import TextLink from '@/components/starter-kit/text-link';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import z from 'zod';
+import { Input } from '@/components/user/atoms/input';
+import { Label } from '@/components/user/atoms/label';
 
 const schema = z.object({
     email: z

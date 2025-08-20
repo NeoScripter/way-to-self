@@ -4,14 +4,15 @@ import { FormEventHandler } from 'react';
 
 import InputError from '@/components/starter-kit/input-error';
 import TextLink from '@/components/starter-kit/text-link';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import { Input } from '@/components/user/atoms/input';
+import PasswordInput from '@/components/user/atoms/password-input';
+import { Label } from '@/components/user/atoms/label';
+import { Checkbox } from '@/components/user/atoms/checkbox';
 
 type LoginForm = {
     email: string;
@@ -128,9 +129,8 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         >
                             Пароль
                         </Label>
-                        <Input
+                        <PasswordInput
                             id="password"
-                            type="password"
                             required
                             tabIndex={2}
                             autoComplete="current-password"

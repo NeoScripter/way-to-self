@@ -7,7 +7,7 @@ import TabletBg from '@/assets/images/home/hero/home-bg-tablet.webp';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
-export default function BackgroundHome() {
+export default function HomeBackground() {
     const [isLoading, setIsLoading] = useState(true);
 
     return (

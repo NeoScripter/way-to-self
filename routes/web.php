@@ -25,10 +25,10 @@ Route::name('user.')->group(function () {
     Route::get('/exercise/{exercise}', [ExerciseController::class, 'show'])->name('exercises.show');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('admin/dashboard');
-    })->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+    Route::get('account', function () {
+        return Inertia::render('account/account');
+    })->name('account');
 });
 
 require __DIR__ . '/settings.php';

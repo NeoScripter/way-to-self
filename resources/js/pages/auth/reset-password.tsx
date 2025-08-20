@@ -1,15 +1,15 @@
 import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
-
 import InputError from '@/components/starter-kit/input-error';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import z from 'zod';
+import { Input } from '@/components/user/atoms/input';
+import PasswordInput from '@/components/user/atoms/password-input';
+import { Label } from '@/components/user/atoms/label';
 
 interface ResetPasswordProps {
     token: string;
@@ -130,9 +130,8 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                         >
                             Пароль
                         </Label>
-                        <Input
+                        <PasswordInput
                             id="password"
-                            type="password"
                             name="password"
                             autoComplete="new-password"
                             value={data.password}
@@ -156,9 +155,8 @@ export default function ResetPassword({ token, email }: ResetPasswordProps) {
                         >
                             Повторите пароль
                         </Label>
-                        <Input
+                        <PasswordInput
                             id="password_confirmation"
-                            type="password"
                             name="password_confirmation"
                             autoComplete="new-password"
                             value={data.password_confirmation}
