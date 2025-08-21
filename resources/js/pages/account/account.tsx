@@ -1,5 +1,7 @@
+import Padlock from '@/assets/svgs/padlock.svg';
 import AccountBackground from '@/components/account/atoms/account-background';
 import LazyImage from '@/components/user/atoms/lazy-image';
+import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AccountLayout from '@/layouts/user/account-layout';
 import { cn } from '@/lib/utils';
@@ -39,25 +41,34 @@ export default function Account() {
                 </span>
             </h1>
 
-            <div className="">
+            <div className="pt-1">
                 <ul
                     className={cn(
-                        'mx-auto space-y-24 mt-30 sm:mt-8 sm:space-y-6 w-fit lg:w-full lg:space-y-0 lg:grid lg:grid-cols-3',
+                        'account-card-parent mx-auto mt-30 w-fit space-y-24 sm:mt-8 sm:space-y-6 xl:w-full xl:grid-rows-2 xl:space-y-0',
                     )}
                 >
                     {tiers.map((tier, idx) => (
-                        <li key={tier.id}>
-                            <TierCard
-                                tier={tier}
-                                purchased={! purchased.includes(tier.id)}
-                                className={cn(
-                                    idx !== 1 ? 'pt-28' : 'sm:gap-10',
-                                )}
-                            />
-                        </li>
+                        <TierCard
+                            key={tier.id}
+                            tier={tier}
+                            purchased={purchased.includes(tier.id)}
+                            className={cn(
+                                idx === 0 &&
+                                    'account-card-b pt-28 xl:flex-col xl:text-center',
+                                idx === 1 && 'account-card-a sm:gap-10',
+                                idx === 2 && 'account-card-c pt-28',
+                            )}
+                        />
                     ))}
                 </ul>
             </div>
+
+            <PrimaryBtn
+                href={route('tiers.index')}
+                className="mx-auto my-15 border border-white px-[2em] text-sm md:my-20 md:text-base xl:text-lg"
+            >
+                Продлить | Изменить подписку
+            </PrimaryBtn>
         </AccountLayout>
     );
 }
@@ -70,13 +81,23 @@ type TierCardProps = {
 
 function TierCard({ tier, className, purchased }: TierCardProps) {
     return (
-        <article
+        <li
             className={cn(
-                'max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
+                'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 text-center backdrop-blur-sm sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 sm:text-left md:px-8 xl:max-w-full xl:px-10',
                 className,
-                !purchased && 'grayscale',
+                !purchased && 'grayscale-75',
             )}
         >
+            <div
+                aria-hidden="true"
+                className="z-20 absolute -top-8 right-1 sm:-top-6 sm:right-3 block size-25"
+            >
+                <img
+                    src={Padlock}
+                    alt=""
+                    className='size-full object-center object-contain'
+                />
+            </div>
             {tier.image && (
                 <LazyImage
                     img={tier.image.path}
@@ -89,15 +110,15 @@ function TierCard({ tier, className, purchased }: TierCardProps) {
 
             <div className="">
                 <header>
-                    <h2 className="mb-4 text-center font-heading text-4xl sm:text-left sm:text-5xl md:mb-7 lg:text-6xl">
+                    <h2 className="mb-4 font-heading text-4xl sm:text-5xl md:mb-7 lg:text-6xl">
                         {tier.name}
                     </h2>
                 </header>
 
-                <p className="mb-5 text-center text-sm text-balance sm:text-left sm:text-base md:mb-8 2xl:text-lg">
+                <p className="mb-5 text-sm text-balance sm:text-base md:mb-8 2xl:text-lg">
                     {tier.description}
                 </p>
             </div>
-        </article>
+        </li>
     );
 }

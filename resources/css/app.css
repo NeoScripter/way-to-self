@@ -313,3 +313,23 @@ input[type='range'].audio-track {
 .no-heading-margin > *:first-child {
     margin-top: 0 !important;
 }
+
+@media screen and (min-width: 80rem) {
+    .account-card-parent {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        grid-template-areas:
+            'a a b'
+            'c c b';
+    }
+    .account-card-a {
+        grid-area: a;
+    }
+    .account-card-b {
+        grid-area: b;
+    }
+    .account-card-c {
+        grid-area: c;
+    }
+}
