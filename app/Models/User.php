@@ -55,6 +55,7 @@ class User extends Authenticatable
 
     public function tiers(): BelongsToMany
     {
-        return $this->belongsToMany(Tier::class);
+        return $this->belongsToMany(Tier::class)
+            ->withPivot('purchased_at');
     }
 }

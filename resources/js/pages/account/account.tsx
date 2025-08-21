@@ -9,11 +9,17 @@ import { Auth } from '@/types';
 import { Tier } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
+type PurchaseType = {
+    id: number;
+    expires: string;
+    expiring_soon: boolean;
+};
+
 export default function Account() {
     const { auth, tiers, purchased } = usePage<{
         tiers: Tier[];
         auth: Auth;
-        purchased: number[];
+        purchased: PurchaseType[];
     }>().props;
 
     return (
@@ -51,7 +57,7 @@ export default function Account() {
                         <TierCard
                             key={tier.id}
                             tier={tier}
-                            purchased={purchased.includes(tier.id)}
+                            purchased={purchased.find((t) => t.id === tier.id)}
                             className={cn(
                                 idx === 0 &&
                                     'account-card-b pt-28 xl:flex-col xl:text-center',
@@ -76,7 +82,7 @@ export default function Account() {
 type TierCardProps = {
     tier: Tier;
     className?: string;
-    purchased: boolean;
+    purchased: PurchaseType | undefined;
 };
 
 function TierCard({ tier, className, purchased }: TierCardProps) {
@@ -88,16 +94,19 @@ function TierCard({ tier, className, purchased }: TierCardProps) {
                 !purchased && 'grayscale-75',
             )}
         >
-            <div
-                aria-hidden="true"
-                className="z-20 absolute -top-8 right-1 sm:-top-6 sm:right-3 block size-25"
-            >
-                <img
-                    src={Padlock}
-                    alt=""
-                    className='size-full object-center object-contain'
-                />
-            </div>
+            {!purchased && (
+                <div
+                    aria-hidden="true"
+                    className="absolute -top-8 right-1 z-20 block size-25 sm:-top-6 sm:right-3"
+                >
+                    <img
+                        src={Padlock}
+                        alt=""
+                        className="size-full object-contain object-center"
+                    />
+                </div>
+            )}
+
             {tier.image && (
                 <LazyImage
                     img={tier.image.path}
@@ -115,9 +124,15 @@ function TierCard({ tier, className, purchased }: TierCardProps) {
                     </h2>
                 </header>
 
-                <p className="mb-5 text-sm text-balance sm:text-base md:mb-8 2xl:text-lg">
+                <p className="mb-5 text-sm text-balance sm:text-base 2xl:text-lg">
                     {tier.description}
                 </p>
+
+                {purchased && (
+                    <p className={cn("mb-5 text-sm font-bold text-balance underline underline-offset-4 sm:text-base md:mb-8 2xl:text-lg", purchased.expiring_soon ? "text-red-400" : "text-very-bright-salad")}>
+                        Подписка на раздел оплачена до {purchased.expires}
+                    </p>
+                )}
             </div>
         </li>
     );

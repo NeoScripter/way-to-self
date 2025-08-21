@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tier_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->timestamp('purchased_at')->nullable();
             $table->timestamps();
+            $table->unique(['user_id', 'tier_id']);
         });
     }
 

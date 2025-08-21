@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Image;
 use App\Models\Tier;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class TierSeeder extends Seeder
@@ -63,5 +64,11 @@ class TierSeeder extends Seeder
                 })
                 ->create();
         }
+        $user = User::all()->first();
+        $tier = Tier::all()->first();
+
+        $user->tiers()->attach($tier->id, [
+            'purchased_at' => now()
+        ]);
     }
 }
