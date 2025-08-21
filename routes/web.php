@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
 use App\Http\Controllers\User\HomeController;
@@ -26,9 +28,11 @@ Route::name('user.')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('account', function () {
-        return Inertia::render('account/account');
-    })->name('account');
+    Route::get('account', AccountController::class)->name('account');
+
+    Route::name('account.')->group(function () {
+        Route::get('account/profile', [ProfileController::class, 'edit'])->name('edit');
+    });
 });
 
 require __DIR__ . '/settings.php';

@@ -26,4 +26,9 @@ class Tier extends Model
     {
         return $this->belongsToMany(TierCart::class);
     }
+
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

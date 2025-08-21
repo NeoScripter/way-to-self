@@ -15,7 +15,7 @@ export default function AccountBackground() {
         >
             <picture
                 className={cn(
-                    'block size-full w-full object-cover object-center transition-all duration-500 ease-in-out',
+                    'block size-full object-cover object-center transition-all duration-500 ease-in-out',
                     isLoading && 'opacity-0',
                 )}
             >
@@ -27,7 +27,7 @@ export default function AccountBackground() {
                     onLoad={() => setIsLoading(false)}
                     src={MobileBg}
                     alt=""
-                    className="block w-full object-cover object-left-top"
+                    className="block size-full object-cover object-left-top"
                 />
             </picture>
 
@@ -47,7 +47,7 @@ export default function AccountBackground() {
                 <picture
                     aria-hidden="true"
                     className={cn(
-                        'block size-full w-full object-cover object-center transition-all duration-500 ease-in-out'
+                        'block size-full object-cover object-center transition-all duration-500 ease-in-out'
                     )}
                 >
                     <source
@@ -58,7 +58,7 @@ export default function AccountBackground() {
                         onLoad={() => setIsLoading(false)}
                         src={TinyMobileBg}
                         alt=""
-                        className="block w-full object-cover object-left-top"
+                        className="block size-full object-cover object-left-top"
                     />
                 </picture>
             </div>
