@@ -8,7 +8,7 @@ use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
-    public function edit()
+    public function index()
     {
         return Inertia::render('account/profile');
     }

@@ -1,6 +1,7 @@
 import MenuBg from '@/assets/images/home/home-nav-bg.webp';
 import MobileBtnSvg from '@/assets/svgs/mobile-btn.svg';
 import Logo from '@/components/user/atoms/logo';
+import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import RedBtn from '@/components/user/atoms/red-btn';
 import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
@@ -115,30 +116,39 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                 </ul>
             </nav>
 
-            <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-lg md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
-                <NavLink>
-                    <Link
-                        href={route('account.edit')}
-                        as="button"
-                        className="mx-auto flex cursor-pointer items-center gap-2"
-                    >
-                        <Cog6ToothIcon className="hidden size-6.5 md:block" />
-                        Настройки
-                    </Link>
-                </NavLink>
+            {url.endsWith('account/profile') ? (
+                <PrimaryBtn
+                    className="mx-auto shrink-0 text-xl md:mr-0 md:text-xs xl:text-base"
+                    href={route('account')}
+                >
+                    Личный кабинет
+                </PrimaryBtn>
+            ) : (
+                <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-lg md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
+                    <NavLink>
+                        <Link
+                            href={route('account.index')}
+                            as="button"
+                            className="mx-auto flex cursor-pointer items-center gap-2"
+                        >
+                            <Cog6ToothIcon className="hidden size-6.5 md:block" />
+                            Настройки
+                        </Link>
+                    </NavLink>
 
-                <NavLink>
-                    <Link
-                        href={route('logout')}
-                        method="post"
-                        as="button"
-                        className="mx-auto flex cursor-pointer items-center gap-2"
-                    >
-                        <ArrowRightStartOnRectangleIcon className="hidden size-6.5 md:block" />
-                        Выйти
-                    </Link>
-                </NavLink>
-            </div>
+                    <NavLink>
+                        <Link
+                            href={route('logout')}
+                            method="post"
+                            as="button"
+                            className="mx-auto flex cursor-pointer items-center gap-2"
+                        >
+                            <ArrowRightStartOnRectangleIcon className="hidden size-6.5 md:block" />
+                            Выйти
+                        </Link>
+                    </NavLink>
+                </div>
+            )}
         </div>
     );
 }

@@ -15,8 +15,10 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Пользователь',
-            'email' => 'test@example.com',
+            'name' => 'Джон',
+            'surname' => 'Доу',
+            'email' => 'test@gmail.com',
+            'telegram' => '@johndoe187',
         ]);
 
         $this->call(FaqItemSeeder::class);

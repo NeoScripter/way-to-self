@@ -7,7 +7,7 @@ import AccountLayout from '@/layouts/user/account-layout';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
 import { Tier } from '@/types/model';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 type PurchaseType = {
     id: number;
@@ -94,6 +94,12 @@ function TierCard({ tier, className, purchased }: TierCardProps) {
                 !purchased && 'grayscale-75',
             )}
         >
+            <Link
+                href={!purchased ? route('tiers.index') : route('account')}
+                as="button"
+                className="absolute inset-0 z-10 cursor-pointer"
+            ></Link>
+
             {!purchased && (
                 <div
                     aria-hidden="true"
@@ -129,7 +135,14 @@ function TierCard({ tier, className, purchased }: TierCardProps) {
                 </p>
 
                 {purchased && (
-                    <p className={cn("mb-5 text-sm font-bold text-balance underline underline-offset-4 sm:text-base md:mb-8 2xl:text-lg", purchased.expiring_soon ? "text-red-400" : "text-very-bright-salad")}>
+                    <p
+                        className={cn(
+                            'mb-5 text-sm font-bold text-balance underline underline-offset-4 sm:text-base md:mb-8 2xl:text-lg',
+                            purchased.expiring_soon
+                                ? 'text-red-400'
+                                : 'text-very-bright-salad',
+                        )}
+                    >
                         Подписка на раздел оплачена до {purchased.expires}
                     </p>
                 )}
