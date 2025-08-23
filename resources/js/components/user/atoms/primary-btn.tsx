@@ -17,7 +17,7 @@ export default function PrimaryBtn({
     type,
 }: PrimaryBtnProps) {
     const baseClass = cn(
-        'block w-max cursor-pointer rounded-full bg-gradient-to-r from-light-swamp via-dark-swamp to-dark-green px-[1.25em] py-[0.75em] text-center text-white shadow-lg shadow-dark-green/50 transition duration-200 ease-in-out hover:bg-gradient-to-br focus:ring-4 focus:ring-light-swamp focus:outline-none dark:shadow-lg dark:shadow-dark-green/80 dark:focus:ring-dark-green',
+        'block w-max cursor-pointer rounded-full bg-gradient-to-r from-light-swamp via-dark-swamp to-dark-green px-[1.25em] py-[0.75em] text-center text-white shadow-lg shadow-dark-green/50 transition duration-200 ease-in-out hover:bg-gradient-to-br focus:ring-4 focus:ring-light-swamp focus:outline-none',
         className,
     );
 

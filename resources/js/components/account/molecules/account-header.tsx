@@ -1,5 +1,6 @@
 import MenuBg from '@/assets/images/home/home-nav-bg.webp';
 import MobileBtnSvg from '@/assets/svgs/mobile-btn.svg';
+import DarkBtn from '@/components/user/atoms/dark-btn';
 import Logo from '@/components/user/atoms/logo';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import RedBtn from '@/components/user/atoms/red-btn';
@@ -117,12 +118,12 @@ function NavMenu({ className, close, show }: NavMenuProps) {
             </nav>
 
             {url.endsWith('account/profile') ? (
-                <PrimaryBtn
-                    className="mx-auto shrink-0 text-xl md:mr-0 md:text-xs xl:text-base"
+                <DarkBtn
+                    className="mx-auto shrink-0 md:bg-dark-green mt-15 mb-50 md:my-0 md:hover:bg-dark-green/90 text-lg md:text-sm lg:text-base md:mr-0"
                     href={route('account')}
                 >
                     Личный кабинет
-                </PrimaryBtn>
+                </DarkBtn>
             ) : (
                 <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-lg md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
                     <NavLink>

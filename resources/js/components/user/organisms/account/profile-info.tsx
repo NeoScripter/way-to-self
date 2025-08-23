@@ -1,12 +1,12 @@
-import { User } from '@/types';
-import { Button } from '@headlessui/react';
-import { useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
-
 import { Input } from '@/components/user/atoms/input';
 import InputError from '@/components/user/atoms/input-error';
 import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import { User } from '@/types';
+import { Button } from '@headlessui/react';
+import { useForm, usePage } from '@inertiajs/react';
+import { FormEventHandler, useState } from 'react';
+import { z } from 'zod';
 import InputSpan from '../../atoms/input-span';
 
 type ProfileForm = {
@@ -16,6 +16,26 @@ type ProfileForm = {
     telegram: string;
 };
 
+export const schema = z.object({
+    name: z
+        .string()
+        .min(1, 'Введите имя')
+        .max(100, 'Имя не должно превышать 100 символов'),
+    surname: z
+        .string()
+        .min(1, 'Введите фамилию')
+        .max(100, 'Фамилия не должна превышать 100 символов'),
+    email: z
+        .string()
+        .email('Введите правильный email')
+        .max(100, 'Email не должен превышать 100 символов'),
+    telegram: z
+        .string()
+        .regex(/^@/, 'Telegram должен начинаться с @')
+        .min(2, 'Введите Telegram')
+        .max(50, 'Telegram не должен превышать 50 символов'),
+});
+
 export default function ProfileInfo() {
     const { auth } = usePage<{
         auth: { user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'> };
@@ -23,18 +43,48 @@ export default function ProfileInfo() {
 
     const [infoEdited, setInfoEdited] = useState(false);
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
-        useForm<ProfileForm>({
-            name: auth.user.name,
-            surname: auth.user.surname,
-            email: auth.user.email,
-            telegram: auth.user.telegram,
-        });
+    const {
+        data,
+        setData,
+        setError,
+        patch,
+        errors,
+        processing,
+        recentlySuccessful,
+        reset,
+        clearErrors
+    } = useForm<ProfileForm>({
+        name: auth.user.name,
+        surname: auth.user.surname,
+        email: auth.user.email,
+        telegram: auth.user.telegram,
+    });
+
+    const handleCancelClick = () => {
+        setInfoEdited((o) => !o);
+        reset();
+        clearErrors();
+    };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
         if (!infoEdited) return;
+
+        const result = schema.safeParse(data);
+        if (!result.success) {
+            const fieldErrors = result.error.flatten().fieldErrors;
+
+            const inertiaErrors: Record<keyof ProfileForm, string> = {
+                email: fieldErrors.email?.[0] ?? '',
+                name: fieldErrors.name?.[0] ?? '',
+                surname: fieldErrors.surname?.[0] ?? '',
+                telegram: fieldErrors.telegram?.[0] ?? '',
+            };
+
+            setError(inertiaErrors);
+            return;
+        }
 
         patch(route('profile.update'), {
             preserveScroll: true,
@@ -154,7 +204,7 @@ export default function ProfileInfo() {
                     <div className="mt-8 flex items-center justify-end gap-2 sm:gap-4">
                         <Button
                             type="button"
-                            onClick={() => setInfoEdited((o) => !o)}
+                            onClick={handleCancelClick}
                             className="cursor-pointer rounded-full px-6 py-3 text-sm sm:text-base"
                             disabled={processing}
                         >
