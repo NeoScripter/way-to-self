@@ -92,7 +92,7 @@ export default function ProfileInfo() {
     };
 
     return (
-        <div className="pt-4">
+        <div className="pt-4 relative z-50">
             <div className="mx-auto max-w-177.5 space-y-6">
                 <h3 className="mb-6 block font-heading font-medium sm:text-lg md:text-xl lg:mb-8 lg:text-2xl">
                     Данные пользователя

@@ -3,12 +3,14 @@ import LazyImage from './lazy-image';
 
 type ArtLayerProps = {
     img: string;
+    tinyImg?: string;
     className?: string;
     imgClassName?: string;
 };
 
 export default function ArtLayer({
     img,
+    tinyImg,
     className,
     imgClassName,
 }: ArtLayerProps) {
@@ -22,7 +24,7 @@ export default function ArtLayer({
         >
             <LazyImage
                 img={img}
-                tinyImg={img}
+                tinyImg={tinyImg ? tinyImg : img}
                 alt=""
                 imgClass={cn(
                     'size-full object-contain object-center',

@@ -119,7 +119,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
 
             {url.endsWith('account/profile') ? (
                 <DarkBtn
-                    className="mx-auto shrink-0 md:bg-dark-green mt-15 mb-50 md:my-0 md:hover:bg-dark-green/90 text-lg md:text-sm lg:text-base md:mr-0"
+                    className="mx-auto md:mx-0 shrink-0 md:bg-dark-green mt-15 mb-50 md:my-0 md:hover:bg-dark-green/90 text-lg md:text-sm lg:text-base md:mr-0"
                     href={route('account')}
                 >
                     Личный кабинет
