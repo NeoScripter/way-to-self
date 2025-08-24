@@ -13,7 +13,7 @@ export default function Article() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-text-black uppercase md:mt-20 md:text-5xl xl:mt-30 xl:text-6xl">
+                <h1 className="mt-10 text-center text-balance font-heading text-2xl font-medium text-text-black uppercase md:mt-20 md:text-5xl xl:mt-30 xl:text-6xl">
                     {article.title}
                 </h1>
 

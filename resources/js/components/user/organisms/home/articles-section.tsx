@@ -3,15 +3,22 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import ArticleCard from '../../atoms/article-card';
 import SecondaryHeading from '../../atoms/secondary-heading';
+import { cn } from '@/lib/utils';
 
-export default function ArticlesSection() {
+type ArticlesSectionProps = {
+    titleClass?: string;
+    subtitleClass?: string;
+    articleClass?: string;
+}
+
+export default function ArticlesSection({titleClass, subtitleClass, articleClass}: ArticlesSectionProps) {
     const { articles } = usePage<{ articles: Article[] }>().props;
 
     return (
         <>
             <SecondaryHeading
                 text="Последние новости"
-                className="font-medium text-dark-green"
+                className={cn("font-medium text-dark-green", titleClass)}
             />
 
             <span
@@ -24,7 +31,7 @@ export default function ArticlesSection() {
             <Link
                 as="button"
                 href={route('user.articles.index')}
-                className="transiton-colors mx-auto mt-7 mb-10 block w-max cursor-pointer tracking-wider text-gray-500 duration-200 ease-in hover:text-bright-salad sm:mt-9 sm:mb-12 lg:mr-0"
+                className={cn("transiton-colors mx-auto mt-7 mb-10 block w-max cursor-pointer tracking-wider text-gray-500 duration-200 ease-in hover:text-bright-salad sm:mt-9 sm:mb-12 lg:mr-0", subtitleClass)}
             >
                 Все записи
                 <ChevronDoubleRightIcon className="ml-3 inline size-3.5 text-inherit" />
@@ -35,6 +42,7 @@ export default function ArticlesSection() {
                     <ArticleCard
                         key={article.id}
                         article={article}
+                        className={articleClass}
                     />
                 ))}
             </ul>

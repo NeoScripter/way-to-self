@@ -29,8 +29,6 @@ import UserLayout from '@/layouts/user/user-layout';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
-
-
     return (
         <UserLayout
             layoutClass="text-text-black bg-main-page-bg"
@@ -174,7 +172,7 @@ export default function Home() {
             </AppSection>
 
             <AppSection ariaLabelledBy="articles-section-title">
-                <ArticlesSection />
+                <ArticlesSection articleClass="text-dark-green" />
             </AppSection>
         </UserLayout>
     );

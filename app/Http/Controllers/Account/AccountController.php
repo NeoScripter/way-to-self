@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\Tier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -28,9 +29,17 @@ class AccountController extends Controller
             })
             ->toArray();
 
+        $articles = Article::select(['id', 'description', 'title'])
+            ->free()
+            ->with(['thumbnail'])
+            ->latest()
+            ->limit(4)
+            ->get();
+
         return Inertia::render('account/account', [
             'tiers' => fn() => Tier::select(['id', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
             'purchased' => $selectedTiers,
+            'articles' => $articles
         ]);
     }
 }

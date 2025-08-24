@@ -4,20 +4,21 @@ import LazyImage from './lazy-image';
 
 type ArticleCardProps = {
     article: Article;
+    className?: string;
 };
 
-export default function ArticleCard({ article }: ArticleCardProps) {
+export default function ArticleCard({ article, className }: ArticleCardProps) {
     const articleUrl = route('user.articles.show', article.id);
 
     return (
-        <li className="">
+        <li className={className}>
             <Link
                 prefetch
                 as="button"
                 href={articleUrl}
                 aria-labelledby={`article-title-${article.id}`}
                 aria-describedby={`article-description-${article.id}`}
-                className="group block cursor-pointer text-lg text-dark-green"
+                className="group block cursor-pointer text-lg"
             >
                 {article.thumbnail != null && (
                     <LazyImage
@@ -32,7 +33,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
                 <div className="space-y-2">
                     <h4
                         id={`article-title-${article.id}`}
-                        className="mb-2 text-lg leading-tight font-medium"
+                        className="mb-2 text-lg text-balance leading-tight font-medium"
                     >
                         {article.title}
                     </h4>

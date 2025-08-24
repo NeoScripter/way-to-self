@@ -3,6 +3,7 @@ import AccountBackground from '@/components/account/atoms/account-background';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
+import ArticlesSection from '@/components/user/organisms/home/articles-section';
 import AccountLayout from '@/layouts/user/account-layout';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
@@ -75,6 +76,14 @@ export default function Account() {
             >
                 Продлить | Изменить подписку
             </PrimaryBtn>
+
+            <section className="rounded-4xl border-2 border-white/20 bg-gray-500/50 px-8 md:px-10 pt-12 backdrop-blur-sm">
+                <ArticlesSection
+                    articleClass="text-white"
+                    titleClass="text-white"
+                    subtitleClass="text-white"
+                />
+            </section>
         </AccountLayout>
     );
 }
