@@ -5,9 +5,15 @@ import SpanHighlight from "../../atoms/span-highlight";
 import InfoCard from "../../atoms/info-card";
 import SecondaryHeading from "../../atoms/secondary-heading";
 import { soulCardData } from "@/lib/data/card-data";
-import AudioPlayer, { Track } from "../../atoms/audio-player";
+import AudioPlayer from "../../atoms/audio-player";
+import { usePage } from "@inertiajs/react";
+import { Audio } from "@/types/model";
 
 export default function SoulSection() {
+    const { tracks } = usePage<{ tracks: Audio[] }>().props;
+
+    console.log(tracks)
+
     return (
         <>
             <h3 id="soul-section-title" className="mb-11 xl:mb-14">
@@ -33,19 +39,3 @@ export default function SoulSection() {
         </>
     );
 }
-
-const tracks: Track[] = [
-    {
-        title: "Название медитации",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
-        audioSrc: ExampleTrack,
-        image: ExamplePreview,
-    },
-    {
-        title: "Название 2",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi voluptate aspernatur, soluta nemo qui quas?Lorem ipsum dolor sit amet consectetur ",
-        audioSrc: ExampleTrack,
-        image: ExamplePreview2,
-    }
-];
-

@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use App\Models\User;
+use App\Models\Audio;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Джон',
             'surname' => 'Доу',
             'email' => 'test@gmail.com',
@@ -27,5 +29,11 @@ class DatabaseSeeder extends Seeder
         $this->call(TierSeeder::class);
         $this->call(RecipeSeeder::class);
         $this->call(ExerciseSeeder::class);
+        $this->call(AudioSeeder::class);
+
+        $audio = Audio::first();
+        $user->favoriteAudio()->attach($audio->id);
+        $article = Article::first();
+        $user->favoriteArticles()->attach($article->id);
     }
 }

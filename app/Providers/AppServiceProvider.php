@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Article;
+use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\Recipe;
 use App\Models\RecipeInfo;
@@ -32,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::enforceMorphMap([
             'review' => Review::class,
+            'audio' => Audio::class,
             'article' => Article::class,
             'tier' => Tier::class,
             'recipe' => Recipe::class,

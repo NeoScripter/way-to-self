@@ -58,4 +58,19 @@ class User extends Authenticatable
         return $this->belongsToMany(Tier::class)
             ->withPivot('purchased_at');
     }
+
+    public function favoriteArticles()
+    {
+        return $this->morphedByMany(Article::class, 'favorable', 'favorites');
+    }
+
+    public function favoriteExercises()
+    {
+        return $this->morphedByMany(Exercise::class, 'favorable', 'favorites');
+    }
+
+    public function favoriteAudio()
+    {
+        return $this->morphedByMany(Audio::class, 'favorable', 'favorites');
+    }
 }

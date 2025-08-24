@@ -6,6 +6,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\FaqItem;
 use App\Models\Recipe;
@@ -48,6 +49,11 @@ final class HomeController extends Controller
             ->limit(4)
             ->get();
 
+        $audios = Audio::with(['image'])
+            ->free()
+            ->latest()
+            ->get();
+
         $video = Video::whereIn('videoable_id', $recipes->pluck('id'))->first();
 
         return Inertia::render('user/home', [
@@ -57,6 +63,7 @@ final class HomeController extends Controller
             'recipes' => $recipes,
             'exercises' => $exercises,
             'video' => $video->srcVideo(),
+            'tracks' => $audios,
         ]);
     }
 }

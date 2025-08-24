@@ -1,19 +1,14 @@
-import { useRef, useState } from "react";
-import PlayBtn from "@/assets/svgs/play.svg";
-import NextBtn from "@/assets/svgs/next.svg";
-import PauseBtn from "@/assets/svgs/pаuse.svg";
-import { cn } from "@/lib/utils";
-import { convertSecondsToTime } from "@/lib/helpers/convertSecondsToTime";
-
-export interface Track {
-    title: string;
-    description: string;
-    audioSrc: string;
-    image: string;
-}
+import NextBtn from '@/assets/svgs/next.svg';
+import PlayBtn from '@/assets/svgs/play.svg';
+import PauseBtn from '@/assets/svgs/pаuse.svg';
+import { convertSecondsToTime } from '@/lib/helpers/convertSecondsToTime';
+import { cn } from '@/lib/utils';
+import type { Audio } from '@/types/model';
+import { useRef, useState } from 'react';
+import LazyImage from './lazy-image';
 
 type AudioPlayerProps = {
-    tracks: Track[];
+    tracks: Audio[];
     className?: string;
 };
 
@@ -21,16 +16,21 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
     const [trackIndex, setTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [order, setOrder] = useState<"default" | "random" | "repeat">("default");
+    const [order, setOrder] = useState<'default' | 'random' | 'repeat'>(
+        'default',
+    );
 
-    const { title, description, image, audioSrc } = tracks[trackIndex];
-    const audioRef = useRef<HTMLAudioElement>(new Audio(audioSrc));
+    const { title, description, image, path } = tracks[trackIndex];
+    const audioRef = useRef<HTMLAudioElement>(new Audio(path));
     const intervalRef = useRef<number | null>(null);
     const { duration } = audioRef.current;
 
-
-    const togglePlaybackOrder = (selectedOrder: "default" | "random" | "repeat") => {
-        setOrder((prevOrder) => (prevOrder === selectedOrder ? "default" : selectedOrder));
+    const togglePlaybackOrder = (
+        selectedOrder: 'default' | 'random' | 'repeat',
+    ) => {
+        setOrder((prevOrder) =>
+            prevOrder === selectedOrder ? 'default' : selectedOrder,
+        );
     };
 
     const startTimer = () => {
@@ -57,9 +57,9 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
     };
 
     const toPrevTrack = () => {
-        if (order === "repeat") {
+        if (order === 'repeat') {
             onScrub(0);
-        } else if (order === "random") {
+        } else if (order === 'random') {
             const length = tracks.length;
             setTrackIndex((prev) => {
                 let next;
@@ -77,9 +77,9 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
     };
 
     const toNextTrack = () => {
-        if (order === "repeat") {
+        if (order === 'repeat') {
             onScrub(0);
-        } else if (order === "random") {
+        } else if (order === 'random') {
             const length = tracks.length;
             setTrackIndex((prev) => {
                 let next;
@@ -98,7 +98,7 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
 
     function switchTrack() {
         audioRef.current.pause();
-        audioRef.current = new Audio(audioSrc);
+        audioRef.current = new Audio(path);
         setTrackProgress(audioRef.current.currentTime);
     }
 
@@ -114,24 +114,35 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
     }
 
     return (
-        <div className={cn("text-white relative p-8 rounded-[3.5rem] sm:rounded-[6rem] sm:px-17 sm:mt-44 sm:pb-14 sm:pt-50 lg:pt-14 lg:pb-14 lg:mt-0 3xl:pl-46 3xl:pr-33 border-2 border-white/20 backdrop-blur-sm bg-card-backdrop-gray/50", className)}>
-            <div className="text-center lg:flex lg:items-start lg:gap-16 lg:justify-between lg:text-left">
-                <div className="rounded-xl overflow-clip mx-auto mb-5 sm:mb-6 max-w-60 sm:size-75 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:top-0 sm:-translate-y-2/5 sm:max-w-full lg:static lg:translate-0 lg:mx-0 lg:shrink-0 lg:size-75 lg:basis-75 lg:self-center">
-                    <img
-                        className="object-cover object-center size-full"
-                        src={image}
-                        alt=""
-                        aria-hidden="true"
+        <div
+            className={cn(
+                'relative rounded-[3.5rem] border-2 border-white/20 bg-card-backdrop-gray/50 p-8 text-white backdrop-blur-sm sm:mt-44 sm:rounded-[6rem] sm:px-17 sm:pt-50 sm:pb-14 lg:mt-0 lg:pt-14 lg:pb-14 3xl:pr-33 3xl:pl-46',
+                className,
+            )}
+        >
+            <div className="text-center lg:flex lg:items-start lg:justify-between lg:gap-16 lg:text-left">
+                {tracks[trackIndex].image && (
+                    <LazyImage
+                        img={tracks[trackIndex].image.path}
+                        tinyImg={tracks[trackIndex].image.tiny_path}
+                        alt={tracks[trackIndex].image.alt}
+                        parentClass="rounded-xl overflow-clip mx-auto mb-5 sm:mb-6 max-w-60 sm:size-75 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:top-0 sm:-translate-y-2/5 sm:max-w-full lg:static lg:translate-0 lg:mx-0 lg:shrink-0 lg:size-75 lg:basis-75 lg:self-center"
                     />
-                </div>
+                )}
 
                 <div>
-                    <p className="text-xl mb-3 sm:text-2xl sm:mb-4 lg:mb-5 lg:text-3xl">{title}</p>
-                    <p className="text-sm mb-6 sm:text-base lg:mb-8">{description}</p>
+                    <p className="mb-3 text-xl sm:mb-4 sm:text-2xl lg:mb-5 lg:text-3xl">
+                        {title}
+                    </p>
+                    <p className="mb-6 text-sm sm:text-base lg:mb-8">
+                        {description}
+                    </p>
 
-                    <div className="max-w-75 sm:max-w-100 mx-auto lg:ml-0">
-                        <div className="flex items-center gap-1 mt-4">
-                            <div className="text-xs w-12">{convertSecondsToTime(trackProgress)}</div>
+                    <div className="mx-auto max-w-75 sm:max-w-100 lg:ml-0">
+                        <div className="mt-4 flex items-center gap-1">
+                            <div className="w-12 text-xs">
+                                {convertSecondsToTime(trackProgress)}
+                            </div>
                             <input
                                 type="range"
                                 value={trackProgress}
@@ -143,7 +154,10 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
                                 onMouseUp={onScrubEnd}
                                 onKeyUp={onScrubEnd}
                             />
-                            <div className="text-xs w-12 text-end">{!isNaN(duration) && convertSecondsToTime(duration)}</div>
+                            <div className="w-12 text-end text-xs">
+                                {!isNaN(duration) &&
+                                    convertSecondsToTime(duration)}
+                            </div>
                         </div>
                         <AudioControls
                             togglePlaybackOrder={togglePlaybackOrder}
@@ -154,9 +168,7 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
                             onPlayClick={handlePlayClick}
                             onPauseClick={handlePauseClick}
                         />
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -169,8 +181,10 @@ type AudioControlsProps = {
     onNextClick: () => void;
     onPlayClick: () => void;
     onPauseClick: () => void;
-    order: "default" | "random" | "repeat";
-    togglePlaybackOrder: (selectedOrder: "default" | "random" | "repeat") => void;
+    order: 'default' | 'random' | 'repeat';
+    togglePlaybackOrder: (
+        selectedOrder: 'default' | 'random' | 'repeat',
+    ) => void;
 };
 
 function AudioControls({
@@ -180,14 +194,18 @@ function AudioControls({
     onPlayClick,
     onPauseClick,
     order,
-    togglePlaybackOrder
+    togglePlaybackOrder,
 }: AudioControlsProps) {
     return (
-        <div className="flex justify-between max-w-4/5 mx-auto items-center mt-5 text-white">
+        <div className="mx-auto mt-5 flex max-w-4/5 items-center justify-between text-white">
             <SvgBtn
                 ariaLabel="Повторить трэк"
-                event={() => togglePlaybackOrder("repeat")}
-                className={cn(order === "repeat" ? "text-very-bright-salad" : "text-white")}
+                event={() => togglePlaybackOrder('repeat')}
+                className={cn(
+                    order === 'repeat'
+                        ? 'text-very-bright-salad'
+                        : 'text-white',
+                )}
             >
                 <svg
                     id="OBJECTS"
@@ -204,7 +222,6 @@ function AudioControls({
                     />
                 </svg>
             </SvgBtn>
-
 
             <PlayerBtn
                 alt="Предыдущий трэк"
@@ -236,8 +253,12 @@ function AudioControls({
             />
             <SvgBtn
                 ariaLabel="Перемешать"
-                event={() => togglePlaybackOrder("random")}
-                className={cn(order === "random" ? "text-very-bright-salad" : "text-white")}
+                event={() => togglePlaybackOrder('random')}
+                className={cn(
+                    order === 'random'
+                        ? 'text-very-bright-salad'
+                        : 'text-white',
+                )}
             >
                 <svg
                     id="OBJECTS"
@@ -259,7 +280,6 @@ function AudioControls({
                 </svg>
             </SvgBtn>
         </div>
-
     );
 }
 
@@ -269,19 +289,29 @@ type PlayerBtnProps = {
     image: string;
     ariaLabel: string;
     className?: string;
-}
+};
 
-function PlayerBtn({ alt, event, image, ariaLabel, className }: PlayerBtnProps) {
+function PlayerBtn({
+    alt,
+    event,
+    image,
+    ariaLabel,
+    className,
+}: PlayerBtnProps) {
     return (
         <button
             type="button"
-            className={cn("size-14 cursor-pointer", className)}
+            className={cn('size-14 cursor-pointer', className)}
             aria-label={ariaLabel}
             onClick={event}
         >
-            <img src={image} alt={alt} className="size-full object-contain object-center transition-scale ease-in duration-150 hover:scale-110" />
+            <img
+                src={image}
+                alt={alt}
+                className="transition-scale size-full object-contain object-center duration-150 ease-in hover:scale-110"
+            />
         </button>
-    )
+    );
 }
 
 type SvgBtnProps = {
@@ -289,18 +319,20 @@ type SvgBtnProps = {
     ariaLabel: string;
     className?: string;
     children: React.ReactNode;
-}
+};
 
 function SvgBtn({ event, children, ariaLabel, className }: SvgBtnProps) {
     return (
         <button
             type="button"
-            className={cn("size-14 cursor-pointer transition-scale ease-in duration-150 hover:scale-110", className)}
+            className={cn(
+                'transition-scale size-14 cursor-pointer duration-150 ease-in hover:scale-110',
+                className,
+            )}
             aria-label={ariaLabel}
             onClick={event}
         >
             {children}
         </button>
-    )
+    );
 }
-

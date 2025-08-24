@@ -11,6 +11,16 @@ export type Article = {
     image?: Image;
     thumbnail?: Image;
 };
+export type Audio = {
+    id: number;
+    title: string;
+    description: string;
+    path: string;
+    type: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
+};
 export type Exercise = {
     id: number;
     title: string;
