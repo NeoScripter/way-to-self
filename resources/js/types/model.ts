@@ -16,6 +16,8 @@ export type Audio = {
     title: string;
     description: string;
     path: string;
+    duration: number;
+    rating: number;
     type: string;
     created_at?: string;
     updated_at?: string;
@@ -67,7 +69,7 @@ export type Recipe = {
     id: number;
     title: string;
     description: string;
-    cooking_time: number;
+    duration: number;
     rating: number;
     type: string;
     created_at?: string;

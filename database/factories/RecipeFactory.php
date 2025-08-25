@@ -20,7 +20,7 @@ class RecipeFactory extends Factory
         return [
             'title' => fake()->words(5, true),
             'description' => fake()->sentences(2, true),
-            'cooking_time' => fake()->numberBetween(15, 240),
+            'duration' => fake()->numberBetween(15, 240),
             'rating' => fake()->numberBetween(1, 10),
         ];
     }

@@ -1,5 +1,6 @@
 import Padlock from '@/assets/svgs/padlock.svg';
 import AccountBackground from '@/components/account/atoms/account-background';
+import FavoriteList from '@/components/account/organisms/favorite-list';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
@@ -77,7 +78,14 @@ export default function Account() {
                 Продлить | Изменить подписку
             </PrimaryBtn>
 
-            <section className="rounded-4xl border-2 border-white/20 bg-gray-500/50 px-8 md:px-10 pt-12 backdrop-blur-sm">
+            <SpanHighlight
+                text="Избранное"
+                className="mx-auto mt-[0.1em] mb-15 md:mb-20 text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
+            />
+
+            <FavoriteList />
+
+            <section className="rounded-4xl mt-15 md:mt-20 border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:px-10">
                 <ArticlesSection
                     articleClass="text-white"
                     titleClass="text-white"

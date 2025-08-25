@@ -35,7 +35,7 @@ final class HomeController extends Controller
             ->limit(4)
             ->get();
 
-        $recipes = Recipe::select(['id', 'title', 'cooking_time', 'rating', 'type', 'description'])
+        $recipes = Recipe::select(['id', 'title', 'duration', 'rating', 'type', 'description'])
             ->free()
             ->with(['image'])
             ->latest()

@@ -61,16 +61,29 @@ class User extends Authenticatable
 
     public function favoriteArticles()
     {
-        return $this->morphedByMany(Article::class, 'favorable', 'favorites');
+        return $this->morphedByMany(Article::class, 'favorable', 'favorites')
+            ->select(['articles.id', 'title', 'type', 'description'])
+            ->with('image');
     }
 
     public function favoriteExercises()
     {
-        return $this->morphedByMany(Exercise::class, 'favorable', 'favorites');
+        return $this->morphedByMany(Exercise::class, 'favorable', 'favorites')
+            ->select(['exercises.id', 'title', 'duration', 'rating', 'type', 'description'])
+            ->with('image');
+    }
+
+    public function favoriteRecipes()
+    {
+        return $this->morphedByMany(Recipe::class, 'favorable', 'favorites')
+            ->select(['recipes.id', 'title', 'duration', 'rating', 'type', 'description'])
+            ->with('image');
     }
 
     public function favoriteAudio()
     {
-        return $this->morphedByMany(Audio::class, 'favorable', 'favorites');
+        return $this->morphedByMany(Audio::class, 'favorable', 'favorites')
+            ->select(['audio.id', 'title', 'duration', 'rating', 'type', 'description'])
+            ->with('image');
     }
 }

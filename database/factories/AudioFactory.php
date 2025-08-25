@@ -20,6 +20,8 @@ class AudioFactory extends Factory
         return [
             'title' => fake()->word(2),
             'description' => fake()->realText(200),
+            'duration' => 5,
+            'rating' => fake()->numberBetween(2, 10),
             'path' => asset('storage/models/audios/meditation.mp3'),
             'type' => ContentType::FREE,
         ];

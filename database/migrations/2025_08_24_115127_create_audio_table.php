@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('path');
+            $table->unsignedInteger('duration');
+            $table->unsignedInteger('rating');
             $table->string('type')->default(ContentType::PAID);
             $table->timestamps();
         });

@@ -28,7 +28,7 @@ Route::name('user.')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('account', AccountController::class)->name('account');
+    Route::get('account', [AccountController::class, 'index'])->name('account');
 
     Route::name('account.')->group(function () {
         Route::get('account/profile', [ProfileController::class, 'index'])->name('index');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->unsignedInteger('cooking_time');
+            $table->unsignedInteger('duration');
             $table->unsignedInteger('rating');
             $table->string('type')->default(ContentType::PAID->value);
             $table->timestamps();

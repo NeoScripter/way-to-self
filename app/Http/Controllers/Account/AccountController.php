@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Audio;
+use App\Models\Exercise;
+use App\Models\Recipe;
 use App\Models\Tier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -14,7 +18,7 @@ class AccountController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $selectedTiers = $request->user()
             ->tiers()
@@ -36,10 +40,44 @@ class AccountController extends Controller
             ->limit(4)
             ->get();
 
+        $favorites = $this->favorites($request);
+
         return Inertia::render('account/account', [
             'tiers' => fn() => Tier::select(['id', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
             'purchased' => $selectedTiers,
-            'articles' => $articles
+            'articles' => $articles,
+            'favorites' => $favorites,
         ]);
+    }
+
+    public function favorites(Request $request)
+    {
+        $user = Auth::user();
+        $types = $request->input('types');
+
+        $favorites = collect();
+
+        $map = [
+            'articles'  => 'favoriteArticles',
+            'exercises' => 'favoriteExercises',
+            'audio'     => 'favoriteAudio',
+            'recipes'   => 'favoriteRecipes',
+        ];
+
+        $favorites = [];
+
+        if ($types) {
+            foreach ($types as $type) {
+                if (isset($map[$type])) {
+                    $favorites[$type] = $user->{$map[$type]}()->get();
+                }
+            }
+        } else {
+            foreach ($map as $type => $relation) {
+                $favorites[$type] = $user->{$relation}()->get();
+            }
+        }
+
+        return $favorites;
     }
 }

@@ -66,7 +66,7 @@ export default function FoodSection() {
                             alt: recipe.image?.alt,
                             tinyImg: recipe.image?.tiny_path,
                             description: recipe.description,
-                            duration: recipe.cooking_time,
+                            duration: recipe.duration,
                             rating: recipe.rating,
                             category: recipe.category?.name,
                         }}
