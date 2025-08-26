@@ -17,9 +17,9 @@ type SharedCardProps = {
     alt: string | undefined;
     tinyImg: string | undefined;
     description: string;
-    duration?: number;
-    rating?: number;
-    category?: string | undefined;
+    duration: number | undefined;
+    rating: number | undefined;
+    category: string | undefined;
 };
 
 type ContentCardProps = {
@@ -44,7 +44,7 @@ export default function ContentCard({
         rating,
         category,
     } = data;
-    const roundedDuration = roundDuration(duration);
+    const roundedDuration = roundDuration(duration ?? 0);
     const shortenedDescription = shortenDescription(description, MAX_WORDS);
 
     const categoryIcon = type === 'recipe' ? DishSvg : PulseSvg;
@@ -79,7 +79,7 @@ export default function ContentCard({
                         {name}
                     </h3>
 
-                    <p className="mb-2 flex-1">{shortenedDescription}</p>
+                    <p className="mb-2 flex-1 text-balance">{shortenedDescription}</p>
 
                     <div className="mt-auto flex items-center justify-between">
                         {duration && (

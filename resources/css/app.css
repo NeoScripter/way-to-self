@@ -116,6 +116,11 @@
     -webkit-box-shadow: 0px 0px 8px 3px rgba(57, 74, 49, 0.42);
     -moz-box-shadow: 0px 0px 8px 3px rgba(57, 74, 49, 0.42);
 }
+.glow-shadow-inherit:hover {
+    box-shadow: 0px 0px 8px 3px color-mix(in srgb, currentColor 42%, transparent);
+    -webkit-box-shadow: 0px 0px 8px 3px color-mix(in srgb, currentColor 42%, transparent);
+    -moz-box-shadow: 0px 0px 8px 3px color-mix(in srgb, currentColor 42%, transparent);
+}
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still

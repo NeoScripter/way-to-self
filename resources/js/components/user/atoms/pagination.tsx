@@ -49,7 +49,7 @@ export default function Pagination({ meta, label, className }: PaginationProps) 
             </div>
             <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center lg:justify-between flex-wrap">
                 <div className="hidden lg:block">
-                    <p className="text-sm text-dark-green 2xl:text-base">
+                    <p className="text-sm 2xl:text-base">
                         Показаны {`${label ?? ""} `}с <span className="font-medium">{meta.from}</span> по <span className="font-medium">{meta.to}</span> из{' '}
                         <span className="font-medium">{meta.total}</span>
                     </p>
@@ -85,7 +85,7 @@ function PaginationBtn({ link, isNavigationButton, children }: PaginationBtnProp
             // Active state
             "text-white bg-bright-salad ring-transparent": link.active,
             // Inactive state
-            "text-dark-green cursor-pointer ring-dark-swamp ring-inset hover:scale-110 glow-shadow-green": !link.active && link.url,
+            "cursor-pointer ring-inherit ring-inset hover:scale-110 glow-shadow-inherit": !link.active && link.url,
             // Navigation buttons (prev/next)
             "w-20 h-12 sm:w-12 sm:h-8 2xl:h-12 2xl:w-20 text-white bg-bright-salad ring-transparent": isNavigationButton,
             // Disabled state

@@ -10,6 +10,7 @@ use App\Models\Recipe;
 use App\Models\Tier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -40,13 +41,11 @@ class AccountController extends Controller
             ->limit(4)
             ->get();
 
-        $favorites = $this->favorites($request);
-
         return Inertia::render('account/account', [
             'tiers' => fn() => Tier::select(['id', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
             'purchased' => $selectedTiers,
             'articles' => $articles,
-            'favorites' => $favorites,
+            'favorites' => $this->favorites($request),
         ]);
     }
 
@@ -64,20 +63,46 @@ class AccountController extends Controller
             'recipes'   => 'favoriteRecipes',
         ];
 
-        $favorites = [];
+        $favorites = collect();
 
         if ($types) {
             foreach ($types as $type) {
                 if (isset($map[$type])) {
-                    $favorites[$type] = $user->{$map[$type]}()->get();
+                    $favorites = $favorites->merge(
+                        $user->{$map[$type]}()
+                            ->get()
+                            ->map(function ($item) use ($type) {
+                                $item->favorite_type = $type;
+                                return $item;
+                            })
+                    );
                 }
             }
         } else {
             foreach ($map as $type => $relation) {
-                $favorites[$type] = $user->{$relation}()->get();
+                $favorites = $favorites->merge(
+                    $user->{$relation}()
+                        ->get()
+                        ->map(function ($item) use ($type) {
+                            $item->favorite_type = $type;
+                            return $item;
+                        })
+                );
             }
         }
 
-        return $favorites;
+        $page = request('page', 1);
+        $perPage = 6;
+        $offset = ($page - 1) * $perPage;
+
+        $paginated = new LengthAwarePaginator(
+            $favorites->slice($offset, $perPage)->values(),
+            $favorites->count(),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return $paginated;
     }
 }
