@@ -1,10 +1,13 @@
 import Padlock from '@/assets/svgs/padlock.svg';
 import AccountBackground from '@/components/account/atoms/account-background';
+import FavoriteMenu from '@/components/account/molecules/favorite-menu';
 import FavoriteList from '@/components/account/organisms/favorite-list';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
+import SlideLayout from '@/components/user/molecules/slide-layout';
 import ArticlesSection from '@/components/user/organisms/home/articles-section';
+import useToggle from '@/hooks/use-toggle';
 import AccountLayout from '@/layouts/user/account-layout';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
@@ -24,6 +27,8 @@ export default function Account() {
         purchased: PurchaseType[];
     }>().props;
 
+    const [showMenu, toggleMenu] = useToggle(false);
+
     return (
         <AccountLayout
             layoutClass="text-white bg-main-page-bg"
@@ -33,7 +38,7 @@ export default function Account() {
 
             <h1
                 className={cn(
-                    'relative z-20 -mx-3 mt-10 mb-4 block sm:mt-20 sm:mb-8 lg:mt-25 lg:mb-10',
+                    'relative z-20 -mx-3 mt-10 mb-4 block sm:mt-20 sm:mb-8 lg:mt-25 lg:mb-10 xl:mt-30 xl:mb-20',
                 )}
             >
                 <SpanHighlight
@@ -73,25 +78,42 @@ export default function Account() {
 
             <PrimaryBtn
                 href={route('tiers.index')}
-                className="mx-auto my-15 border border-white px-[2em] text-sm md:my-20 md:text-base xl:text-lg"
+                className="mx-auto my-15 border border-white px-[2em] text-sm md:my-20 md:text-base xl:my-30 xl:text-lg"
             >
                 Продлить | Изменить подписку
             </PrimaryBtn>
 
             <SpanHighlight
                 text="Избранное"
-                className="mx-auto mt-[0.1em] mb-15 md:mb-20 text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
+                className="mx-auto mt-[0.1em] mb-15 text-[4rem] text-white sm:text-[6rem] md:mb-20 lg:text-[8rem] xl:mb-30"
             />
+            <PrimaryBtn
+                onClick={() => toggleMenu(true)}
+                className="mx-auto my-15 px-[2em] text-sm md:my-20 md:text-base lg:hidden"
+            >
+                Фильтры
+            </PrimaryBtn>
 
             <FavoriteList />
 
-            <section className="rounded-4xl mt-15 md:mt-20 border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:px-10">
+            <section className="mt-15 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:mt-20 md:px-10 xl:mt-30">
                 <ArticlesSection
                     articleClass="text-white"
                     titleClass="text-white"
                     subtitleClass="text-white"
                 />
             </section>
+
+            <SlideLayout
+                onClose={() => toggleMenu(false)}
+                show={showMenu}
+                className="lg:hidden"
+            >
+                <FavoriteMenu
+                    onClose={() => toggleMenu(false)}
+                    className="rounded-l-none bg-light-swamp/80 text-white"
+                />
+            </SlideLayout>
         </AccountLayout>
     );
 }

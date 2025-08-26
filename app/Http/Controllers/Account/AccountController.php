@@ -52,7 +52,10 @@ class AccountController extends Controller
     public function favorites(Request $request)
     {
         $user = Auth::user();
-        $types = $request->input('types');
+        $types = $request->validate([
+            'types'   => 'nullable|array',
+            'types.*' => 'in:articles,exercises,audio,recipes',
+        ])['types'] ?? null;
 
         $favorites = collect();
 

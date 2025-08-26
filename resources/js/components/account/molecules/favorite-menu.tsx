@@ -1,0 +1,197 @@
+import { cn } from '@/lib/utils';
+import { Checkbox } from '@headlessui/react';
+import { Link, usePage } from '@inertiajs/react';
+import { X } from 'lucide-react';
+import { v4 as v4uuid } from 'uuid';
+
+function toggleTypeUrl(type: string, params: URLSearchParams) {
+    const current: string[] = [];
+
+    params.forEach((value, key) => {
+        if (key.startsWith('types[')) {
+            current.push(value);
+        }
+    });
+
+    let updated: string[];
+    if (current.includes(type)) {
+        updated = current.filter((t) => t !== type);
+    } else {
+        updated = [...current, type];
+    }
+
+    const newParams = new URLSearchParams();
+    params.forEach((value, key) => {
+        if (!key.startsWith('types[')) {
+            newParams.set(key, '1');
+        }
+    });
+    updated.forEach((t, i) => newParams.set(`types[${i}]`, t));
+
+    return `?${newParams.toString()}`;
+}
+
+function clearTypesUrl(url: string) {
+
+    return `?page=1`;
+}
+
+const menuItems = [
+    {
+        id: v4uuid(),
+        title: 'Питание',
+        items: [
+            {
+                id: v4uuid(),
+                type: 'recipes',
+                label: 'Рецепты',
+            },
+        ],
+    },
+    {
+        id: v4uuid(),
+        title: 'Душа',
+        items: [
+            {
+                id: v4uuid(),
+                type: 'audio',
+                label: 'Медитации',
+            },
+        ],
+    },
+    {
+        id: v4uuid(),
+        title: 'Тело',
+        items: [
+            {
+                id: v4uuid(),
+                type: 'exercises',
+                label: 'Упражнения',
+            },
+        ],
+    },
+    {
+        id: v4uuid(),
+        title: 'Статьи',
+        items: [
+            {
+                id: v4uuid(),
+                type: 'articles',
+                label: 'Статьи',
+            },
+        ],
+    },
+];
+
+type FavoriteMenuProps = {
+    className?: string;
+    onClose?: () => void;
+};
+
+export default function FavoriteMenu({
+    className,
+    onClose,
+}: FavoriteMenuProps) {
+    const { url } = usePage();
+
+    return (
+        <div
+            className={cn(
+                'relative grid max-w-84 min-w-60 flex-1 gap-6 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 p-7 pb-15 backdrop-blur-sm',
+                className,
+            )}
+        >
+            {onClose != null && (
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 z-20 flex size-8 cursor-pointer items-center justify-center opacity-50 transition-opacity duration-200 ease-in hover:opacity-100 md:size-12"
+                >
+                    <X className="size-10" />
+                </button>
+            )}
+
+            <h3 className="text-2xl font-semibold uppercase lg:hidden">
+                Фильтры
+            </h3>
+
+            {url.includes('types') && <Link
+                as="button"
+                preserveScroll
+                preserveState
+                href={clearTypesUrl(url)}
+                className="flex items-center gap-2 text-xl cursor-pointer text-gray-300"
+            >
+                <X className="size-6 text-gray-300" />
+                Сбросить все
+            </Link>}
+
+            {menuItems.map((item) => (
+                <div key={item.id}>
+                    <h4 className="mb-3 text-xl font-semibold underline underline-offset-4">
+                        {item.title}
+                    </h4>
+                    <ul className="space-y-2">
+                        {item.items.map((listItem) => (
+                            <MenuItem
+                                key={listItem.id}
+                                type={listItem.type}
+                                label={listItem.label}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+type MenuItemProps = {
+    type: string;
+    label: string;
+};
+
+function MenuItem({ type, label }: MenuItemProps) {
+    const { url } = usePage();
+    const params = new URLSearchParams(url.split('?')[1]);
+
+    const types: string[] = [];
+    params.forEach((value, key) => {
+        if (key.startsWith('types[')) {
+            types.push(value);
+        }
+    });
+
+    return (
+        <li className="list-none">
+            <Link
+                href={toggleTypeUrl(type, params)}
+                as="button"
+                preserveScroll
+                preserveState
+                only={['favorites']}
+                className="flex items-center gap-2"
+            >
+                <Checkbox
+                    name={type}
+                    id={type}
+                    checked={types.includes(type)}
+                    className="group size-4 shrink-0 rounded-xs border border-white/20 shadow-xs ring-[1px] data-checked:bg-bright-salad"
+                >
+                    <svg
+                        className="stroke-white opacity-0 group-data-checked:opacity-100"
+                        viewBox="0 0 14 14"
+                        fill="none"
+                    >
+                        <path
+                            d="M3 8L6 11L11 3.5"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </Checkbox>
+                <label htmlFor={type}>{label}</label>
+            </Link>
+        </li>
+    );
+}
