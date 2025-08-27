@@ -93,7 +93,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             </p>
 
             <form
-                className="flex flex-col gap-6"
+                className="flex text-text-black flex-col gap-6"
                 onSubmit={submit}
             >
                 <div className="mx-auto grid w-full max-w-90 gap-3 px-2 sm:w-4/5 sm:max-w-full sm:gap-4 sm:px-0">

@@ -24,12 +24,12 @@ export default function FavoriteList() {
             >
                 {favorites.data.length > 0 ? (
                     <>
-                        <ul className="grid w-full shrink-0 grid-cols-[repeat(auto-fill,_minmax(18.75rem,_1fr))] gap-6 xl:grid-cols-3">
+                        <ul className="grid w-full shrink-0 sm:grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] gap-6 xl:grid-cols-3">
                             {favorites.data.map((item) => (
                                 <ContentCard
                                     key={`${item.id}-${item.favorite_type}`}
                                     type={''}
-                                    className="mx-auto"
+                                    className="mx-auto w-full max-w-80"
                                     data={{
                                         href: getHref(item),
                                         name: item.title,
