@@ -8,6 +8,7 @@ type PaginationProps = {
     label?: string;
     className?: string;
     shouldScroll?: boolean;
+    scrollElementId?: string;
 };
 
 export default function Pagination({
@@ -15,6 +16,7 @@ export default function Pagination({
     label,
     className,
     shouldScroll = true,
+    scrollElementId,
 }: PaginationProps) {
     const links = meta.links;
 
@@ -51,6 +53,7 @@ export default function Pagination({
                     link={links[0]}
                     isNavigationButton={true}
                     shouldScroll={shouldScroll}
+                    scrollElementId={scrollElementId}
                 >
                     {renderLinkContent(links[0], 0)}
                 </PaginationBtn>
@@ -60,6 +63,7 @@ export default function Pagination({
                     link={links[links.length - 1]}
                     isNavigationButton={true}
                     shouldScroll={shouldScroll}
+                    scrollElementId={scrollElementId}
                 >
                     {renderLinkContent(
                         links[links.length - 1],
@@ -87,6 +91,7 @@ export default function Pagination({
                                 link={link}
                                 isNavigationButton={isNavigationButton(index)}
                                 shouldScroll={shouldScroll}
+                                scrollElementId={scrollElementId}
                             >
                                 {renderLinkContent(link, index)}
                             </PaginationBtn>
@@ -103,6 +108,7 @@ type PaginationBtnProps = {
     isNavigationButton: boolean;
     children: React.ReactNode;
     shouldScroll: boolean;
+    scrollElementId?: string;
 };
 
 function PaginationBtn({
@@ -110,6 +116,7 @@ function PaginationBtn({
     isNavigationButton,
     children,
     shouldScroll,
+    scrollElementId,
 }: PaginationBtnProps) {
     const baseClasses = cn(
         'relative inline-flex size-8 items-center justify-center rounded-full font-medium ring-1 transition duration-200 ease-in ring-inset 2xl:size-12 2xl:text-2xl',
@@ -144,6 +151,13 @@ function PaginationBtn({
             href={link.url}
             className={baseClasses}
             preserveState
+            onSuccess={() => {
+                if (!scrollElementId) return;
+                const el = document.getElementById(scrollElementId);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }}
             {...(shouldScroll === false ? { preserveScroll: true } : {})}
             {...(shouldUseDangerousHtml && {
                 dangerouslySetInnerHTML: { __html: children as string },

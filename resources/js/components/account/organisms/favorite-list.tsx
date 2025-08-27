@@ -1,11 +1,9 @@
 import ContentCard from '@/components/user/atoms/content-card';
+import NoItems from '@/components/user/atoms/no-items';
 import Pagination from '@/components/user/atoms/pagination';
-import useToggle from '@/hooks/use-toggle';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { Article, Audio, Exercise, Recipe } from '@/types/model';
-import { Transition } from '@headlessui/react';
 import { usePage } from '@inertiajs/react';
-import { createPortal } from 'react-dom';
 import FavoriteMenu from '../molecules/favorite-menu';
 
 type Favorite = (Article | Audio | Exercise | Recipe) & {
@@ -16,12 +14,14 @@ export default function FavoriteList() {
     const { favorites } = usePage<{ favorites: PaginationMeta<Favorite> }>()
         .props;
 
-
     return (
         <div className="lg:flex lg:items-start lg:gap-5">
             <FavoriteMenu className="hidden lg:grid" />
 
-            <div className="w-full xl:mx-auto xl:max-w-250">
+            <div
+                id="favorites"
+                className="w-full scroll-mt-80 md:scroll-mt-52 xl:mx-auto xl:max-w-250"
+            >
                 {favorites.data.length > 0 ? (
                     <>
                         <ul className="grid w-full shrink-0 grid-cols-[repeat(auto-fill,_minmax(18.75rem,_1fr))] gap-6 xl:grid-cols-3">
@@ -59,12 +59,11 @@ export default function FavoriteList() {
                             label="секции"
                             className="mx-auto max-w-330 text-white"
                             shouldScroll={false}
+                            scrollElementId='favorites'
                         />
                     </>
                 ) : (
-                    <p className="text-center md:text-xl lg:ml-8 lg:text-left">
-                        По вашему запросу не найдено результатов
-                    </p>
+                    <NoItems />
                 )}
             </div>
         </div>

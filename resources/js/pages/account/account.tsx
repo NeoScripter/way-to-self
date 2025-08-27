@@ -2,6 +2,7 @@ import Padlock from '@/assets/svgs/padlock.svg';
 import AccountBackground from '@/components/account/atoms/account-background';
 import FavoriteMenu from '@/components/account/molecules/favorite-menu';
 import FavoriteList from '@/components/account/organisms/favorite-list';
+import DarkBtn from '@/components/user/atoms/dark-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
@@ -32,13 +33,13 @@ export default function Account() {
     return (
         <AccountLayout
             layoutClass="text-white bg-main-page-bg"
-            pageClass="px-4 pb-18 sm:px-11 md:pb-16 xl:pb-23.5 2xl:pb-20 2xl:px-25 3xl:px-40 overflow-visible"
+            pageClass="px-4 pb-27 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
         >
             <AccountBackground />
 
             <h1
                 className={cn(
-                    'relative z-20 -mx-3 mt-10 mb-4 block sm:mt-20 sm:mb-8 lg:mt-25 lg:mb-10 xl:mt-30 xl:mb-20',
+                    'relative z-20 -mx-3 mt-15 mb-5 block sm:mt-25 sm:mb-25 lg:mt-30 lg:mb-30',
                 )}
             >
                 <SpanHighlight
@@ -47,63 +48,68 @@ export default function Account() {
                 />
                 <span
                     className={cn(
-                        'lx:mt-5 mx-auto mt-2 block w-fit overflow-hidden px-3 text-center font-heading text-xl md:mt-4 md:text-4xl xl:text-5xl',
+                        'mx-auto mt-2 block w-fit overflow-hidden px-3 text-center font-heading text-xl sm:mt-5 sm:text-3xl md:text-4xl xl:text-5xl',
                     )}
                 >
                     {auth.user.name}, рады видеть вас на нашем сайте!
                 </span>
             </h1>
 
-            <div className="pt-1">
-                <ul
-                    className={cn(
-                        'account-card-parent mx-auto mt-30 w-fit space-y-24 sm:mt-8 sm:space-y-6 xl:w-full xl:grid-rows-2 xl:space-y-0',
-                    )}
-                >
-                    {tiers.map((tier, idx) => (
-                        <TierCard
-                            key={tier.id}
-                            tier={tier}
-                            purchased={purchased.find((t) => t.id === tier.id)}
-                            className={cn(
-                                idx === 0 &&
-                                    'account-card-b pt-28 xl:flex-col xl:text-center',
-                                idx === 1 && 'account-card-a sm:gap-10',
-                                idx === 2 && 'account-card-c pt-28',
-                            )}
+            <div className="space-y-17 sm:space-y-24 xl:space-y-30">
+                <section className="pt-1">
+                    <ul
+                        className={cn(
+                            'account-card-parent mx-auto mt-30 w-fit space-y-24 sm:mt-8 sm:space-y-6 xl:w-full xl:grid-rows-2 xl:space-y-0',
+                        )}
+                    >
+                        {tiers.map((tier, idx) => (
+                            <TierCard
+                                key={tier.id}
+                                tier={tier}
+                                purchased={purchased.find(
+                                    (t) => t.id === tier.id,
+                                )}
+                                className={cn(
+                                    idx === 0 &&
+                                        'account-card-b pt-28 xl:flex-col xl:text-center',
+                                    idx === 1 && 'account-card-a sm:gap-10',
+                                    idx === 2 && 'account-card-c pt-28',
+                                )}
+                            />
+                        ))}
+                    </ul>
+
+                    <DarkBtn
+                        href={route('tiers.index')}
+                        className="mx-auto my-15 border border-white px-[2em] text-sm md:my-20 md:text-base xl:my-30 xl:text-lg"
+                    >
+                        Продлить | Изменить подписку
+                    </DarkBtn>
+                </section>
+
+                <section>
+                    <SpanHighlight
+                        text="Избранное"
+                        className="mx-auto mt-[0.1em] mb-15 text-[5rem] text-white sm:text-[6rem] md:mb-20 lg:text-[8rem] xl:mb-25"
+                    />
+                    <DarkBtn
+                        onClick={() => toggleMenu(true)}
+                        className="mx-auto my-15 px-[2em] text-sm md:my-20 md:text-base lg:hidden"
+                    >
+                        Фильтры
+                    </DarkBtn>
+
+                    <FavoriteList />
+
+                    <div className="mt-15 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:mt-20 md:px-10 xl:mt-30">
+                        <ArticlesSection
+                            articleClass="text-white"
+                            titleClass="text-4xl sm:text-5xl text-white"
+                            subtitleClass="text-white"
                         />
-                    ))}
-                </ul>
+                    </div>
+                </section>
             </div>
-
-            <PrimaryBtn
-                href={route('tiers.index')}
-                className="mx-auto my-15 border border-white px-[2em] text-sm md:my-20 md:text-base xl:my-30 xl:text-lg"
-            >
-                Продлить | Изменить подписку
-            </PrimaryBtn>
-
-            <SpanHighlight
-                text="Избранное"
-                className="mx-auto mt-[0.1em] mb-15 text-[4rem] text-white sm:text-[6rem] md:mb-20 lg:text-[8rem] xl:mb-30"
-            />
-            <PrimaryBtn
-                onClick={() => toggleMenu(true)}
-                className="mx-auto my-15 px-[2em] text-sm md:my-20 md:text-base lg:hidden"
-            >
-                Фильтры
-            </PrimaryBtn>
-
-            <FavoriteList />
-
-            <section className="mt-15 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:mt-20 md:px-10 xl:mt-30">
-                <ArticlesSection
-                    articleClass="text-white"
-                    titleClass="text-white"
-                    subtitleClass="text-white"
-                />
-            </section>
-
             <SlideLayout
                 onClose={() => toggleMenu(false)}
                 show={showMenu}

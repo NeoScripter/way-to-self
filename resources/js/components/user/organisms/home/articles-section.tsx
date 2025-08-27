@@ -37,7 +37,7 @@ export default function ArticlesSection({titleClass, subtitleClass, articleClass
                 <ChevronDoubleRightIcon className="ml-3 inline size-3.5 text-inherit" />
             </Link>
 
-            <ul className="mb-11 grid grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] place-content-center gap-x-7.5 gap-y-14 sm:mb-16 xl:mb-20">
+            <ul className="mb-11 grid grid-cols-[repeat(auto-fit,_minmax(17rem,_1fr))] place-content-center gap-x-7.5 gap-y-14 sm:mb-16 xl:mb-20">
                 {articles.map((article) => (
                     <ArticleCard
                         key={article.id}
