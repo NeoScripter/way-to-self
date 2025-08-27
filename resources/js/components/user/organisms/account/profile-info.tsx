@@ -9,6 +9,7 @@ import { FormEventHandler, useState } from 'react';
 import { z } from 'zod';
 import InputSpan from '../../atoms/input-span';
 import notify from '../../atoms/notify';
+import FlashMessage from '../../atoms/flash-message';
 
 type ProfileForm = {
     name: string;
@@ -38,8 +39,9 @@ export const schema = z.object({
 });
 
 export default function ProfileInfo() {
-    const { auth } = usePage<{
+    const { auth, flash } = usePage<{
         auth: { user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'> };
+        flash: { message: string | null }
     }>().props;
 
     const [infoEdited, setInfoEdited] = useState(false);
@@ -90,7 +92,6 @@ export default function ProfileInfo() {
         patch(route('profile.update'), {
             preserveScroll: true,
             onSuccess: () => {
-                // notify('Данные успешно изменены!');
                 setInfoEdited(false);
             },
         });
@@ -98,6 +99,9 @@ export default function ProfileInfo() {
 
     return (
         <div className="relative z-50 pt-4">
+
+            <FlashMessage message={flash.message} />
+
             <div className="mx-auto max-w-177.5 space-y-6">
                 <h3 className="mb-6 block font-heading font-medium sm:text-lg md:text-xl lg:mb-8 lg:text-2xl">
                     Данные пользователя

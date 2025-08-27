@@ -7,7 +7,7 @@ type CustomNotificationProps = ToastContentProps<{
 
 function CustomNotification({ closeToast, data }: CustomNotificationProps) {
     return (
-        <div className="font-display w-full font-medium">
+        <div className="font-display w-full font-medium border-2 border-white/20 bg-card-backdrop-gray backdrop-blur-sm rounded-md relative">
             <button
                 onClick={closeToast}
                 className="absolute -top-2 -right-2 aspect-square cursor-pointer rounded-sm border-2 border-white/20 bg-card-backdrop-gray p-1 text-white backdrop-blur-sm transition-all duration-200 ease-in focus-within:scale-110 hover:scale-105 hover:bg-zinc-700/60"
