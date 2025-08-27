@@ -8,6 +8,7 @@ import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import { z } from 'zod';
 import InputSpan from '../../atoms/input-span';
+import notify from '../../atoms/notify';
 
 type ProfileForm = {
     name: string;
@@ -52,7 +53,7 @@ export default function ProfileInfo() {
         processing,
         recentlySuccessful,
         reset,
-        clearErrors
+        clearErrors,
     } = useForm<ProfileForm>({
         name: auth.user.name,
         surname: auth.user.surname,
@@ -88,11 +89,15 @@ export default function ProfileInfo() {
 
         patch(route('profile.update'), {
             preserveScroll: true,
+            onSuccess: () => {
+                // notify('Данные успешно изменены!');
+                setInfoEdited(false);
+            },
         });
     };
 
     return (
-        <div className="pt-4 relative z-50">
+        <div className="relative z-50 pt-4">
             <div className="mx-auto max-w-177.5 space-y-6">
                 <h3 className="mb-6 block font-heading font-medium sm:text-lg md:text-xl lg:mb-8 lg:text-2xl">
                     Данные пользователя
