@@ -3,11 +3,13 @@ import TierBg1 from '@/assets/images/tier/tiers-bg-1.webp';
 import TierBgTiny2 from '@/assets/images/tier/tiers-bg-2-tiny.webp';
 import TierBg2 from '@/assets/images/tier/tiers-bg-2.webp';
 import LazyImage from '@/components/user/atoms/lazy-image';
+import notify from '@/components/user/atoms/notify';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import TierSignUp from '@/components/user/molecules/tier-sign-up';
 import CheckoutDisplay from '@/components/user/organisms/checkout-display';
 import UserLayout from '@/layouts/user/user-layout';
 import { cn } from '@/lib/utils';
+import { Auth } from '@/types';
 import { Tier } from '@/types/model';
 import { Checkbox } from '@headlessui/react';
 import { router, usePage } from '@inertiajs/react';
@@ -15,8 +17,12 @@ import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Tiers() {
-    const { tiers, added } = usePage<{ tiers: Tier[]; added: number[] }>()
-        .props;
+    const { tiers, added, auth, total } = usePage<{
+        tiers: Tier[];
+        added: number[];
+        auth: Auth;
+        total: number;
+    }>().props;
 
     const [isCart, setCartPage] = useState(true);
     const [username, setUserName] = useState('');
@@ -38,12 +44,20 @@ export default function Tiers() {
     }
 
     function handlePaymentClick() {
+        if (total === 0) {
+            notify('Выберите раздел для покупки для перехода к оплате');
+            return;
+        }
         setCartPage(false);
     }
 
     function handleReturnClick() {
         setCartPage(true);
     }
+
+    const isLoggedIn = auth.user != null;
+
+    console.log(isLoggedIn);
 
     return (
         <UserLayout
@@ -90,7 +104,7 @@ export default function Tiers() {
                     isCart ? 'mt-26 sm:mt-16' : 'mt-13 sm:mt-8',
                 )}
             >
-                <div className="relative">
+                <div className="relative mx-auto">
                     <ul
                         className={cn(
                             'mx-auto space-y-24 pt-5 transition-all duration-1500 ease-in-out sm:space-y-6 md:overflow-y-clip',
@@ -120,26 +134,36 @@ export default function Tiers() {
                                 : 'max-h-500',
                         )}
                     >
-                        <TierSignUp
-                            email={email}
-                            userName={username}
-                            telegram={telegram}
-                            changeTelegram={changeTelegram}
-                            changeEmail={changeEmail}
-                            changeName={changeUserName}
-                            agreedData={agreedData}
-                            agreedPolicy={agreedPolicy}
-                            setAgreedData={setAgreedData}
-                            setAgreedPolicy={setAgreedPolicy}
-                        />
+                        {!isLoggedIn ? (
+                            <TierSignUp
+                                email={email}
+                                userName={username}
+                                telegram={telegram}
+                                changeTelegram={changeTelegram}
+                                changeEmail={changeEmail}
+                                changeName={changeUserName}
+                                agreedData={agreedData}
+                                agreedPolicy={agreedPolicy}
+                                setAgreedData={setAgreedData}
+                                setAgreedPolicy={setAgreedPolicy}
+                            />
+                        ) : (
+                            <CheckoutDisplay
+                                isCart={isCart}
+                                onPaymentClick={handlePaymentClick}
+                                className="mx-auto mt-5 shrink-0 xl:w-110 2xl:w-135"
+                            />
+                        )}
                     </div>
                 </div>
 
-                <CheckoutDisplay
-                    isCart={isCart}
-                    onPaymentClick={handlePaymentClick}
-                    className="mt-5 shrink-0 xl:w-110 2xl:w-135"
-                />
+                {((isLoggedIn && isCart) || !isLoggedIn) && (
+                    <CheckoutDisplay
+                        isCart={isCart}
+                        onPaymentClick={handlePaymentClick}
+                        className="mt-5 shrink-0 xl:w-110 2xl:w-135"
+                    />
+                )}
             </div>
 
             {!isCart && (
@@ -177,7 +201,7 @@ function TierCard({ tier, className, selected }: TierCardProps) {
     return (
         <article
             className={cn(
-                'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm transition duration-500 ease-in sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-full xl:px-10',
+                'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm transition duration-500 ease-in sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-243 xl:px-10',
                 className,
                 !selected && 'grayscale',
             )}

@@ -19,9 +19,7 @@ export default function FlashMessage({ message }: FlashMessageProps) {
         let timeout = setFadeOutTimeout();
 
         let removeEvent = router.on('before', () => {
-            clearTimeout(timeout);
             setShow(true);
-            timeout = setFadeOutTimeout();
         });
 
         return () => {
