@@ -1,29 +1,42 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
+import { router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type FlashMessageProps = {
     message: string | null;
 };
 export default function FlashMessage({ message }: FlashMessageProps) {
-    const [showToast, setShowToast] = useState(message != null);
+    const [show, setShow] = useState(true);
 
-    // useEffect(() => {
-    //     if (!message) return;
+    function setFadeOutTimeout() {
+        return setTimeout(() => {
+            setShow(false);
+        }, 3000);
+    }
 
-    //     const timer = setTimeout(() => {
-    //         setShowToast(false);
-    //     }, 3000); // 3 seconds
+    useEffect(() => {
+        let timeout = setFadeOutTimeout();
 
-    //     return () => clearTimeout(timer);
-    // }, [message]);
+        let removeEvent = router.on('before', () => {
+            clearTimeout(timeout);
+            setShow(true);
+            timeout = setFadeOutTimeout();
+        });
 
-    if (!showToast || !message) return null;
+        return () => {
+            clearTimeout(timeout);
+            removeEvent();
+        };
+    });
 
-    return (
-        <div className="font-display fixed top-20 left-1/2 z-50 -translate-x-1/2 text-white max-w-70 px-2 w-full rounded-md border-2 border-white/20 bg-card-backdrop-gray font-medium backdrop-blur-sm">
+    if (!show) return null;
+
+    return createPortal(
+        <div className="font-display fixed top-20 left-1/2 z-300 w-full max-w-70 -translate-x-1/2 rounded-md border-2 border-white/20 bg-card-backdrop-gray px-2 font-medium text-white backdrop-blur-sm">
             <button
-                onClick={() => setShowToast(false)}
-                className="absolute -top-2 -right-2 aspect-square cursor-pointer rounded-sm shrink-0 border-2 border-white/20 bg-card-backdrop-gray p-1 text-white backdrop-blur-sm transition-all duration-200 ease-in focus-within:scale-110 hover:scale-105 hover:bg-zinc-700/60"
+                onClick={() => setShow(false)}
+                className="absolute -top-2 -right-2 aspect-square shrink-0 cursor-pointer rounded-sm border-2 border-white/20 bg-card-backdrop-gray p-1 text-white backdrop-blur-sm transition-all duration-200 ease-in focus-within:scale-110 hover:scale-105 hover:bg-zinc-700/60"
             >
                 <XMarkIcon className="size-4" />
             </button>
@@ -33,6 +46,7 @@ export default function FlashMessage({ message }: FlashMessageProps) {
                     {message}
                 </p>
             </div>
-        </div>
+        </div>,
+        document.getElementById('portal-container')!,
     );
 }

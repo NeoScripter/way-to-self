@@ -1,8 +1,9 @@
 import AccountHeader from '@/components/account/molecules/account-header';
 import BackToTopBtn from '@/components/user/atoms/back-to-top-btn';
+import FlashMessage from '@/components/user/atoms/flash-message';
 import UserFooter from '@/components/user/molecules/user-footer';
 import { cn } from '@/lib/utils';
-import { ToastContainer, Zoom } from 'react-toastify';
+import { usePage } from '@inertiajs/react';
 
 type AccountLayoutProps = {
     children: React.ReactNode;
@@ -17,29 +18,19 @@ export default function AccountLayout({
     pageClass,
     headerClass,
 }: AccountLayoutProps) {
+    const { flash } = usePage<{ flash: { message: string | null } }>().props;
+
     return (
         <div className={cn('relative z-5 min-h-screen', layoutClass)}>
             <AccountHeader className={headerClass} />
 
             <BackToTopBtn />
 
+            {flash.message && <FlashMessage message={flash.message} />}
+
             <main className={cn(pageClass)}>{children}</main>
 
             <UserFooter />
-
-            <ToastContainer
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-                transition={Zoom}
-            />
         </div>
     );
 }

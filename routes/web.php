@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('account', [AccountController::class, 'index'])->name('account');
 
     Route::name('account.')->group(function () {
-        Route::get('account/profile', [ProfileController::class, 'index'])->name('index');
+        Route::get('account/profile', [ProfileController::class, 'index'])->name('edit');
     });
 });
 

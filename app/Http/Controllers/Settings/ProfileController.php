@@ -38,7 +38,7 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return redirect()
-            ->route('profile.edit')
+            ->route('account.edit')
             ->with('message', 'Данные успешно изменены!');
     }
 

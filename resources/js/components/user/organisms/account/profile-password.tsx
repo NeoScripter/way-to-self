@@ -7,7 +7,6 @@ import { useForm } from '@inertiajs/react';
 import { X } from 'lucide-react';
 import { FormEventHandler, useRef } from 'react';
 import { z } from 'zod';
-import notify from '../../atoms/notify';
 import PasswordInput from '../../atoms/password-input';
 
 type ProfileForm = {
@@ -92,7 +91,6 @@ export default function ProfilePassword() {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
-                // notify('Данные успешно изменены!');
             },
             onError: (errors) => {
                 if (errors.password) {

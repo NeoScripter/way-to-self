@@ -27,5 +27,7 @@
     </head>
     <body scroll-region class="font-inter overflow-x-clip antialiased min-h-screen max-w-480 mx-auto">
         @inertia
+
+        <div id="portal-container"></div>
     </body>
 </html>

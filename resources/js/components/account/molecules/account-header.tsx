@@ -128,7 +128,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                 <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-lg md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
                     <NavLink>
                         <Link
-                            href={route('account.index')}
+                            href={route('account.edit')}
                             as="button"
                             className="mx-auto flex cursor-pointer items-center gap-2"
                         >

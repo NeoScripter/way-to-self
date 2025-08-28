@@ -12,8 +12,6 @@ import { Audio } from "@/types/model";
 export default function SoulSection() {
     const { tracks } = usePage<{ tracks: Audio[] }>().props;
 
-    console.log(tracks)
-
     return (
         <>
             <h3 id="soul-section-title" className="mb-11 xl:mb-14">
