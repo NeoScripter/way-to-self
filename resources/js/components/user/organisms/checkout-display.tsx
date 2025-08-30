@@ -1,6 +1,7 @@
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import formatCurrency from '@/lib/helpers/formatCurrency';
 import { cn } from '@/lib/utils';
+import { Auth } from '@/types';
 import { Tier } from '@/types/model';
 import { Field, Input, Label } from '@headlessui/react';
 import { router, usePage } from '@inertiajs/react';
@@ -38,17 +39,21 @@ export default function CheckoutDisplay({
     className,
     errorMessage,
 }: CheckoutDisplayProps) {
-    const { tiers, added, total, discount } = usePage<{
+    const { tiers, added, total, discount, auth } = usePage<{
         tiers: Tier[];
         added: number[];
         total: number;
         discount: Discount;
+        auth: Auth;
     }>().props;
 
+    const isLoggedIn = auth.user != null;
     const items = tiers.filter((tier) => added.includes(tier.id));
 
     function handlePurchase() {
-        // post(route('register'));
+        if (!isLoggedIn) return;
+
+        router.visit(route('payment.process'));
     }
 
     function handleEmptyCart() {

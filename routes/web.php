@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
 use App\Http\Controllers\User\HomeController;
@@ -19,6 +20,13 @@ Route::get('/shop', function () {
 Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
 Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('cart.tiers.update');
 Route::post('/empty-cart', [TierCartController::class, 'empty'])->name('cart.tiers.empty');
+
+Route::get('/payment/process', [RegisteredUserController::class, 'processPayment'])
+    ->name('payment.process');
+
+// Route::get('/preview-email', function () {
+//     return view('emails.password', ['password' => 'SamplePass123']);
+// });
 
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
