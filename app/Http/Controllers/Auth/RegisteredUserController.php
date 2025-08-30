@@ -80,7 +80,7 @@ class RegisteredUserController extends Controller
         }
 
         if (!$user) {
-            return redirect()->route('register')->with('error', 'Invalid payment session');
+            return redirect()->route('tiers.index')->with('message', 'Ошибка инициации платежа');
         }
 
         $cart->tiers()->each(function ($tier) use ($user) {
