@@ -38,14 +38,18 @@ export default function CheckoutDisplay({
     className,
     errorMessage,
 }: CheckoutDisplayProps) {
-    const { tiers, added, total, discount} = usePage<{
+    const { tiers, added, total, discount } = usePage<{
         tiers: Tier[];
         added: number[];
         total: number;
-        discount: Discount
+        discount: Discount;
     }>().props;
 
-    const items = tiers.filter(tier => added.includes(tier.id));
+    const items = tiers.filter((tier) => added.includes(tier.id));
+
+    function handlePurchase() {
+        // post(route('register'));
+    }
 
     function handleEmptyCart() {
         router.visit(route('cart.tiers.empty'), {
@@ -96,9 +100,7 @@ export default function CheckoutDisplay({
                         <Tag className="ease absolute top-1/2 left-4 size-5 -translate-y-1/2 text-slate-500 transition duration-300 peer-focus:text-light-swamp" />
                     </Field>
 
-                    <PrimaryBtn
-                        className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6"
-                    >
+                    <PrimaryBtn className="flex size-11 shrink-0 items-center justify-center p-1 sm:w-auto sm:px-6">
                         <Check className="size-4/5 text-white sm:hidden" />
                         <span className="hidden sm:block">Применить</span>
                     </PrimaryBtn>
@@ -139,19 +141,29 @@ export default function CheckoutDisplay({
                 <span>{formatCurrency(total)}</span>
             </div>
 
-            <PrimaryBtn
-                onClick={isCart ? onPaymentClick : handleEmptyCart}
-                className="mt-10 w-full sm:text-lg"
-            >
-                {isCart ? (
+            {isCart ? (
+                <PrimaryBtn
+                    onClick={onPaymentClick}
+                    className="mt-10 w-full sm:text-lg"
+                    type="button"
+                    key='cart-button'
+                >
                     <span>
                         Перейти к оплате
                         <ArrowRight className="ml-2 inline size-5 text-white sm:size-6" />
                     </span>
-                ) : (
+                </PrimaryBtn>
+            ) : (
+                <PrimaryBtn
+                    onClick={handlePurchase}
+                    className="mt-10 w-full sm:text-lg"
+                    form="purchase-form"
+                    type="submit"
+                    key='payment-button'
+                >
                     <span className="font-bold uppercase">Оплатить</span>
-                )}
-            </PrimaryBtn>
+                </PrimaryBtn>
+            )}
         </section>
     );
 }

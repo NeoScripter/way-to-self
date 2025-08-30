@@ -4,7 +4,6 @@ import UserFooter from '@/components/user/molecules/user-footer';
 import UserHeader from '@/components/user/molecules/user-header';
 import { cn } from '@/lib/utils';
 import { usePage } from '@inertiajs/react';
-import { ToastContainer, Zoom } from 'react-toastify';
 
 type UserLayoutProps = {
     children: React.ReactNode;
@@ -33,19 +32,6 @@ export default function UserLayout({
 
             <UserFooter />
 
-            <ToastContainer
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={false}
-                closeOnClick={false}
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-                transition={Zoom}
-            />
         </div>
     );
 }

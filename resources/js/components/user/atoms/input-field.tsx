@@ -6,6 +6,8 @@ type InputFieldProps = {
     className?: string;
     value: string;
     error?: string;
+    id: string;
+    disabled?: boolean;
     label: string;
     placeholder: string;
 };
@@ -15,14 +17,18 @@ export default function InputField({
     className,
     value,
     error,
+    id,
+    disabled = false,
     label,
     placeholder,
 }: InputFieldProps) {
     return (
         <Field className={cn('block w-full', className)}>
-            <Label className="sr-only">{label}</Label>
+            <Label htmlFor={id} className="sr-only">{label}</Label>
             <Input
                 className="ease h-full w-full rounded-full border-2 border-slate-200 bg-white px-5 py-2 text-sm md:text-base text-slate-700 shadow-sm transition duration-300 placeholder:text-gray-500 hover:border-light-swamp focus:border-light-swamp focus:shadow focus:outline-none sm:text-base"
+                id={id}
+                disabled={disabled}
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}

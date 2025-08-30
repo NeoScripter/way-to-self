@@ -25,23 +25,6 @@ export default function Tiers() {
     }>().props;
 
     const [isCart, setCartPage] = useState(true);
-    const [username, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [telegram, setTelegram] = useState('');
-    const [agreedData, setAgreedData] = useState(false);
-    const [agreedPolicy, setAgreedPolicy] = useState(false);
-
-    function changeEmail(e: React.ChangeEvent<HTMLInputElement>) {
-        setEmail(e.target.value);
-    }
-
-    function changeUserName(e: React.ChangeEvent<HTMLInputElement>) {
-        setUserName(e.target.value);
-    }
-
-    function changeTelegram(e: React.ChangeEvent<HTMLInputElement>) {
-        setTelegram(e.target.value);
-    }
 
     function handlePaymentClick() {
         if (total === 0) {
@@ -56,8 +39,6 @@ export default function Tiers() {
     }
 
     const isLoggedIn = auth.user != null;
-
-    console.log(isLoggedIn);
 
     return (
         <UserLayout
@@ -135,18 +116,7 @@ export default function Tiers() {
                         )}
                     >
                         {!isLoggedIn ? (
-                            <TierSignUp
-                                email={email}
-                                userName={username}
-                                telegram={telegram}
-                                changeTelegram={changeTelegram}
-                                changeEmail={changeEmail}
-                                changeName={changeUserName}
-                                agreedData={agreedData}
-                                agreedPolicy={agreedPolicy}
-                                setAgreedData={setAgreedData}
-                                setAgreedPolicy={setAgreedPolicy}
-                            />
+                            <TierSignUp isCart={isCart} />
                         ) : (
                             <CheckoutDisplay
                                 isCart={isCart}
