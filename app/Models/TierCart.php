@@ -41,4 +41,30 @@ class TierCart extends Model
     {
         return $this->tiers()->sum('price');
     }
+
+    public function clear()
+    {
+        $cart = $this::getCart();
+        $cart->tiers()->detach();
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->total() === 0;
+    }
+
+    public function assignTiers(User $user): void
+    {
+        $this->tiers()->each(function ($tier) use ($user) {
+            $existing = $user->tiers()->find($tier->id);
+
+            if ($existing) {
+                $user->tiers()->updateExistingPivot($tier->id, [
+                    'purchased_at' => $existing->pivot->purchased_at->addYear()
+                ]);
+            } else {
+                $user->tiers()->attach($tier->id, ['purchased_at' => now()]);
+            }
+        });
+    }
 }

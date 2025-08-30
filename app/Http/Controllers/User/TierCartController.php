@@ -13,12 +13,5 @@ class TierCartController extends Controller
         $cart = TierCart::getCart();
 
         $cart->tiers()->toggle($tier->id);
-
-    }
-
-    public function empty()
-    {
-        $cart = TierCart::getCart();
-        $cart->tiers()->detach();
     }
 }

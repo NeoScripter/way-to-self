@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Validation\Rules;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -66,11 +65,18 @@ class RegisteredUserController extends Controller
         return redirect()->route('payment.process');
     }
 
-    public function processPayment(Request $request)
+    public function processPayment()
     {
-        sleep(2);
 
         $cart = TierCart::getCart();
+
+        if ($cart->isEmpty()) {
+            return redirect()->route('tiers.index')->with('message', 'Корзина пустая');
+        }
+
+        // TODO
+        // Process payment
+        sleep(2);
 
         if (Auth::check()) {
             $user = Auth::user();
@@ -83,24 +89,9 @@ class RegisteredUserController extends Controller
             return redirect()->route('tiers.index')->with('message', 'Ошибка инициации платежа');
         }
 
-        $cart->tiers()->each(function ($tier) use ($user) {
-            $existingPurchase = $user->tiers()->where('tier_id', $tier->id)->first();
+        $cart->assignTiers($user);
 
-            if ($existingPurchase) {
-                // User already has this tier - extend by one year
-                $newPurchasedAt = \Carbon\Carbon::parse($existingPurchase->pivot->purchased_at)->addYear();
-                $user->tiers()->updateExistingPivot($tier->id, [
-                    'purchased_at' => $newPurchasedAt
-                ]);
-            } else {
-                // Create new relationship with today's date
-                $user->tiers()->attach($tier->id, [
-                    'purchased_at' => now()
-                ]);
-            }
-        });
-
-        $cart->tiers()->detach();
+        $cart->clear();
 
         session()->forget(['payment_user_id']);
 
@@ -110,8 +101,7 @@ class RegisteredUserController extends Controller
                 ->with('message', 'Подписка успешно продлена!');
         } else {
             return Inertia::render('user/payment', [
-                'heading' => 'Поздравляем',
-                'body' => 'Платеж успешно завершен!'
+                'status' => 'success'
             ]);
         }
     }

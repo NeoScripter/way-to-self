@@ -24,6 +24,12 @@ Route::post('/empty-cart', [TierCartController::class, 'empty'])->name('cart.tie
 Route::get('/payment/process', [RegisteredUserController::class, 'processPayment'])
     ->name('payment.process');
 
+// Route::get('/preview-payment', function () {
+//     return Inertia::render('user/payment', [
+//         'heading' => 'Поздравляем! Вы успешно оформили подписку',
+//         'body' => 'Спасибо за покупку доступа к нашим курсам! Надеюсь, вы откроете для себя много полезного и они принесут вам много пользы. Временнный пароль для входа в личный кабинет выслан на указанную вами почту при регистрации. Если по какой-либо причине вы не получили письмо, проверьте папку спам. Если оно совсем не пришло, воспользуйтесь функцией восстановления пароля путем нажатия кнопки "забыли пароль" на странице входа в аккаунт и следуйте последующим инструкциям для восстановления пароля.'
+//     ]);
+// });
 // Route::get('/preview-email', function () {
 //     return view('emails.password', ['password' => 'SamplePass123']);
 // });
