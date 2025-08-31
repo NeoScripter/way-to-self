@@ -1,5 +1,6 @@
 import { Input } from '@/components/user/atoms/input';
 import InputError from '@/components/user/atoms/input-error';
+import InputSpan from '@/components/user/atoms/input-span';
 import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import { User } from '@/types';
@@ -7,7 +8,6 @@ import { Button } from '@headlessui/react';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import { z } from 'zod';
-import InputSpan from '../../atoms/input-span';
 
 type ProfileForm = {
     name: string;

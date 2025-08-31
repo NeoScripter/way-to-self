@@ -1,8 +1,8 @@
 import useToggle from "@/hooks/use-toggle";
-import SpanHighlight from "../../atoms/span-highlight";
 import { cn } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";
 import type { FaqItem } from "@/types/model";
+import SpanHighlight from "@/components/user/atoms/span-highlight";
 
 export default function FAQSection() {
     const { faqs } = usePage<{ faqs: FaqItem[] }>().props;

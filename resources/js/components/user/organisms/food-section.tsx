@@ -1,10 +1,10 @@
 import { foodCardData } from '@/lib/data/card-data';
 import { Recipe } from '@/types/model';
 import { usePage } from '@inertiajs/react';
-import ContentCard from '../../atoms/content-card';
-import InfoCard from '../../atoms/info-card';
-import SecondaryHeading from '../../atoms/secondary-heading';
-import SpanHighlight from '../../atoms/span-highlight';
+import SpanHighlight from '../atoms/span-highlight';
+import InfoCard from '../atoms/info-card';
+import SecondaryHeading from '../atoms/secondary-heading';
+import ContentCard from '../atoms/content-card';
 
 export default function FoodSection() {
     const { recipes } = usePage<{ recipes: Recipe[] }>().props;

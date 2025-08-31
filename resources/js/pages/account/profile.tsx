@@ -9,8 +9,8 @@ import AccountLayout from '@/layouts/user/account-layout';
 import { cn } from '@/lib/utils';
 
 import ArtLayer from '@/components/user/atoms/art-layer';
-import ProfileInfo from '@/components/user/organisms/account/profile-info';
-import ProfilePassword from '@/components/user/organisms/account/profile-password';
+import ProfileInfo from '@/components/account/organisms/profile-info';
+import ProfilePassword from '@/components/account/organisms/profile-password';
 
 export default function Profile() {
     return (

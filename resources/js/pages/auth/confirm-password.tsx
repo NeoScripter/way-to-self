@@ -4,10 +4,10 @@ import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/starter-kit/input-error';
-import { Button } from '@/components/ui/button';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import PasswordInput from '@/components/user/atoms/password-input';
 import { Label } from '@/components/user/atoms/label';
+import NeutralBtn from '@/components/user/atoms/neutral-btn';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<{ password: string }>>({
@@ -45,10 +45,10 @@ export default function ConfirmPassword() {
                     </div>
 
                     <div className="flex items-center">
-                        <Button className="w-full" disabled={processing}>
+                        <NeutralBtn className="w-full" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Confirm password
-                        </Button>
+                        </NeutralBtn>
                     </div>
                 </div>
             </form>

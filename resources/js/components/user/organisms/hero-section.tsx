@@ -10,9 +10,9 @@ import HomeCardLayout from '@/components/user/molecules/home-card-layout';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import LazyImage from '../../atoms/lazy-image';
-import DialogLayout from '../../molecules/dialog-layout';
-import VideoPlayer from '../../molecules/video-player';
+import DialogLayout from '../molecules/dialog-layout';
+import VideoPlayer from '../molecules/video-player';
+import LazyImage from '../atoms/lazy-image';
 
 export default function HeroSection() {
     const { video } = usePage<{ video: string }>().props;

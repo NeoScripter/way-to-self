@@ -1,5 +1,3 @@
-import SpanHighlight from "../../atoms/span-highlight";
-import ReviewCard from "../../atoms/review-card";
 import { useReducer, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { range } from "@/lib/helpers/range";
@@ -8,6 +6,8 @@ import useWindowSize from "@/hooks/use-window-size";
 import calculateSlideOffset from "@/lib/helpers/calculateSlideOffset";
 import { Review } from "@/types/model";
 import { usePage } from "@inertiajs/react";
+import SpanHighlight from "../atoms/span-highlight";
+import ReviewCard from "../atoms/review-card";
 
 type State = {
     currentIdx: number;

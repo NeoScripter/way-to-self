@@ -2,12 +2,12 @@ import DeleteUserDialog from '@/components/account/molecules/delete-user-dialog'
 import InputError from '@/components/user/atoms/input-error';
 import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import PasswordInput from '@/components/user/atoms/password-input';
 import useToggle from '@/hooks/use-toggle';
 import { useForm } from '@inertiajs/react';
 import { X } from 'lucide-react';
 import { FormEventHandler, useRef } from 'react';
 import { z } from 'zod';
-import PasswordInput from '../../atoms/password-input';
 
 type ProfileForm = {
     current_password: string;

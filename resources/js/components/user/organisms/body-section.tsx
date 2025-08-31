@@ -1,10 +1,10 @@
 import { bodyCardData } from '@/lib/data/card-data';
 import { Exercise } from '@/types/model';
 import { usePage } from '@inertiajs/react';
-import ContentCard from '../../atoms/content-card';
-import InfoCard from '../../atoms/info-card';
-import SecondaryHeading from '../../atoms/secondary-heading';
-import SpanHighlight from '../../atoms/span-highlight';
+import SpanHighlight from '../atoms/span-highlight';
+import InfoCard from '../atoms/info-card';
+import SecondaryHeading from '../atoms/secondary-heading';
+import ContentCard from '../atoms/content-card';
 
 export default function BodySection() {
     const { exercises } = usePage<{ exercises: Exercise[] }>().props;
@@ -75,57 +75,3 @@ export default function BodySection() {
         </>
     );
 }
-
-// export type ExerciseData = {
-//     id: string;
-//     name: string;
-//     description: string;
-//     img: string;
-//     alt: string;
-//     duration: number;
-//     rating: number;
-//     category: string;
-// }
-
-// const exercises: ExerciseData[] = [
-//     {
-//         id: "exercise-breathing-relax",
-//         name: "Глубокое дыхание",
-//         description: "Простое упражнение для снижения тревожности и восстановления спокойствия. Подходит для любого времени дня.",
-//         img: ExerciseCard1,
-//         alt: "Женщина с закрытыми глазами делает дыхательное упражнение на фоне природы",
-//         duration: 5,
-//         rating: 8,
-//         category: "Расслабление",
-//     },
-//     {
-//         id: "exercise-body-scan",
-//         name: "Сканирование тела",
-//         description: "Медленное осознание всех частей тела, чтобы снять напряжение и повысить чувствительность к внутренним состояниям.",
-//         img: ExerciseCard2,
-//         alt: "Человек лежит на коврике, расслабленно закрыв глаза, в комнате с мягким светом",
-//         duration: 15,
-//         rating: 6,
-//         category: "Осознанность",
-//     },
-//     {
-//         id: "exercise-stretching-flow",
-//         name: "Мягкая растяжка",
-//         description: "Небольшой комплекс для улучшения гибкости и снятия зажатости. Идеален для утреннего пробуждения.",
-//         img: ExerciseCard3,
-//         alt: "Женщина делает наклон вперёд на коврике в уютной комнате",
-//         duration: 10,
-//         rating: 7,
-//         category: "Движение",
-//     },
-//     {
-//         id: "exercise-evening-journal",
-//         name: "Вечерняя рефлексия",
-//         description: "Короткое письменное упражнение, чтобы отпустить события дня, зафиксировать благодарности и переключиться на отдых.",
-//         img: ExerciseCard4,
-//         alt: "Открытый блокнот с ручкой на столе рядом с чашкой чая",
-//         duration: 8,
-//         rating: 9,
-//         category: "Самоанализ",
-//     }
-// ];

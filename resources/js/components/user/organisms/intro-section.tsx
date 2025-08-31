@@ -1,8 +1,8 @@
-import LazyImage from "../../atoms/lazy-image";
-import PrimaryBtn from "../../atoms/primary-btn";
-import SpanHighlight from "../../atoms/span-highlight";
 import Intro from "@/assets/images/home/home-intro.webp";
 import IntroTiny from "@/assets/images/home/home-intro-tiny.webp";
+import SpanHighlight from "../atoms/span-highlight";
+import LazyImage from "../atoms/lazy-image";
+import PrimaryBtn from "../atoms/primary-btn";
 
 export default function IntroSection() {
     return (

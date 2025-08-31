@@ -57,8 +57,8 @@ class ProfileController extends Controller
 
         $user->delete();
 
-        $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $request->session()->invalidate();
 
         return redirect('/');
     }

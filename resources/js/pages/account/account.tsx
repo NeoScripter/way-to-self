@@ -7,7 +7,7 @@ import LazyImage from '@/components/user/atoms/lazy-image';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import SlideLayout from '@/components/user/molecules/slide-layout';
-import ArticlesSection from '@/components/user/organisms/home/articles-section';
+import ArticlesSection from '@/components/user/organisms/articles-section';
 import useToggle from '@/hooks/use-toggle';
 import AccountLayout from '@/layouts/user/account-layout';
 import { cn } from '@/lib/utils';

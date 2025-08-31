@@ -1,9 +1,9 @@
 import { Article } from '@/types/model';
 import { ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
-import ArticleCard from '../../atoms/article-card';
-import SecondaryHeading from '../../atoms/secondary-heading';
 import { cn } from '@/lib/utils';
+import SecondaryHeading from '../atoms/secondary-heading';
+import ArticleCard from '../atoms/article-card';
 
 type ArticlesSectionProps = {
     titleClass?: string;

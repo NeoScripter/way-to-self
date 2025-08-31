@@ -1,13 +1,10 @@
-import ExampleTrack from "@/assets/audio/output.mp3"
-import ExamplePreview from "@/assets/images/home/example-meditation.webp";
-import ExamplePreview2 from "@/assets/images/home/exercise-1.webp";
-import SpanHighlight from "../../atoms/span-highlight";
-import InfoCard from "../../atoms/info-card";
-import SecondaryHeading from "../../atoms/secondary-heading";
 import { soulCardData } from "@/lib/data/card-data";
-import AudioPlayer from "../../atoms/audio-player";
 import { usePage } from "@inertiajs/react";
 import { Audio } from "@/types/model";
+import SpanHighlight from "../atoms/span-highlight";
+import InfoCard from "../atoms/info-card";
+import SecondaryHeading from "../atoms/secondary-heading";
+import AudioPlayer from "../atoms/audio-player";
 
 export default function SoulSection() {
     const { tracks } = usePage<{ tracks: Audio[] }>().props;
