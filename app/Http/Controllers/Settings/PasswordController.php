@@ -36,7 +36,6 @@ class PasswordController extends Controller
 
 
         return redirect()
-            ->route('account.edit')
-            ->with('message', 'Данные успешно изменены!');
+            ->route('account.edit');
     }
 }

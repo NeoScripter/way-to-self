@@ -2,6 +2,7 @@ import DeleteUserDialog from '@/components/account/molecules/delete-user-dialog'
 import InputError from '@/components/user/atoms/input-error';
 import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import notify from '@/components/user/atoms/notify';
 import PasswordInput from '@/components/user/atoms/password-input';
 import useToggle from '@/hooks/use-toggle';
 import { useForm } from '@inertiajs/react';
@@ -91,6 +92,7 @@ export default function ProfilePassword() {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
+                notify("Данные успешно изменены!");
             },
             onError: (errors) => {
                 if (errors.password) {

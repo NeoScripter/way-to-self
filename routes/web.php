@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\NutritionController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\User\ArticleController;
@@ -46,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::name('account.')->group(function () {
         Route::get('account/profile', [ProfileController::class, 'index'])->name('edit');
     });
+     // Route::name('nutrition.')->group(function () {
+    //     Route::get('account/nutrition', [NutritionController::class, 'index'])->name('index');
+    // });
 });
 
 require __DIR__ . '/settings.php';

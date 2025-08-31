@@ -3,6 +3,7 @@ import InputError from '@/components/user/atoms/input-error';
 import InputSpan from '@/components/user/atoms/input-span';
 import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import notify from '@/components/user/atoms/notify';
 import { User } from '@/types';
 import { Button } from '@headlessui/react';
 import { useForm, usePage } from '@inertiajs/react';
@@ -90,13 +91,13 @@ export default function ProfileInfo() {
             preserveScroll: true,
             onSuccess: () => {
                 setInfoEdited(false);
+                notify('Данные успешно изменены!');
             },
         });
     };
 
     return (
         <div className="relative z-50 pt-4">
-
             <div className="mx-auto max-w-177.5 space-y-6">
                 <h3 className="mb-6 block font-heading font-medium sm:text-lg md:text-xl lg:mb-8 lg:text-2xl">
                     Данные пользователя

@@ -1,7 +1,7 @@
+import Footer from '@/components/shared/molecules/footer';
+import TierHeader from '@/components/shared/organisms/tier-header';
 import BackToTopBtn from '@/components/user/atoms/back-to-top-btn';
 import FlashMessage from '@/components/user/atoms/flash-message';
-import UserFooter from '@/components/user/molecules/user-footer';
-import UserHeader from '@/components/user/molecules/user-header';
 import { cn } from '@/lib/utils';
 import { usePage } from '@inertiajs/react';
 
@@ -22,7 +22,7 @@ export default function TierLayout({
 
     return (
         <div className={cn('relative z-5 min-h-screen', layoutClass)}>
-            <UserHeader className={headerClass} />
+            <TierHeader className={headerClass} />
 
             <BackToTopBtn />
 
@@ -30,8 +30,7 @@ export default function TierLayout({
 
             <main className={cn(pageClass)}>{children}</main>
 
-            <UserFooter />
-
+            <Footer />
         </div>
     );
 }

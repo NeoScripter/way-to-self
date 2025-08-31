@@ -1,5 +1,4 @@
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import { router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -9,24 +8,15 @@ type FlashMessageProps = {
 export default function FlashMessage({ message }: FlashMessageProps) {
     const [show, setShow] = useState(true);
 
-    function setFadeOutTimeout() {
-        return setTimeout(() => {
+    useEffect(() => {
+        let timeout = setTimeout(() => {
             setShow(false);
         }, 3000);
-    }
-
-    useEffect(() => {
-        let timeout = setFadeOutTimeout();
-
-        let removeEvent = router.on('before', () => {
-            setShow(true);
-        });
 
         return () => {
             clearTimeout(timeout);
-            removeEvent();
         };
-    });
+    }, []);
 
     if (!show) return null;
 
