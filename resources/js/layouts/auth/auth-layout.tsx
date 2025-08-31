@@ -51,7 +51,6 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     </RedBtn>
                     <Link
                         as="button"
-                        prefetch
                         href={route('home')}
                         className="cursor-pointer transition-all duration-200 ease-in hover:underline underline-offset-3"
                     >

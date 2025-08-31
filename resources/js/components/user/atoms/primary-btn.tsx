@@ -26,7 +26,6 @@ export default function PrimaryBtn({
     if (href != null) {
         return (
             <Link
-                prefetch
                 as="button"
                 href={href}
                 className={baseClass}

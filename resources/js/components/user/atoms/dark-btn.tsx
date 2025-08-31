@@ -24,7 +24,6 @@ export default function DarkBtn({
     if (href != null) {
         return (
             <Link
-                prefetch
                 as="button"
                 href={href}
                 className={baseClass}
