@@ -2,7 +2,7 @@ import DishSvg from '@/assets/svgs/dish-black.svg';
 import StarSvg from '@/assets/svgs/star-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import VideoPlayer from '@/components/user/molecules/video-player';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { Exercise as ExerciseType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
@@ -14,7 +14,8 @@ export default function Exercise() {
     }>().props;
 
     return (
-        <UserLayout
+        <AppLayout
+            variant="guest"
             layoutClass="bg-light-bg"
             pageClass="px-3 md:px-11 xl:px-25"
             headerClass="bg-light-swamp"
@@ -30,16 +31,21 @@ export default function Exercise() {
 
                 <ExerciseStats exercise={exercise} />
 
-                {video && <VideoPlayer src={video} className='block mb-10 md:mb-12 xl:mb-15' />}
+                {video && (
+                    <VideoPlayer
+                        src={video}
+                        className="mb-10 block md:mb-12 xl:mb-15"
+                    />
+                )}
 
                 <div
-                    className="prose prose-sm mt-9 block mb-33 max-w-full prose-neutral md:prose-base md:mt-12 md:mb-37 lg:mt-0 xl:mt-15 xl:prose-xl xl:mb-53"
+                    className="prose prose-sm mt-9 mb-33 block max-w-full prose-neutral md:prose-base md:mt-12 md:mb-37 lg:mt-0 xl:prose-xl xl:mt-15 xl:mb-53"
                     dangerouslySetInnerHTML={{
                         __html: exercise.html,
                     }}
                 ></div>
             </article>
-        </UserLayout>
+        </AppLayout>
     );
 }
 

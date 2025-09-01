@@ -21,7 +21,6 @@ export default function AccountLayout({
 }: AccountLayoutProps) {
     const { flash, auth } = usePage<{ flash: { message: string | null } }>().props;
 
-    console.log(auth.user)
     return (
         <div className={cn('relative z-5 min-h-screen', layoutClass)}>
             <AccountHeader className={headerClass} />

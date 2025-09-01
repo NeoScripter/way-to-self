@@ -4,12 +4,11 @@ import FavoriteMenu from '@/components/account/molecules/favorite-menu';
 import FavoriteList from '@/components/account/organisms/favorite-list';
 import DarkBtn from '@/components/user/atoms/dark-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
-import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import SlideLayout from '@/components/user/molecules/slide-layout';
 import ArticlesSection from '@/components/user/organisms/articles-section';
 import useToggle from '@/hooks/use-toggle';
-import AccountLayout from '@/layouts/user/account-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
 import { Tier } from '@/types/model';
@@ -31,7 +30,8 @@ export default function Account() {
     const [showMenu, toggleMenu] = useToggle(false);
 
     return (
-        <AccountLayout
+        <AppLayout
+            variant="account"
             layoutClass="text-white bg-main-page-bg"
             pageClass="px-4 pb-27 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
         >
@@ -120,7 +120,7 @@ export default function Account() {
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />
             </SlideLayout>
-        </AccountLayout>
+        </AppLayout>
     );
 }
 
@@ -140,7 +140,11 @@ function TierCard({ tier, className, purchased }: TierCardProps) {
             )}
         >
             <Link
-                href={!purchased ? route('tiers.index') : route('account')}
+                href={
+                    !purchased
+                        ? route('tiers.index')
+                        : route(tier.route + '.index')
+                }
                 as="button"
                 className="absolute inset-0 z-10 cursor-pointer"
             ></Link>

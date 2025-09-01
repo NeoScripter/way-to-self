@@ -32,5 +32,4 @@ class Tier extends Model
         return $this->belongsToMany(User::class)
             ->withPivot('purchased_at');
     }
-
 }

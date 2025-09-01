@@ -1,28 +1,33 @@
 import Footer from '@/components/shared/molecules/footer';
-import TierHeader from '@/components/shared/organisms/tier-header';
+import Header from '@/components/shared/organisms/header';
 import BackToTopBtn from '@/components/user/atoms/back-to-top-btn';
 import FlashMessage from '@/components/user/atoms/flash-message';
 import { cn } from '@/lib/utils';
 import { usePage } from '@inertiajs/react';
 
-type TierLayoutProps = {
+type AppLayoutProps = {
     children: React.ReactNode;
     layoutClass?: string;
     pageClass?: string;
     headerClass?: string;
+    variant: string;
 };
 
-export default function TierLayout({
+export default function AppLayout({
     children,
     layoutClass,
     pageClass,
     headerClass,
-}: TierLayoutProps) {
+    variant,
+}: AppLayoutProps) {
     const { flash } = usePage<{ flash: { message: string | null } }>().props;
 
     return (
         <div className={cn('relative z-5 min-h-screen', layoutClass)}>
-            <TierHeader className={headerClass} />
+            <Header
+                variant={variant}
+                className={headerClass}
+            />
 
             <BackToTopBtn />
 

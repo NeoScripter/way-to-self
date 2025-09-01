@@ -4,7 +4,7 @@ import ClockSvg from '@/assets/svgs/time-black.svg';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
 import VideoPlayer from '@/components/user/molecules/video-player';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { cn } from '@/lib/utils';
 import { Image, Recipe as RecipeType } from '@/types/model';
@@ -19,7 +19,8 @@ export default function Recipe() {
     const [zoomedImg, setZoomedImg] = useState<Image | null>(null);
 
     return (
-        <UserLayout
+        <AppLayout
+            variant="guest"
             layoutClass="bg-light-bg"
             pageClass="px-3 md:px-11 xl:px-25"
             headerClass="bg-light-swamp"
@@ -40,7 +41,7 @@ export default function Recipe() {
                 <div className="mt-6 md:mt-16 lg:flex lg:items-start lg:gap-13 xl:gap-15">
                     <div className="space-y-5 rounded-4xl bg-card-backdrop-gray p-4 md:space-y-6 md:p-6 lg:order-2">
                         {recipe.infos?.map((info) => (
-                            <div className="relative text-text-black rounded-3xl bg-white px-4 py-6 text-sm md:px-6 md:py-7 md:text-base lg:text-sm xl:text-base">
+                            <div className="relative rounded-3xl bg-white px-4 py-6 text-sm text-text-black md:px-6 md:py-7 md:text-base lg:text-sm xl:text-base">
                                 <h3 className="mb-3 text-xl font-bold tracking-wider text-bright-salad uppercase md:text-2xl lg:text-xl xl:text-2xl">
                                     {info.title}
                                 </h3>
@@ -65,9 +66,9 @@ export default function Recipe() {
                                             onClick={() =>
                                                 setZoomedImg(info.image)
                                             }
-                                            className="absolute bottom-2 right-2 sm:top-5 sm:right-5 z-20 flex items-center justify-center cursor-pointer size-10 rounded-full bg-bright-salad"
+                                            className="absolute right-2 bottom-2 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full bg-bright-salad sm:top-5 sm:right-5"
                                         >
-                                           <ZoomIn className='text-white size-3/4' />
+                                            <ZoomIn className="size-3/4 text-white" />
                                         </button>
                                     </>
                                 )}
@@ -103,7 +104,7 @@ export default function Recipe() {
                     </div>
                 </div>
             </article>
-        </UserLayout>
+        </AppLayout>
     );
 }
 
@@ -119,7 +120,7 @@ function LightBox({ img, onClose }: LightBoxProps) {
         <DialogLayout
             show={img != null}
             onClose={onClose}
-            className='max-w-180 mx-auto text-black'
+            className="mx-auto max-w-180 text-black"
         >
             <LazyImage
                 parentClass="aspect-video rounded-2xl"

@@ -1,5 +1,5 @@
 import LazyImage from '@/components/user/atoms/lazy-image';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { Article as ArticleType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
@@ -7,13 +7,14 @@ export default function Article() {
     const { article } = usePage<{ article: ArticleType }>().props;
 
     return (
-        <UserLayout
+        <AppLayout
+            variant="guest"
             layoutClass="bg-light-bg"
             pageClass="px-3 md:px-11 xl:px-25"
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                <h1 className="mt-10 text-center text-balance font-heading text-2xl font-medium text-text-black uppercase md:mt-20 md:text-5xl xl:mt-30 xl:text-6xl">
+                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:mt-20 md:text-5xl xl:mt-30 xl:text-6xl">
                     {article.title}
                 </h1>
 
@@ -31,6 +32,6 @@ export default function Article() {
                     dangerouslySetInnerHTML={{ __html: article.html }}
                 ></div>
             </article>
-        </UserLayout>
+        </AppLayout>
     );
 }

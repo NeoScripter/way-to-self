@@ -87,4 +87,9 @@ class User extends Authenticatable
             ->select(['audio.id', 'title', 'duration', 'rating', 'type', 'description'])
             ->with('image');
     }
+
+    public function hasTier($tierRoute): bool
+    {
+        return $this->tiers()->where('route', $tierRoute)->exists();
+    }
 }

@@ -42,7 +42,7 @@ class AccountController extends Controller
             ->get();
 
         return Inertia::render('account/account', [
-            'tiers' => fn() => Tier::select(['id', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
+            'tiers' => fn() => Tier::select(['id', 'route', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
             'purchased' => $selectedTiers,
             'articles' => $articles,
             'favorites' => $this->favorites($request),

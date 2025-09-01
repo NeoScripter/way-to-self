@@ -1,5 +1,5 @@
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 
 type PaymentProps = {
     status: 'success' | 'failure';
@@ -13,7 +13,8 @@ export default function Payment({ status }: PaymentProps) {
             : '';
 
     return (
-        <UserLayout
+        <AppLayout
+            variant='guest'
             layoutClass="bg-light-bg"
             pageClass="p-3 py-8 md:p-11 xl:p-25"
             headerClass="bg-light-swamp"
@@ -41,6 +42,6 @@ export default function Payment({ status }: PaymentProps) {
                     <h2 className="font-medium">admin@gmail.com</h2>
                 </div>
             </article>
-        </UserLayout>
+        </AppLayout>
     );
 }

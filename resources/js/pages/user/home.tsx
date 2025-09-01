@@ -25,12 +25,13 @@ import IntroSection from '@/components/user/organisms/intro-section';
 import RatesSection from '@/components/user/organisms/rates-section';
 import ReviewsSection from '@/components/user/organisms/reviews-section';
 import SoulSection from '@/components/user/organisms/soul-section';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
     return (
-        <UserLayout
+        <AppLayout
+            variant="guest"
             layoutClass="text-text-black bg-main-page-bg"
             pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
         >
@@ -174,7 +175,7 @@ export default function Home() {
             <AppSection ariaLabelledBy="articles-section-title">
                 <ArticlesSection articleClass="text-dark-green" />
             </AppSection>
-        </UserLayout>
+        </AppLayout>
     );
 }
 

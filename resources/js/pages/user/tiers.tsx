@@ -7,7 +7,7 @@ import notify from '@/components/user/atoms/notify';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import TierSignUp from '@/components/user/molecules/tier-sign-up';
 import CheckoutDisplay from '@/components/user/organisms/checkout-display';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
 import { Tier } from '@/types/model';
@@ -41,7 +41,8 @@ export default function Tiers() {
     const isLoggedIn = auth.user != null;
 
     return (
-        <UserLayout
+        <AppLayout
+            variant="guest"
             layoutClass="text-white relative bg-main-page-bg"
             pageClass="px-3 pb-18 sm:px-6.5 md:pb-16 xl:pb-23.5 2xl:px-14 2xl:pb-20 3xl:px-45"
         >
@@ -148,7 +149,7 @@ export default function Tiers() {
                     </button>
                 </div>
             )}
-        </UserLayout>
+        </AppLayout>
     );
 }
 

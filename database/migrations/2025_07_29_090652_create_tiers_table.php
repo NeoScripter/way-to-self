@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tiers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('route');
             $table->text('description');
             $table->unsignedInteger('price');
             $table->timestamps();

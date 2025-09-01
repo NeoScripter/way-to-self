@@ -93,63 +93,6 @@ function NavMenu({ className, close, show }: NavMenuProps) {
             </header>
             <Logo className="my-[5vw] text-center text-[18vw] sm:text-8xl md:hidden" />
 
-            <nav
-                aria-label="Основная навигация"
-                className="md:mx-auto"
-            >
-                <ul className="mt-12 space-y-15 text-center text-xl md:mt-0 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0 md:text-sm lg:gap-10 xl:gap-15 xl:text-base">
-                    <NavLink>
-                        <RedBtn
-                            href={route('shop')}
-                            className="mx-auto py-[0.3rem]"
-                        >
-                            Магазин
-                        </RedBtn>
-                    </NavLink>
-                    <NavLink>
-                        <button
-                            className="cursor-pointer"
-                            onClick={handleScrollDown}
-                        >
-                            Контакты
-                        </button>
-                    </NavLink>
-                </ul>
-            </nav>
-
-            {url.endsWith('account/profile') ? (
-                <DarkBtn
-                    className="mx-auto md:mx-0 shrink-0 md:bg-dark-green mt-15 mb-50 md:my-0 md:hover:bg-dark-green/90 text-lg md:text-sm lg:text-base md:mr-0"
-                    href={route('account')}
-                >
-                    Личный кабинет
-                </DarkBtn>
-            ) : (
-                <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-lg md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
-                    <NavLink>
-                        <Link
-                            href={route('account.edit')}
-                            as="button"
-                            className="mx-auto flex cursor-pointer items-center gap-2"
-                        >
-                            <Cog6ToothIcon className="hidden size-6.5 md:block" />
-                            Настройки
-                        </Link>
-                    </NavLink>
-
-                    <NavLink>
-                        <Link
-                            href={route('logout')}
-                            method="post"
-                            as="button"
-                            className="mx-auto flex cursor-pointer items-center gap-2"
-                        >
-                            <ArrowRightStartOnRectangleIcon className="hidden size-6.5 md:block" />
-                            Выйти
-                        </Link>
-                    </NavLink>
-                </div>
-            )}
         </div>
     );
 }

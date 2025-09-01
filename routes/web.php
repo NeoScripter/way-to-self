@@ -47,9 +47,15 @@ Route::middleware(['auth'])->group(function () {
     Route::name('account.')->group(function () {
         Route::get('account/profile', [ProfileController::class, 'index'])->name('edit');
     });
-     // Route::name('nutrition.')->group(function () {
-    //     Route::get('account/nutrition', [NutritionController::class, 'index'])->name('index');
-    // });
+    Route::middleware('tier.access:nutrition')->name('nutrition.')->group(function () {
+        Route::get('account/nutrition', [NutritionController::class, 'index'])->name('index');
+    });
+    Route::name('soul.')->group(function () {
+        Route::get('account/soul', [NutritionController::class, 'index'])->name('index');
+    });
+    Route::name('body.')->group(function () {
+        Route::get('account/body', [NutritionController::class, 'index'])->name('index');
+    });
 });
 
 require __DIR__ . '/settings.php';

@@ -1,7 +1,7 @@
 import ArticleCard from '@/components/user/atoms/article-card';
 import Pagination from '@/components/user/atoms/pagination';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
-import UserLayout from '@/layouts/user/user-layout';
+import AppLayout from '@/layouts/user/app-layout';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { Article } from '@/types/model';
 import { usePage } from '@inertiajs/react';
@@ -10,7 +10,8 @@ export default function Articles() {
     const { articles } = usePage<{ articles: PaginationMeta<Article> }>().props;
 
     return (
-        <UserLayout
+        <AppLayout
+            variant="guest"
             layoutClass="bg-fade-olive-theme"
             pageClass="px-8 md:px-20 xl:px-22"
         >
@@ -35,6 +36,6 @@ export default function Articles() {
                 label="статьи"
                 className="mx-auto max-w-330 text-dark-green"
             />
-        </UserLayout>
+        </AppLayout>
     );
 }

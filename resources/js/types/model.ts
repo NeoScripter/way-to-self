@@ -120,6 +120,7 @@ export type Review = {
 export type Tier = {
     id: number;
     name: string;
+    route: string;
     description: string;
     price: number;
     created_at?: string;

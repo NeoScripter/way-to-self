@@ -24,6 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
         ]);
+        $middleware->alias([
+            'tier.access' => \App\Http\Middleware\TierAccess::class,
+        ]);
     })
     // ->withEvents(discover: [
     //     __DIR__.'/../app/Listeners',
