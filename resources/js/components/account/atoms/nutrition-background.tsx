@@ -11,7 +11,7 @@ export default function NutritionBackground() {
     return (
         <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-5 overflow-clip bg-main-page-bg"
+            className="pointer-events-none absolute inset-0 -z-5 overflow-clip"
         >
             <picture
                 className={cn(
@@ -34,20 +34,20 @@ export default function NutritionBackground() {
             <div
                 role="status"
                 aria-label="Фото загружается"
-                className="absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center"
+                className={cn("absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center", !isLoading && 'opacity-0')}
             >
                 <div
                     aria-hidden="true"
                     className={cn(
                         isLoading &&
-                            'absolute inset-0 w-full animate-pulse bg-gray-200/50',
+                            'absolute inset-0 size-full animate-pulse bg-gray-200/50',
                     )}
                 ></div>
 
                 <picture
                     aria-hidden="true"
                     className={cn(
-                        'block w-full object-contain object-center transition-all duration-500 ease-in-out',
+                        'block size-full object-cover object-center transition-all duration-500 ease-in-out',
                     )}
                 >
                     <source
@@ -58,7 +58,7 @@ export default function NutritionBackground() {
                         onLoad={() => setIsLoading(false)}
                         src={TinyMobileBg}
                         alt=""
-                        className="block w-full object-contain object-left-top"
+                        className="block size-full object-cover object-left-top"
                     />
                 </picture>
             </div>

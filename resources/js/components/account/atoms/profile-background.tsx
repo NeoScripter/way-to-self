@@ -35,7 +35,10 @@ export default function ProfileBackground() {
             <div
                 role="status"
                 aria-label="Фото загружается"
-                className="absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center"
+                className={cn(
+                    'absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center',
+                    !isLoading && 'opacity-0',
+                )}
             >
                 <div
                     aria-hidden="true"
@@ -48,7 +51,7 @@ export default function ProfileBackground() {
                 <picture
                     aria-hidden="true"
                     className={cn(
-                        'block size-full object-cover object-center transition-all duration-500 ease-in-out'
+                        'block size-full object-cover object-center transition-all duration-500 ease-in-out',
                     )}
                 >
                     <source

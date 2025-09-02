@@ -18,7 +18,7 @@ export default function Profile() {
         <AppLayout
             variant='account'
             layoutClass="text-text-black bg-main-page-bg"
-            pageClass="px-4 pb-18 sm:px-11 sm:pb-26 xl:pb-33.5 2xl:pb-30 2xl:px-25 3xl:px-40 overflow-visible"
+            pageClass="px-4 pb-18 sm:px-11 sm:pb-26 xl:pb-33.5 2xl:pb-30 2xl:px-25 3xl:px-40"
         >
             <ProfileBackground />
 

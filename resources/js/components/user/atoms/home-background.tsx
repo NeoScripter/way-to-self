@@ -1,8 +1,8 @@
 import TinyDesktopBg from '@/assets/images/home/hero/home-bg-desktop-tiny.webp';
-import TinyTabletBg from '@/assets/images/home/hero/home-bg-tablet-tiny.webp';
-import TinyMobileBg from '@/assets/images/home/hero/home-bg-mobile-tiny.webp';
 import DesktopBg from '@/assets/images/home/hero/home-bg-desktop.webp';
+import TinyMobileBg from '@/assets/images/home/hero/home-bg-mobile-tiny.webp';
 import MobileBg from '@/assets/images/home/hero/home-bg-mobile.webp';
+import TinyTabletBg from '@/assets/images/home/hero/home-bg-tablet-tiny.webp';
 import TabletBg from '@/assets/images/home/hero/home-bg-tablet.webp';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
@@ -40,7 +40,10 @@ export default function HomeBackground() {
             <div
                 role="status"
                 aria-label="Фото загружается"
-                className="absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center"
+                className={cn(
+                    'absolute inset-0 -z-5 flex h-full max-h-screen w-full items-center justify-center',
+                    !isLoading && 'opacity-0',
+                )}
             >
                 <div
                     aria-hidden="true"
@@ -53,7 +56,7 @@ export default function HomeBackground() {
                 <picture
                     aria-hidden="true"
                     className={cn(
-                        'block size-full w-full object-cover object-center transition-all duration-500 ease-in-out'
+                        'block size-full w-full object-cover object-center transition-all duration-500 ease-in-out',
                     )}
                 >
                     <source

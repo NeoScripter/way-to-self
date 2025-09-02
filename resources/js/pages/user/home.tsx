@@ -33,7 +33,7 @@ export default function Home() {
         <AppLayout
             variant="guest"
             layoutClass="text-text-black bg-main-page-bg"
-            pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
+            pageClass="px-4 sm:px-11 2xl:px-25 3xl:px-40"
         >
             <HomeBackground />
 

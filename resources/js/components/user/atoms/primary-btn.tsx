@@ -28,6 +28,7 @@ export default function PrimaryBtn({
             <Link
                 as="button"
                 href={href}
+                prefetch
                 className={baseClass}
             >
                 {children}

@@ -11,7 +11,7 @@ import {
     ArrowRightStartOnRectangleIcon,
     Cog6ToothIcon,
 } from '@heroicons/react/24/solid';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage, usePrefetch } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
 
 type HeaderProps = {
@@ -141,6 +141,8 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         };
     }>();
 
+    const { flush } = usePrefetch();
+
     const user = props.auth.user;
 
     function handleScrollDown() {
@@ -157,19 +159,37 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
             label: 'О чем',
             href: route('home'),
             isActive: url === '/',
-            showFor: ['guest', 'tier'],
+            showFor: ['guest'],
         },
         {
             label: 'Тарифы',
             href: route('tiers.index'),
             isActive: url === '/tiers',
-            showFor: ['guest', 'tier'],
+            showFor: ['guest'],
         },
         {
             label: 'Новости',
             href: route('user.articles.index'),
             isActive: url === '/articles',
-            showFor: ['guest', 'tier'],
+            showFor: ['guest'],
+        },
+        {
+            label: 'Питание',
+            href: route('nutrition.index'),
+            isActive: url === '/account/nutrition',
+            showFor: ['tier'],
+        },
+        {
+            label: 'Душа',
+            href: route('soul.index'),
+            isActive: url === '/account/soul',
+            showFor: ['tier'],
+        },
+        {
+            label: 'Тело',
+            href: route('body.index'),
+            isActive: url === '/account/body',
+            showFor: ['tier'],
         },
     ];
 
@@ -215,10 +235,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
     const renderAccountButton = () => (
         <PrimaryBtn
             className={cn(
-                'mx-auto shrink-0 text-xl md:order-2 md:mr-0',
-                variant === 'tier'
-                    ? 'md:text-xs xl:text-base'
-                    : 'md:text-sm xl:text-base',
+                'mx-auto shrink-0 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
             )}
             href={route('account')}
         >
@@ -287,6 +304,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
                     <Link
                         href={route('account.edit')}
                         as="button"
+                        prefetch
                         className="mx-auto flex cursor-pointer items-center gap-2"
                     >
                         <Cog6ToothIcon className="hidden size-6.5 md:block" />
@@ -297,6 +315,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
                 <NavLink>
                     <Link
                         href={route('logout')}
+                        onSuccess={() => router.flushAll()}
                         method="post"
                         as="button"
                         className="mx-auto flex cursor-pointer items-center gap-2"

@@ -33,7 +33,7 @@ export default function Account() {
         <AppLayout
             variant="account"
             layoutClass="text-white bg-main-page-bg"
-            pageClass="px-4 pb-27 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
+            pageClass="px-4 pb-27 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40"
         >
             <AccountBackground />
 

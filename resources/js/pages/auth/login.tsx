@@ -1,18 +1,19 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm, usePrefetch } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/starter-kit/input-error';
 import TextLink from '@/components/starter-kit/text-link';
+import { Checkbox } from '@/components/user/atoms/checkbox';
+import { Input } from '@/components/user/atoms/input';
+import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import PasswordInput from '@/components/user/atoms/password-input';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
-import { Input } from '@/components/user/atoms/input';
-import PasswordInput from '@/components/user/atoms/password-input';
-import { Label } from '@/components/user/atoms/label';
-import { Checkbox } from '@/components/user/atoms/checkbox';
+import notify from '@/components/user/atoms/notify';
 
 type LoginForm = {
     email: string;
@@ -63,6 +64,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         }
 
         post(route('login'), {
+            onSuccess: () => router.flushAll(),
             onFinish: () => reset('password'),
         });
     };
@@ -93,7 +95,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             </p>
 
             <form
-                className="flex text-text-black flex-col gap-6"
+                className="flex flex-col gap-6 text-text-black"
                 onSubmit={submit}
             >
                 <div className="mx-auto grid w-full max-w-90 gap-3 px-2 sm:w-4/5 sm:max-w-full sm:gap-4 sm:px-0">

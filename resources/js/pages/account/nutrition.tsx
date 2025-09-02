@@ -1,17 +1,17 @@
+import LinkCard from '@/components/account/atoms/link-card';
 import NutritionBackground from '@/components/account/atoms/nutrition-background';
 import FAQSection from '@/components/shared/organisms/faq-section';
-import InfoCard from '@/components/user/atoms/info-card';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AppLayout from '@/layouts/user/app-layout';
-import { foodCardData } from '@/lib/data/card-data';
+import { nutritionCardData } from '@/lib/data/card-data';
 import { cn } from '@/lib/utils';
 
 export default function Nutrition() {
     return (
         <AppLayout
             variant="tier"
-            layoutClass="text-white bg-main-page-bg"
-            pageClass="px-4 pb-27 space-y-21 sm:space-y-35 md:space-y-28 xl:space-y-34 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40 overflow-visible"
+            layoutClass="text-white bg-light-sand"
+            pageClass="px-4 pb-20 space-y-21 sm:space-y-35 md:space-y-28 xl:space-y-34 sm:pb-24 xl:pb-30 sm:px-11 2xl:px-25 3xl:px-40"
         >
             <NutritionBackground />
 
@@ -44,15 +44,16 @@ export default function Nutrition() {
                 </h1>
 
                 <ul
-                    className="relative z-11 mb-17 grid gap-11 sm:grid-cols-2 xl:grid-cols-4"
+                    className="relative z-11 mt-40 mb-31 flex flex-wrap justify-center gap-x-5 gap-y-31 sm:gap-y-35"
                     role="list"
                 >
-                    {foodCardData.map((card) => (
-                        <InfoCard
+                    {nutritionCardData.map((card) => (
+                        <LinkCard
                             html={card.text}
                             key={card.id}
                             img={card.img}
                             alt={card.alt}
+                            route={card.route}
                         />
                     ))}
                 </ul>
