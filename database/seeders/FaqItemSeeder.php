@@ -12,6 +12,8 @@ class FaqItemSeeder extends Seeder
      */
     public function run(): void
     {
-        FaqItem::factory(6)->withFixture()->create();
+        for ($i = 0; $i < 4; $i++) {
+            FaqItem::factory(6)->withFixture()->create();
+        }
     }
 }
