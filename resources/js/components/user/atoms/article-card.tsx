@@ -5,10 +5,11 @@ import LazyImage from './lazy-image';
 type ArticleCardProps = {
     article: Article;
     className?: string;
+    prefix: string;
 };
 
-export default function ArticleCard({ article, className }: ArticleCardProps) {
-    const articleUrl = route('user.articles.show', article.id);
+export default function ArticleCard({ prefix, article, className }: ArticleCardProps) {
+    const articleUrl = route(prefix, article.id);
 
     return (
         <li className={className}>

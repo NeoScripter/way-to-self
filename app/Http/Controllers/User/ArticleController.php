@@ -14,6 +14,7 @@ class ArticleController extends Controller
 
         return Inertia::render('user/articles', [
             'articles' => $articles,
+            'prefix' => 'user.articles.show'
         ]);
     }
 

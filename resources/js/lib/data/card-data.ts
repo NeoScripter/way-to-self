@@ -114,14 +114,14 @@ export const nutritionCardData: AccountCard[] = [
         text: `Сбалансированные <span class="info-card__large">Рецепты</span> <span class="info-card__right">на каждый день</span>`,
         img: FoodCard1,
         alt: 'Тарелка с ярким овощным салатом: авокадо, нут, помидоры черри, сладкий картофель, капуста и зелень',
-        route: route('nutrition.index'),
+        route: route('nutrition.recipes'),
     },
     {
         id: 'meal-planning-tips',
         text: `<span class="info-card__indent">Подсказки по составлению</span> <span class="info-card__large">Рациона</span>`,
         img: FoodCard2,
         alt: 'Два зелёных стакана с фруктовым смузи и летящими кусочками фруктов: арбуз, апельсин, банан и огурец',
-        route: route('nutrition.index'),
+        route: route('nutrition.articles'),
     },
     {
         id: 'telegram-chat',

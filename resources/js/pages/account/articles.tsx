@@ -1,3 +1,4 @@
+import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import ArticleCard from '@/components/user/atoms/article-card';
 import Pagination from '@/components/user/atoms/pagination';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
@@ -7,18 +8,26 @@ import { Article } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Articles() {
-    const { articles, prefix } = usePage<{ articles: PaginationMeta<Article>, prefix: string }>().props;
+    const { articles, prefix } = usePage<{
+        articles: PaginationMeta<Article>;
+        prefix: string;
+    }>().props;
 
     return (
         <AppLayout
-            variant="guest"
-            layoutClass="bg-fade-olive-theme"
+            variant="tier"
+            layoutClass="bg-light-sand"
             pageClass="px-8 md:px-20 xl:px-22"
         >
+            <Breadcrumbs
+                className="my-7 sm:my-11 md:my-15 xl:my-18"
+                labels={['Главная', 'Питание', 'Советы']}
+            />
+
             <h1 className="-mx-8 my-13 sm:my-20 lg:my-25">
                 <SpanHighlight
-                    text="Новости платформы"
-                    className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
+                    text="Советы и рекомендации"
+                    className="mx-auto mt-[0.1em] bg-very-bright-salad text-[4rem] text-text-black sm:text-[6rem] lg:text-[8rem]"
                 />
             </h1>
 

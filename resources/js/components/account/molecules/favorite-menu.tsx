@@ -32,7 +32,6 @@ function toggleTypeUrl(type: string, params: URLSearchParams) {
 }
 
 function clearTypesUrl(url: string) {
-
     return `?page=1`;
 }
 
@@ -114,16 +113,18 @@ export default function FavoriteMenu({
                 Фильтры
             </h3>
 
-            {url.includes('types') && <Link
-                as="button"
-                preserveScroll
-                preserveState
-                href={clearTypesUrl(url)}
-                className="flex items-center gap-2 text-xl cursor-pointer text-gray-300"
-            >
-                <X className="size-6 text-gray-300" />
-                Сбросить все
-            </Link>}
+            {url.includes('types') && (
+                <Link
+                    as="button"
+                    preserveScroll
+                    preserveState
+                    href={clearTypesUrl(url)}
+                    className="flex cursor-pointer items-center gap-2 text-xl text-gray-300"
+                >
+                    <X className="size-6 text-gray-300" />
+                    Сбросить все
+                </Link>
+            )}
 
             {menuItems.map((item) => (
                 <div key={item.id}>
@@ -190,7 +191,12 @@ function MenuItem({ type, label }: MenuItemProps) {
                         />
                     </svg>
                 </Checkbox>
-                <label htmlFor={type}>{label}</label>
+                <label
+                    htmlFor={type}
+                    className="cursor-pointer"
+                >
+                    {label}
+                </label>
             </Link>
         </li>
     );

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Account\AccountController;
+use App\Http\Controllers\Account\NutritionArticleController;
 use App\Http\Controllers\Account\NutritionController;
+use App\Http\Controllers\Account\NutritionRecipeController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\User\ArticleController;
@@ -36,8 +38,8 @@ Route::get('/payment/process', [RegisteredUserController::class, 'processPayment
 
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-    Route::get('/article/{article}', [ArticleController::class, 'show'])->name('articles.show');
-    Route::get('/recipe/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
+    Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
     Route::get('/exercise/{exercise}', [ExerciseController::class, 'show'])->name('exercises.show');
 });
 
@@ -47,12 +49,18 @@ Route::middleware(['auth'])->group(function () {
     Route::name('account.')->group(function () {
         Route::get('account/profile', [ProfileController::class, 'index'])->name('edit');
     });
-    Route::middleware('tier.access:nutrition')->name('nutrition.')->group(function () {
-        Route::get('account/nutrition', [NutritionController::class, 'index'])->name('index');
+
+    Route::middleware('tier.access:nutrition')->prefix('account/nutrition')->name('nutrition.')->group(function () {
+        Route::get('', [NutritionController::class, 'index'])->name('index');
+        Route::get('/articles', [NutritionArticleController::class, 'index'])->name('articles');
+        Route::get('/recipes', [NutritionRecipeController::class, 'index'])->name('recipes');
+        Route::get('/articles/{article}', [NutritionArticleController::class, 'show'])->name('articles.show');
     });
+
     Route::name('soul.')->group(function () {
         Route::get('account/soul', [NutritionController::class, 'index'])->name('index');
     });
+
     Route::name('body.')->group(function () {
         Route::get('account/body', [NutritionController::class, 'index'])->name('index');
     });

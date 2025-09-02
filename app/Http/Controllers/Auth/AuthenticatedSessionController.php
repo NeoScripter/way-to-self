@@ -33,7 +33,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('account', absolute: false));
+        return redirect()
+            ->intended(route('account', absolute: false))
+            ->with('message', 'Добро пожаловать!');
+
     }
 
     /**
@@ -46,6 +49,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->intended(route('home'));
+        return redirect()
+            ->intended(route('home'))
+            ->with('message', 'Удачного вам дня!');
     }
 }

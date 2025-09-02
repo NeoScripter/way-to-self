@@ -21,8 +21,8 @@ class ArticleFactory extends Factory
         return [
             'title' => fake()->sentence(),
             'description' => fake()->sentence(20),
-            'body' => Collection::times(3, fn () => fake()->realText(120))->join(PHP_EOL . PHP_EOL),
-            'type' => ArticleType::NEWS,
+            'body' => Collection::times(3, fn() => fake()->realText(120))->join(PHP_EOL . PHP_EOL),
+            'type' => fake()->randomElement([ArticleType::NEWS, ArticleType::EXERCISE, ArticleType::NUTRITION, ArticleType::SOUL]),
         ];
     }
 

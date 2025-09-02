@@ -12,7 +12,7 @@ type ArticlesSectionProps = {
 }
 
 export default function ArticlesSection({titleClass, subtitleClass, articleClass}: ArticlesSectionProps) {
-    const { articles } = usePage<{ articles: Article[] }>().props;
+    const { articles, prefix } = usePage<{ articles: Article[], prefix: string }>().props;
 
     return (
         <>
@@ -43,6 +43,7 @@ export default function ArticlesSection({titleClass, subtitleClass, articleClass
                         key={article.id}
                         article={article}
                         className={articleClass}
+                        prefix={prefix}
                     />
                 ))}
             </ul>

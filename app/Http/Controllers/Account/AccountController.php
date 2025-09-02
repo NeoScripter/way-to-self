@@ -43,9 +43,10 @@ class AccountController extends Controller
 
         return Inertia::render('account/account', [
             'tiers' => fn() => Tier::select(['id', 'route', 'description', 'name', 'price'])->with(['image'])->latest()->get(),
-            'purchased' => $selectedTiers,
-            'articles' => $articles,
-            'favorites' => $this->favorites($request),
+            'purchased' => fn() => $selectedTiers,
+            'articles' => fn() => $articles,
+            'favorites' => fn() => $this->favorites($request),
+            'prefix' => fn() => 'user.articles.show'
         ]);
     }
 

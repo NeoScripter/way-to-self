@@ -10,6 +10,7 @@ import { User } from '@/types';
 import {
     ArrowRightStartOnRectangleIcon,
     Cog6ToothIcon,
+    UserIcon,
 } from '@heroicons/react/24/solid';
 import { Link, router, usePage, usePrefetch } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
@@ -232,16 +233,26 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         </NavLink>
     );
 
-    const renderAccountButton = () => (
-        <PrimaryBtn
-            className={cn(
-                'mx-auto shrink-0 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
-            )}
-            href={route('account')}
-        >
-            {user ? `${user.name} ${user.surname}` : 'Личный кабинет'}
-        </PrimaryBtn>
-    );
+    const renderAccountButton = () =>
+        user ? (
+            <DarkBtn
+                className={cn(
+                    'mx-auto shrink-0 flex items-center gap-2 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
+                )}
+                href={route('account')}
+            >
+                <UserIcon className='size-4' />{`${user.name} ${user.surname}`}
+            </DarkBtn>
+        ) : (
+            <PrimaryBtn
+                className={cn(
+                    'mx-auto shrink-0 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
+                )}
+                href={route('account')}
+            >
+                Личный кабинет
+            </PrimaryBtn>
+        );
 
     const renderMainNavigation = () => {
         const items = [];

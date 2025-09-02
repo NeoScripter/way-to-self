@@ -64,6 +64,7 @@ final class HomeController extends Controller
             'exercises' => $exercises,
             'video' => $video->srcVideo(),
             'tracks' => $audios,
+            'prefix' => 'user.articles.show'
         ]);
     }
 }
