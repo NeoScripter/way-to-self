@@ -68,11 +68,14 @@ class TierSeeder extends Seeder
                 })
                 ->create();
         }
-        $user = User::all()->first();
-        $tier = Tier::all()->first();
+        $user = User::first();
+        $tiers = Tier::all();
 
-        $user->tiers()->attach($tier->id, [
-            'purchased_at' => now()
-        ]);
+        $tiers->each(
+            fn(Tier $tier) =>
+            $user->tiers()->attach($tier->id, [
+                'purchased_at' => now(),
+            ])
+        );
     }
 }

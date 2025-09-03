@@ -1,33 +1,49 @@
-import TinyMobileBg from '@/assets/images/account/account-bg-mobile-tiny.webp';
-import MobileBg from '@/assets/images/account/account-bg-mobile.webp';
-import TinyDesktopBg from '@/assets/images/account/account-bg-tiny.webp';
-import DesktopBg from '@/assets/images/account/account-bg.webp';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
-export default function AccountBackground() {
+type BgImageProps = {
+    pictureClass?: string;
+    imageClass?: string;
+    mobileTinyPath: string;
+    mobilePath: string;
+    desktopTinyPath: string;
+    desktopPath: string;
+};
+
+export default function BgImage({
+    pictureClass,
+    imageClass,
+    mobilePath,
+    mobileTinyPath,
+    desktopPath,
+    desktopTinyPath,
+}: BgImageProps) {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
         <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-5 overflow-clip bg-main-page-bg"
+            className="pointer-events-none absolute inset-0 -z-5 overflow-clip"
         >
             <picture
                 className={cn(
-                    'block size-full object-cover object-center transition-all duration-500 ease-in-out',
+                    'block w-full object-contain object-center transition-all duration-500 ease-in-out',
+                    pictureClass,
                     isLoading && 'opacity-0',
                 )}
             >
                 <source
-                    srcSet={DesktopBg}
+                    srcSet={desktopPath}
                     media="(min-width: 900px)"
                 />
                 <img
                     onLoad={() => setIsLoading(false)}
-                    src={MobileBg}
+                    src={mobilePath}
                     alt=""
-                    className="block size-full object-cover object-left-top"
+                    className={cn(
+                        'block w-full object-contain object-left-top',
+                        imageClass,
+                    )}
                 />
             </picture>
 
@@ -51,17 +67,21 @@ export default function AccountBackground() {
                     aria-hidden="true"
                     className={cn(
                         'block size-full object-cover object-center transition-all duration-500 ease-in-out',
+                        pictureClass,
                     )}
                 >
                     <source
-                        srcSet={TinyDesktopBg}
+                        srcSet={desktopTinyPath}
                         media="(min-width: 900px)"
                     />
                     <img
                         onLoad={() => setIsLoading(false)}
-                        src={TinyMobileBg}
+                        src={mobileTinyPath}
                         alt=""
-                        className="block size-full object-cover object-left-top"
+                        className={cn(
+                            'block size-full object-cover object-left-top',
+                            imageClass,
+                        )}
                     />
                 </picture>
             </div>

@@ -1,4 +1,4 @@
-import { Head, router, useForm, usePrefetch } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
@@ -13,7 +13,6 @@ import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
-import notify from '@/components/user/atoms/notify';
 
 type LoginForm = {
     email: string;
@@ -91,6 +90,14 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     className="ml-1"
                 >
                     подписку.
+                </TextLink>
+            </p>
+            <p className="mx-auto my-8 w-4/5 text-center text-sm tracking-wider text-balance text-white sm:text-base">
+                <TextLink
+                    href={route('dev.login')}
+                    className="ml-1"
+                >
+                    Вход (только для Ильи)
                 </TextLink>
             </p>
 

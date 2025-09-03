@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,6 @@ class AuthenticatedSessionController extends Controller
         return redirect()
             ->intended(route('account', absolute: false))
             ->with('message', 'Добро пожаловать!');
-
     }
 
     /**
@@ -52,5 +52,19 @@ class AuthenticatedSessionController extends Controller
         return redirect()
             ->intended(route('home'))
             ->with('message', 'Удачного вам дня!');
+    }
+
+    public function dev(Request $request): RedirectResponse
+    {
+        $user = User::where('email', 'test@gmail.com')->first();
+
+        if (! $user) {
+            abort(404, 'Dev user not found');
+        }
+
+        Auth::login($user);
+
+        return redirect()->route('account')
+            ->with('message', 'Добро пожаловать, Илья!');
     }
 }

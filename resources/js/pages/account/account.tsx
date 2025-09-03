@@ -1,7 +1,11 @@
+import TinyMobileBg from '@/assets/images/account/account-bg-mobile-tiny.webp';
+import MobileBg from '@/assets/images/account/account-bg-mobile.webp';
+import TinyDesktopBg from '@/assets/images/account/account-bg-tiny.webp';
+import DesktopBg from '@/assets/images/account/account-bg.webp';
 import Padlock from '@/assets/svgs/padlock.svg';
-import AccountBackground from '@/components/account/atoms/account-background';
 import FavoriteMenu from '@/components/account/molecules/favorite-menu';
 import FavoriteList from '@/components/account/organisms/favorite-list';
+import BgImage from '@/components/shared/atoms/bg-image';
 import DarkBtn from '@/components/user/atoms/dark-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
@@ -35,7 +39,14 @@ export default function Account() {
             layoutClass="text-white bg-main-page-bg"
             pageClass="px-4 pb-27 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40"
         >
-            <AccountBackground />
+            <BgImage
+                desktopPath={DesktopBg}
+                desktopTinyPath={TinyDesktopBg}
+                mobilePath={MobileBg}
+                mobileTinyPath={TinyMobileBg}
+                pictureClass="size-full object-cover object-center"
+                imageClass="size-full object-cover object-left-top"
+            />
 
             <h1
                 className={cn(

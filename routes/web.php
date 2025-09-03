@@ -5,6 +5,7 @@ use App\Http\Controllers\Account\NutritionArticleController;
 use App\Http\Controllers\Account\NutritionController;
 use App\Http\Controllers\Account\NutritionRecipeController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
@@ -42,6 +43,10 @@ Route::name('user.')->group(function () {
     Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
     Route::get('/exercise/{exercise}', [ExerciseController::class, 'show'])->name('exercises.show');
 });
+
+if (app()->environment('local')) {
+    Route::get('/dev-login', [AuthenticatedSessionController::class, 'dev'])->name('dev.login');
+}
 
 Route::middleware(['auth'])->group(function () {
     Route::get('account', [AccountController::class, 'index'])->name('account');

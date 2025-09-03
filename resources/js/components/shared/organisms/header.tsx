@@ -26,14 +26,14 @@ export default function Header({ className, variant }: HeaderProps) {
     return (
         <header
             className={cn(
-                'sticky top-0 z-100 flex items-center justify-between gap-x-5 border-b border-gray-200 px-7 text-white backdrop-blur-lg md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
+                'sticky top-0 z-100 flex items-center justify-between gap-x-5 border-b border-gray-200 px-7 text-white md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
                 className,
             )}
         >
             <div
                 aria-hidden="true"
                 className={cn(
-                    'absolute top-0 bottom-0 left-1/2 -z-10 w-[120vw] -translate-x-1/2',
+                    'absolute top-0 bottom-0 left-1/2 -z-10 w-[120vw] -translate-x-1/2 backdrop-blur-lg',
                     className,
                     variant !== 'guest' && 'bg-account-header-bg',
                 )}
@@ -237,11 +237,12 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         user ? (
             <DarkBtn
                 className={cn(
-                    'mx-auto shrink-0 flex items-center gap-2 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
+                    'mx-auto flex shrink-0 items-center gap-2 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
                 )}
                 href={route('account')}
             >
-                <UserIcon className='size-4' />{`${user.name} ${user.surname}`}
+                <UserIcon className="size-4" />
+                {`${user.name} ${user.surname}`}
             </DarkBtn>
         ) : (
             <PrimaryBtn

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ArticleType;
 use App\Models\FaqItem;
 use Illuminate\Database\Seeder;
 
@@ -12,8 +13,19 @@ class FaqItemSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 4; $i++) {
-            FaqItem::factory(6)->withFixture()->create();
-        }
+        $types = collect([
+            ArticleType::NEWS,
+            ArticleType::EXERCISE,
+            ArticleType::NUTRITION,
+            ArticleType::SOUL,
+        ]);
+
+        $types->each(function (ArticleType $type) {
+            FaqItem::factory()
+                ->count(6)
+                ->state(['type' => $type])
+                ->withFixture()
+                ->create();
+        });
     }
 }
