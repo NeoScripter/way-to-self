@@ -63,6 +63,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         Auth::login($user);
+        $request->session()->regenerate();
 
         return redirect()->route('account')
             ->with('message', 'Добро пожаловать, Илья!');

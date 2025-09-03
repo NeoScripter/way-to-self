@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('', [NutritionController::class, 'index'])->name('index');
         Route::get('/articles', [NutritionArticleController::class, 'index'])->name('articles');
         Route::get('/recipes', [NutritionRecipeController::class, 'index'])->name('recipes');
+        Route::get('/recipes/{recipe}', [NutritionRecipeController::class, 'show'])->name('recipes.show');
         Route::get('/articles/{article}', [NutritionArticleController::class, 'show'])->name('articles.show');
     });
 

@@ -1,5 +1,9 @@
+import TinyMobileBg from '@/assets/images/food/food-bg-tablet-tiny.webp';
+import MobileBg from '@/assets/images/food/food-bg-tablet.webp';
+import TinyDesktopBg from '@/assets/images/food/food-bg-desktop-tiny.webp';
+import DesktopBg from '@/assets/images/food/food-bg-desktop.webp';
 import LinkCard from '@/components/account/atoms/link-card';
-import NutritionBackground from '@/components/account/atoms/nutrition-background';
+import BgImage from '@/components/shared/atoms/bg-image';
 import FAQSection from '@/components/shared/organisms/faq-section';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AppLayout from '@/layouts/user/app-layout';
@@ -13,7 +17,12 @@ export default function Nutrition() {
             layoutClass="text-white bg-light-sand"
             pageClass="px-4 pb-20 space-y-21 sm:space-y-35 md:space-y-28 xl:space-y-34 sm:pb-24 xl:pb-30 sm:px-11 2xl:px-25 3xl:px-40"
         >
-            <NutritionBackground />
+            <BgImage
+                desktopPath={DesktopBg}
+                desktopTinyPath={TinyDesktopBg}
+                mobilePath={MobileBg}
+                mobileTinyPath={TinyMobileBg}
+            />
 
             <section>
                 <h1

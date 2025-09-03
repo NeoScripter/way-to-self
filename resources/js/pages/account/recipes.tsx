@@ -3,14 +3,20 @@ import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
 import BellPepper from '@/assets/images/home/veggies/bell-pepper.webp';
 import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
 import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
+import CategoryList from '@/components/account/molecules/categoryList';
 import BgImage from '@/components/shared/atoms/bg-image';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import ArtLayer from '@/components/user/atoms/art-layer';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AppLayout from '@/layouts/user/app-layout';
+import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
+import { Recipe } from '@/types/model';
+import { usePage } from '@inertiajs/react';
 
 export default function Recipes() {
+    const { recipes } = usePage<{ recipes: PaginationMeta<Recipe> }>().props;
+
     return (
         <AppLayout
             variant="tier"
@@ -53,6 +59,21 @@ export default function Recipes() {
                     />
                 </h1>
             </section>
+
+            <div className="lg:flex lg:items-start lg:gap-5">
+                {/*<FavoriteMenu className="hidden lg:grid" />*/}
+
+                <CategoryList
+                    items={recipes}
+                    getHref={getHref}
+                    label="секции"
+                    scrollElementId="favorites"
+                />
+            </div>
         </AppLayout>
     );
+}
+
+function getHref(item: Recipe) {
+    return route('nutrition.recipes.show', item);
 }
