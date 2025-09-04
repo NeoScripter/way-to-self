@@ -1,10 +1,10 @@
 import ContentCard from '@/components/user/atoms/content-card';
 import NoItems from '@/components/user/atoms/no-items';
 import Pagination from '@/components/user/atoms/pagination';
+import { menuItems } from '@/lib/data/account-menu-items';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { Article, Audio, Exercise, Recipe } from '@/types/model';
 import { usePage } from '@inertiajs/react';
-import { menuItems } from '@/lib/data/account-menu-items';
 import CategoryFilters from '../molecules/category-filters';
 
 type Favorite = (Article | Audio | Exercise | Recipe) & {
@@ -18,8 +18,9 @@ export default function FavoriteList() {
     return (
         <div className="lg:flex lg:items-start lg:gap-5">
             <CategoryFilters
-                key='desktop-category-filters'
+                key="desktop-category-filters"
                 items={menuItems}
+                propName="favorites"
                 className="hidden lg:grid"
             />
 

@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Article;
-use App\Models\User;
-use App\Models\Audio;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,7 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
         $this->call(FaqItemSeeder::class);
         $this->call(ReviewSeeder::class);
         $this->call(ArticleSeeder::class);
@@ -23,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AudioSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TierSeeder::class);
+        $this->call(CategoryFilterSeeder::class);
     }
 }

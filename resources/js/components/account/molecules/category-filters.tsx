@@ -38,13 +38,15 @@ function clearTypesUrl(url: string) {
 type CategoryFiltersProps = {
     className?: string;
     onClose?: () => void;
-    items: itemType[]
+    items: itemType[];
+    propName: string;
 };
 
 export default function CategoryFilters({
     className,
     onClose,
-    items
+    items,
+    propName
 }: CategoryFiltersProps) {
     const { url } = usePage();
 
@@ -92,6 +94,7 @@ export default function CategoryFilters({
                                 key={listItem.id}
                                 type={listItem.type}
                                 label={listItem.label}
+                                propName={propName}
                             />
                         ))}
                     </ul>
@@ -104,9 +107,10 @@ export default function CategoryFilters({
 type MenuItemProps = {
     type: string;
     label: string;
+    propName: string;
 };
 
-function MenuItem({ type, label }: MenuItemProps) {
+function MenuItem({ type, label, propName }: MenuItemProps) {
     const { url } = usePage();
     const params = new URLSearchParams(url.split('?')[1]);
 
@@ -124,7 +128,7 @@ function MenuItem({ type, label }: MenuItemProps) {
                 as="button"
                 preserveScroll
                 preserveState
-                only={['favorites']}
+                only={[propName]}
                 className="flex items-center gap-2"
             >
                 <Checkbox

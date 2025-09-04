@@ -69,9 +69,10 @@ export default function Recipe() {
                                             alt={info.image.alt}
                                         />
                                         <button
-                                            onClick={() =>
-                                                setZoomedImg(info.image)
-                                            }
+                                            onClick={() => {
+                                                if (!info.image) return;
+                                                setZoomedImg(info.image);
+                                            }}
                                             className="absolute right-2 bottom-2 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full bg-bright-salad sm:top-5 sm:right-5"
                                         >
                                             <ZoomIn className="size-3/4 text-white" />

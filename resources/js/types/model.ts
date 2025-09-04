@@ -23,6 +23,18 @@ export type Audio = {
     updated_at?: string;
     image?: Image;
 };
+export type CategoryFilter = {
+    id: number;
+    title: string;
+    name: string;
+    category: string;
+    created_at?: string;
+    updated_at?: string;
+    recipes?: any;
+    exercises?: any;
+    articles?: any;
+    audios?: any;
+};
 export type Exercise = {
     id: number;
     title: string;
@@ -50,6 +62,7 @@ export type FaqItem = {
     title: string;
     body: string;
     html: string;
+    type: string;
     created_at?: string;
     updated_at?: string;
 };
@@ -79,6 +92,7 @@ export type Recipe = {
     infos?: RecipeInfo[];
     steps?: RecipeStep[];
     category?: RecipeCategory;
+    filters?: any;
 };
 export type RecipeCategory = {
     id: number;
@@ -154,6 +168,12 @@ export enum ArticleType {
     SOUL = "soul",
     NUTRITION = "nutrition",
     EXERCISE = "exercise"
+}
+export enum CategoryType {
+    RECIPES = "recipes",
+    EXERCISES = "exercises",
+    AUDIOS = "audios",
+    ARTICLES = "articles"
 }
 export enum ContentType {
     FREE = "free",

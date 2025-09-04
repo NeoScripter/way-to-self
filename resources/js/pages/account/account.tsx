@@ -130,6 +130,7 @@ export default function Account() {
                 <CategoryFilters
                     key="mobile-category-filters"
                     items={menuItems}
+                    propName='favorites'
                     onClose={() => toggleMenu(false)}
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />

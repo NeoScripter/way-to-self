@@ -69,7 +69,7 @@ class TierSeeder extends Seeder
                 ->create();
         }
         $user = User::first();
-        $tiers = Tier::all();
+        $tiers = Tier::all()->sortBy('id');
 
         $tiers->each(
             fn(Tier $tier) =>

@@ -1,12 +1,19 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type SpanHighlightProps = {
     className?: string;
     text: string;
-}
+};
 
 export default function SpanHighlight({ className, text }: SpanHighlightProps) {
     return (
-        <span className={cn("bg-bright-salad leading-[0.4em] h-[0.4em] pb-[0.1em] px-[0.2em] flex items-center w-max font-cursive", className)}>{text}</span>
-    )
+        <span
+            className={cn(
+                'flex h-[0.4em] w-max items-center bg-bright-salad px-[0.2em] pb-[0.1em] font-cursive leading-[0.4em] select-none',
+                className,
+            )}
+        >
+            {text}
+        </span>
+    );
 }

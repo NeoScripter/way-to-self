@@ -13,14 +13,17 @@ import SpanHighlight from '@/components/user/atoms/span-highlight';
 import SlideLayout from '@/components/user/molecules/slide-layout';
 import useToggle from '@/hooks/use-toggle';
 import AppLayout from '@/layouts/user/app-layout';
-import { menuItems } from '@/lib/data/account-menu-items';
+import { MenuItem } from '@/lib/data/account-menu-items';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
 import { Recipe } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Recipes() {
-    const { recipes } = usePage<{ recipes: PaginationMeta<Recipe> }>().props;
+    const { recipes, menuItems } = usePage<{
+        recipes: PaginationMeta<Recipe>;
+        menuItems: MenuItem[];
+    }>().props;
     const [showMenu, toggleMenu] = useToggle(false);
 
     return (
@@ -44,7 +47,7 @@ export default function Recipes() {
             />
             <ArtLayer
                 img={Tomatoes}
-                className="-right-15 w-1/2 md:w-100 top-60"
+                className="top-60 -right-15 w-1/2 md:w-100"
             />
             <ArtLayer
                 img={BellPepper}
@@ -54,7 +57,7 @@ export default function Recipes() {
             <Breadcrumbs
                 className="my-7 sm:my-11 md:my-15 xl:my-18"
                 labels={['Главная', 'Питание', 'Рецепты']}
-                highlightClass='text-light-swamp'
+                highlightClass="text-light-swamp"
             />
             <section className="relative z-10">
                 <h1
@@ -69,27 +72,29 @@ export default function Recipes() {
                 </h1>
                 <DarkBtn
                     onClick={() => toggleMenu(true)}
-                    className="mx-auto my-15 px-[2em] text-sm md:my-20 md:text-base lg:hidden"
+                    className="mx-auto my-10 px-[2em] text-sm md:my-15 md:text-base lg:hidden"
                 >
                     Фильтры
                 </DarkBtn>
+
+                <div className="relative z-10 lg:flex lg:items-start lg:gap-5">
+                    <CategoryFilters
+                        key="desktop-category-filters"
+                        items={menuItems}
+                        className="hidden lg:grid"
+                        propName="recipes"
+                    />
+
+                    <CategoryList
+                        items={recipes}
+                        href="nutrition.recipes.show"
+                        label="рецепта"
+                        scrollElementId="favorites"
+                        type="recipe"
+                    />
+                </div>
             </section>
 
-            <div className="relative z-10 lg:flex lg:items-start lg:gap-5">
-                <CategoryFilters
-                    key="desktop-category-filters"
-                    items={menuItems}
-                    className="hidden lg:grid"
-                />
-
-                <CategoryList
-                    items={recipes}
-                    href="nutrition.recipes.show"
-                    label="секции"
-                    scrollElementId="favorites"
-                    type="recipe"
-                />
-            </div>
             <SlideLayout
                 onClose={() => toggleMenu(false)}
                 show={showMenu}
@@ -98,6 +103,7 @@ export default function Recipes() {
                 <CategoryFilters
                     key="mobile-category-filters"
                     items={menuItems}
+                    propName="recipes"
                     onClose={() => toggleMenu(false)}
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />
