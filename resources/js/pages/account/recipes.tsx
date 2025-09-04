@@ -3,6 +3,7 @@ import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
 import BellPepper from '@/assets/images/home/veggies/bell-pepper.webp';
 import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
 import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
+import SearchBox from '@/components/account/atoms/search-box';
 import CategoryFilters from '@/components/account/molecules/category-filters';
 import CategoryList from '@/components/account/molecules/category-list';
 import BgImage from '@/components/shared/atoms/bg-image';
@@ -70,6 +71,8 @@ export default function Recipes() {
                         className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
                     />
                 </h1>
+
+                <SearchBox className='my-10 md:my-15 xl:my-20' />
                 <DarkBtn
                     onClick={() => toggleMenu(true)}
                     className="mx-auto my-10 px-[2em] text-sm md:my-15 md:text-base lg:hidden"

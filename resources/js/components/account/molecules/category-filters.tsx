@@ -23,7 +23,7 @@ function toggleTypeUrl(type: string, params: URLSearchParams) {
     const newParams = new URLSearchParams();
     params.forEach((value, key) => {
         if (!key.startsWith('types[')) {
-            newParams.set(key, '1');
+            newParams.set(key, value);
         }
     });
     updated.forEach((t, i) => newParams.set(`types[${i}]`, t));
@@ -70,7 +70,7 @@ export default function CategoryFilters({
                 Фильтры
             </h3>
 
-            {url.includes('types') && (
+            {url.includes('types') || url.includes('search') && (
                 <Link
                     as="button"
                     preserveScroll

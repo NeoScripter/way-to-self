@@ -19,14 +19,25 @@ class NutritionRecipeController extends Controller
             'types.*' => 'string',
         ])['types'] ?? null;
 
+        $search = $request->validate([
+            'search'   => 'nullable|string',
+        ])['search'] ?? null;
+
         $recipes = Recipe::select(['id', 'rating', 'duration', 'description', 'title'])
             ->when($types, function ($query, $types) {
                 $query->whereHas('filters', function ($q) use ($types) {
                     $q->whereIn('name', $types);
                 });
             })
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%");
+                });
+            })
             ->with('image')
-            ->paginate(16);
+            ->paginate(16)
+            ->withQueryString();
 
         $categories = CategoryFilter::forCategory(CategoryType::RECIPES)->get();
 
