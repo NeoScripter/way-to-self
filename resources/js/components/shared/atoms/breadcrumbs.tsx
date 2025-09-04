@@ -6,12 +6,14 @@ type BreadcrumbsProps = {
     className?: string;
     itemName?: string;
     labels: string[];
+    highlightClass?: string;
 };
 
 export default function Breadcrumbs({
     labels,
     itemName,
     className,
+    highlightClass
 }: BreadcrumbsProps) {
     const { url } = usePage();
     let path = url;
@@ -42,7 +44,7 @@ export default function Breadcrumbs({
                             key={i}
                             className={cn(
                                 'flex items-center gap-2',
-                                item.href === url && 'text-bright-salad',
+                                item.href === url && (highlightClass || 'text-bright-salad'),
                             )}
                         >
                             {isLast ? (

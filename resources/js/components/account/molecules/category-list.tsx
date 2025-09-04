@@ -21,17 +21,24 @@ type BaseItem = {
 
 type CategoryListProps<T extends BaseItem> = {
     items: PaginationMeta<T>;
-    getHref: (item: T) => string;
+    href: string;
     label: string;
     scrollElementId?: string;
+    type: string;
 };
+
+function getHref<T extends BaseItem>(item: T, href: string) {
+    return route(href, item);
+}
 
 export default function CategoryList<T extends BaseItem>({
     items,
-    getHref,
+    href,
     label,
-    scrollElementId = 'list',
+    scrollElementId = 'favorites',
+    type,
 }: CategoryListProps<T>) {
+
     return (
         <div
             id={scrollElementId}
@@ -43,10 +50,10 @@ export default function CategoryList<T extends BaseItem>({
                         {items.data.map((item) => (
                             <ContentCard
                                 key={item.id}
-                                type=""
+                                type={type}
                                 className="mx-auto w-full max-w-80"
                                 data={{
-                                    href: getHref(item),
+                                    href: getHref(item, href),
                                     name: item.title,
                                     img: item.image?.path,
                                     tinyImg: item.image?.tiny_path,

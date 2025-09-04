@@ -4,7 +4,8 @@ import Pagination from '@/components/user/atoms/pagination';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { Article, Audio, Exercise, Recipe } from '@/types/model';
 import { usePage } from '@inertiajs/react';
-import FavoriteMenu from '../molecules/favorite-menu';
+import { menuItems } from '@/lib/data/account-menu-items';
+import CategoryFilters from '../molecules/category-filters';
 
 type Favorite = (Article | Audio | Exercise | Recipe) & {
     favorite_type: string;
@@ -16,7 +17,11 @@ export default function FavoriteList() {
 
     return (
         <div className="lg:flex lg:items-start lg:gap-5">
-            <FavoriteMenu className="hidden lg:grid" />
+            <CategoryFilters
+                key='desktop-category-filters'
+                items={menuItems}
+                className="hidden lg:grid"
+            />
 
             <div
                 id="favorites"
@@ -24,7 +29,7 @@ export default function FavoriteList() {
             >
                 {favorites.data.length > 0 ? (
                     <>
-                        <ul className="grid w-full shrink-0 sm:grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] gap-6 xl:grid-cols-3">
+                        <ul className="grid w-full shrink-0 gap-6 sm:grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] xl:grid-cols-3">
                             {favorites.data.map((item) => (
                                 <ContentCard
                                     key={`${item.id}-${item.favorite_type}`}
@@ -59,7 +64,7 @@ export default function FavoriteList() {
                             label="секции"
                             className="mx-auto max-w-330 text-white"
                             shouldScroll={false}
-                            scrollElementId='favorites'
+                            scrollElementId="favorites"
                         />
                     </>
                 ) : (

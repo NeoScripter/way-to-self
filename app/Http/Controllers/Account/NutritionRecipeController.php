@@ -11,7 +11,7 @@ class NutritionRecipeController extends Controller
 {
     public function index()
     {
-        $recipes = Recipe::select(['id', 'description', 'title'])->free()->with(['image'])->paginate(16);
+        $recipes = Recipe::select(['id', 'rating', 'description', 'title'])->free()->with(['image'])->paginate(16);
 
         return Inertia::render('account/recipes', [
             'recipes' => $recipes

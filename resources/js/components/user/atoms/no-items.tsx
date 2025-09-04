@@ -9,7 +9,7 @@ export default function NoItems({ className }: NoItemsProps) {
     return (
         <div
             className={cn(
-                'flex items-center flex-col sm:flex-row w-fit mx-auto lg:ml-8 gap-7 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 p-2 px-9 py-7 text-white backdrop-blur-sm',
+                'flex items-center flex-col sm:flex-row w-fit mx-auto gap-7 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 p-2 px-9 py-7 text-white backdrop-blur-sm',
                 className,
             )}
         >

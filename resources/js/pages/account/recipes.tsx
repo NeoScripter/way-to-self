@@ -3,12 +3,17 @@ import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
 import BellPepper from '@/assets/images/home/veggies/bell-pepper.webp';
 import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
 import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
-import CategoryList from '@/components/account/molecules/categoryList';
+import CategoryFilters from '@/components/account/molecules/category-filters';
+import CategoryList from '@/components/account/molecules/category-list';
 import BgImage from '@/components/shared/atoms/bg-image';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import ArtLayer from '@/components/user/atoms/art-layer';
+import DarkBtn from '@/components/user/atoms/dark-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
+import SlideLayout from '@/components/user/molecules/slide-layout';
+import useToggle from '@/hooks/use-toggle';
 import AppLayout from '@/layouts/user/app-layout';
+import { menuItems } from '@/lib/data/account-menu-items';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
 import { Recipe } from '@/types/model';
@@ -16,6 +21,7 @@ import { usePage } from '@inertiajs/react';
 
 export default function Recipes() {
     const { recipes } = usePage<{ recipes: PaginationMeta<Recipe> }>().props;
+    const [showMenu, toggleMenu] = useToggle(false);
 
     return (
         <AppLayout
@@ -28,26 +34,29 @@ export default function Recipes() {
                 desktopTinyPath={DesktopTinyBg}
                 mobilePath={DesktopBg}
                 mobileTinyPath={DesktopTinyBg}
+                pictureClass="size-full object-cover"
+                imageClass="size-full object-cover"
             />
 
             <ArtLayer
                 img={CutChili}
-                className="top-50 -right-10 z-10 w-3/5 max-w-105 min-w-60 sm:top-10 xl:-top-50 xl:-right-20 2xl:-right-40"
+                className="top-1/3 left-10 z-10 w-3/5 max-w-120 min-w-60"
             />
             <ArtLayer
                 img={Tomatoes}
-                className="right-5 hidden w-100 xl:bottom-40 xl:block"
+                className="-right-15 w-1/2 md:w-100 top-60"
             />
             <ArtLayer
                 img={BellPepper}
-                className="top-1/4 -left-5 w-3/5 max-w-102 sm:-left-13 xl:top-auto xl:-bottom-70 xl:-left-60"
+                className="bottom-1/4 -left-5 w-3/5 max-w-102 sm:-left-13 xl:-left-10"
             />
 
             <Breadcrumbs
                 className="my-7 sm:my-11 md:my-15 xl:my-18"
                 labels={['Главная', 'Питание', 'Рецепты']}
+                highlightClass='text-light-swamp'
             />
-            <section>
+            <section className="relative z-10">
                 <h1
                     className={cn(
                         'relative z-20 -mx-3 mb-7 block sm:mb-11 md:mb-15 xl:mb-18',
@@ -58,22 +67,41 @@ export default function Recipes() {
                         className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
                     />
                 </h1>
+                <DarkBtn
+                    onClick={() => toggleMenu(true)}
+                    className="mx-auto my-15 px-[2em] text-sm md:my-20 md:text-base lg:hidden"
+                >
+                    Фильтры
+                </DarkBtn>
             </section>
 
-            <div className="lg:flex lg:items-start lg:gap-5">
-                {/*<FavoriteMenu className="hidden lg:grid" />*/}
+            <div className="relative z-10 lg:flex lg:items-start lg:gap-5">
+                <CategoryFilters
+                    key="desktop-category-filters"
+                    items={menuItems}
+                    className="hidden lg:grid"
+                />
 
                 <CategoryList
                     items={recipes}
-                    getHref={getHref}
+                    href="nutrition.recipes.show"
                     label="секции"
                     scrollElementId="favorites"
+                    type="recipe"
                 />
             </div>
+            <SlideLayout
+                onClose={() => toggleMenu(false)}
+                show={showMenu}
+                className="lg:hidden"
+            >
+                <CategoryFilters
+                    key="mobile-category-filters"
+                    items={menuItems}
+                    onClose={() => toggleMenu(false)}
+                    className="rounded-l-none bg-light-swamp/80 text-white"
+                />
+            </SlideLayout>
         </AppLayout>
     );
-}
-
-function getHref(item: Recipe) {
-    return route('nutrition.recipes.show', item);
 }

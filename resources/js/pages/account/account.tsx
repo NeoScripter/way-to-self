@@ -3,7 +3,7 @@ import MobileBg from '@/assets/images/account/account-bg-mobile.webp';
 import TinyDesktopBg from '@/assets/images/account/account-bg-tiny.webp';
 import DesktopBg from '@/assets/images/account/account-bg.webp';
 import Padlock from '@/assets/svgs/padlock.svg';
-import FavoriteMenu from '@/components/account/molecules/favorite-menu';
+import CategoryFilters from '@/components/account/molecules/category-filters';
 import FavoriteList from '@/components/account/organisms/favorite-list';
 import BgImage from '@/components/shared/atoms/bg-image';
 import DarkBtn from '@/components/user/atoms/dark-btn';
@@ -13,6 +13,7 @@ import SlideLayout from '@/components/user/molecules/slide-layout';
 import ArticlesSection from '@/components/user/organisms/articles-section';
 import useToggle from '@/hooks/use-toggle';
 import AppLayout from '@/layouts/user/app-layout';
+import { menuItems } from '@/lib/data/account-menu-items';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
 import { Tier } from '@/types/model';
@@ -126,7 +127,9 @@ export default function Account() {
                 show={showMenu}
                 className="lg:hidden"
             >
-                <FavoriteMenu
+                <CategoryFilters
+                    key="mobile-category-filters"
+                    items={menuItems}
                     onClose={() => toggleMenu(false)}
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />

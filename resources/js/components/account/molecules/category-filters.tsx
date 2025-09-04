@@ -1,8 +1,8 @@
+import { MenuItem as itemType } from '@/lib/data/account-menu-items';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@headlessui/react';
 import { Link, usePage } from '@inertiajs/react';
 import { X } from 'lucide-react';
-import { v4 as v4uuid } from 'uuid';
 
 function toggleTypeUrl(type: string, params: URLSearchParams) {
     const current: string[] = [];
@@ -35,62 +35,17 @@ function clearTypesUrl(url: string) {
     return `?page=1`;
 }
 
-const menuItems = [
-    {
-        id: v4uuid(),
-        title: 'Питание',
-        items: [
-            {
-                id: v4uuid(),
-                type: 'recipes',
-                label: 'Рецепты',
-            },
-        ],
-    },
-    {
-        id: v4uuid(),
-        title: 'Душа',
-        items: [
-            {
-                id: v4uuid(),
-                type: 'audio',
-                label: 'Медитации',
-            },
-        ],
-    },
-    {
-        id: v4uuid(),
-        title: 'Тело',
-        items: [
-            {
-                id: v4uuid(),
-                type: 'exercises',
-                label: 'Упражнения',
-            },
-        ],
-    },
-    {
-        id: v4uuid(),
-        title: 'Статьи',
-        items: [
-            {
-                id: v4uuid(),
-                type: 'articles',
-                label: 'Статьи',
-            },
-        ],
-    },
-];
-
-type FavoriteMenuProps = {
+type CategoryFiltersProps = {
     className?: string;
     onClose?: () => void;
+    items: itemType[]
 };
 
-export default function FavoriteMenu({
+export default function CategoryFilters({
     className,
     onClose,
-}: FavoriteMenuProps) {
+    items
+}: CategoryFiltersProps) {
     const { url } = usePage();
 
     return (
@@ -126,7 +81,7 @@ export default function FavoriteMenu({
                 </Link>
             )}
 
-            {menuItems.map((item) => (
+            {items.map((item) => (
                 <div key={item.id}>
                     <h4 className="mb-3 text-xl font-semibold underline underline-offset-4">
                         {item.title}
