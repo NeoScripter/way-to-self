@@ -1,7 +1,9 @@
-import TinyMobileBg from '@/assets/images/food/food-bg-tablet-tiny.webp';
-import MobileBg from '@/assets/images/food/food-bg-tablet.webp';
 import TinyDesktopBg from '@/assets/images/food/food-bg-desktop-tiny.webp';
 import DesktopBg from '@/assets/images/food/food-bg-desktop.webp';
+import TinyMobileBg from '@/assets/images/food/food-bg-tablet-tiny.webp';
+import MobileBg from '@/assets/images/food/food-bg-tablet.webp';
+import SandDesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
+import SandDesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
 import LinkCard from '@/components/account/atoms/link-card';
 import BgImage from '@/components/shared/atoms/bg-image';
 import FAQSection from '@/components/shared/organisms/faq-section';
@@ -22,6 +24,16 @@ export default function Nutrition() {
                 desktopTinyPath={TinyDesktopBg}
                 mobilePath={MobileBg}
                 mobileTinyPath={TinyMobileBg}
+            />
+
+            <BgImage
+                containerClass='-z-10'
+                desktopPath={SandDesktopBg}
+                desktopTinyPath={SandDesktopTinyBg}
+                mobilePath={SandDesktopBg}
+                mobileTinyPath={SandDesktopTinyBg}
+                pictureClass="size-full object-cover"
+                imageClass="size-full object-cover"
             />
 
             <section>

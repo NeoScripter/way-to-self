@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\NutritionArticleController;
 use App\Http\Controllers\Account\NutritionController;
 use App\Http\Controllers\Account\NutritionRecipeController;
+use App\Http\Controllers\Account\NutritionSearchController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -60,7 +61,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/articles', [NutritionArticleController::class, 'index'])->name('articles');
         Route::get('/recipes', [NutritionRecipeController::class, 'index'])->name('recipes');
         Route::get('/recipes/{recipe}', [NutritionRecipeController::class, 'show'])->name('recipes.show');
+        Route::post('/recipes/{id}/favorite', [NutritionRecipeController::class, 'update'])
+            ->name('recipes.favorite');
         Route::get('/articles/{article}', [NutritionArticleController::class, 'show'])->name('articles.show');
+        Route::get('/search', NutritionSearchController::class)->name('search');
     });
 
     Route::name('soul.')->group(function () {

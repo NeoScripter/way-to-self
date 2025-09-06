@@ -61,55 +61,41 @@ class User extends Authenticatable
             ->withPivot('purchased_at');
     }
 
-    public function favoriteArticles()
-    {
-        return $this->morphedByMany(Article::class, 'favorable', 'favorites')
-            ->select(['articles.id', 'title', 'type', 'description'])
+    public static function favoriteRelation(
+        User $user,
+        string $class,
+        array $columns = ['*']
+    ) {
+        return $user->morphedByMany($class, 'favorable', 'favorites')
+            ->select($columns)
             ->with('image');
     }
 
-    public function favoriteExercises()
+    public function favorites()
     {
-        return $this->morphedByMany(Exercise::class, 'favorable', 'favorites')
-            ->select(['exercises.id', 'title', 'duration', 'rating', 'type', 'description'])
-            ->with('image');
+        return $this->morphToMany(Model::class, 'favorable', 'favorites')
+            ->withTimestamps();
     }
 
-    public function favoriteRecipes()
+    public function favoritesOf(string $class)
     {
-        return $this->morphedByMany(Recipe::class, 'favorable', 'favorites')
-            ->select(['recipes.id', 'title', 'duration', 'rating', 'type', 'description'])
-            ->with('image');
+        return $this->morphedByMany($class, 'favorable', 'favorites')
+            ->withTimestamps();
     }
 
-    public function favoriteAudio()
+    public static function toggleFavorite(User $user, string $class, int $id): bool
     {
-        return $this->morphedByMany(Audio::class, 'favorable', 'favorites')
-            ->select(['audio.id', 'title', 'duration', 'rating', 'type', 'description'])
-            ->with('image');
-    }
+        $relatedTable = (new $class)->getTable();
 
-    public function toggleFavorite(Model $model): bool
-    {
-        $relation = match (get_class($model)) {
-            Article::class => $this->favoriteArticles(),
-            Exercise::class => $this->favoriteExercises(),
-            Audio::class    => $this->favoriteAudios(),
-            Recipe::class   => $this->favoriteRecipes(),
-            default         => null,
-        };
+        $relation = $user->morphedByMany($class, 'favorable', 'favorites');
 
-        if (! $relation) {
+        if ($relation->where("{$relatedTable}.id", $id)->exists()) {
+            $relation->detach($id);
             return false;
         }
 
-        if ($relation->where('id', $model->id)->exists()) {
-            $relation->detach($model->id);
-            return false;
-        } else {
-            $relation->attach($model->id);
-            return true;
-        }
+        $relation->attach($id);
+        return true;
     }
 
     public function hasTier($tierRoute): bool

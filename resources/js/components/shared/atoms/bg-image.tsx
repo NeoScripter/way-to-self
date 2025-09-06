@@ -4,6 +4,7 @@ import { useState } from 'react';
 type BgImageProps = {
     pictureClass?: string;
     imageClass?: string;
+    containerClass?: string;
     mobileTinyPath: string;
     mobilePath: string;
     desktopTinyPath: string;
@@ -13,6 +14,7 @@ type BgImageProps = {
 export default function BgImage({
     pictureClass,
     imageClass,
+    containerClass,
     mobilePath,
     mobileTinyPath,
     desktopPath,
@@ -23,7 +25,7 @@ export default function BgImage({
     return (
         <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-5 overflow-clip"
+            className={cn("pointer-events-none absolute inset-0 -z-5 overflow-clip", containerClass)}
         >
             <picture
                 className={cn(

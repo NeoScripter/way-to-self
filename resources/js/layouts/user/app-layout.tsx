@@ -23,7 +23,7 @@ export default function AppLayout({
     const { flash } = usePage<{ flash: { message: string | null } }>().props;
 
     return (
-        <div className={cn('relative z-5 min-h-screen', layoutClass)}>
+        <div className={cn('relative z-5', layoutClass)}>
             <Header
                 variant={variant}
                 className={headerClass}

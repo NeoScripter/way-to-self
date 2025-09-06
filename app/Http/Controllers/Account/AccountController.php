@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\Recipe;
+use App\Models\User;
 use App\Models\Tier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -53,60 +54,49 @@ class AccountController extends Controller
     public function favorites(Request $request)
     {
         $user = Auth::user();
+
         $types = $request->validate([
             'types'   => 'nullable|array',
             'types.*' => 'in:articles,exercises,audio,recipes',
         ])['types'] ?? null;
 
-        $favorites = collect();
-
         $map = [
-            'articles'  => 'favoriteArticles',
-            'exercises' => 'favoriteExercises',
-            'audio'     => 'favoriteAudio',
-            'recipes'   => 'favoriteRecipes',
+            'articles'  => [Article::class,  ['articles.id', 'title', 'type', 'description']],
+            'exercises' => [Exercise::class, ['exercises.id', 'title', 'duration', 'rating', 'type', 'description']],
+            'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'rating', 'type', 'description']],
+            'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'rating', 'type', 'description']],
         ];
 
         $favorites = collect();
 
-        if ($types) {
-            foreach ($types as $type) {
-                if (isset($map[$type])) {
-                    $favorites = $favorites->merge(
-                        $user->{$map[$type]}()
-                            ->get()
-                            ->map(function ($item) use ($type) {
-                                $item->favorite_type = $type;
-                                return $item;
-                            })
-                    );
-                }
+        $selectedTypes = $types ?: array_keys($map);
+
+        foreach ($selectedTypes as $type) {
+            if (! isset($map[$type])) {
+                continue;
             }
-        } else {
-            foreach ($map as $type => $relation) {
-                $favorites = $favorites->merge(
-                    $user->{$relation}()
-                        ->get()
-                        ->map(function ($item) use ($type) {
-                            $item->favorite_type = $type;
-                            return $item;
-                        })
-                );
-            }
+
+            [$class, $columns] = $map[$type];
+            $favorites = $favorites->merge(
+                User::favoriteRelation($user, $class, $columns)
+                    ->get()
+                    ->map(function ($item) use ($type) {
+                        $item->favorite_type = $type;
+                        return $item;
+                    })
+            );
         }
 
         $page = request('page', 1);
         $perPage = 6;
         $offset = ($page - 1) * $perPage;
 
-        $paginated = new LengthAwarePaginator(
+        return new LengthAwarePaginator(
             $favorites->slice($offset, $perPage)->values(),
             $favorites->count(),
             $perPage,
             $page,
             ['path' => request()->url(), 'query' => request()->query()]
         );
-
-        return $paginated;
     }
 }

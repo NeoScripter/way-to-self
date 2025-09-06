@@ -48,6 +48,11 @@ class Recipe extends Model
         return $this->morphToMany(CategoryFilter::class, 'filterable');
     }
 
+    public function favoritedBy()
+    {
+        return $this->morphToMany(User::class, 'favorable', 'favorites');
+    }
+
     public function isFree(): bool
     {
         return $this->type === ContentType::FREE->value;

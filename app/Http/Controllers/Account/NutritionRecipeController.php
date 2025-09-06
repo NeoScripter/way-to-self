@@ -6,7 +6,9 @@ use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryFilter;
 use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -39,11 +41,24 @@ class NutritionRecipeController extends Controller
 
     public function show(Recipe $recipe)
     {
+        $user = Auth::user();
+
         $recipe->load(['steps', 'infos']);
+        $isFavorite = $recipe->favoritedBy()->where('user_id', $user->id)->exists();
 
         return Inertia::render('account/recipe', [
             'recipe' => $recipe,
             'video' => $recipe->video->srcVideo(),
+            'isFavorite' => $isFavorite
         ]);
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $user = Auth::user();
+
+        User::toggleFavorite($user, Recipe::class, $id);
+
+        return  redirect()->back();
     }
 }

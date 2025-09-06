@@ -9,13 +9,17 @@ import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { cn } from '@/lib/utils';
 import { Image, Recipe as RecipeType } from '@/types/model';
-import { usePage } from '@inertiajs/react';
-import { ZoomIn } from 'lucide-react';
+import { HeartIcon } from '@heroicons/react/24/solid';
+import { Link, usePage } from '@inertiajs/react';
+import { Heart, ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Recipe() {
-    const { recipe, video } = usePage<{ recipe: RecipeType; video: string }>()
-        .props;
+    const { recipe, video, isFavorite } = usePage<{
+        recipe: RecipeType;
+        video: string;
+        isFavorite: boolean;
+    }>().props;
 
     const [zoomedImg, setZoomedImg] = useState<Image | null>(null);
 
@@ -32,11 +36,26 @@ export default function Recipe() {
                     itemName={`Рецепт №${recipe.id}`}
                     labels={['Главная', 'Питание', 'Рецепты']}
                 />
-                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                    {recipe.title}
-                </h1>
+                <div className="relative">
+                    <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
+                        {recipe.title}
+                    </h1>
 
-                <p className="mt-6 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-12 md:text-lg xl:mt-16 xl:text-xl">
+                    <Link
+                        className="mx-auto mt-3 block w-fit cursor-pointer md:mt-6 lg:absolute lg:right-0 lg:top-0 lg:mt-0"
+                        href={route('nutrition.recipes.favorite', recipe.id)}
+                        method="post"
+                        preserveState
+                    >
+                        {isFavorite ? (
+                            <HeartIcon className="size-6 sm:size-8 md:size-10 lg:size-12 text-red-500" />
+                        ) : (
+                            <Heart className="size-6 sm:size-8 md:size-10 lg:size-12 text-black" />
+                        )}
+                    </Link>
+                </div>
+
+                <p className="mt-3 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-6 md:text-lg xl:mt-16 xl:text-xl">
                     {recipe.description}
                 </p>
 

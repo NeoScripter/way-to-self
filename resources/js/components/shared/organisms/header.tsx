@@ -13,7 +13,7 @@ import {
     UserIcon,
 } from '@heroicons/react/24/solid';
 import { Link, router, usePage, usePrefetch } from '@inertiajs/react';
-import { XIcon } from 'lucide-react';
+import { Search, XIcon } from 'lucide-react';
 
 type HeaderProps = {
     className?: string;
@@ -39,7 +39,7 @@ export default function Header({ className, variant }: HeaderProps) {
                 )}
             ></div>
 
-            <Logo className="mt-2.5 mb-2 ml-1 text-4xl sm:mt-5 sm:mb-4 sm:text-6xl md:mt-7 md:mb-5 md:text-4xl lg:text-6xl" />
+            <Logo className="mt-2.5 mb-2 ml-1 text-4xl sm:mt-5 sm:mb-4 sm:text-6xl md:mt-7 md:mb-5 md:hidden md:text-4xl lg:block xl:text-6xl" />
 
             <NavMenu
                 variant={variant}
@@ -142,6 +142,14 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         };
     }>();
 
+    let prefix = 'nutrition';
+
+    if (url.includes('soul')) {
+        prefix = 'soul';
+    } else if (url.includes('body')) {
+        prefix = 'body';
+    }
+
     const { flush } = usePrefetch();
 
     const user = props.auth.user;
@@ -233,17 +241,38 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         </NavLink>
     );
 
+    const renderHomeLink = () => (
+        <NavLink key="home">
+            <Link
+                href={route('home')}
+                className="hidden md:block lg:hidden cursor-pointer"
+            >
+                Главная
+            </Link>
+        </NavLink>
+    );
+
     const renderAccountButton = () =>
         user ? (
-            <DarkBtn
-                className={cn(
-                    'mx-auto flex shrink-0 relative items-center gap-2 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
-                )}
-                href={route('account')}
-            >
-                <UserIcon className="size-4 shrink-0" />
-                {`${user.name} ${user.surname}`}
-            </DarkBtn>
+            <div className="relative mx-auto flex w-fit shrink-0 flex-col items-center gap-12 md:order-2 md:mr-0 md:flex-row md:gap-0">
+                <Link
+                    href={route(`${prefix}.search`)}
+                    as="button"
+                    className="flex cursor-pointer items-center gap-7 rounded-full border border-white/75 px-6 py-3 transition-colors duration-200 ease-in hover:bg-white/10 md:border-none"
+                >
+                    <span className="md:hidden">Поиск по разделу</span>
+                    <Search className="size-5 lg:size-6" />
+                </Link>
+                <DarkBtn
+                    className={cn(
+                        'flex items-center gap-2 text-xl md:text-sm xl:text-base',
+                    )}
+                    href={route('account')}
+                >
+                    <UserIcon className="size-4 shrink-0" />
+                    {`${user.name} ${user.surname}`}
+                </DarkBtn>
+            </div>
         ) : (
             <PrimaryBtn
                 className={cn(
@@ -257,6 +286,10 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
 
     const renderMainNavigation = () => {
         const items = [];
+
+        if (variant !== 'guest') {
+            items.push(renderHomeLink());
+        }
 
         // Add filtered nav items
         navItems
@@ -279,14 +312,13 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
             <nav
                 aria-label="Основная навигация"
                 className={cn(
-                    variant === 'account'
-                        ? 'md:mx-auto'
-                        : 'mt-15 mb-50 md:mx-auto md:mt-0 md:mb-0',
+                    'md:py-6 lg:mx-auto',
+                    variant !== 'account' && 'mt-15 mb-50 md:mt-0 md:mb-0',
                 )}
             >
                 <ul
                     className={cn(
-                        'text-center text-xl md:flex md:items-center md:justify-between md:gap-6 md:text-sm lg:gap-10 xl:gap-15 xl:text-base',
+                        'text-center text-xl md:flex md:items-center md:justify-between md:gap-10 md:text-sm lg:gap-10 xl:gap-15 xl:text-base',
                         variant === 'account'
                             ? 'mt-12 space-y-15 md:mt-0 md:space-y-0'
                             : 'space-y-15 md:space-y-0',
