@@ -35,6 +35,17 @@ function clearTypesUrl(url: string) {
     return `?page=1`;
 }
 
+function dispatchSyncSearchEvent(url: string) {
+    const match = /[?&]search=([^&]*)/.exec(url);
+    const searchQuery = match ? decodeURIComponent(match[1]) : '';
+
+    const clearSearchEvent = new CustomEvent('syncSearch', {
+        detail: searchQuery,
+    });
+
+    document.dispatchEvent(clearSearchEvent);
+}
+
 type CategoryFiltersProps = {
     className?: string;
     onClose?: () => void;
@@ -46,7 +57,7 @@ export default function CategoryFilters({
     className,
     onClose,
     items,
-    propName
+    propName,
 }: CategoryFiltersProps) {
     const { url } = usePage();
 
@@ -70,11 +81,14 @@ export default function CategoryFilters({
                 Фильтры
             </h3>
 
-            {url.includes('types') || url.includes('search') && (
+            {(url.includes('types') || url.includes('search')) && (
                 <Link
                     as="button"
                     preserveScroll
                     preserveState
+                    onClick={() =>
+                        document.dispatchEvent(new Event('clearSearch'))
+                    }
                     href={clearTypesUrl(url)}
                     className="flex cursor-pointer items-center gap-2 text-xl text-gray-300"
                 >
@@ -128,6 +142,7 @@ function MenuItem({ type, label, propName }: MenuItemProps) {
                 as="button"
                 preserveScroll
                 preserveState
+                onClick={() => dispatchSyncSearchEvent(url)}
                 only={[propName]}
                 className="flex items-center gap-2"
             >

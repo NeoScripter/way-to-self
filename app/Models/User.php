@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -86,6 +87,29 @@ class User extends Authenticatable
         return $this->morphedByMany(Audio::class, 'favorable', 'favorites')
             ->select(['audio.id', 'title', 'duration', 'rating', 'type', 'description'])
             ->with('image');
+    }
+
+    public function toggleFavorite(Model $model): bool
+    {
+        $relation = match (get_class($model)) {
+            Article::class => $this->favoriteArticles(),
+            Exercise::class => $this->favoriteExercises(),
+            Audio::class    => $this->favoriteAudios(),
+            Recipe::class   => $this->favoriteRecipes(),
+            default         => null,
+        };
+
+        if (! $relation) {
+            return false;
+        }
+
+        if ($relation->where('id', $model->id)->exists()) {
+            $relation->detach($model->id);
+            return false;
+        } else {
+            $relation->attach($model->id);
+            return true;
+        }
     }
 
     public function hasTier($tierRoute): bool

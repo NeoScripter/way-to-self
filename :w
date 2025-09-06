@@ -79,9 +79,9 @@ export default function ContentCard({
                         {name}
                     </h3>
 
-                    <p className="mb-2 flex-1 text-balance">{shortenedDescription}</p>
+                    <p className="mb-2 flex-1 h-full text-balance">{shortenedDescription}</p>
 
-                    <div className="mt-auto flex items-center justify-between">
+                    <div className="mt-auto flex border border-red-400 items-center justify-between">
                         {duration && (
                             <div
                                 className="flex items-center gap-1"

@@ -237,11 +237,11 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         user ? (
             <DarkBtn
                 className={cn(
-                    'mx-auto flex shrink-0 items-center gap-2 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
+                    'mx-auto flex shrink-0 relative items-center gap-2 text-xl md:order-2 md:mr-0 md:text-sm xl:text-base',
                 )}
                 href={route('account')}
             >
-                <UserIcon className="size-4" />
+                <UserIcon className="size-4 shrink-0" />
                 {`${user.name} ${user.surname}`}
             </DarkBtn>
         ) : (

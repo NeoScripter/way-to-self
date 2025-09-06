@@ -6,6 +6,7 @@ use App\Enums\CategoryType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class CategoryFilter extends Model
 {
@@ -34,5 +35,28 @@ class CategoryFilter extends Model
     public function scopeForCategory(Builder $query, CategoryType $category): Builder
     {
         return $query->where('category', $category->value);
+    }
+
+    public static function menuItemsForCategory(CategoryType $category): array
+    {
+        $categories = static::where('category', $category->value)->get();
+
+        return $categories
+            ->groupBy('title')
+            ->map(function ($items, $title) {
+                return [
+                    'id' => Str::uuid()->toString(),
+                    'title' => $title,
+                    'items' => $items->map(function ($category) {
+                        return [
+                            'id' => Str::uuid()->toString(),
+                            'type' => $category->name,
+                            'label' => $category->name,
+                        ];
+                    })->values()->all(),
+                ];
+            })
+            ->values()
+            ->all();
     }
 }

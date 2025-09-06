@@ -24,38 +24,12 @@ class NutritionRecipeController extends Controller
         ])['search'] ?? null;
 
         $recipes = Recipe::select(['id', 'rating', 'duration', 'description', 'title'])
-            ->when($types, function ($query, $types) {
-                $query->whereHas('filters', function ($q) use ($types) {
-                    $q->whereIn('name', $types);
-                });
-            })
-            ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%{$search}%")
-                        ->orWhere('description', 'like', "%{$search}%");
-                });
-            })
+            ->withFiltersAndSearch($types, $search)
             ->with('image')
             ->paginate(16)
             ->withQueryString();
 
-        $categories = CategoryFilter::forCategory(CategoryType::RECIPES)->get();
-
-        $grouped = $categories->groupBy('title');
-
-        $menuItems = $grouped->map(function ($items, $title) {
-            return [
-                'id' => Str::uuid()->toString(),
-                'title' => $title,
-                'items' => $items->map(function ($category) {
-                    return [
-                        'id' => Str::uuid()->toString(),
-                        'type' => $category->name,
-                        'label' => $category->name,
-                    ];
-                })->values()->all(),
-            ];
-        })->values()->all();
+        $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::RECIPES);
 
         return Inertia::render('account/recipes', [
             'recipes' => $recipes,

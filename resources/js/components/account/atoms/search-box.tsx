@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 import { Field, Input, Label } from '@headlessui/react';
 import { router } from '@inertiajs/react';
 import { Check, Search } from 'lucide-react';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 type SearchBoxProps = {
     className?: string;
@@ -11,6 +11,22 @@ type SearchBoxProps = {
 
 export default function SearchBox({ className }: SearchBoxProps) {
     const [term, setTerm] = useState('');
+
+    useEffect(() => {
+        const handleClearSearch = () => {
+            setTerm('');
+        };
+        const handleSyncSearch = (e) => {
+            setTerm(e.detail);
+        };
+
+        document.addEventListener('clearSearch', handleClearSearch);
+        document.addEventListener('syncSearch', handleSyncSearch);
+
+        return () =>
+            document.removeEventListener('clearSearch', handleClearSearch);
+            document.removeEventListener('syncSearch', handleSyncSearch);
+    }, []);
 
     const handleSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,7 +58,7 @@ export default function SearchBox({ className }: SearchBoxProps) {
 
             <PrimaryBtn
                 type="submit"
-                className="flex size-11 shrink-0 items-center justify-center bg-bright-salad p-1 shadow-bright-salad/50 hover:bg-lime-500 focus:ring-4 focus:ring-lime-500 sm:size-auto sm:px-12 xl:text-lg"
+                className="flex size-11 shrink-0 items-center justify-center bg-bright-salad p-1 shadow-bright-salad/50 hover:bg-lime-500 focus:ring-4 focus:ring-lime-700/50 sm:size-auto sm:px-12 xl:text-lg"
             >
                 <Check className="size-4/5 text-white sm:hidden" />
                 <span className="hidden sm:block">Найти</span>
