@@ -16,8 +16,10 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\RecipeController;
 use App\Http\Controllers\User\TierCartController;
 use App\Http\Controllers\User\TierController;
+use App\Notifications\SendPasswordNotification;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Password;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/shop', function () {
@@ -37,7 +39,21 @@ Route::get('/payment/process', [RegisteredUserController::class, 'processPayment
 //     ]);
 // });
 // Route::get('/preview-email', function () {
-//     return view('emails.password', ['password' => 'SamplePass123']);
+
+//     $user = \App\Models\User::first();
+//     $notification = new SendPasswordNotification('SamplePass123');
+
+//     return $notification->toMail($user);
+// });
+
+// Route::get('/preview-email2', function () {
+//     $user = \App\Models\User::first();
+
+//     // Example: Password reset
+//     $token = Password::broker()->createToken($user);
+//     $notification = (new \Illuminate\Auth\Notifications\VerifyEmail($token))->locale('ru');
+
+//     return $notification->toMail($user);
 // });
 
 Route::name('user.')->group(function () {

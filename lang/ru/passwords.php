@@ -18,4 +18,9 @@ return [
     'throttled' => 'Пожалуйста, подождите перед повторной попыткой.',
     'token' => 'Этот токен для сброса пароля недействителен.',
     'user' => 'Мы не можем найти пользователя с таким адресом электронной почты.',
+    'Reset Password Notification' => 'Уведомление о сбросе пароля',
+    'You are receiving this email because we received a password reset request for your account.' => 'Вы получили это письмо, потому что был сделан запрос на сброс пароля для вашего аккаунта.',
+    'Reset Password' => 'Сбросить пароль',
+    'This password reset link will expire in :count minutes.' => 'Ссылка для сброса пароля истечёт через :count мин.',
+    'If you did not request a password reset, no further action is required.' => 'Если вы не запрашивали сброс пароля, никаких действий предпринимать не нужно.',
 ];

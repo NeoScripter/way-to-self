@@ -15,9 +15,10 @@ trait HasFilterSearch
                 });
             })
             ->when($search, function ($query, $search) {
+                $search = mb_strtolower($search);
                 $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%{$search}%")
-                        ->orWhere('description', 'like', "%{$search}%");
+                    $q->whereRaw('LOWER(title) LIKE ?', ["%{$search}%"])
+                        ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
                 });
             });
     }
@@ -26,9 +27,10 @@ trait HasFilterSearch
     {
         return $query
             ->when($search, function ($query, $search) {
+                $search = mb_strtolower($search);
                 $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%{$search}%")
-                        ->orWhere('description', 'like', "%{$search}%");
+                    $q->whereRaw('LOWER(title) LIKE ?', ["%{$search}%"])
+                        ->orWhereRaw('LOWER(description) LIKE ?', ["%{$search}%"]);
                 });
             });
     }

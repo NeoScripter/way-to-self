@@ -22,6 +22,7 @@ export default function LikeBtn({
             href={route}
             method="post"
             preserveState
+            preserveScroll
         >
             {isFavorite ? (
                 <HeartIcon
