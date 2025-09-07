@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         ]);
 
         $audio = Audio::first();
-        $user->favoriteAudio()->attach($audio->id);
+        User::toggleFavorite($user, Audio::class, $audio->id);
         $articles = Article::latest()->limit(4)->get();
 
         $articles->each(function ($article) use ($user) {
