@@ -270,7 +270,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
                     href={route('account')}
                 >
                     <UserIcon className="size-4 shrink-0" />
-                    {`${user.name} ${user.surname}`}
+                    {`${user.name}`}
                 </DarkBtn>
             </div>
         ) : (
@@ -343,7 +343,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         }
 
         return (
-            <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-lg md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
+            <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-xl md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
                 <NavLink>
                     <Link
                         href={route('account.edit')}
