@@ -28,19 +28,19 @@ class UserSeeder extends Seeder
         $articles = Article::latest()->limit(4)->get();
 
         $articles->each(function ($article) use ($user) {
-            $user->favoriteArticles()->attach($article->id);
+            User::toggleFavorite($user, Article::class, $article->id);
         });
 
         $exercises = Exercise::latest()->limit(4)->get();
 
         $exercises->each(function ($exercise) use ($user) {
-            $user->favoriteExercises()->attach($exercise->id);
+            User::toggleFavorite($user, Exercise::class, $exercise->id);
         });
 
         $recipes = Recipe::latest()->latest(4)->get();
 
         $recipes->each(function ($recipe) use ($user) {
-            $user->favoriteRecipes()->attach($recipe->id);
+            User::toggleFavorite($user, Recipe::class, $recipe->id);
         });
     }
 }
