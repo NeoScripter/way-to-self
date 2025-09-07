@@ -19,6 +19,11 @@ class Audio extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function favoritedBy()
+    {
+        return $this->morphToMany(User::class, 'favorable', 'favorites');
+    }
+
     #[Scope]
     public function free(Builder $query): void
     {

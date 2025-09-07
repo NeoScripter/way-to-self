@@ -36,6 +36,7 @@ export default function FavoriteList() {
                                     key={`${item.id}-${item.favorite_type}`}
                                     type={''}
                                     className="mx-auto w-full max-w-80"
+                                    isFavorite={true}
                                     data={{
                                         href: getHref(item),
                                         name: item.title,
@@ -79,13 +80,13 @@ export default function FavoriteList() {
 function getHref(item: Favorite) {
     switch (item.favorite_type) {
         case 'articles':
-            return route('user.articles.show', item);
+            return route('nutrition.articles.show', item);
         case 'exercises':
             return route('user.exercises.show', item);
         case 'audio':
             return '#';
         case 'recipes':
-            return route('user.recipes.show', item);
+            return route('nutrition.recipes.show', item);
         default:
             return '#';
     }

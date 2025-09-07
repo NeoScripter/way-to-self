@@ -1,11 +1,15 @@
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
+import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import AppLayout from '@/layouts/user/app-layout';
 import { Article as ArticleType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Article() {
-    const { article } = usePage<{ article: ArticleType }>().props;
+    const { article, isFavorite } = usePage<{
+        article: ArticleType;
+        isFavorite: boolean;
+    }>().props;
 
     return (
         <AppLayout
@@ -13,7 +17,7 @@ export default function Article() {
             layoutClass="bg-light-bg"
             pageClass="px-3 md:px-11 xl:px-25"
         >
-            <article className="mx-auto max-w-330">
+            <article className="relative mx-auto max-w-330">
                 <Breadcrumbs
                     className="my-7 sm:my-11 md:my-15 xl:my-18"
                     itemName={`Совет №${article.id}`}
@@ -22,6 +26,12 @@ export default function Article() {
                 <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl">
                     {article.title}
                 </h1>
+
+                <LikeBtn
+                    className="mx-auto mt-3 md:mt-6 lg:absolute lg:top-0 lg:right-0 lg:mt-0"
+                    route={route('nutrition.articles.favorite', article.id)}
+                    isFavorite={isFavorite}
+                />
 
                 {article.image && (
                     <LazyImage

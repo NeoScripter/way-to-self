@@ -7,31 +7,38 @@ import { FormEvent, useEffect, useState } from 'react';
 
 type SearchBoxProps = {
     className?: string;
+    routeName: string;
 };
 
-export default function SearchBox({ className }: SearchBoxProps) {
+type SyncSearchEvent = CustomEvent<string>;
+
+export default function SearchBox({ className, routeName }: SearchBoxProps) {
     const [term, setTerm] = useState('');
 
     useEffect(() => {
         const handleClearSearch = () => {
             setTerm('');
         };
-        const handleSyncSearch = (e) => {
-            setTerm(e.detail);
+
+        const handleSyncSearch = (e: Event) => {
+            const customEvent = e as SyncSearchEvent;
+            setTerm(customEvent.detail);
         };
 
         document.addEventListener('clearSearch', handleClearSearch);
         document.addEventListener('syncSearch', handleSyncSearch);
 
-        return () =>
+        return () => {
             document.removeEventListener('clearSearch', handleClearSearch);
             document.removeEventListener('syncSearch', handleSyncSearch);
+        };
     }, []);
 
     const handleSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         router.get(
-            route('nutrition.recipes'),
+            route(routeName),
             { search: term },
             { preserveState: true, replace: true },
         );

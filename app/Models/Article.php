@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\ArticleType;
+use App\HasFilterSearch;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ class Article extends Model
     use ConvertsMarkdownToHtml;
 
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
-    use HasFactory;
+    use HasFactory, HasFilterSearch;
 
     // protected $with = ['image', 'thumbnail'];
 
@@ -36,6 +37,11 @@ class Article extends Model
     public function thumbnail(): MorphOne
     {
         return $this->images()->where('type', 'thumbnail');
+    }
+
+    public function favoritedBy()
+    {
+        return $this->morphToMany(User::class, 'favorable', 'favorites');
     }
 
     public function isFree(): bool

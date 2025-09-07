@@ -72,7 +72,10 @@ export default function Recipes() {
                     />
                 </h1>
 
-                <SearchBox className='my-10 md:my-15 xl:my-20' />
+                <SearchBox
+                    routeName="nutrition.recipes"
+                    className="my-10 md:my-15 xl:my-20"
+                />
                 <DarkBtn
                     onClick={() => toggleMenu(true)}
                     className="mx-auto my-10 px-[2em] text-sm md:my-15 md:text-base lg:hidden"

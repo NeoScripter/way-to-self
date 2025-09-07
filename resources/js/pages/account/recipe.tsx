@@ -2,6 +2,7 @@ import DishSvg from '@/assets/svgs/dish-black.svg';
 import StarSvg from '@/assets/svgs/star-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
+import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
 import VideoPlayer from '@/components/user/molecules/video-player';
@@ -41,18 +42,11 @@ export default function Recipe() {
                         {recipe.title}
                     </h1>
 
-                    <Link
-                        className="mx-auto mt-3 block w-fit cursor-pointer md:mt-6 lg:absolute lg:right-0 lg:top-0 lg:mt-0"
-                        href={route('nutrition.recipes.favorite', recipe.id)}
-                        method="post"
-                        preserveState
-                    >
-                        {isFavorite ? (
-                            <HeartIcon className="size-6 sm:size-8 md:size-10 lg:size-12 text-red-500" />
-                        ) : (
-                            <Heart className="size-6 sm:size-8 md:size-10 lg:size-12 text-black" />
-                        )}
-                    </Link>
+                    <LikeBtn
+                        className="mx-auto mt-3 md:mt-6 lg:absolute lg:top-0 lg:right-0 lg:mt-0"
+                        route={route('nutrition.recipes.favorite', recipe.id)}
+                        isFavorite={isFavorite}
+                    />
                 </div>
 
                 <p className="mt-3 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-6 md:text-lg xl:mt-16 xl:text-xl">

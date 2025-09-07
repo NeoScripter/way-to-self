@@ -21,4 +21,15 @@ trait HasFilterSearch
                 });
             });
     }
+
+    public function scopeWithSearch(Builder $query, ?string $search): Builder
+    {
+        return $query
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('description', 'like', "%{$search}%");
+                });
+            });
+    }
 }

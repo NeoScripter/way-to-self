@@ -5,6 +5,7 @@ import StarSvg from '@/assets/svgs/star.svg';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { cn } from '@/lib/utils';
+import { HeartIcon } from '@heroicons/react/24/solid';
 import { Link } from '@inertiajs/react';
 import LazyImage from './lazy-image';
 
@@ -26,12 +27,14 @@ type ContentCardProps = {
     type: string;
     data: SharedCardProps;
     className?: string;
+    isFavorite?: boolean;
 };
 
 export default function ContentCard({
     type,
     data,
     className,
+    isFavorite = false,
 }: ContentCardProps) {
     const {
         href,
@@ -55,12 +58,17 @@ export default function ContentCard({
     return (
         <li
             className={cn(
-                'transition-scale min-h-130 w-80 cursor-pointer list-none rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 p-6.5 text-white backdrop-blur-sm duration-200 ease-in hover:scale-105',
+                'transition-scale relative min-h-130 w-80 cursor-pointer list-none rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 p-6.5 text-white backdrop-blur-sm duration-200 ease-in hover:scale-105',
                 className,
             )}
             role="article"
             aria-label={`${labelPrefix}: ${name}`}
         >
+            {isFavorite && (
+                <div className="absolute top-4 border border-white/30 right-4 z-20 size-12 flex items-center justify-center rounded-full bg-white/20">
+                    <HeartIcon className="size-7 text-red-500" />
+                </div>
+            )}
             <Link
                 prefetch
                 href={href}
@@ -79,7 +87,9 @@ export default function ContentCard({
                         {name}
                     </h3>
 
-                    <p className="mb-2 flex-1 text-balance">{shortenedDescription}</p>
+                    <p className="mb-2 flex-1 text-balance">
+                        {shortenedDescription}
+                    </p>
 
                     <div className="mt-auto flex items-center justify-between">
                         {duration && (
@@ -99,33 +109,37 @@ export default function ContentCard({
                             </div>
                         )}
 
-                        {rating && <div
-                            className="flex items-center gap-1"
-                            aria-label={`Оценка: ${rating} из 10`}
-                        >
-                            <img
-                                src={StarSvg}
-                                alt=""
-                                className="size-4.5"
-                                aria-hidden="true"
-                            />
-                            <span className="text-sm">{`${rating}/10`}</span>
-                        </div>}
+                        {rating && (
+                            <div
+                                className="flex items-center gap-1"
+                                aria-label={`Оценка: ${rating} из 10`}
+                            >
+                                <img
+                                    src={StarSvg}
+                                    alt=""
+                                    className="size-4.5"
+                                    aria-hidden="true"
+                                />
+                                <span className="text-sm">{`${rating}/10`}</span>
+                            </div>
+                        )}
 
-                        {category && <div
-                            className="flex items-center gap-1"
-                            aria-label={`Категория: ${category}`}
-                        >
-                            <img
-                                src={categoryIcon}
-                                alt=""
-                                className="size-4.5"
-                                aria-hidden="true"
-                            />
-                            {category && (
-                                <span className="text-sm">{category}</span>
-                            )}
-                        </div>}
+                        {category && (
+                            <div
+                                className="flex items-center gap-1"
+                                aria-label={`Категория: ${category}`}
+                            >
+                                <img
+                                    src={categoryIcon}
+                                    alt=""
+                                    className="size-4.5"
+                                    aria-hidden="true"
+                                />
+                                {category && (
+                                    <span className="text-sm">{category}</span>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </Link>

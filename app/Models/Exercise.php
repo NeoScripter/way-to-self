@@ -34,6 +34,11 @@ class Exercise extends Model
         return $this->hasOne(ExerciseCategory::class);
     }
 
+    public function favoritedBy()
+    {
+        return $this->morphToMany(User::class, 'favorable', 'favorites');
+    }
+
     public function isFree(): bool
     {
         return $this->type === ContentType::FREE->value;
