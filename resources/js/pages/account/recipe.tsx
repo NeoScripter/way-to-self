@@ -159,7 +159,7 @@ type RecipeStatsType = {
 function RecipeStats({ recipe }: RecipeStatsType) {
     const roundedDuration = roundDuration(recipe.duration);
     return (
-        <div className="mx-auto my-6 flex max-w-75 items-center justify-between text-sm md:my-10 md:max-w-80 md:text-base xl:my-12">
+        <div className="mx-auto text-text-black my-6 flex max-w-75 items-center justify-between text-sm md:my-10 md:max-w-80 md:text-base xl:my-12">
             <div
                 className="flex items-center gap-1 md:gap-2"
                 aria-label={`${recipe.duration} минут`}

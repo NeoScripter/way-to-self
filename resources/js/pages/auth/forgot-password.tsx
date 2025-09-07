@@ -50,7 +50,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
             <Head title="Forgot password" />
 
             {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
+                <div className="mb-4 text-center text-sm font-medium text-white">
                     {status}
                 </div>
             )}
@@ -102,7 +102,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                         type="submit"
                         tabIndex={4}
                         disabled={processing}
-                        className="mx-auto mt-6 block w-max"
+                        className="mx-auto mt-6 w-max"
                     >
                         {' '}
                         {processing && (

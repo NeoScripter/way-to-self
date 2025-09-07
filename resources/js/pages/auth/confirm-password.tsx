@@ -47,7 +47,7 @@ export default function ConfirmPassword() {
                     <div className="flex items-center">
                         <NeutralBtn className="w-full" disabled={processing}>
                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            Confirm password
+                            Подтвердить пароль
                         </NeutralBtn>
                     </div>
                 </div>

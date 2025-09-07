@@ -19,7 +19,7 @@ export default function AccountLayout({
     pageClass,
     headerClass,
 }: AccountLayoutProps) {
-    const { flash, auth } = usePage<{ flash: { message: string | null } }>().props;
+    const { flash } = usePage<{ flash: { message: string | null } }>().props;
 
     return (
         <div className={cn('relative z-5 min-h-screen', layoutClass)}>
