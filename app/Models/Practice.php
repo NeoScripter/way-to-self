@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\HasFilterSearch;
 
-class Audio extends Model
+
+class Practice extends Model
 {
-    /** @use HasFactory<\Database\Factories\AudioFactory> */
+    /** @use HasFactory<\Database\Factories\PracticeFactory> */
     use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
 
     public function image(): MorphOne
@@ -21,9 +22,19 @@ class Audio extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function video(): MorphOne
+    {
+        return $this->morphOne(Video::class, 'videoable');
+    }
+
     public function favoritedBy()
     {
         return $this->morphToMany(User::class, 'favorable', 'favorites');
+    }
+
+    public function isFree(): bool
+    {
+        return $this->type === ContentType::FREE->value;
     }
 
     #[Scope]

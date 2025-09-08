@@ -13,10 +13,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Article extends Model
 {
-    use ConvertsMarkdownToHtml;
-
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
-    use HasFactory, HasFilterSearch;
+    use HasFactory, ConvertsMarkdownToHtml, HasFilterSearch;
 
     // protected $with = ['image', 'thumbnail'];
 

@@ -2,23 +2,24 @@
 
 namespace Database\Seeders;
 
-use App\Models\Audio;
 use App\Models\Image;
-use App\Support\AudioFixtures;
+use App\Models\Practice;
+use App\Models\Video;
+use App\Support\PracticeFixtures;
 use Illuminate\Database\Seeder;
 
-class AudioSeeder extends Seeder
+class PracticeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $audioData = AudioFixtures::getFixtures();
+        $practiceData = PracticeFixtures::getFixtures();
 
         for ($i = 0; $i < 6; $i++) {
-            $audioData->each(function (array $raw) {
-                Audio::factory(
+            $practiceData->each(function (array $raw) {
+                Practice::factory(
                     [
                         'title' => $raw['title'],
                         'description' => $raw['description'],
@@ -32,6 +33,10 @@ class AudioSeeder extends Seeder
                             'alt' => 'meditation image',
                             'path' => asset('storage/models/audios/meditation.webp'),
                             'tiny_path' => asset('storage/models/audios/meditation.webp'),
+                        ]);
+                        Video::factory()->create([
+                            'videoable_id' => $audio,
+                            'video_path' => 'videos/practice.mp4',
                         ]);
                     })
                     ->create();
