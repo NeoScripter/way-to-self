@@ -138,7 +138,7 @@ export const accountSoulCards: AccountCard[] = [
         text: `Аудио <span class="info-card__large info-card__account-large">медитации</span> <span class="info-card__right">на 3–15 минут</span>`,
         img: SoulCard1,
         alt: 'Женщина в зелёной рубашке с закрытыми глазами, выражающая спокойствие и сосредоточенность',
-        route: route('soul.index'),
+        route: route('soul.audios'),
     },
     {
         id: uuidv4(),

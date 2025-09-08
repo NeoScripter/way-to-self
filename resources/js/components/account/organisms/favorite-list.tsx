@@ -15,6 +15,8 @@ export default function FavoriteList() {
     const { favorites } = usePage<{ favorites: PaginationMeta<Favorite> }>()
         .props;
 
+    console.log(favorites.data.map(item => item.favorite_type));
+
     return (
         <div className="lg:flex lg:items-start lg:gap-5">
             <CategoryFilters
@@ -77,14 +79,21 @@ export default function FavoriteList() {
     );
 }
 
+
 function getHref(item: Favorite) {
     switch (item.favorite_type) {
-        case 'articles':
+        case 'nutrition.articles':
             return route('nutrition.articles.show', item);
+        case 'soul.articles':
+            return route('soul.articles.show', item);
+        case 'exercise.articles':
+            return route('soul.articles.show', item);
+        case 'news.articles':
+            return route('user.articles.show', item);
         case 'exercises':
             return route('user.exercises.show', item);
         case 'audio':
-            return '#';
+            return route('soul.audios.show', item);
         case 'recipes':
             return route('nutrition.recipes.show', item);
         default:

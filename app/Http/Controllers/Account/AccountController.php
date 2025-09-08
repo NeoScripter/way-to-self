@@ -81,7 +81,11 @@ class AccountController extends Controller
                 User::favoriteRelation($user, $class, $columns)
                     ->get()
                     ->map(function ($item) use ($type) {
-                        $item->favorite_type = $type;
+                        if ($type === 'articles') {
+                            $item->favorite_type = $item->type->value . '.'. $type;
+                        } else {
+                            $item->favorite_type = $type;
+                        }
                         return $item;
                     })
             );

@@ -30,7 +30,7 @@ function toggleTypeUrl(type: string, params: URLSearchParams) {
     });
 
     updated.forEach((t, i) => newParams.set(`types[${i}]`, t));
-    newParams.set('page', '1'); // force reset pagination
+    newParams.set('page', '1');
 
     return `?${newParams.toString()}`;
 }

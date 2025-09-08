@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Account;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
+use App\Models\Audio;
 use App\Models\CategoryFilter;
-use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class NutritionRecipeController extends Controller
+class SoulAudioController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,30 +24,30 @@ class NutritionRecipeController extends Controller
             'search'   => 'nullable|string',
         ])['search'] ?? null;
 
-        $recipes = Recipe::select(['id', 'rating', 'duration', 'description', 'title'])
+        $audios = Audio::select(['id', 'rating', 'duration', 'description', 'title'])
             ->withFiltersAndSearch($types, $search)
             ->with('image')
             ->paginate(16)
             ->withQueryString();
 
-        $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::RECIPES);
+        $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::AUDIOS);
 
-        return Inertia::render('account/recipes', [
-            'recipes' => $recipes,
+        return Inertia::render('account/meditations', [
+            'audios' => $audios,
             'menuItems' => $menuItems
         ]);
     }
 
-    public function show(Recipe $recipe)
+    public function show(Audio $audio)
     {
         $user = Auth::user();
 
-        $recipe->load(['steps', 'infos']);
-        $isFavorite = $recipe->favoritedBy()->where('user_id', $user->id)->exists();
+        $audio->load(['steps', 'infos']);
+        $isFavorite = $audio->favoritedBy()->where('user_id', $user->id)->exists();
 
-        return Inertia::render('account/recipe', [
-            'recipe' => $recipe,
-            'video' => $recipe->video->srcVideo(),
+        return Inertia::render('account/meditation', [
+            'audio' => $audio,
+            'video' => $audio->video->srcVideo(),
             'isFavorite' => $isFavorite
         ]);
     }
@@ -57,7 +56,7 @@ class NutritionRecipeController extends Controller
     {
         $user = Auth::user();
 
-        User::toggleFavorite($user, Recipe::class, $id);
+        User::toggleFavorite($user, Audio::class, $id);
 
         return redirect()->back();
     }

@@ -57,7 +57,7 @@ export default function Meditations() {
 
             <Breadcrumbs
                 className="my-7 sm:my-11 md:my-15 xl:my-18"
-                labels={['Главная', 'Питание', 'Рецепты']}
+                labels={['Главная', 'Душа', 'Медитации']}
                 highlightClass="text-light-swamp"
             />
             <section className="relative z-10">
@@ -67,13 +67,13 @@ export default function Meditations() {
                     )}
                 >
                     <SpanHighlight
-                        text="Рецепты"
+                        text="Аудио медитации"
                         className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
                     />
                 </h1>
 
                 <SearchBox
-                    routeName="nutrition.recipes"
+                    routeName="soul.audios"
                     className="my-10 md:my-15 xl:my-20"
                 />
                 <DarkBtn
@@ -88,15 +88,15 @@ export default function Meditations() {
                         key="desktop-category-filters"
                         items={menuItems}
                         className="hidden lg:grid"
-                        propName="recipes"
+                        propName="audios"
                     />
 
                     <CategoryList
-                        items={recipes}
-                        href="nutrition.recipes.show"
-                        label="рецепта"
-                        scrollElementId="favorites"
-                        type="recipe"
+                        items={audios}
+                        href="soul.audios.show"
+                        label="медитации"
+                        scrollElementId="audios"
+                        type="audio"
                     />
                 </div>
             </section>
@@ -109,7 +109,7 @@ export default function Meditations() {
                 <CategoryFilters
                     key="mobile-category-filters"
                     items={menuItems}
-                    propName="recipes"
+                    propName="audios"
                     onClose={() => toggleMenu(false)}
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />

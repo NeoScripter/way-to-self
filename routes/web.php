@@ -8,7 +8,9 @@ use App\Http\Controllers\Account\NutritionRecipeController;
 use App\Http\Controllers\Account\NutritionSearchController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\SoulArticleController;
+use App\Http\Controllers\Account\SoulAudioController;
 use App\Http\Controllers\Account\SoulController;
+use App\Http\Controllers\Account\SoulSearchController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\User\ArticleController;
@@ -101,16 +103,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/articles/{id}/favorite', [SoulArticleController::class, 'update'])
             ->name('articles.favorite');
 
-        // Route::get('/recipes', [NutritionRecipeController::class, 'index'])->name('recipes');
-        // Route::get('/recipes/{recipe}', [NutritionRecipeController::class, 'show'])->name('recipes.show');
-        // Route::post('/recipes/{id}/favorite', [NutritionRecipeController::class, 'update'])
-        //     ->name('recipes.favorite');
+        Route::get('/audios', [SoulAudioController::class, 'index'])->name('audios');
+        Route::get('/audios/{audio}', [SoulAudioController::class, 'show'])->name('audios.show');
+        Route::post('/audios/{id}/favorite', [SoulAudioController::class, 'update'])
+            ->name('audios.favorite');
 
-        Route::get('/search', NutritionSearchController::class)->name('search');
+        Route::get('/search', SoulSearchController::class)->name('search');
     });
 
-    Route::name('body.')->group(function () {
+    Route::middleware('tier.access:body')->prefix('account/body')->name('body.')->group(function () {
         Route::get('account/body', [BodyController::class, 'index'])->name('index');
+        Route::get('/articles/{article}', [SoulArticleController::class, 'show'])->name('articles.show');
     });
 });
 

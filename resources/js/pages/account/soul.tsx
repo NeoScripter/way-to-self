@@ -2,8 +2,6 @@ import TinyDesktopBg from '@/assets/images/soul/account-soul-desktop-tiny.webp';
 import DesktopBg from '@/assets/images/soul/account-soul-desktop.webp';
 import TinyMobileBg from '@/assets/images/soul/account-soul-mobile-tiny.webp';
 import MobileBg from '@/assets/images/soul/account-soul-mobile.webp';
-import SandDesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
-import SandDesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
 import LinkCard from '@/components/account/atoms/link-card';
 import BgImage from '@/components/shared/atoms/bg-image';
 import FAQSection from '@/components/shared/organisms/faq-section';
@@ -25,16 +23,6 @@ export default function Soul() {
                 mobilePath={MobileBg}
                 mobileTinyPath={TinyMobileBg}
             />
-
-            {/* <BgImage */}
-            {/*     containerClass="-z-10" */}
-            {/*     desktopPath={SandDesktopBg} */}
-            {/*     desktopTinyPath={SandDesktopTinyBg} */}
-            {/*     mobilePath={SandDesktopBg} */}
-            {/*     mobileTinyPath={SandDesktopTinyBg} */}
-            {/*     pictureClass="size-full object-cover" */}
-            {/*     imageClass="size-full object-cover" */}
-            {/* /> */}
 
             <section>
                 <h1

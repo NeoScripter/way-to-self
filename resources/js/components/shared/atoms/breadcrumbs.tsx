@@ -59,7 +59,7 @@ export default function Breadcrumbs({
                                     as="button"
                                     href={item.href}
                                     prefetch
-                                    className="cursor-pointer hover:underline"
+                                    className="cursor-pointer z-10 hover:underline"
                                 >
                                     {item.label}
                                 </Link>
