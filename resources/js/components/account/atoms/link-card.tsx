@@ -10,7 +10,7 @@ type LinkCardProps = {
 export default function LinkCard({ img, route, alt, html }: LinkCardProps) {
     return (
         <li
-            className="relative flex items-end h-67 shrink-0 transition-scale ease-in duration-300 hover:scale-110 w-71 flex-col rounded-[4rem] bg-card-backdrop-gray p-10 pb-12.5"
+            className="relative flex items-center h-67 shrink-0 transition-scale ease-in duration-300 hover:scale-110 w-71 flex-col rounded-[4rem] bg-card-backdrop-gray p-10 pb-12.5"
             role="listitem"
         >
             <Link

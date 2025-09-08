@@ -185,19 +185,19 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         {
             label: 'Питание',
             href: route('nutrition.index'),
-            isActive: url === '/account/nutrition',
+            isActive: url.includes('/account/nutrition'),
             showFor: ['tier'],
         },
         {
             label: 'Душа',
             href: route('soul.index'),
-            isActive: url === '/account/soul',
+            isActive: url.includes('/account/soul'),
             showFor: ['tier'],
         },
         {
             label: 'Тело',
             href: route('body.index'),
-            isActive: url === '/account/body',
+            isActive: url.includes('/account/body'),
             showFor: ['tier'],
         },
     ];

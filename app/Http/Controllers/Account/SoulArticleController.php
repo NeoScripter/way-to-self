@@ -10,22 +10,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class NutritionArticleController extends Controller
+class SoulArticleController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function index(Request $request)
     {
         $articles = Article::select(['id', 'description', 'title'])
-            ->where('type', ArticleType::NUTRITION)
+            ->where('type', ArticleType::SOUL)
             ->with(['thumbnail'])
             ->paginate(16);
 
         return Inertia::render('account/articles', [
             'articles' => $articles,
-            'prefix' => 'nutrition.articles.show',
-            'labels' => ['Главная', 'Питание', 'Советы']
+            'prefix' => 'soul.articles.show',
+            'labels' => ['Главная', 'Душа', 'Советы']
         ]);
     }
 
@@ -39,7 +36,7 @@ class NutritionArticleController extends Controller
         return Inertia::render('account/article', [
             'article' => $article,
             'isFavorite' => $isFavorite,
-            'labels' => ['Главная', 'Питание', 'Советы']
+            'labels' => ['Главная', 'Душа', 'Советы']
         ]);
     }
 

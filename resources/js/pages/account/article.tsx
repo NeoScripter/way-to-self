@@ -6,9 +6,10 @@ import { Article as ArticleType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Article() {
-    const { article, isFavorite } = usePage<{
+    const { article, isFavorite,labels } = usePage<{
         article: ArticleType;
         isFavorite: boolean;
+        labels: string[];
     }>().props;
 
     return (
@@ -21,7 +22,7 @@ export default function Article() {
                 <Breadcrumbs
                     className="my-7 sm:my-11 md:my-15 xl:my-18"
                     itemName={`Совет №${article.id}`}
-                    labels={['Главная', 'Питание', 'Советы']}
+                    labels={labels}
                 />
                 <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl">
                     {article.title}

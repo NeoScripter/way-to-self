@@ -8,9 +8,10 @@ import { Article } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Articles() {
-    const { articles, prefix } = usePage<{
+    const { articles, prefix, labels } = usePage<{
         articles: PaginationMeta<Article>;
         prefix: string;
+        labels: string[];
     }>().props;
 
     return (
@@ -21,7 +22,7 @@ export default function Articles() {
         >
             <Breadcrumbs
                 className="my-7 sm:my-11 md:my-15 xl:my-18"
-                labels={['Главная', 'Питание', 'Советы']}
+                labels={labels}
             />
 
             <h1 className="-mx-8 my-13 sm:my-20 lg:my-25">

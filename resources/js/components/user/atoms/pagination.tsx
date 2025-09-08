@@ -71,8 +71,8 @@ export default function Pagination({
                     )}
                 </PaginationBtn>
             </div>
-            <div className="hidden flex-wrap sm:flex sm:flex-1 sm:items-center sm:justify-center lg:justify-between">
-                <div className="hidden lg:block">
+            <div className="hidden flex-wrap sm:flex sm:flex-1 sm:items-center sm:justify-center">
+                <div className="hidden">
                     <p className="text-sm 2xl:text-base">
                         Показаны {`${label ?? ''} `}с{' '}
                         <span className="font-medium">{meta.from}</span> по{' '}

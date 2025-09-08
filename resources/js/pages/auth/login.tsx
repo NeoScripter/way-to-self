@@ -96,6 +96,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                 <TextLink
                     href={route('dev.login')}
                     className="ml-1"
+                    onClick={() => router.flushAll()}
                 >
                     Вход (только для Ильи)
                 </TextLink>

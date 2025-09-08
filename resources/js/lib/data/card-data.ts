@@ -131,3 +131,34 @@ export const nutritionCardData: AccountCard[] = [
         route: route('nutrition.index'),
     },
 ];
+
+export const accountSoulCards: AccountCard[] = [
+    {
+        id: uuidv4(),
+        text: `Аудио <span class="info-card__large info-card__account-large">медитации</span> <span class="info-card__right">на 3–15 минут</span>`,
+        img: SoulCard1,
+        alt: 'Женщина в зелёной рубашке с закрытыми глазами, выражающая спокойствие и сосредоточенность',
+        route: route('soul.index'),
+    },
+    {
+        id: uuidv4(),
+        text: `Духовные <span class="info-card__large">практики</span>`,
+        img: SoulCard3,
+        alt: 'Силуэт женщины, медитирующей на воде на фоне заката и пагоды',
+        route: route('soul.index'),
+    },
+    {
+        id: uuidv4(),
+        text: `<span class="info-card__large pb-4">Советы</span>`,
+        img: SoulCard2,
+        alt: 'Женщина в зелёном спортивном костюме медитирует в позе лотоса на фоне природы',
+        route: route('soul.articles'),
+    },
+    {
+        id: uuidv4(),
+        text: `<span class="info-card__large info-card__account-large">Поддержка</span> в телеграм-чате`,
+        img: SoulCard4,
+        alt: 'Рука держит смартфон на фоне размытых огней и зелёных украшений',
+        route: route('soul.index'),
+    },
+];

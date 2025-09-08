@@ -80,7 +80,7 @@ export default function Nutrition() {
                 </ul>
             </section>
 
-            <FAQSection />
+            <FAQSection short={true} />
         </AppLayout>
     );
 }

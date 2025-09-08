@@ -305,6 +305,12 @@ input[type='range'].audio-track {
     margin-bottom: -0.1em;
 }
 
+.info-card__large.info-card__account-large {
+    font-size: 2rem;
+    text-align: left;
+    margin-bottom: 0;
+}
+
 .info-card__large.info-card__medium {
     font-size: 1.8rem;
     margin-bottom: 0;
