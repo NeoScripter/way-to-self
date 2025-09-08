@@ -8,4 +8,5 @@ enum CategoryType: string
     case EXERCISES = 'exercises';
     case AUDIOS = 'audios';
     case ARTICLES = 'articles';
+    case PRACTICES = 'practices';
 }

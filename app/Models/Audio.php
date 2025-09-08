@@ -21,6 +21,11 @@ class Audio extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public function filters()
+    {
+        return $this->morphToMany(CategoryFilter::class, 'filterable');
+    }
+
     public function favoritedBy()
     {
         return $this->morphToMany(User::class, 'favorable', 'favorites');

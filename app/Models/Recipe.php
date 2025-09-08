@@ -43,6 +43,7 @@ class Recipe extends Model
     {
         return $this->hasOne(RecipeCategory::class);
     }
+
     public function filters()
     {
         return $this->morphToMany(CategoryFilter::class, 'filterable');

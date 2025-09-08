@@ -8,7 +8,7 @@ use App\Models\Recipe;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CategoryFilterSeeder extends Seeder
+class RecipeCategoryFilterSeeder extends Seeder
 {
     /**
      * Run the database seeds.

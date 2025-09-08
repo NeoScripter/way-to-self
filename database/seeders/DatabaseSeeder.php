@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AudioSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TierSeeder::class);
-        $this->call(CategoryFilterSeeder::class);
+        $this->call(PracticeSeeder::class);
+        $this->call(RecipeCategoryFilterSeeder::class);
+        $this->call(PracticeCategoryFilterSeeder::class);
+        $this->call(AudioCategoryFilterSeeder::class);
     }
 }
