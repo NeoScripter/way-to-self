@@ -10,9 +10,10 @@ import LazyImage from './lazy-image';
 type AudioPlayerProps = {
     tracks: Audio[];
     className?: string;
+    showTitle?: boolean;
 };
 
-export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
+export default function AudioPlayer({ className, tracks, showTitle = true }: AudioPlayerProps) {
     const [trackIndex, setTrackIndex] = useState(0);
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -20,7 +21,7 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
         'default',
     );
 
-    const { title, description, image, path } = tracks[trackIndex];
+    const { title, description, path } = tracks[trackIndex];
     const audioRef = useRef<HTMLAudioElement>(new Audio(path));
     const intervalRef = useRef<number | null>(null);
     const { duration } = audioRef.current;
@@ -130,11 +131,11 @@ export default function AudioPlayer({ className, tracks }: AudioPlayerProps) {
                     />
                 )}
 
-                <div>
-                    <p className="mb-3 text-xl sm:mb-4 sm:text-2xl lg:mb-5 lg:text-3xl">
+                <div className={cn(!showTitle && 'pt-10')}>
+                    {showTitle && <p className="mb-3 text-xl sm:mb-4 sm:text-2xl lg:mb-5 lg:text-3xl">
                         {title}
-                    </p>
-                    <p className="mb-6 text-sm sm:text-base lg:mb-8">
+                    </p>}
+                    <p className="mb-6 text-sm sm:text-base md:text-lg lg:mb-8">
                         {description}
                     </p>
 

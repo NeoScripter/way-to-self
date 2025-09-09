@@ -18,10 +18,13 @@ export type Audio = {
     path: string;
     duration: number;
     rating: number;
+    body: string;
+    html: string;
     type: string;
     created_at?: string;
     updated_at?: string;
     image?: Image;
+    filters?: any;
 };
 export type CategoryFilter = {
     id: number;
@@ -77,6 +80,21 @@ export type Image = {
     created_at?: string;
     updated_at?: string;
     imageable?: any;
+};
+export type Practice = {
+    id: number;
+    title: string;
+    description: string;
+    duration: number;
+    rating: number;
+    body: string;
+    html: string;
+    type: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
+    video?: Video;
+    filters?: any;
 };
 export type Recipe = {
     id: number;
@@ -173,7 +191,8 @@ export enum CategoryType {
     RECIPES = "recipes",
     EXERCISES = "exercises",
     AUDIOS = "audios",
-    ARTICLES = "articles"
+    ARTICLES = "articles",
+    PRACTICES = "practices"
 }
 export enum ContentType {
     FREE = "free",

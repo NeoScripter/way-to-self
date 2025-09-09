@@ -12,7 +12,7 @@ class AudioFixtures
     {
         return once(fn () => collect(File::files(database_path('factories/fixtures/audios')))
             ->map(fn (SplFileInfo $fileInfo) => $fileInfo->getContents())
-            ->map(fn (string $contents) => str($contents)->explode("\n\n", 5))
+            ->map(fn (string $contents) => str($contents)->explode("\n\n", 3))
             ->map(fn (Collection $parts) => [
                 'title' => str($parts[0])->trim(),
                 'description' => str($parts[1])->trim(),

@@ -42,13 +42,13 @@ class SoulAudioController extends Controller
     {
         $user = Auth::user();
 
-        $audio->load(['steps', 'infos']);
+        $audio->load(['image']);
         $isFavorite = $audio->favoritedBy()->where('user_id', $user->id)->exists();
 
         return Inertia::render('account/meditation', [
             'audio' => $audio,
-            'video' => $audio->video->srcVideo(),
-            'isFavorite' => $isFavorite
+            'isFavorite' => $isFavorite,
+            'labels' => ['Главная', 'Душа', 'Медитации']
         ]);
     }
 

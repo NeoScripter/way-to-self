@@ -1,8 +1,11 @@
 import DesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
 import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
-import BellPepper from '@/assets/images/home/veggies/bell-pepper.webp';
-import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
-import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
+import TinyHeart from '@/assets/images/soul/mediation-heart-tiny.webp';
+import Heart from '@/assets/images/soul/mediation-heart.webp';
+import TinyLights from '@/assets/images/soul/mediation-lights-tiny.webp';
+import Lights from '@/assets/images/soul/mediation-lights.webp';
+import TinyCandle from '@/assets/images/soul/meditation-candle-tiny.webp';
+import Candle from '@/assets/images/soul/meditation-candle.webp';
 import SearchBox from '@/components/account/atoms/search-box';
 import CategoryFilters from '@/components/account/molecules/category-filters';
 import CategoryList from '@/components/account/molecules/category-list';
@@ -43,16 +46,19 @@ export default function Meditations() {
             />
 
             <ArtLayer
-                img={CutChili}
-                className="top-1/3 left-10 z-10 w-3/5 max-w-120 min-w-60"
+                img={Candle}
+                tinyImg={TinyCandle}
+                className="bottom-200 left-10 z-10 w-3/5 max-w-120 min-w-60 xl:bottom-300 2xl:bottom-350"
             />
             <ArtLayer
-                img={Tomatoes}
-                className="top-60 -right-15 w-1/2 md:w-100"
+                img={Heart}
+                tinyImg={TinyHeart}
+                className="top-20 right-0 hidden w-1/2 md:block md:w-100"
             />
             <ArtLayer
-                img={BellPepper}
-                className="bottom-1/4 -left-5 w-3/5 max-w-102 sm:-left-13 xl:-left-10"
+                img={Lights}
+                tinyImg={TinyLights}
+                className="bottom-60 -left-5 w-3/5 max-w-172 sm:-left-13 md:w-2/5 xl:-left-10"
             />
 
             <Breadcrumbs
