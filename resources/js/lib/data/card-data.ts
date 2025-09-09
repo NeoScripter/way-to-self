@@ -145,7 +145,7 @@ export const accountSoulCards: AccountCard[] = [
         text: `Духовные <span class="info-card__large">практики</span>`,
         img: SoulCard3,
         alt: 'Силуэт женщины, медитирующей на воде на фоне заката и пагоды',
-        route: route('soul.index'),
+        route: route('soul.practices'),
     },
     {
         id: uuidv4(),

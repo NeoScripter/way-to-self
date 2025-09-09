@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
+use App\Models\Practice;
 use App\Models\Recipe;
 use App\Models\User;
 use App\Models\Tier;
@@ -57,7 +58,7 @@ class AccountController extends Controller
 
         $types = $request->validate([
             'types'   => 'nullable|array',
-            'types.*' => 'in:articles,exercises,audio,recipes',
+            'types.*' => 'in:articles,exercises,audio,recipes,practices',
         ])['types'] ?? null;
 
         $map = [
@@ -65,6 +66,7 @@ class AccountController extends Controller
             'exercises' => [Exercise::class, ['exercises.id', 'title', 'duration', 'rating', 'type', 'description']],
             'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'rating', 'type', 'description']],
             'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'rating', 'type', 'description']],
+            'articles'  => [Practice::class,  ['practices.id', 'title', 'rating', 'duration', 'type', 'description']],
         ];
 
         $favorites = collect();
@@ -82,7 +84,7 @@ class AccountController extends Controller
                     ->get()
                     ->map(function ($item) use ($type) {
                         if ($type === 'articles') {
-                            $item->favorite_type = $item->type->value . '.'. $type;
+                            $item->favorite_type = $item->type->value . '.' . $type;
                         } else {
                             $item->favorite_type = $type;
                         }

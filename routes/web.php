@@ -10,6 +10,7 @@ use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\SoulArticleController;
 use App\Http\Controllers\Account\SoulAudioController;
 use App\Http\Controllers\Account\SoulController;
+use App\Http\Controllers\Account\SoulPracticeController;
 use App\Http\Controllers\Account\SoulSearchController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -107,6 +108,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/audios/{audio}', [SoulAudioController::class, 'show'])->name('audios.show');
         Route::post('/audios/{id}/favorite', [SoulAudioController::class, 'update'])
             ->name('audios.favorite');
+
+        Route::get('/practices', [SoulPracticeController::class, 'index'])->name('practices');
+        Route::get('/practices/{practice}', [SoulPracticeController::class, 'show'])->name('practices.show');
+        Route::post('/practices/{id}/favorite', [SoulPracticeController::class, 'update'])
+            ->name('practices.favorite');
 
         Route::get('/search', SoulSearchController::class)->name('search');
     });
