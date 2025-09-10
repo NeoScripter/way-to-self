@@ -38,7 +38,6 @@ export default function Meditation() {
                     <AudioPlayer
                         showTitle={false}
                         className="relative z-11 my-6 sm:mt-40 mb-10 sm:mb-15 lg:mb-20 bg-card-backdrop-gray"
-                        tracks={[audio]}
                     />
                 )}
 

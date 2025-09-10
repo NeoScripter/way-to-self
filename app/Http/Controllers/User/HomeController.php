@@ -51,10 +51,9 @@ final class HomeController extends Controller
             ->limit(4)
             ->get();
 
-        $audios = Audio::with(['image'])
+        $audio = Audio::with(['image'])
             ->free()
-            ->latest()
-            ->get();
+            ->first();
 
         $video = Video::whereIn('videoable_id', $recipes->pluck('id'))->first();
 
@@ -64,8 +63,8 @@ final class HomeController extends Controller
             'articles' => $articles,
             'recipes' => $recipes,
             'exercises' => $exercises,
-            'video' => $video->srcVideo(),
-            'tracks' => $audios,
+            'video' => null,
+            'audio' => $audio,
             'prefix' => 'user.articles.show'
         ]);
     }

@@ -10,11 +10,14 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\HasFilterSearch;
+use App\Models\Concerns\ConvertsAudioToHls;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Audio extends Model
 {
     /** @use HasFactory<\Database\Factories\AudioFactory> */
-    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
+    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml, ConvertsAudioToHls;
 
     public function image(): MorphOne
     {
@@ -35,5 +38,34 @@ class Audio extends Model
     public function free(Builder $query): void
     {
         $query->where('type', ContentType::FREE);
+    }
+
+    public function getOriginalUrlAttribute(): string
+    {
+        return asset(str_replace('public/', 'storage/', $this->original_path));
+    }
+
+    public function getHlsUrlAttribute(): ?string
+    {
+        return $this->hls_path
+            ? asset("storage/{$this->hls_path}")
+            : null;
+    }
+
+    public function streamHls(string $file = 'index.m3u8')
+    {
+        $path = "private/audios/{$this->id}/{$file}";
+
+        if (!Storage::disk('local')->exists($path)) {
+            abort(404);
+        }
+
+        $mime = str_ends_with($file, '.m3u8')
+            ? 'application/vnd.apple.mpegurl'
+            : 'video/mp2t';
+
+        return response()->file(storage_path("app/{$path}"), [
+            'Content-Type' => $mime,
+        ]);
     }
 }

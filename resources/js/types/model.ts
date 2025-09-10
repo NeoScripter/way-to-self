@@ -15,7 +15,9 @@ export type Audio = {
     id: number;
     title: string;
     description: string;
-    path: string;
+    raw_path: string;
+    original_path: string;
+    hls_path?: string;
     duration: number;
     rating: number;
     body: string;
@@ -23,6 +25,8 @@ export type Audio = {
     type: string;
     created_at?: string;
     updated_at?: string;
+    original_url: any;
+    hls_url: any;
     image?: Image;
     filters?: any;
 };

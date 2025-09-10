@@ -18,6 +18,7 @@ use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\RecipeController;
+use App\Http\Controllers\User\StreamAudioController;
 use App\Http\Controllers\User\TierCartController;
 use App\Http\Controllers\User\TierController;
 use App\Notifications\SendPasswordNotification;
@@ -66,6 +67,13 @@ Route::name('user.')->group(function () {
     Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
     Route::get('/exercise/{exercise}', [ExerciseController::class, 'show'])->name('exercises.show');
 });
+
+Route::get('/audio/{audio}/stream', [StreamAudioController::class, 'stream'])
+    ->name('audio.stream');
+
+Route::get('/audio/{audio}/segments/{file}', [StreamAudioController::class, 'segment'])
+    ->where('file', '.*')
+    ->name('audio.segment');
 
 // if (app()->environment('local')) {
 Route::get('/dev-login', [AuthenticatedSessionController::class, 'dev'])->name('dev.login');

@@ -16,7 +16,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('path');
+            $table->string('raw_path');
+            $table->string('original_path');
+            $table->string('hls_path')->nullable();
             $table->unsignedInteger('duration');
             $table->unsignedInteger('rating');
             $table->text('body');
