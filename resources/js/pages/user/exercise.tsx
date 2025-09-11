@@ -1,10 +1,10 @@
 import DishSvg from '@/assets/svgs/dish-black.svg';
-import StarSvg from '@/assets/svgs/star-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { Exercise as ExerciseType } from '@/types/model';
+import { AcademicCapIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 
 export default function Exercise() {
@@ -74,12 +74,11 @@ function ExerciseStats({ exercise }: ExerciseStatsType) {
                 className="flex items-center gap-1 md:gap-2"
                 aria-label={`Оценка: ${exercise.rating} из 10`}
             >
-                <img
-                    src={StarSvg}
-                    alt=""
+                <AcademicCapIcon
                     className="size-6 md:size-7"
                     aria-hidden="true"
                 />
+
                 <span>{`${exercise.rating}/10`}</span>
             </div>
 

@@ -5,7 +5,7 @@ import StarSvg from '@/assets/svgs/star.svg';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { cn } from '@/lib/utils';
-import { HeartIcon } from '@heroicons/react/24/solid';
+import { AcademicCapIcon, HeartIcon } from '@heroicons/react/24/solid';
 import { Link } from '@inertiajs/react';
 import LazyImage from './lazy-image';
 
@@ -65,7 +65,7 @@ export default function ContentCard({
             aria-label={`${labelPrefix}: ${name}`}
         >
             {isFavorite && (
-                <div className="absolute top-4 border border-white/30 right-4 z-20 size-12 flex items-center justify-center rounded-full bg-white/20">
+                <div className="absolute top-4 right-4 z-20 flex size-12 items-center justify-center rounded-full border border-white/30 bg-white/20">
                     <HeartIcon className="size-7 text-red-500" />
                 </div>
             )}
@@ -114,9 +114,7 @@ export default function ContentCard({
                                 className="flex items-center gap-1"
                                 aria-label={`Оценка: ${rating} из 10`}
                             >
-                                <img
-                                    src={StarSvg}
-                                    alt=""
+                                <AcademicCapIcon
                                     className="size-4.5"
                                     aria-hidden="true"
                                 />

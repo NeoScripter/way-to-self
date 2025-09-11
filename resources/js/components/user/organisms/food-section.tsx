@@ -40,6 +40,7 @@ export default function FoodSection() {
                         html={card.text}
                         key={card.id}
                         img={card.img}
+                        tinyImg={card.tinyImg}
                         alt={card.alt}
                     />
                 ))}

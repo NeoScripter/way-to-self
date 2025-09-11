@@ -73,6 +73,7 @@ export default function Nutrition() {
                             html={card.text}
                             key={card.id}
                             img={card.img}
+                            tinyImg={card.tinyImg}
                             alt={card.alt}
                             route={card.route}
                         />

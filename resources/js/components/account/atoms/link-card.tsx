@@ -1,16 +1,18 @@
+import LazyImage from '@/components/user/atoms/lazy-image';
 import { Link } from '@inertiajs/react';
 
 type LinkCardProps = {
     img: string;
+    tinyImg: string;
     alt: string;
     html: string;
     route: string;
 };
 
-export default function LinkCard({ img, route, alt, html }: LinkCardProps) {
+export default function LinkCard({ img, tinyImg, route, alt, html }: LinkCardProps) {
     return (
         <li
-            className="relative flex items-center h-67 shrink-0 transition-scale ease-in duration-300 hover:scale-110 w-71 flex-col rounded-[4rem] bg-card-backdrop-gray p-10 pb-12.5"
+            className="transition-scale relative flex h-67 w-71 shrink-0 flex-col items-center rounded-[4rem] bg-card-backdrop-gray p-10 pb-12.5 duration-300 ease-in hover:scale-110"
             role="listitem"
         >
             <Link
@@ -20,18 +22,18 @@ export default function LinkCard({ img, route, alt, html }: LinkCardProps) {
                 prefetch
             ></Link>
             <div
-                className="text-sm font-semibold mt-auto"
+                className="mt-auto text-sm font-semibold"
                 aria-label="Описание карточки"
                 dangerouslySetInnerHTML={{ __html: html }}
             />
 
-            <figure className="aspect-square account-card-shadow w-7/10 overflow-clip rounded-full absolute top-5 left-1/2 -translate-1/2">
-                <img
-                    src={img}
-                    alt={alt}
-                    className="size-full object-cover object-center"
-                />
-            </figure>
+            <LazyImage
+                img={img}
+                tinyImg={tinyImg}
+                alt={alt}
+                parentClass="account-card-shadow absolute top-5 left-1/2 aspect-square w-7/10 -translate-1/2 overflow-clip rounded-full"
+                imgClass="size-full object-center object-cover"
+            />
         </li>
     );
 }

@@ -1,5 +1,4 @@
 import DishSvg from '@/assets/svgs/dish-black.svg';
-import StarSvg from '@/assets/svgs/star-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import LikeBtn from '@/components/shared/atoms/like-btn';
@@ -10,9 +9,9 @@ import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { cn } from '@/lib/utils';
 import { Image, Recipe as RecipeType } from '@/types/model';
-import { HeartIcon } from '@heroicons/react/24/solid';
-import { Link, usePage } from '@inertiajs/react';
-import { Heart, ZoomIn } from 'lucide-react';
+import { AcademicCapIcon } from '@heroicons/react/24/solid';
+import { usePage } from '@inertiajs/react';
+import { ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Recipe() {
@@ -159,7 +158,7 @@ type RecipeStatsType = {
 function RecipeStats({ recipe }: RecipeStatsType) {
     const roundedDuration = roundDuration(recipe.duration);
     return (
-        <div className="mx-auto text-text-black my-6 flex max-w-75 items-center justify-between text-sm md:my-10 md:max-w-80 md:text-base xl:my-12">
+        <div className="mx-auto my-6 flex max-w-75 items-center justify-between text-sm text-text-black md:my-10 md:max-w-80 md:text-base xl:my-12">
             <div
                 className="flex items-center gap-1 md:gap-2"
                 aria-label={`${recipe.duration} минут`}
@@ -177,9 +176,7 @@ function RecipeStats({ recipe }: RecipeStatsType) {
                 className="flex items-center gap-1 md:gap-2"
                 aria-label={`Оценка: ${recipe.rating} из 10`}
             >
-                <img
-                    src={StarSvg}
-                    alt=""
+                <AcademicCapIcon
                     className="size-6 md:size-7"
                     aria-hidden="true"
                 />
