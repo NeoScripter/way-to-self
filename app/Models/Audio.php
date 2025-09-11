@@ -19,6 +19,8 @@ class Audio extends Model
     /** @use HasFactory<\Database\Factories\AudioFactory> */
     use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml, ConvertsAudioToHls;
 
+    protected $appends = ['stream_path'];
+
     public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
@@ -67,5 +69,14 @@ class Audio extends Model
         return response()->file(storage_path("app/{$path}"), [
             'Content-Type' => $mime,
         ]);
+    }
+
+    public function getStreamPathAttribute(): ?string
+    {
+        if ($this->hls_path) {
+            return $this->hls_path;
+        }
+
+        return $this->raw_path;
     }
 }

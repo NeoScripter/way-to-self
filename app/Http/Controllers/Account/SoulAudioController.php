@@ -42,8 +42,13 @@ class SoulAudioController extends Controller
     {
         $user = Auth::user();
 
-        $audio->load(['image']);
-        $isFavorite = $audio->favoritedBy()->where('user_id', $user->id)->exists();
+        $audio->load(['image'])
+            ->makeHidden(['raw_path', 'original_path', 'hls_path']);
+
+        $isFavorite = $audio
+            ->favoritedBy()
+            ->where('user_id', $user->id)
+            ->exists();
 
         return Inertia::render('account/meditation', [
             'audio' => $audio,

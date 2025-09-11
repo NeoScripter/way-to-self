@@ -53,7 +53,8 @@ final class HomeController extends Controller
 
         $audio = Audio::with(['image'])
             ->free()
-            ->first();
+            ->first()
+            ->makeHidden(['raw_path', 'original_path', 'hls_path']);
 
         $video = Video::whereIn('videoable_id', $recipes->pluck('id'))->first();
 

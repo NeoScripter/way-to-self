@@ -19,7 +19,7 @@ export default function AudioPlayer({
     showTitle = true,
 }: AudioPlayerProps) {
     const { audio } = usePage<{ audio: Audio }>().props;
-    const src = audio.hls_path ?? audio.raw_path;
+    const src = audio.stream_path;
 
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
