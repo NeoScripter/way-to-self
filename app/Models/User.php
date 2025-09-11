@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -101,5 +103,21 @@ class User extends Authenticatable
     public function hasTier($tierRoute): bool
     {
         return $this->tiers()->where('route', $tierRoute)->exists();
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function ($user) {
+            $role = Role::where('name', RoleEnum::USER->value)->first();
+
+            if ($role) {
+                $user->roles()->attach($role->id);
+            }
+        });
     }
 }

@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RecipeSeeder::class);
         $this->call(ExerciseSeeder::class);
         $this->call(AudioSeeder::class);
+        $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(TierSeeder::class);
         $this->call(PracticeSeeder::class);
