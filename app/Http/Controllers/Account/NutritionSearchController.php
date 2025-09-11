@@ -33,7 +33,7 @@ class NutritionSearchController extends Controller
         $articles->each(function ($article) {
             $article->setRelation('image', $article->thumbnail);
             $article->unsetRelation('thumbnail');
-            $article->setAttribute('itemType', 'article');
+            $article->setAttribute('itemType', 'nutrition.article');
         });
 
         $items = $recipes->merge($articles)->shuffle();

@@ -90,11 +90,20 @@ function SearchItem({ item }: SearchItemProps) {
     let label = '',
         routeName = '';
     switch (item.itemType) {
-        case 'article':
+        case 'nutrition.article':
             ((label = 'статьи'), (routeName = 'nutrition.articles.show'));
             break;
         case 'recipe':
             ((label = 'рецепты'), (routeName = 'nutrition.recipes.show'));
+            break;
+        case 'audio':
+            ((label = 'медитации'), (routeName = 'soul.audios.show'));
+            break;
+        case 'soul.article':
+            ((label = 'статьи'), (routeName = 'soul.articles.show'));
+            break;
+        case 'practice':
+            ((label = 'духовные практики'), (routeName = 'soul.practices.show'));
             break;
     }
     return (
@@ -117,7 +126,7 @@ function SearchItem({ item }: SearchItemProps) {
                     img={item.image.path}
                     tinyImg={item.image.tiny_path}
                     alt={item.image.alt}
-                    parentClass="aspect-video max-w-100 mt-7 sm:mt-5 rounded-md"
+                    parentClass="max-w-100 mt-7 sm:mt-5 rounded-md"
                 />
             )}
         </li>
