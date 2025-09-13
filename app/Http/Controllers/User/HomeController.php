@@ -37,14 +37,14 @@ final class HomeController extends Controller
             ->limit(4)
             ->get();
 
-        $recipes = Recipe::select(['id', 'title', 'duration', 'rating', 'type', 'description'])
+        $recipes = Recipe::select(['id', 'title', 'duration', 'complexity', 'type', 'description'])
             ->free()
             ->with(['image'])
             ->latest()
             ->limit(4)
             ->get();
 
-        $exercises = Exercise::select(['id', 'title', 'duration', 'rating', 'type', 'description'])
+        $exercises = Exercise::select(['id', 'title', 'duration', 'complexity', 'type', 'description'])
             ->free()
             ->with(['image'])
             ->latest()

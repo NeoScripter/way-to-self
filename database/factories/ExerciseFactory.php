@@ -23,7 +23,7 @@ class ExerciseFactory extends Factory
             'description' => fake()->sentences(2, true),
             'body' => Collection::times(3, fn () => fake()->realText(120))->join(PHP_EOL . PHP_EOL),
             'duration' => fake()->numberBetween(15, 240),
-            'rating' => fake()->numberBetween(1, 10),
+            'complexity' => fake()->numberBetween(1, 10),
         ];
     }
 

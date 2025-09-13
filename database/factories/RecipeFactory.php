@@ -21,7 +21,7 @@ class RecipeFactory extends Factory
             'title' => fake()->words(5, true),
             'description' => fake()->sentences(2, true),
             'duration' => fake()->numberBetween(15, 240),
-            'rating' => fake()->numberBetween(1, 10),
+            'complexity' => fake()->numberBetween(1, 10),
         ];
     }
 

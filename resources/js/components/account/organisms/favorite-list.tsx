@@ -50,9 +50,9 @@ export default function FavoriteList() {
                                             'duration' in item
                                                 ? item.duration
                                                 : undefined,
-                                        rating:
-                                            'rating' in item
-                                                ? item.rating
+                                        complexity:
+                                            'complexity' in item
+                                                ? item.complexity
                                                 : undefined,
                                         category:
                                             'category' in item

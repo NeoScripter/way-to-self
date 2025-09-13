@@ -19,7 +19,7 @@ export type Audio = {
     original_path: string;
     hls_path?: string;
     duration: number;
-    rating: number;
+    complexity: number;
     body: string;
     html: string;
     type: string;
@@ -27,6 +27,7 @@ export type Audio = {
     updated_at?: string;
     original_url: any;
     hls_url: any;
+    stream_path: any;
     image?: Image;
     filters?: any;
 };
@@ -49,7 +50,7 @@ export type Exercise = {
     body: string;
     html: string;
     duration: number;
-    rating: number;
+    complexity: number;
     type: string;
     created_at?: string;
     updated_at?: string;
@@ -90,7 +91,7 @@ export type Practice = {
     title: string;
     description: string;
     duration: number;
-    rating: number;
+    complexity: number;
     body: string;
     html: string;
     type: string;
@@ -105,7 +106,7 @@ export type Recipe = {
     title: string;
     description: string;
     duration: number;
-    rating: number;
+    complexity: number;
     type: string;
     created_at?: string;
     updated_at?: string;
@@ -152,6 +153,12 @@ export type Review = {
     created_at?: string;
     updated_at?: string;
     image?: Image;
+};
+export type Role = {
+    id: number;
+    name: string;
+    created_at?: string;
+    updated_at?: string;
 };
 export type Tier = {
     id: number;
@@ -201,4 +208,9 @@ export enum CategoryType {
 export enum ContentType {
     FREE = "free",
     PAID = "paid"
+}
+export enum RoleEnum {
+    USER = "user",
+    EDITOR = "editor",
+    ADMIN = "admin"
 }

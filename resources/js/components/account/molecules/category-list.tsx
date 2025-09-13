@@ -13,7 +13,7 @@ type BaseItem = {
     };
     description: string;
     duration?: number;
-    rating?: number;
+    complexity?: number;
     category?: {
         name?: string;
     };
@@ -63,9 +63,9 @@ export default function CategoryList<T extends BaseItem>({
                                         'duration' in item
                                             ? item.duration
                                             : undefined,
-                                    rating:
-                                        'rating' in item
-                                            ? item.rating
+                                    complexity:
+                                        'complexity' in item
+                                            ? item.complexity
                                             : undefined,
                                     category:
                                         'category' in item

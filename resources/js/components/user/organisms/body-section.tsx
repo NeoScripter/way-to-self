@@ -66,7 +66,7 @@ export default function BodySection() {
                             tinyImg: exercise.image?.tiny_path,
                             description: exercise.description,
                             duration: exercise.duration,
-                            rating: exercise.rating,
+                            complexity: exercise.complexity,
                             category: exercise.category?.name,
                         }}
                     />

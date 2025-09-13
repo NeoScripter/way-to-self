@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('body');
             $table->text('html');
             $table->unsignedInteger('duration');
-            $table->unsignedInteger('rating');
+            $table->unsignedInteger('complexity');
             $table->string('type')->default(ContentType::PAID->value);
             $table->timestamps();
         });

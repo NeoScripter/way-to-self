@@ -68,7 +68,7 @@ export default function FoodSection() {
                             tinyImg: recipe.image?.tiny_path,
                             description: recipe.description,
                             duration: recipe.duration,
-                            rating: recipe.rating,
+                            complexity: recipe.complexity,
                             category: recipe.category?.name,
                         }}
                     />

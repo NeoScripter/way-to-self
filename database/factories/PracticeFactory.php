@@ -21,7 +21,7 @@ class PracticeFactory extends Factory
             'title' => fake()->word(2),
             'description' => fake()->realText(200),
             'duration' => 15,
-            'rating' => fake()->numberBetween(2, 10),
+            'complexity' => fake()->numberBetween(2, 10),
             'type' => ContentType::FREE,
         ];
     }

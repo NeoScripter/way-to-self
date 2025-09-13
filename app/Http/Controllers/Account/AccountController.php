@@ -63,9 +63,9 @@ class AccountController extends Controller
 
         $map = [
             'articles'  => [Article::class,  ['articles.id', 'title', 'type', 'description']],
-            'exercises' => [Exercise::class, ['exercises.id', 'title', 'duration', 'rating', 'type', 'description']],
-            'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'rating', 'type', 'description']],
-            'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'rating', 'type', 'description']],
+            'exercises' => [Exercise::class, ['exercises.id', 'title', 'duration', 'complexity', 'type', 'description']],
+            'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'complexity', 'type', 'description']],
+            'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'articles'  => [Practice::class,  ['practices.id', 'title', 'rating', 'duration', 'type', 'description']],
         ];
 

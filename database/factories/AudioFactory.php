@@ -23,7 +23,7 @@ class AudioFactory extends Factory
             'title' => fake()->word(2),
             'description' => fake()->realText(200),
             'duration' => 5,
-            'rating' => fake()->numberBetween(2, 10),
+            'complexity' => fake()->numberBetween(2, 10),
             'original_path' => "public/models/audios/{$filename}",
             'raw_path' => asset("storage/models/audios/{$filename}"),
             'hls_path' => null,

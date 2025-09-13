@@ -24,7 +24,7 @@ class SoulAudioController extends Controller
             'search'   => 'nullable|string',
         ])['search'] ?? null;
 
-        $audios = Audio::select(['id', 'rating', 'duration', 'description', 'title'])
+        $audios = Audio::select(['id', 'complexity', 'duration', 'description', 'title'])
             ->withFiltersAndSearch($types, $search)
             ->with('image')
             ->paginate(16)

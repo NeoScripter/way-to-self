@@ -25,7 +25,7 @@ class NutritionRecipeController extends Controller
             'search'   => 'nullable|string',
         ])['search'] ?? null;
 
-        $recipes = Recipe::select(['id', 'rating', 'duration', 'description', 'title'])
+        $recipes = Recipe::select(['id', 'complexity', 'duration', 'description', 'title'])
             ->withFiltersAndSearch($types, $search)
             ->with('image')
             ->paginate(16)

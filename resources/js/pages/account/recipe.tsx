@@ -174,13 +174,13 @@ function RecipeStats({ recipe }: RecipeStatsType) {
 
             <div
                 className="flex items-center gap-1 md:gap-2"
-                aria-label={`Оценка: ${recipe.rating} из 10`}
+                aria-label={`Оценка: ${recipe.complexity} из 10`}
             >
                 <AcademicCapIcon
                     className="size-6 md:size-7"
                     aria-hidden="true"
                 />
-                <span>{`${recipe.rating}/10`}</span>
+                <span>{`${recipe.complexity}/10`}</span>
             </div>
 
             <div

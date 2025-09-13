@@ -72,14 +72,14 @@ function ExerciseStats({ exercise }: ExerciseStatsType) {
 
             <div
                 className="flex items-center gap-1 md:gap-2"
-                aria-label={`Оценка: ${exercise.rating} из 10`}
+                aria-label={`Оценка: ${exercise.complexity} из 10`}
             >
                 <AcademicCapIcon
                     className="size-6 md:size-7"
                     aria-hidden="true"
                 />
 
-                <span>{`${exercise.rating}/10`}</span>
+                <span>{`${exercise.complexity}/10`}</span>
             </div>
 
             <div

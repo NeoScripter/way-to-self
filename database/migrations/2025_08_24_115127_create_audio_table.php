@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('original_path');
             $table->string('hls_path')->nullable();
             $table->unsignedInteger('duration');
-            $table->unsignedInteger('rating');
+            $table->unsignedInteger('complexity');
             $table->text('body');
             $table->text('html');
             $table->string('type')->default(ContentType::PAID);

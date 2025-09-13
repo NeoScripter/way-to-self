@@ -24,7 +24,7 @@ class SoulPracticeController extends Controller
             'search'   => 'nullable|string',
         ])['search'] ?? null;
 
-        $practices = Practice::select(['id', 'rating', 'duration', 'description', 'title'])
+        $practices = Practice::select(['id', 'complexity', 'duration', 'description', 'title'])
             ->withFiltersAndSearch($types, $search)
             ->with('image')
             ->paginate(16)

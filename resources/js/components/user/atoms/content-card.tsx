@@ -19,7 +19,7 @@ type SharedCardProps = {
     tinyImg: string | undefined;
     description: string;
     duration: number | undefined;
-    rating: number | undefined;
+    complexity: number | undefined;
     category: string | undefined;
 };
 
@@ -44,7 +44,7 @@ export default function ContentCard({
         alt,
         description,
         duration,
-        rating,
+        complexity,
         category,
     } = data;
     const roundedDuration = roundDuration(duration ?? 0);
@@ -109,16 +109,16 @@ export default function ContentCard({
                             </div>
                         )}
 
-                        {rating && (
+                        {complexity && (
                             <div
                                 className="flex items-center gap-1"
-                                aria-label={`Оценка: ${rating} из 10`}
+                                aria-label={`Оценка: ${complexity} из 10`}
                             >
                                 <AcademicCapIcon
                                     className="size-4.5"
                                     aria-hidden="true"
                                 />
-                                <span className="text-sm">{`${rating}/10`}</span>
+                                <span className="text-sm">{`${complexity}/10`}</span>
                             </div>
                         )}
 
