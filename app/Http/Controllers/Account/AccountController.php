@@ -25,9 +25,9 @@ class AccountController extends Controller
     {
         $selectedTiers = $request->user()
             ->tiers()
-            ->get(['tiers.id', 'tier_user.purchased_at'])
+            ->get(['tiers.id', 'tier_user.expries_at'])
             ->map(function ($tier) {
-                $expires = Carbon::parse($tier->pivot->purchased_at)->addYear();
+                $expires = Carbon::parse($tier->pivot->expries_at);
                 return [
                     'id' => $tier->id,
                     'expires' => $expires->format('d-m-Y'),

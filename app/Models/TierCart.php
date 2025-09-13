@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,13 +59,13 @@ class TierCart extends Model
         $this->tiers()->each(function ($tier) use ($user) {
             $existing = $user->tiers()->find($tier->id);
 
-            if ($existing) {
-                $user->tiers()->updateExistingPivot($tier->id, [
-                    'purchased_at' => $existing->pivot->purchased_at->addYear()
-                ]);
-            } else {
-                $user->tiers()->attach($tier->id, ['purchased_at' => now()]);
-            }
+            $newExpires = $existing && $existing->pivot->expires_at->isFuture()
+                ? $existing->pivot->expires_at->copy()->addYear()
+                : now()->addYear();
+
+            $user->tiers()->syncWithoutDetaching([
+                $tier->id => ['expires_at' => $newExpires],
+            ]);
         });
     }
 }

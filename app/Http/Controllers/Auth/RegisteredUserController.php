@@ -79,7 +79,7 @@ class RegisteredUserController extends Controller
 
         // TODO
         // Process payment
-        sleep(2);
+        sleep(1);
 
         if (Auth::check()) {
             $user = Auth::user();

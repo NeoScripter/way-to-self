@@ -56,7 +56,9 @@ final class HomeController extends Controller
             ->first()
             ->makeHidden(['raw_path', 'original_path', 'hls_path']);
 
-        $video = Video::whereIn('videoable_id', $recipes->pluck('id'))->first();
+        $video = Video::whereIn('videoable_id', $recipes->pluck('id'))
+            ->first()
+            ->makeHidden(['video_path']);
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,
@@ -64,7 +66,7 @@ final class HomeController extends Controller
             'articles' => $articles,
             'recipes' => $recipes,
             'exercises' => $exercises,
-            'video' => null,
+            'video' => $video->srcVideo(),
             'audio' => $audio,
             'prefix' => 'user.articles.show'
         ]);

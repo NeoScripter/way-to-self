@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Account;
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryFilter;
-use App\Models\Recipe;
+use App\Models\Exercise;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class NutritionRecipeController extends Controller
+class BodyExerciseController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,36 +24,37 @@ class NutritionRecipeController extends Controller
             'search'   => 'nullable|string',
         ])['search'] ?? null;
 
-        $recipes = Recipe::select(['id', 'complexity', 'duration', 'description', 'title'])
+        $exercises = Exercise::select(['id', 'complexity', 'duration', 'description', 'title'])
             ->withFiltersAndSearch($types, $search)
             ->with('image')
             ->paginate(16)
             ->withQueryString();
 
-        $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::RECIPES);
+        $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::EXERCISES);
 
-        return Inertia::render('account/recipes', [
-            'recipes' => $recipes,
+        return Inertia::render('account/exercises', [
+            'exercises' => $exercises,
             'menuItems' => $menuItems
         ]);
     }
 
-    public function show(Recipe $recipe)
+    public function show(Exercise $exercise)
     {
         $user = Auth::user();
 
-        $recipe->load(['steps', 'infos'])
+        $exercise->load(['image'])
             ->makeHidden(['video_path']);
 
-        $isFavorite = $recipe
+        $isFavorite = $exercise
             ->favoritedBy()
             ->where('user_id', $user->id)
             ->exists();
 
-        return Inertia::render('account/recipe', [
-            'recipe' => $recipe,
-            'video' => $recipe->video->srcVideo(),
-            'isFavorite' => $isFavorite
+        return Inertia::render('account/exercise', [
+            'exercise' => $exercise,
+            'video' => $exercise->video->srcVideo(),
+            'isFavorite' => $isFavorite,
+            'labels' => ['Главная', 'Душа', 'Медитации']
         ]);
     }
 
@@ -62,7 +62,7 @@ class NutritionRecipeController extends Controller
     {
         $user = Auth::user();
 
-        User::toggleFavorite($user, Recipe::class, $id);
+        User::toggleFavorite($user, Exercise::class, $id);
 
         return redirect()->back();
     }

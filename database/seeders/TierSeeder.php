@@ -74,7 +74,7 @@ class TierSeeder extends Seeder
         $tiers->each(
             fn(Tier $tier) =>
             $user->tiers()->attach($tier->id, [
-                'purchased_at' => now(),
+                'expires_at' => now()->addYear(),
             ])
         );
     }

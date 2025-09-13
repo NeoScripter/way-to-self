@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\Practice;
+use App\Models\Program;
 use App\Models\Recipe;
 use App\Models\RecipeInfo;
 use App\Models\RecipeStep;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
             'audio' => Audio::class,
             'article' => Article::class,
             'practice' => Practice::class,
+            'program' => Program::class,
             'tier' => Tier::class,
             'recipe' => Recipe::class,
             'exercise' => Exercise::class,

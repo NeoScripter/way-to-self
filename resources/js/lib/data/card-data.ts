@@ -208,7 +208,7 @@ export const accountBodyCards: AccountCard[] = [
         img: BodyCard1,
         tinyImg: TinyBodyCard1,
         alt: 'Женщина в спортивной одежде делает выпады с гантелями в руках на коврике в гостиной',
-        route: route('soul.audios'),
+        route: route('body.exercises'),
     },
     {
         id: uuidv4(),

@@ -11,6 +11,7 @@ class ExerciseController extends Controller
     public function show(Exercise $exercise)
     {
         abort_unless($exercise->isFree(), 404);
+        $exercise->makeHidden(['video_path']);
 
         return Inertia::render('user/exercise', [
             'exercise' => $exercise,

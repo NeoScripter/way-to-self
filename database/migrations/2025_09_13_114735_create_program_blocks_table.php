@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tier_user', function (Blueprint $table) {
+        Schema::create('program_blocks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tier_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('expires_at')->nullable();
+            $table->foreignId('program_id')->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->text('description');
             $table->timestamps();
-            $table->unique(['user_id', 'tier_id']);
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tier_user');
+        Schema::dropIfExists('program_blocks');
     }
 };

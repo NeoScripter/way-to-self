@@ -12,7 +12,8 @@ class RecipeController extends Controller
     {
         abort_unless($recipe->isFree(), 404);
 
-        $recipe->load(['steps', 'infos']);
+        $recipe->load(['steps', 'infos'])
+            ->makeHidden(['video_path']);
 
         return Inertia::render('user/recipe', [
             'recipe' => $recipe,

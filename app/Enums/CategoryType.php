@@ -9,4 +9,5 @@ enum CategoryType: string
     case AUDIOS = 'audios';
     case ARTICLES = 'articles';
     case PRACTICES = 'practices';
+    case PROGRAMS = 'programs';
 }
