@@ -26,7 +26,7 @@ export default function Header({ className, variant }: HeaderProps) {
     return (
         <header
             className={cn(
-                'sticky top-0 z-100 flex items-center justify-between gap-x-5 border-b border-gray-200 px-7 text-white md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
+                'sticky top-0 z-100 flex items-center justify-between gap-x-5 px-7 text-white md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
                 className,
             )}
         >

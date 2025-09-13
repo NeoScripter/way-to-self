@@ -2,6 +2,8 @@ import BodyCard1 from '@/assets/images/home/body-card-1.webp';
 import BodyCard2 from '@/assets/images/home/body-card-2.webp';
 import BodyCard3 from '@/assets/images/home/body-card-3.webp';
 import BodyCard4 from '@/assets/images/home/body-card-4.webp';
+import BodyCard5 from '@/assets/images/home/body-card-5.webp';
+import BodyCard6 from '@/assets/images/home/body-card-6.webp';
 import FoodCard1 from '@/assets/images/home/food-card-1.webp';
 import FoodCard2 from '@/assets/images/home/food-card-2.webp';
 import FoodCard3 from '@/assets/images/home/food-card-3.webp';
@@ -14,6 +16,8 @@ import TinyBodyCard1 from '@/assets/images/home/body-card-1-tiny.webp';
 import TinyBodyCard2 from '@/assets/images/home/body-card-2-tiny.webp';
 import TinyBodyCard3 from '@/assets/images/home/body-card-3-tiny.webp';
 import TinyBodyCard4 from '@/assets/images/home/body-card-4-tiny.webp';
+import TinyBodyCard5 from '@/assets/images/home/body-card-5-tiny.webp';
+import TinyBodyCard6 from '@/assets/images/home/body-card-6-tiny.webp';
 import TinyFoodCard1 from '@/assets/images/home/food-card-1-tiny.webp';
 import TinyFoodCard2 from '@/assets/images/home/food-card-2-tiny.webp';
 import TinyFoodCard3 from '@/assets/images/home/food-card-3-tiny.webp';
@@ -194,5 +198,40 @@ export const accountSoulCards: AccountCard[] = [
         tinyImg: TinySoulCard4,
         alt: 'Рука держит смартфон на фоне размытых огней и зелёных украшений',
         route: route('soul.index'),
+    },
+];
+
+export const accountBodyCards: AccountCard[] = [
+    {
+        id: uuidv4(),
+        text: `<span class="info-card__large info-card__medium">упражнения</span> <span class="block text-center">на каждый день</span>`,
+        img: BodyCard1,
+        tinyImg: TinyBodyCard1,
+        alt: 'Женщина в спортивной одежде делает выпады с гантелями в руках на коврике в гостиной',
+        route: route('soul.audios'),
+    },
+    {
+        id: uuidv4(),
+        text: `<span class="info-card__large info-card__medium text-center">Программы</span> <span class="block mt-1 text-center">под ваше текущее состояние и цели</span>`,
+        img: BodyCard4,
+        tinyImg: TinyBodyCard4,
+        alt: 'Женский торс в белой одежде, обмотанный измерительной лентой для измерения талии',
+        route: route('body.index'),
+    },
+    {
+        id: uuidv4(),
+        text: `<span class="info-card__large info-card__medium text-center">Советы</span> <span class="block mt-1 text-center">и рекомендации по подбору упражнений</span>`,
+        img: BodyCard5,
+        tinyImg: TinyBodyCard5,
+        alt: 'Женщина в спортивной одежде делает растяжку на коврике перед ноутбуком',
+        route: route('body.articles'),
+    },
+    {
+        id: uuidv4(),
+        text: `<span class="info-card__large info-card__medium text-center">Поддержка</span> <span class="block mt-1 text-center">и коммьюнити в телеграм-канале</span>`,
+        img: BodyCard6,
+        tinyImg: TinyBodyCard6,
+        alt: 'Женский торс в белой одежде, обмотанный измерительной лентой для измерения талии',
+        route: route('body.index'),
     },
 ];

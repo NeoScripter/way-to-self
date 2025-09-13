@@ -3,11 +3,11 @@ import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
-import InputError from '@/components/starter-kit/input-error';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import PasswordInput from '@/components/user/atoms/password-input';
 import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import InputError from '@/components/user/atoms/input-error';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<{ password: string }>>({

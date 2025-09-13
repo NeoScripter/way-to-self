@@ -1,5 +1,5 @@
 // Components
-import TextLink from '@/components/starter-kit/text-link';
+import TextLink from '@/components/shared/atoms/text-link';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { Head, useForm } from '@inertiajs/react';

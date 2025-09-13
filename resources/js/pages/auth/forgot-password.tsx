@@ -3,8 +3,6 @@ import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
-import InputError from '@/components/starter-kit/input-error';
-import TextLink from '@/components/starter-kit/text-link';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
@@ -12,6 +10,8 @@ import { cn } from '@/lib/utils';
 import z from 'zod';
 import { Input } from '@/components/user/atoms/input';
 import { Label } from '@/components/user/atoms/label';
+import InputError from '@/components/user/atoms/input-error';
+import TextLink from '@/components/shared/atoms/text-link';
 
 const schema = z.object({
     email: z
