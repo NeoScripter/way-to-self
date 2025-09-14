@@ -20,12 +20,12 @@ import AppLayout from '@/layouts/user/app-layout';
 import { MenuItem } from '@/lib/data/account-menu-items';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
-import { Exercise } from '@/types/model';
+import { Program } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
-export default function Exercises() {
-    const { exercises, menuItems } = usePage<{
-        exercises: PaginationMeta<Exercise>;
+export default function Programs() {
+    const { programs, menuItems } = usePage<{
+        programs: PaginationMeta<Program>;
         menuItems: MenuItem[];
     }>().props;
     const [showMenu, toggleMenu] = useToggle(false);
@@ -63,7 +63,7 @@ export default function Exercises() {
 
             <Breadcrumbs
                 className="my-7 sm:my-11 md:my-15 xl:my-18"
-                labels={['Главная', 'Тело', 'Упражнения']}
+                labels={['Главная', 'Тело', 'Программы']}
                 highlightClass="text-light-swamp"
             />
             <section className="relative z-10">
@@ -73,13 +73,13 @@ export default function Exercises() {
                     )}
                 >
                     <SpanHighlight
-                        text="Упражнения"
+                        text="Программы"
                         className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
                     />
                 </h1>
 
                 <SearchBox
-                    routeName="body.exercises"
+                    routeName="body.programs"
                     className="my-10 md:my-15 xl:my-20"
                 />
                 <DarkBtn
@@ -94,15 +94,15 @@ export default function Exercises() {
                         key="desktop-category-filters"
                         items={menuItems}
                         className="hidden lg:grid"
-                        propName="exercises"
+                        propName="programs"
                     />
 
                     <CategoryList
-                        items={exercises}
-                        href="body.exercises.show"
+                        items={programs}
+                        href="body.programs.show"
                         label="упражнения"
-                        scrollElementId="exercises"
-                        type="exercise"
+                        scrollElementId="programs"
+                        type="program"
                     />
                 </div>
             </section>
@@ -115,7 +115,7 @@ export default function Exercises() {
                 <CategoryFilters
                     key="mobile-category-filters"
                     items={menuItems}
-                    propName="exercises"
+                    propName="programs"
                     onClose={() => toggleMenu(false)}
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />

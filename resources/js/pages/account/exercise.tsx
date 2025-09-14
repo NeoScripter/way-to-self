@@ -1,4 +1,5 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
+import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
@@ -8,19 +9,26 @@ import { usePage } from '@inertiajs/react';
 import { Dumbbell } from 'lucide-react';
 
 export default function Exercise() {
-    const { exercise, video } = usePage<{
+    const { exercise, video, labels } = usePage<{
         exercise: ExerciseType;
         video: string;
+        labels: string[];
     }>().props;
 
     return (
         <AppLayout
-            variant="guest"
+            variant="tier"
             layoutClass="bg-light-bg"
             pageClass="px-3 md:px-11 xl:px-25"
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
+                <Breadcrumbs
+                    className="my-7 sm:my-11 md:my-15 xl:my-18"
+                    itemName={`Упражнение №${exercise.id}`}
+                    labels={labels}
+                />
+
                 <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:mt-24 xl:text-6xl">
                     {exercise.title}
                 </h1>
@@ -90,7 +98,6 @@ function ExerciseStats({ exercise }: ExerciseStatsType) {
                     className="size-6 text-text-black md:size-7"
                     aria-hidden="true"
                 />
-
                 {exercise.category && <span>{exercise.category.name}</span>}
             </div>
         </div>

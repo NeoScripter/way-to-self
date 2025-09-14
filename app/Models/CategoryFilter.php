@@ -23,6 +23,11 @@ class CategoryFilter extends Model
         return $this->morphedByMany(Exercise::class, 'filterable');
     }
 
+    public function programs()
+    {
+        return $this->morphedByMany(Program::class, 'filterable');
+    }
+
     public function articles()
     {
         return $this->morphedByMany(Article::class, 'filterable');

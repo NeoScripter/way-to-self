@@ -28,6 +28,7 @@ export default function Header({ className, variant }: HeaderProps) {
             className={cn(
                 'sticky top-0 z-100 flex items-center justify-between gap-x-5 px-7 text-white md:relative md:mx-7 md:px-0 lg:mx-14 xl:mr-23 xl:ml-27 2xl:mr-28 2xl:ml-41',
                 className,
+                variant === 'guest' && 'border-b border-gray-200',
             )}
         >
             <div
@@ -245,7 +246,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         <NavLink key="home">
             <Link
                 href={route('home')}
-                className="hidden md:block lg:hidden cursor-pointer"
+                className="hidden cursor-pointer md:block lg:hidden"
             >
                 Главная
             </Link>

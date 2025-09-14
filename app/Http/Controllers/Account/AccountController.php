@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\Practice;
+use App\Models\Program;
 use App\Models\Recipe;
 use App\Models\User;
 use App\Models\Tier;
@@ -25,7 +26,7 @@ class AccountController extends Controller
     {
         $selectedTiers = $request->user()
             ->tiers()
-            ->get(['tiers.id', 'tier_user.expries_at'])
+            ->get(['tiers.id', 'tier_user.expires_at'])
             ->map(function ($tier) {
                 $expires = Carbon::parse($tier->pivot->expries_at);
                 return [
@@ -64,6 +65,7 @@ class AccountController extends Controller
         $map = [
             'articles'  => [Article::class,  ['articles.id', 'title', 'type', 'description']],
             'exercises' => [Exercise::class, ['exercises.id', 'title', 'duration', 'complexity', 'type', 'description']],
+            'programs' => [Program::class, ['programs.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'articles'  => [Practice::class,  ['practices.id', 'title', 'rating', 'duration', 'type', 'description']],

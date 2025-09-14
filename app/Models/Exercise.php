@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Exercise extends Model
 {
     /** @use HasFactory<\Database\Factories\ExerciseFactory> */
-    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
+    use HasFactory, ConvertsMarkdownToHtml, HasFilterSearch;
 
     protected $with = ['category'];
 
@@ -50,6 +50,10 @@ class Exercise extends Model
         return $this->belongsToMany(ProgramBlock::class, 'program_block_exercise');
     }
 
+    public function filters()
+    {
+        return $this->morphToMany(CategoryFilter::class, 'filterable');
+    }
 
     #[Scope]
     public function free(Builder $query): void

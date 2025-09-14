@@ -40,6 +40,7 @@ export type CategoryFilter = {
     updated_at?: string;
     recipes?: any;
     exercises?: any;
+    programs?: any;
     articles?: any;
     audios?: any;
 };
@@ -57,6 +58,8 @@ export type Exercise = {
     image?: Image;
     video?: Video;
     category?: ExerciseCategory;
+    program_blocks?: ProgramBlock[];
+    filters?: any;
 };
 export type ExerciseCategory = {
     id: number;
@@ -100,6 +103,32 @@ export type Practice = {
     image?: Image;
     video?: Video;
     filters?: any;
+};
+export type Program = {
+    id: number;
+    title: string;
+    description: string;
+    body: string;
+    html: string;
+    duration: number;
+    complexity: number;
+    type: string;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
+    video?: Video;
+    filters?: any;
+    blocks?: ProgramBlock[];
+};
+export type ProgramBlock = {
+    id: number;
+    program_id: number;
+    title: string;
+    description: string;
+    created_at?: string;
+    updated_at?: string;
+    program?: Program;
+    exercises?: Exercise[];
 };
 export type Recipe = {
     id: number;
@@ -203,7 +232,8 @@ export enum CategoryType {
     EXERCISES = "exercises",
     AUDIOS = "audios",
     ARTICLES = "articles",
-    PRACTICES = "practices"
+    PRACTICES = "practices",
+    PROGRAMS = "programs"
 }
 export enum ContentType {
     FREE = "free",

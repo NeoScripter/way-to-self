@@ -30,11 +30,12 @@ class BodyExerciseController extends Controller
             ->paginate(16)
             ->withQueryString();
 
+
         $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::EXERCISES);
 
         return Inertia::render('account/exercises', [
-            'exercises' => $exercises,
-            'menuItems' => $menuItems
+            'exercises' => fn() => $exercises,
+            'menuItems' => fn() => $menuItems
         ]);
     }
 
@@ -54,7 +55,7 @@ class BodyExerciseController extends Controller
             'exercise' => $exercise,
             'video' => $exercise->video->srcVideo(),
             'isFavorite' => $isFavorite,
-            'labels' => ['Главная', 'Душа', 'Медитации']
+            'labels' => ['Главная', 'Тело', 'Упражнения']
         ]);
     }
 

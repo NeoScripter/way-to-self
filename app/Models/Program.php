@@ -29,6 +29,11 @@ class Program extends Model
         return $this->morphToMany(User::class, 'favorable', 'favorites');
     }
 
+    public function filters()
+    {
+        return $this->morphToMany(CategoryFilter::class, 'filterable');
+    }
+
     public function blocks(): HasMany
     {
         return $this->hasMany(ProgramBlock::class);

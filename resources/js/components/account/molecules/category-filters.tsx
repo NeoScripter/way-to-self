@@ -6,7 +6,6 @@ import { X } from 'lucide-react';
 
 function toggleTypeUrl(type: string, params: URLSearchParams) {
     const current: string[] = [];
-    console.log('toggle method')
 
     params.forEach((value, key) => {
         if (key.startsWith('types[')) {
@@ -42,7 +41,6 @@ function clearTypesUrl() {
 function dispatchSyncSearchEvent(url: string) {
     const match = /[?&]search=([^&]*)/.exec(url);
     const searchQuery = match ? decodeURIComponent(match[1]) : '';
-    console.log('Dispatch event method')
 
     const clearSearchEvent = new CustomEvent('syncSearch', {
         detail: searchQuery,

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(TierSeeder::class);
         $this->call(PracticeSeeder::class);
+        $this->call(ProgramSeeder::class);
         $this->call(RecipeCategoryFilterSeeder::class);
         $this->call(PracticeCategoryFilterSeeder::class);
         $this->call(AudioCategoryFilterSeeder::class);

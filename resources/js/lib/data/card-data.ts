@@ -216,7 +216,7 @@ export const accountBodyCards: AccountCard[] = [
         img: BodyCard4,
         tinyImg: TinyBodyCard4,
         alt: 'Женский торс в белой одежде, обмотанный измерительной лентой для измерения талии',
-        route: route('body.index'),
+        route: route('body.programs'),
     },
     {
         id: uuidv4(),

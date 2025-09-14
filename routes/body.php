@@ -3,6 +3,7 @@
 use App\Http\Controllers\Account\BodyArticleController;
 use App\Http\Controllers\Account\BodyController;
 use App\Http\Controllers\Account\BodyExerciseController;
+use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,10 @@ Route::middleware(['auth', 'tier.access:body'])->prefix('account/body')->name('b
     Route::post('/exercises/{id}/favorite', [BodyExerciseController::class, 'update'])
         ->name('exercises.favorite');
 
-    // Route::get('/practices', [SoulPracticeController::class, 'index'])->name('practices');
-    // Route::get('/practices/{practice}', [SoulPracticeController::class, 'show'])->name('practices.show');
-    // Route::post('/practices/{id}/favorite', [SoulPracticeController::class, 'update'])
-    //     ->name('practices.favorite');
+    Route::get('/practices', [BodyProgramController::class, 'index'])->name('programs');
+    Route::get('/programs/{program}', [BodyProgramController::class, 'show'])->name('programs.show');
+    Route::post('/programs/{id}/favorite', [BodyProgramController::class, 'update'])
+        ->name('programs.favorite');
 
     Route::get('/search', BodySearchController::class)->name('search');
 });

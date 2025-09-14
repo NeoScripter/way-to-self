@@ -34,8 +34,8 @@ class NutritionRecipeController extends Controller
         $menuItems = CategoryFilter::menuItemsForCategory(CategoryType::RECIPES);
 
         return Inertia::render('account/recipes', [
-            'recipes' => $recipes,
-            'menuItems' => $menuItems
+            'recipes' => fn() => $recipes,
+            'menuItems' => fn() => $menuItems
         ]);
     }
 
