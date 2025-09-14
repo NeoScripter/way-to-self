@@ -1,7 +1,7 @@
-programs/programs-2.webp
+programs/program-2.webp
 
 
-programs/programs-2-tiny.webp
+programs/program-2-tiny.webp
 
 
 Программа "Набор массы"

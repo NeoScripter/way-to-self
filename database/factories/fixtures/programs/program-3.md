@@ -1,7 +1,7 @@
-programs/programs-3.webp
+programs/program-3.webp
 
 
-programs/programs-3-tiny.webp
+programs/program-3-tiny.webp
 
 
 Программа "Детокс"

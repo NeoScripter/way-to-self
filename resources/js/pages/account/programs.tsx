@@ -1,11 +1,11 @@
 import DesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
 import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
-import TinyHeart from '@/assets/images/soul/mediation-heart-tiny.webp';
-import Heart from '@/assets/images/soul/mediation-heart.webp';
-import TinyLights from '@/assets/images/soul/mediation-lights-tiny.webp';
-import Lights from '@/assets/images/soul/mediation-lights.webp';
-import TinyCandle from '@/assets/images/soul/meditation-candle-tiny.webp';
-import Candle from '@/assets/images/soul/meditation-candle.webp';
+import Mat from '@/assets/images/body/account-body-mat.webp';
+import TinyMat from '@/assets/images/body/account-body-mat-tiny.webp';
+import Tape from '@/assets/images/body/account-body-tape.webp';
+import TinyTape from '@/assets/images/body/account-body-tape-tiny.webp';
+import Tumbler from '@/assets/images/body/account-body-cup.webp';
+import TinyTumbler from '@/assets/images/body/account-body-cup-tiny.webp';
 import SearchBox from '@/components/account/atoms/search-box';
 import CategoryFilters from '@/components/account/molecules/category-filters';
 import CategoryList from '@/components/account/molecules/category-list';
@@ -46,19 +46,19 @@ export default function Programs() {
             />
 
             <ArtLayer
-                img={Candle}
-                tinyImg={TinyCandle}
-                className="bottom-200 left-10 z-10 w-3/5 max-w-120 min-w-60 xl:bottom-300 2xl:bottom-350"
+                img={Mat}
+                tinyImg={TinyMat}
+                className="top-0 right-0 hidden w-1/2 md:block xl:w-180"
             />
             <ArtLayer
-                img={Heart}
-                tinyImg={TinyHeart}
-                className="top-20 right-0 hidden w-1/2 md:block md:w-100"
+                img={Tumbler}
+                tinyImg={TinyTumbler}
+                className="bottom-40 left-0 z-10 max-w-2/5 w-75 sm:w-100 min-w-30"
             />
             <ArtLayer
-                img={Lights}
-                tinyImg={TinyLights}
-                className="bottom-60 -left-5 w-3/5 max-w-172 sm:-left-13 md:w-2/5 xl:-left-10"
+                img={Tape}
+                tinyImg={TinyTape}
+                className="bottom-100 -left-5 w-3/5 max-w-122 sm:bottom-130 sm:-left-13 sm:max-w-150 xl:-left-10"
             />
 
             <Breadcrumbs

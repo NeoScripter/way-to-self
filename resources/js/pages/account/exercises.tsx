@@ -1,11 +1,13 @@
+import TinyDumbbells from '@/assets/images/body/account-body-dumbells-tiny.webp';
+import Dumbbells from '@/assets/images/body/account-body-dumbells.webp';
+import TinyRope from '@/assets/images/body/account-body-jumping-rope-tiny.webp';
+import Rope from '@/assets/images/body/account-body-jumping-rope.webp';
+import TinyLeaf from '@/assets/images/body/account-body-leaf-tiny.webp';
+import Leaf from '@/assets/images/body/account-body-leaf.webp';
+import TinyTape from '@/assets/images/body/account-body-tape-tiny.webp';
+import Tape from '@/assets/images/body/account-body-tape.webp';
 import DesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
 import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
-import TinyHeart from '@/assets/images/soul/mediation-heart-tiny.webp';
-import Heart from '@/assets/images/soul/mediation-heart.webp';
-import TinyLights from '@/assets/images/soul/mediation-lights-tiny.webp';
-import Lights from '@/assets/images/soul/mediation-lights.webp';
-import TinyCandle from '@/assets/images/soul/meditation-candle-tiny.webp';
-import Candle from '@/assets/images/soul/meditation-candle.webp';
 import SearchBox from '@/components/account/atoms/search-box';
 import CategoryFilters from '@/components/account/molecules/category-filters';
 import CategoryList from '@/components/account/molecules/category-list';
@@ -46,19 +48,24 @@ export default function Exercises() {
             />
 
             <ArtLayer
-                img={Candle}
-                tinyImg={TinyCandle}
-                className="bottom-200 left-10 z-10 w-3/5 max-w-120 min-w-60 xl:bottom-300 2xl:bottom-350"
+                img={Leaf}
+                tinyImg={TinyLeaf}
+                className="top-160 left-0 z-10 w-3/5 max-w-120 min-w-80 xl:top-200 xl:w-2/5 xl:max-w-160 2xl:top-250"
             />
             <ArtLayer
-                img={Heart}
-                tinyImg={TinyHeart}
-                className="top-20 right-0 hidden w-1/2 md:block md:w-100"
+                img={Dumbbells}
+                tinyImg={TinyDumbbells}
+                className="top-0 -right-10 hidden w-1/3 sm:block md:w-80 xl:top-10 2xl:w-100"
             />
             <ArtLayer
-                img={Lights}
-                tinyImg={TinyLights}
-                className="bottom-60 -left-5 w-3/5 max-w-172 sm:-left-13 md:w-2/5 xl:-left-10"
+                img={Rope}
+                tinyImg={TinyRope}
+                className="right-0 bottom-60 w-3/5 max-w-172 md:w-2/5"
+            />
+            <ArtLayer
+                img={Tape}
+                tinyImg={TinyTape}
+                className="bottom-100 -left-5 w-3/5 max-w-122 sm:bottom-130 sm:-left-13 sm:max-w-150 xl:-left-10"
             />
 
             <Breadcrumbs

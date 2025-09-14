@@ -1,7 +1,7 @@
-programs/programs-1.webp
+programs/program-1.webp
 
 
-programs/programs-1-tiny.webp
+programs/program-1-tiny.webp
 
 
 Программа "Похудение"
