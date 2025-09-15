@@ -30,8 +30,8 @@ export default function Article() {
                     className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
                 />
                 <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                </h1>
                     {article.title}
+                </h1>
 
                 {article.image && (
                     <LazyImage
