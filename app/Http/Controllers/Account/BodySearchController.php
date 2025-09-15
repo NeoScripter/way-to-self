@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Account;
 use App\Enums\ArticleType;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Exercise;
+use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Inertia\Inertia;
@@ -17,15 +19,15 @@ class BodySearchController extends Controller
             'search' => 'nullable|string',
         ])['search'] ?? null;
 
-        // $audios = Audio::select(['id', 'description', 'title'])
-        //     ->withSearch($search)
-        //     ->with('image')
-        //     ->get();
+        $exercises = Exercise::select(['id', 'description', 'title'])
+            ->withSearch($search)
+            ->with('image')
+            ->get();
 
-        // $practices = Practice::select(['id', 'description', 'title'])
-        //     ->withSearch($search)
-        //     ->with('image')
-        //     ->get();
+        $programs = Program::select(['id', 'description', 'title'])
+            ->withSearch($search)
+            ->with('image')
+            ->get();
 
         $articles = Article::select(['id', 'description', 'title'])
             ->withSearch($search)
@@ -33,16 +35,15 @@ class BodySearchController extends Controller
             ->with(['thumbnail'])
             ->get();
 
-        // $audios->each->setAttribute('itemType', 'audio');
-        // $practices->each->setAttribute('itemType', 'practice');
+        $exercises->each->setAttribute('itemType', 'exercise');
+        $programs->each->setAttribute('itemType', 'program');
         $articles->each(function ($article) {
             $article->setRelation('image', $article->thumbnail);
             $article->unsetRelation('thumbnail');
             $article->setAttribute('itemType', 'soul.article');
         });
 
-        // $items = $audios->merge($articles)->merge($practices)->shuffle();
-        $items = $articles;
+        $items = $exercises->merge($articles)->merge($programs)->shuffle();
 
         $page = (int) request('page', 1);
         $perPage = 16;

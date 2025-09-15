@@ -34,7 +34,7 @@ export default function Breadcrumbs({
     return (
         <nav
             aria-label="Breadcrumb"
-            className={cn('mx-auto w-fit', className)}
+            className={cn('mx-auto w-fit relative z-10', className)}
         >
             <ol className="flex items-center text-text-black gap-2 text-xs sm:text-sm md:text-lg lg:text-xl">
                 {items.map((item, i) => {

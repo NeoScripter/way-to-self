@@ -12,6 +12,8 @@ class ProgramBlock extends Model
     /** @use HasFactory<\Database\Factories\ProgramBlockFactory> */
     use HasFactory;
 
+    protected $with = ['exercises'];
+
     public function program(): BelongsTo
     {
         return $this->belongsTo(Program::class);

@@ -20,7 +20,7 @@ Route::middleware(['auth', 'tier.access:body'])->prefix('account/body')->name('b
     Route::post('/exercises/{id}/favorite', [BodyExerciseController::class, 'update'])
         ->name('exercises.favorite');
 
-    Route::get('/practices', [BodyProgramController::class, 'index'])->name('programs');
+    Route::get('/programs', [BodyProgramController::class, 'index'])->name('programs');
     Route::get('/programs/{program}', [BodyProgramController::class, 'show'])->name('programs.show');
     Route::post('/programs/{id}/favorite', [BodyProgramController::class, 'update'])
         ->name('programs.favorite');

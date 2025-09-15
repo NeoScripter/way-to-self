@@ -42,7 +42,7 @@ class BodyProgramController extends Controller
     {
         $user = Auth::user();
 
-        $program->load(['image'])
+        $program->load(['image', 'blocks.exercises.image'])
             ->makeHidden(['video_path']);
 
         $isFavorite = $program

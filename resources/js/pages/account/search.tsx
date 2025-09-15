@@ -105,6 +105,12 @@ function SearchItem({ item }: SearchItemProps) {
         case 'practice':
             ((label = 'духовные практики'), (routeName = 'soul.practices.show'));
             break;
+        case 'program':
+            ((label = 'программы'), (routeName = 'body.programs.show'));
+            break;
+        case 'exercise':
+            ((label = 'упражнения'), (routeName = 'body.exercises.show'));
+            break;
     }
     return (
         <li className="">
