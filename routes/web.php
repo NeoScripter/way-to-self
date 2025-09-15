@@ -4,6 +4,7 @@ use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BotController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
 use App\Http\Controllers\User\HomeController;
@@ -17,6 +18,8 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/shop', function () {
     abort(503);
 })->name('shop');
+
+Route::post('/telegram/webhook', [BotController::class, 'handle']);
 
 Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
 Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('cart.tiers.update');
