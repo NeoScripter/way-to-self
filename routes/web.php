@@ -30,6 +30,8 @@ Route::name('user.')->group(function () {
     Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
     Route::get('/recipes/{recipe}', [RecipeController::class, 'show'])->name('recipes.show');
     Route::get('/exercise/{exercise}', [ExerciseController::class, 'show'])->name('exercises.show');
+    Route::post('/articles/{id}/favorite', [ArticleController::class, 'update'])
+        ->name('articles.favorite');
 });
 
 Route::get('/audio/{audio}/stream', [StreamAudioController::class, 'stream'])

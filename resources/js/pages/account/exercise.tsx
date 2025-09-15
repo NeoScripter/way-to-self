@@ -1,5 +1,6 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
+import LikeBtn from '@/components/shared/atoms/like-btn';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
@@ -9,10 +10,11 @@ import { usePage } from '@inertiajs/react';
 import { Dumbbell } from 'lucide-react';
 
 export default function Exercise() {
-    const { exercise, video, labels } = usePage<{
+    const { exercise, video, labels, isFavorite } = usePage<{
         exercise: ExerciseType;
         video: string;
         labels: string[];
+        isFavorite: boolean;
     }>().props;
 
     return (
@@ -24,12 +26,17 @@ export default function Exercise() {
         >
             <article className="mx-auto max-w-330">
                 <Breadcrumbs
-                    className="my-7 sm:my-11 md:my-15 xl:my-18"
+                    className="mt-7 sm:mt-11 md:mt-15 xl:mt-18"
                     itemName={`Упражнение №${exercise.id}`}
                     labels={labels}
                 />
 
-                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:mt-24 xl:text-6xl">
+                <LikeBtn
+                    isLiked={isFavorite}
+                    route={route('body.exercises.favorite', exercise.id)}
+                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
+                />
+                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
                     {exercise.title}
                 </h1>
 

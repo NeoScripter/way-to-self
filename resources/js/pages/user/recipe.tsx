@@ -1,5 +1,6 @@
 import DishSvg from '@/assets/svgs/dish-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
+import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
 import VideoPlayer from '@/components/user/molecules/video-player';
@@ -13,8 +14,11 @@ import { ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Recipe() {
-    const { recipe, video } = usePage<{ recipe: RecipeType; video: string }>()
-        .props;
+    const { recipe, video, isFavorite } = usePage<{
+        recipe: RecipeType;
+        video: string;
+        isFavorite: boolean | null;
+    }>().props;
 
     const [zoomedImg, setZoomedImg] = useState<Image | null>(null);
 
@@ -26,7 +30,20 @@ export default function Recipe() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:mt-24 xl:text-6xl">
+                {isFavorite !== null && (
+                    <LikeBtn
+                        isLiked={isFavorite}
+                        route={route('nutrition.recipes.favorite', recipe.id)}
+                        className="mx-auto my-2 w-fit cursor-pointer md:my-8 lg:my-10"
+                    />
+                )}
+
+                <h1
+                    className={cn(
+                        'text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl',
+                        isFavorite === null && 'mt-10 md:mt-20 xl:mt-30',
+                    )}
+                >
                     {recipe.title}
                 </h1>
 

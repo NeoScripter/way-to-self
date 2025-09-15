@@ -1,5 +1,6 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
+import LikeBtn from '@/components/shared/atoms/like-btn';
 import ContentCard from '@/components/user/atoms/content-card';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
@@ -9,10 +10,11 @@ import { AcademicCapIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 
 export default function Program() {
-    const { program, video, labels } = usePage<{
+    const { program, video, labels, isFavorite } = usePage<{
         program: ProgramType;
         video: string;
         labels: string[];
+        isFavorite: boolean;
     }>().props;
 
     return (
@@ -24,12 +26,18 @@ export default function Program() {
         >
             <article className="mx-auto max-w-330 pb-33 md:pb-37 xl:pb-53">
                 <Breadcrumbs
-                    className="my-7 sm:my-11 md:my-15 xl:my-18"
+                    className="mt-7 sm:mt-11 md:mt-15 xl:mt-18"
                     itemName={`Программа №${program.id}`}
                     labels={labels}
                 />
 
-                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:mt-24 xl:text-6xl">
+                <LikeBtn
+                    isLiked={isFavorite}
+                    route={route('body.programs.favorite', program.id)}
+                    className="mx-auto mb-2 md:mb-8 lg:mb-10 w-fit cursor-pointer"
+                />
+
+                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
                     {program.title}
                 </h1>
 
@@ -77,31 +85,34 @@ function Block({ block }: BlockProps) {
             </p>
 
             <ul className="grid w-full shrink-0 gap-6 sm:grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] xl:grid-cols-3">
-                {block.exercises && block.exercises.map((item) => (
-                    <ContentCard
-                        key={item.id}
-                        type="exercises"
-                        className="mx-auto w-full max-w-80"
-                        data={{
-                            href: route('body.exercises.show', item.id),
-                            name: item.title,
-                            img: item.image?.path,
-                            tinyImg: item.image?.tiny_path,
-                            alt: item.image?.alt,
-                            description: item.description,
-                            duration:
-                                'duration' in item ? item.duration : undefined,
-                            complexity:
-                                'complexity' in item
-                                    ? item.complexity
-                                    : undefined,
-                            category:
-                                'category' in item
-                                    ? item.category?.name
-                                    : undefined,
-                        }}
-                    />
-                ))}
+                {block.exercises &&
+                    block.exercises.map((item) => (
+                        <ContentCard
+                            key={item.id}
+                            type="exercises"
+                            className="mx-auto w-full max-w-80"
+                            data={{
+                                href: route('body.exercises.show', item.id),
+                                name: item.title,
+                                img: item.image?.path,
+                                tinyImg: item.image?.tiny_path,
+                                alt: item.image?.alt,
+                                description: item.description,
+                                duration:
+                                    'duration' in item
+                                        ? item.duration
+                                        : undefined,
+                                complexity:
+                                    'complexity' in item
+                                        ? item.complexity
+                                        : undefined,
+                                category:
+                                    'category' in item
+                                        ? item.category?.name
+                                        : undefined,
+                            }}
+                        />
+                    ))}
             </ul>
         </section>
     );

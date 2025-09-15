@@ -21,19 +21,19 @@ export default function Practice() {
         >
             <article className="relative mx-auto max-w-330">
                 <Breadcrumbs
-                    className="my-7 sm:my-11 md:my-15 xl:my-18"
+                    className="mt-7 sm:mt-11 md:mt-15 xl:mt-18"
                     itemName={`Практика №${practice.id}`}
                     labels={labels}
                 />
-                <h1 className="text-center lg:mb-18 font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl">
-                    {practice.title}
-                </h1>
 
                 <LikeBtn
-                    className="mx-auto mt-4 md:mt-8 lg:absolute lg:top-0 lg:right-0 lg:mt-0"
+                    isLiked={isFavorite}
                     route={route('soul.practices.favorite', practice.id)}
-                    isFavorite={isFavorite}
+                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
                 />
+                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
+                    {practice.title}
+                </h1>
 
                 {video && (
                     <VideoPlayer

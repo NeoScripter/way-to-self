@@ -89,7 +89,7 @@ function getHref(item: Favorite) {
         case 'news.articles':
             return route('user.articles.show', item);
         case 'exercises':
-            return route('user.exercises.show', item);
+            return route('body.exercises.show', item);
         case 'audio':
             return route('soul.audios.show', item);
         case 'recipes':

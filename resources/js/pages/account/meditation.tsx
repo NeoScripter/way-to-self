@@ -20,24 +20,23 @@ export default function Meditation() {
         >
             <article className="relative mx-auto max-w-330">
                 <Breadcrumbs
-                    className="my-7 sm:my-11 md:my-15 xl:my-18"
+                    className="mt-7 sm:mt-11 md:mt-15 xl:mt-18"
                     itemName={`Медитация №${audio.id}`}
                     labels={labels}
                 />
-                <h1 className="text-center lg:mb-18 font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl">
+                <LikeBtn
+                    isLiked={isFavorite}
+                    route={route('soul.audios.favorite', audio.id)}
+                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
+                />
+                <h1 className="text-center xl:mb-14 font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
                     {audio.title}
                 </h1>
-
-                <LikeBtn
-                    className="mx-auto mt-4 md:mt-8 lg:absolute lg:top-0 lg:right-0 lg:mt-0"
-                    route={route('soul.audios.favorite', audio.id)}
-                    isFavorite={isFavorite}
-                />
 
                 {audio && (
                     <AudioPlayer
                         showTitle={false}
-                        className="relative z-11 my-6 sm:mt-40 mb-10 sm:mb-15 lg:mb-20 bg-card-backdrop-gray"
+                        className="relative z-11 my-6 mb-10 bg-card-backdrop-gray sm:mt-40 sm:mb-15 lg:mb-20"
                     />
                 )}
 

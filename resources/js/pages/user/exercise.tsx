@@ -1,16 +1,19 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
+import LikeBtn from '@/components/shared/atoms/like-btn';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
+import { cn } from '@/lib/utils';
 import { Exercise as ExerciseType } from '@/types/model';
 import { AcademicCapIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 import { Dumbbell } from 'lucide-react';
 
 export default function Exercise() {
-    const { exercise, video } = usePage<{
+    const { exercise, video, isFavorite } = usePage<{
         exercise: ExerciseType;
         video: string;
+        isFavorite: boolean | null;
     }>().props;
 
     return (
@@ -21,7 +24,20 @@ export default function Exercise() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                <h1 className="mt-10 text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:mt-20 md:text-5xl xl:mt-24 xl:text-6xl">
+                {isFavorite !== null && (
+                    <LikeBtn
+                        isLiked={isFavorite}
+                        route={route('body.exercises.favorite', exercise.id)}
+                        className="mx-auto my-2 w-fit cursor-pointer md:my-8 lg:my-10"
+                    />
+                )}
+
+                <h1
+                    className={cn(
+                        'text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl',
+                        isFavorite === null && 'mt-10 md:mt-20 xl:mt-30',
+                    )}
+                >
                     {exercise.title}
                 </h1>
 
