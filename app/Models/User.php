@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RoleEnum;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -108,6 +109,18 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function setTelegramAttribute(?string $value): void
+    {
+        $this->attributes['telegram'] = $value
+            ? Str::lower(ltrim($value, '@'))
+            : null;
+    }
+
+    public function getTelegramAttribute(?string $value): ?string
+    {
+        return $value ? '@' . $value : null;
     }
 
     protected static function booted(): void

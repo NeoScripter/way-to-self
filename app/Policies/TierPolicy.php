@@ -12,6 +12,8 @@ class TierPolicy
      */
     public function access(User $user, string $tierRoute): bool
     {
-        return $user->hasTier($tierRoute);
+        $tier = $user->tiers()->where('route', $tierRoute)->first();
+
+        return $tier && $tier->pivot->expires_at->isFuture();
     }
 }

@@ -33,6 +33,12 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        $request->merge([
+            'telegram' => $request->telegram
+                ? ltrim($request->telegram, '@')
+                : null,
+        ]);
+
         $request->validate([
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',

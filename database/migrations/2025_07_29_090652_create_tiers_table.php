@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('tiers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('route');
+            $table->string('route')->unique();
+            $table->bigInteger('telegram_chat_id')->unique();
+            $table->text('tg_greet');
+            $table->text('tg_greet_html')->nullable();
             $table->text('description');
             $table->unsignedInteger('price');
             $table->timestamps();

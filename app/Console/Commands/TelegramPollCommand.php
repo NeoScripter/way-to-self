@@ -33,17 +33,23 @@ class TelegramPollCommand extends Command
         $this->info("Starting Telegram polling... Press Ctrl+C to stop.");
 
         while (true) {
-            $updates = Telegram::getUpdates([
-                'offset' => $offset,
-                'timeout' => 10,
-            ]);
+            try {
+                $updates = Telegram::getUpdates([
+                    'offset' => $offset,
+                    'timeout' => 5,
+                ]);
 
-            foreach ($updates as $update) {
-                $botService->handleUpdate($update);
-                $offset = $update->getUpdateId() + 1;
+                foreach ($updates as $update) {
+                    $botService->handleUpdate($update);
+                    $offset = $update->getUpdateId() + 1;
+                }
+
+                usleep(400000);
+            } catch (\GuzzleHttp\Exception\ConnectException $e) {
+                $this->error("Connection error: " . $e->getMessage());
+                sleep(2);
+                continue;
             }
-
-            usleep(500000); // 0.5s pause between polls
         }
     }
 }
