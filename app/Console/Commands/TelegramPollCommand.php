@@ -36,7 +36,7 @@ class TelegramPollCommand extends Command
             try {
                 $updates = Telegram::getUpdates([
                     'offset' => $offset,
-                    'timeout' => 5,
+                    'timeout' => 10,
                 ]);
 
                 foreach ($updates as $update) {

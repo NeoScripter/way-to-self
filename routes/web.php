@@ -19,7 +19,7 @@ Route::get('/shop', function () {
     abort(503);
 })->name('shop');
 
-Route::post('/telegram/webhook', [BotController::class, 'handle']);
+Route::post('/telegram/webhook', [BotController::class, 'webhook']);
 
 Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
 Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('cart.tiers.update');

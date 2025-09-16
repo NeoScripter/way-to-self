@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Support\TelegramText;
 use Carbon\Carbon;
 use Telegram\Bot\Api;
+use Illuminate\Support\Str;
+
 
 class BotService
 {
@@ -17,9 +19,6 @@ class BotService
         $this->telegram = $telegram;
     }
 
-    /**
-     * Handle incoming update
-     */
     public function handleUpdate($update)
     {
         if ($update->has('message') && $update->getMessage()->has('new_chat_members')) {
@@ -29,31 +28,82 @@ class BotService
         }
     }
 
-    /**
-     * Handle normal messages
-     */
     protected function handleMessage($message)
     {
-        $chatId = $message->getChat()->getId();
-        $text   = $message->getText();
+        $chatId  = $message->getChat()->getId();
+        $text    = $message->getText();
+        $from    = $message->getFrom();
+        $userId  = $from->getId();
+        $username = $from->getUsername();
 
-        // $from = $message->getFrom();
-        // $username = $from ? $from->getUsername() : null;
+        $user = $this->ensureUserIsValid($chatId, $userId, $username);
+        if (! $user) {
+            return;
+        }
+
+        // Message filtering logic
+        $forbidden = ['fox', 'box', 'brown', 'pet'];
+
+        // Build one regex
+        $pattern = '/(?<!\p{L})(?:' . implode('|', array_map('preg_quote', $forbidden)) . ')(?!\p{L})/iu';
+
+        if (preg_match($pattern, $text)) {
+            $text = 'Ваш текст содержит запрещенные слова';
+        }
         $this->telegram->sendMessage([
             'chat_id' => $chatId,
             'text'    => "Вы написали: {$text}",
         ]);
     }
 
-    protected function isUserSubscribed(User $user, ?Tier $tier): bool
+    protected function handleNewMembers($message)
     {
-        return $tier && Carbon::parse($tier->pivot->expires_at)->isFuture();
+        $chatId     = $message->getChat()->getId();
+        $newMembers = $message->getNewChatMembers();
+
+        foreach ($newMembers as $member) {
+            $user = $this->ensureUserIsValid(
+                $chatId,
+                $member->getId(),
+                $member->getUsername()
+            );
+
+            if (! $user) {
+                continue;
+            }
+
+            $tier = $user->tiers()->where('telegram_chat_id', $chatId)->first();
+            $greeting = TelegramText::sanitizeForMarkdown($tier->tg_greet_html);
+            $fullName = $user->name . ' ' . $user->surname;
+
+            $this->telegram->sendMessage([
+                'chat_id'    => $chatId,
+                'text'       => $fullName . $greeting,
+                'parse_mode' => 'MarkdownV2',
+            ]);
+        }
     }
 
-    protected function isUserSigned(string $username): bool
+    protected function ensureUserIsValid(int $chatId, int $userId, ?string $username): ?User
     {
-        return User::where('telegram', strtolower($username))
-            ->exists();
+        if (! $username) {
+            $this->kickUser($chatId, $userId);
+            return null;
+        }
+
+        $user = User::where('telegram', strtolower($username))->first();
+        if (! $user) {
+            $this->kickUser($chatId, $userId);
+            return null;
+        }
+
+        $tier = $user->tiers()->where('telegram_chat_id', $chatId)->first();
+        if (! $this->isUserSubscribed($user, $tier)) {
+            $this->kickUser($chatId, $userId);
+            return null;
+        }
+
+        return $user;
     }
 
     protected function kickUser(int $chatId, int $userId)
@@ -67,42 +117,5 @@ class BotService
             'user_id' => $userId,
             'banned_until_date' => now()->addSeconds(10)->timestamp,
         ]);
-    }
-
-    /**
-     * Handle new members joining
-     */
-    protected function handleNewMembers($message)
-    {
-        $chatId = $message->getChat()->getId();
-        $newMembers = $message->getNewChatMembers();
-
-        foreach ($newMembers as $member) {
-            $username = $member->getUsername();
-
-            if (! $this->isUserSigned($username)) {
-                $this->kickUser($chatId, $member->getId());
-                continue;
-            }
-
-            $user = User::where('telegram', strtolower($username))->first();
-            $tier = $user->tiers()->where('telegram_chat_id', $chatId)->first();
-
-            if (! $this->isUserSubscribed($user, $tier)) {
-                $this->kickUser($chatId, $member->getId());
-                continue;
-            }
-
-            $greeting = TelegramText::sanitizeForMarkdown(($tier->tg_greet_html));
-
-            $user = User::where('telegram', strtolower($username))->first();
-            $fullName = $user->name . ' ' . $user->surname;
-
-            $this->telegram->sendMessage([
-                'chat_id' => $chatId,
-                'text'    => $fullName . $greeting,
-                'parse_mode' => 'MarkdownV2',
-            ]);
-        }
     }
 }
