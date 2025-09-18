@@ -15,6 +15,7 @@ use App\Models\Tier;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use AhoCorasick\MultiStringMatcher;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(MultiStringMatcher::class, function ($app) {
+            $words = config('profanity.words');
+            return new MultiStringMatcher($words);
+        });
     }
 
     /**

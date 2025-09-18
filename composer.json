@@ -17,7 +17,8 @@
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "moneyphp/money": "^4.7",
-        "tightenco/ziggy": "^2.4"
+        "tightenco/ziggy": "^2.4",
+        "wikimedia/aho-corasick": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "*",
