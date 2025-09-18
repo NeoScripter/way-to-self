@@ -28,7 +28,7 @@ class AccountController extends Controller
             ->tiers()
             ->get(['tiers.id', 'tier_user.expires_at'])
             ->map(function ($tier) {
-                $expires = Carbon::parse($tier->pivot->expries_at);
+                $expires = Carbon::parse($tier->pivot->expires_at);
                 return [
                     'id' => $tier->id,
                     'expires' => $expires->format('d-m-Y'),

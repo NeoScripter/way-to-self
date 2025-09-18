@@ -27,10 +27,9 @@ class TierCart extends Model
     public static function getCart(): TierCart
     {
         if (Auth::check()) {
-            return Auth::user()
-                ->cart()
-                ->with('tiers')
-                ->firstOrCreate();
+            return Auth::user()->cart()->with('tiers')->firstOrCreate([
+                'user_id' => Auth::id(),
+            ]);
         }
 
         return static::with('tiers')->firstOrCreate([
@@ -57,14 +56,19 @@ class TierCart extends Model
     public function assignTiers(User $user): void
     {
         $this->tiers()->each(function ($tier) use ($user) {
-            $existing = $user->tiers()->find($tier->id);
+            $current = $user->tiers()->find($tier->id);
 
-            $newExpires = $existing && $existing->pivot->expires_at->isFuture()
-                ? $existing->pivot->expires_at->copy()->addYear()
-                : now()->addYear();
+            if (! $current) {
+                $expires = now()->addYear();
+            } else {
+                $end = Carbon::parse($current->pivot->expires_at);
+                $expires = $end->isFuture()
+                    ? $end->addYear()
+                    : now()->addYear();
+            }
 
             $user->tiers()->syncWithoutDetaching([
-                $tier->id => ['expires_at' => $newExpires],
+                $tier->id => ['expires_at' => $expires],
             ]);
         });
     }

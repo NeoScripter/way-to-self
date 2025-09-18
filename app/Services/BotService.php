@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Telegram\Bot\Api;
 use Illuminate\Support\Str;
 use AhoCorasick\MultiStringMatcher;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BotService
@@ -66,8 +67,8 @@ class BotService
 
     protected function handleUserWarning(User $user, int $chatId, int $userId)
     {
-        $currentCount = $user->warning_count;
-
+        $tier = $user->tiers()->where('telegram_chat_id', $chatId)->first();
+        $currentCount = $tier->pivot->warning_count;
         if ($currentCount >= 5) {
             $this->telegram->sendMessage([
                 'chat_id' => $chatId,
@@ -99,7 +100,10 @@ class BotService
                 'parse_mode' => 'MarkdownV2',
             ]);
         }
-        $user->increment('warning_count');
+        DB::table('tier_user')
+            ->where('user_id', $user->id)
+            ->where('tier_id', $tier->id)
+            ->increment('warning_count');
     }
 
     protected function handleNewMembers($message)

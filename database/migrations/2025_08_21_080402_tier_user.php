@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tier_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('warning_count')->default(0);
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
             $table->unique(['user_id', 'tier_id']);
