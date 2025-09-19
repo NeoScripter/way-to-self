@@ -7,6 +7,7 @@ import notify from '@/components/user/atoms/notify';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import TierSignUp from '@/components/user/molecules/tier-sign-up';
 import CheckoutDisplay from '@/components/user/organisms/checkout-display';
+import useToggle from '@/hooks/use-toggle';
 import AppLayout from '@/layouts/user/app-layout';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
@@ -160,7 +161,11 @@ type TierCardProps = {
 };
 
 function TierCard({ tier, className, selected }: TierCardProps) {
+    const [inCart, toggleInCart] = useToggle(selected);
+
     function onChange() {
+        toggleInCart();
+
         router.visit(`/tier-cart/${tier.id}`, {
             method: 'post',
             preserveScroll: true,
@@ -174,7 +179,7 @@ function TierCard({ tier, className, selected }: TierCardProps) {
             className={cn(
                 'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 backdrop-blur-sm transition duration-500 ease-in sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 md:px-8 xl:max-w-243 xl:px-10',
                 className,
-                !selected && 'grayscale',
+                !inCart && 'grayscale',
             )}
         >
             <Checkbox

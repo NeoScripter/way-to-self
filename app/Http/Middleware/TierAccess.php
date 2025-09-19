@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\RoleEnum;
+use App\Support\UserRoles;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +21,9 @@ class TierAccess
 
         if (!$user) {
             return redirect()->route('login');
+        }
+        if (UserRoles::isAdmin() || UserRoles::isEditor()) {
+            return $next($request);
         }
 
         if (!$user->hasTier($tierRoute)) {

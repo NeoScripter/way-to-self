@@ -49,11 +49,10 @@ Route::get('/dev-login', [AuthenticatedSessionController::class, 'dev'])->name('
 Route::middleware(['auth'])->group(function () {
     Route::get('account', [AccountController::class, 'index'])->name('account');
 
-    Route::name('account.')->group(function () {
+    Route::name('account.')->middleware('role:user')->group(function () {
         Route::get('account/profile', [ProfileController::class, 'index'])->name('edit');
     });
 });
-
 
 // Route::get('/preview-payment', function () {
 //     return Inertia::render('user/payment', [
@@ -82,5 +81,6 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__ . '/body.php';
 require __DIR__ . '/soul.php';
 require __DIR__ . '/nutrition.php';
+require __DIR__ . '/admin.php';
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

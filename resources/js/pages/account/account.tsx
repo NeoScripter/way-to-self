@@ -32,6 +32,10 @@ export default function Account() {
         purchased: PurchaseType[];
     }>().props;
 
+    const isAdmin =
+        auth.roles.includes('admin') ||
+        auth.roles.includes('editor');
+
     const [showMenu, toggleMenu] = useToggle(false);
 
     return (
@@ -81,6 +85,7 @@ export default function Account() {
                                 purchased={purchased.find(
                                     (t) => t.id === tier.id,
                                 )}
+                                isAdmin={isAdmin}
                                 className={cn(
                                     idx === 0 &&
                                         'account-card-b pt-28 xl:flex-col xl:text-center',
@@ -130,7 +135,7 @@ export default function Account() {
                 <CategoryFilters
                     key="mobile-category-filters"
                     items={menuItems}
-                    propName='favorites'
+                    propName="favorites"
                     onClose={() => toggleMenu(false)}
                     className="rounded-l-none bg-light-swamp/80 text-white"
                 />
@@ -143,28 +148,37 @@ type TierCardProps = {
     tier: Tier;
     className?: string;
     purchased: PurchaseType | undefined;
+    isAdmin?: boolean;
 };
 
-function TierCard({ tier, className, purchased }: TierCardProps) {
+function TierCard({
+    isAdmin = false,
+    tier,
+    className,
+    purchased,
+}: TierCardProps) {
+
+    const hasAccess = purchased != null || isAdmin;
+
     return (
         <li
             className={cn(
                 'relative max-w-85 rounded-[3rem] border-2 border-white/20 bg-card-backdrop-gray/50 px-9 pt-22 pb-8 text-center backdrop-blur-sm sm:flex sm:max-w-182 sm:items-center sm:gap-4 sm:px-6 sm:py-11 sm:text-left md:px-8 xl:max-w-full xl:px-10',
                 className,
-                !purchased && 'grayscale-75',
+                !hasAccess && 'grayscale-75',
             )}
         >
             <Link
                 href={
-                    !purchased
-                        ? route('tiers.index')
-                        : route(tier.route + '.index')
+                    hasAccess
+                        ? route(tier.route + '.index')
+                        : route('tiers.index')
                 }
                 as="button"
                 className="absolute inset-0 z-10 cursor-pointer"
             ></Link>
 
-            {!purchased && (
+            {!hasAccess && (
                 <div
                     aria-hidden="true"
                     className="absolute -top-8 right-1 z-20 block size-25 sm:-top-6 sm:right-3"

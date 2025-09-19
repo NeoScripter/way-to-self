@@ -2,8 +2,10 @@
 
 namespace App\Policies;
 
+use App\Enums\RoleEnum;
 use App\Models\Tier;
 use App\Models\User;
+use App\Support\UserRoles;
 
 class TierPolicy
 {

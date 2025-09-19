@@ -7,8 +7,8 @@ namespace App\Models;
 use App\Enums\RoleEnum;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, SoftDeletes, Prunable;
+    use HasFactory, Notifiable, SoftDeletes, MassPrunable;
 
     /**
      * The attributes that are mass assignable.
@@ -130,7 +130,7 @@ class User extends Authenticatable
         static::created(function ($user) {
             $role = Role::where('name', RoleEnum::USER->value)->first();
 
-            if ($role) {
+            if ($role && $user->roles()->doesntExist()) {
                 $user->roles()->attach($role->id);
             }
         });
@@ -141,6 +141,9 @@ class User extends Authenticatable
         return static::leftJoin('tier_user', 'users.id', '=', 'tier_user.user_id')
             ->select('users.*', DB::raw('MAX(tier_user.expires_at) as max_expires_at'))
             ->groupBy('users.id')
-            ->havingRaw('max_expires_at IS NULL OR max_expires_at < ?', [now()->subWeeks(2)]);
+            ->havingRaw(
+                '(max_expires_at IS NULL AND users.created_at < ?) OR max_expires_at < ?',
+                [now()->subWeeks(2), now()->subWeeks(2)]
+            );
     }
 }

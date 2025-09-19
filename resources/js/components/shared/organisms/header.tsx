@@ -6,13 +6,13 @@ import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import RedBtn from '@/components/user/atoms/red-btn';
 import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
-import { User } from '@/types';
+import { Auth } from '@/types';
 import {
     ArrowRightStartOnRectangleIcon,
     Cog6ToothIcon,
     UserIcon,
 } from '@heroicons/react/24/solid';
-import { Link, router, usePage, usePrefetch } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { Search, XIcon } from 'lucide-react';
 
 type HeaderProps = {
@@ -138,9 +138,7 @@ type HeaderMenuProps = {
 
 function HeaderMenu({ variant }: HeaderMenuProps) {
     const { url, props } = usePage<{
-        auth: {
-            user: User | null;
-        };
+        auth: Auth;
     }>();
 
     let prefix = 'nutrition';
@@ -151,9 +149,10 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
         prefix = 'body';
     }
 
-    const { flush } = usePrefetch();
-
     const user = props.auth.user;
+    const isAdmin =
+        props.auth.roles.includes('admin') ||
+        props.auth.roles.includes('editor');
 
     function handleScrollDown() {
         close();
@@ -345,7 +344,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
 
         return (
             <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-xl md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
-                <NavLink>
+                {!isAdmin && <NavLink>
                     <Link
                         href={route('account.edit')}
                         as="button"
@@ -355,7 +354,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
                         <Cog6ToothIcon className="hidden size-6.5 md:block" />
                         Настройки
                     </Link>
-                </NavLink>
+                </NavLink>}
 
                 <NavLink>
                     <Link

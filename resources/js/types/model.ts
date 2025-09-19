@@ -193,6 +193,9 @@ export type Tier = {
     id: number;
     name: string;
     route: string;
+    telegram_chat_id: number;
+    tg_greet: string;
+    tg_greet_html?: string;
     description: string;
     price: number;
     created_at?: string;

@@ -55,56 +55,49 @@ class AccountController extends Controller
 
     public function favorites(Request $request)
     {
-        $user = Auth::user();
+        $user = $request->user();
 
-        $types = $request->validate([
+        $validated = $request->validate([
             'types'   => 'nullable|array',
-            'types.*' => 'in:articles,exercises,audio,recipes,practices',
-        ])['types'] ?? null;
+            'types.*' => 'in:articles,exercises,audio,recipes,practices,programs',
+        ]);
 
         $map = [
             'articles'  => [Article::class,  ['articles.id', 'title', 'type', 'description']],
             'exercises' => [Exercise::class, ['exercises.id', 'title', 'duration', 'complexity', 'type', 'description']],
-            'programs' => [Program::class, ['programs.id', 'title', 'duration', 'complexity', 'type', 'description']],
+            'programs'  => [Program::class,  ['programs.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'complexity', 'type', 'description']],
-            'articles'  => [Practice::class,  ['practices.id', 'title', 'rating', 'duration', 'type', 'description']],
+            'practices' => [Practice::class, ['practices.id', 'title', 'rating', 'duration', 'type', 'description']],
         ];
 
-        $favorites = collect();
+        $selectedTypes = $validated['types'] ?? array_keys($map);
 
-        $selectedTypes = $types ?: array_keys($map);
+        $favorites = collect($selectedTypes)
+            ->filter(fn($type) => isset($map[$type]))
+            ->flatMap(function ($type) use ($user, $map) {
+                [$class, $columns] = $map[$type];
 
-        foreach ($selectedTypes as $type) {
-            if (! isset($map[$type])) {
-                continue;
-            }
-
-            [$class, $columns] = $map[$type];
-            $favorites = $favorites->merge(
-                User::favoriteRelation($user, $class, $columns)
+                return User::favoriteRelation($user, $class, $columns)
                     ->get()
                     ->map(function ($item) use ($type) {
-                        if ($type === 'articles') {
-                            $item->favorite_type = $item->type->value . '.' . $type;
-                        } else {
-                            $item->favorite_type = $type;
-                        }
-                        return $item;
-                    })
-            );
-        }
+                        $item->favorite_type = $type === 'articles'
+                            ? $item->type->value . '.' . $type
+                            : $type;
 
-        $page = request('page', 1);
-        $perPage = 6;
-        $offset = ($page - 1) * $perPage;
+                        return $item;
+                    });
+            });
 
         return new LengthAwarePaginator(
-            $favorites->slice($offset, $perPage)->values(),
+            $favorites->forPage(request('page', 1), 6)->values(),
             $favorites->count(),
-            $perPage,
-            $page,
-            ['path' => request()->url(), 'query' => request()->query()]
+            6,
+            request('page', 1),
+            [
+                'path'  => $request->url(),
+                'query' => $request->query(),
+            ]
         );
     }
 }
