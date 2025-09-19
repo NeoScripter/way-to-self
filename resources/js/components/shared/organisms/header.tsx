@@ -267,7 +267,7 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
                     className={cn(
                         'flex items-center gap-2 text-xl md:text-sm xl:text-base',
                     )}
-                    href={route('account')}
+                    href={isAdmin ? route('admin.dashboard') : route('account')}
                 >
                     <UserIcon className="size-4 shrink-0" />
                     {`${user.name}`}
@@ -344,17 +344,19 @@ function HeaderMenu({ variant }: HeaderMenuProps) {
 
         return (
             <div className="mt-15 mb-50 shrink-0 space-y-15 text-center text-xl md:my-0 md:flex md:items-center md:gap-7 md:space-y-0 md:text-sm lg:gap-10 xl:text-base">
-                {!isAdmin && <NavLink>
-                    <Link
-                        href={route('account.edit')}
-                        as="button"
-                        prefetch
-                        className="mx-auto flex cursor-pointer items-center gap-2"
-                    >
-                        <Cog6ToothIcon className="hidden size-6.5 md:block" />
-                        Настройки
-                    </Link>
-                </NavLink>}
+                {!isAdmin && (
+                    <NavLink>
+                        <Link
+                            href={route('account.edit')}
+                            as="button"
+                            prefetch
+                            className="mx-auto flex cursor-pointer items-center gap-2"
+                        >
+                            <Cog6ToothIcon className="hidden size-6.5 md:block" />
+                            Настройки
+                        </Link>
+                    </NavLink>
+                )}
 
                 <NavLink>
                     <Link

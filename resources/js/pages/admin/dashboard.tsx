@@ -1,8 +1,5 @@
+import AdminLayout from '@/layouts/admin/admin-layout';
 
 export default function Dashboard() {
-    return (
-        <div>
-            This is a dashboard page
-        </div>
-    )
+    return <AdminLayout>This is a dashboard page</AdminLayout>;
 }
