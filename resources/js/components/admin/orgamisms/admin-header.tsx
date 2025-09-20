@@ -1,7 +1,6 @@
 import MobileBtnSvg from '@/assets/svgs/mobile-btn.svg';
 import DarkBtn from '@/components/user/atoms/dark-btn';
 import Logo from '@/components/user/atoms/logo';
-import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
 import { UserIcon } from '@heroicons/react/24/solid';
@@ -9,10 +8,11 @@ import { usePage } from '@inertiajs/react';
 
 type AdminHeaderProps = {
     className?: string;
+    onClick: () => void;
+    show: boolean;
 };
 
-export default function AdminHeader({ className }: AdminHeaderProps) {
-    const [show, toggleShow] = useToggle(false);
+export default function AdminHeader({ className, show, onClick }: AdminHeaderProps) {
     const { auth } = usePage<{ auth: Auth }>().props;
 
     return (
@@ -29,7 +29,7 @@ export default function AdminHeader({ className }: AdminHeaderProps) {
             </span>
 
             <MobileBtn
-                onClick={() => toggleShow(true)}
+                onClick={onClick}
                 className="mt-0.5 xl:hidden"
                 aria-expanded={show}
                 aria-controls="mobile-navigation"

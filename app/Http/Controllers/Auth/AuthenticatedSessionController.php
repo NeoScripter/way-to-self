@@ -36,8 +36,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         UserRoles::refresh($request->user);
 
+        $route = 'account';
+        if (UserRoles::isAdmin() || UserRoles::isEditor()) {
+            $route = 'admin.dashboard';
+        }
+
         return redirect()
-            ->intended(route('account', absolute: false))
+            ->route($route)
             ->with('message', 'Добро пожаловать!');
     }
 
@@ -59,7 +64,7 @@ class AuthenticatedSessionController extends Controller
 
     public function dev(Request $request): RedirectResponse
     {
-        $user = User::where('email', 'test@gmail.com')->first();
+        $user = User::where('email', 'admin@gmail.com')->first();
 
         if (! $user) {
             abort(404, 'Dev user not found');
@@ -67,8 +72,15 @@ class AuthenticatedSessionController extends Controller
 
         Auth::login($user);
         $request->session()->regenerate();
+        UserRoles::refresh($user);
 
-        return redirect()->route('account')
-            ->with('message', 'Добро пожаловать, Илья!');
+        $route = 'account';
+        if (UserRoles::isAdmin() || UserRoles::isEditor()) {
+            $route = 'admin.dashboard';
+        }
+
+        return redirect()
+            ->route($route)
+            ->with('message', 'Добро пожаловать!');
     }
 }

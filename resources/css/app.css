@@ -43,6 +43,8 @@
     --color-gray-dark: oklch(0.2644 0.0057 91.58 / 60%);
     --color-account-header-bg: oklch(0.3221 0.0526 140.66 / 70%);
     --color-light-sand: oklch(0.8718 0.0414 105.71);
+    --color-pale-swamp: oklch(0.7775 0.05 140.43);
+    --color-pale-gray: oklch(0.7751 0.0385 107.27);
 
     --gradient-fade-olive: linear-gradient(
         180deg,

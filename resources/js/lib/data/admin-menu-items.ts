@@ -24,7 +24,7 @@ export type AdminMenuItem = {
     icon: string;
 };
 
-export const list: AdminMenuList[] = [
+export const adminMenu: AdminMenuList[] = [
     {
         id: uuidv4(),
         title: 'Администрирование',
