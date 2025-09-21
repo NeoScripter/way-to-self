@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ExerciseSeeder::class);
         $this->call(AudioSeeder::class);
         $this->call(RoleSeeder::class);
-        $this->call(UserSeeder::class);
         $this->call(TierSeeder::class);
+        $this->call(UserSeeder::class);
         $this->call(PracticeSeeder::class);
         $this->call(ProgramSeeder::class);
         $this->call(RecipeCategoryFilterSeeder::class);

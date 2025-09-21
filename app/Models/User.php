@@ -138,12 +138,17 @@ class User extends Authenticatable
 
     public function prunable()
     {
+        $adminEditorIds = Role::whereIn('name', [RoleEnum::ADMIN->value, RoleEnum::EDITOR->value])
+            ->pluck('id');
+
         return static::leftJoin('tier_user', 'users.id', '=', 'tier_user.user_id')
+            ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
             ->select('users.*', DB::raw('MAX(tier_user.expires_at) as max_expires_at'))
             ->groupBy('users.id')
             ->havingRaw(
-                '(max_expires_at IS NULL AND users.created_at < ?) OR max_expires_at < ?',
+                '( (max_expires_at IS NULL AND users.created_at < ?) OR max_expires_at < ? )',
                 [now()->subWeeks(2), now()->subWeeks(2)]
-            );
+            )
+            ->whereNotIn('role_user.role_id', $adminEditorIds);
     }
 }

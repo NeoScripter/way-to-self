@@ -64,7 +64,7 @@ class AuthenticatedSessionController extends Controller
 
     public function dev(Request $request): RedirectResponse
     {
-        $user = User::where('email', 'admin@gmail.com')->first();
+        $user = User::where('email', 'admin@example.com')->first();
 
         if (! $user) {
             abort(404, 'Dev user not found');

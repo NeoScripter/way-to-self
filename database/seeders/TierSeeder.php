@@ -75,14 +75,14 @@ class TierSeeder extends Seeder
                 })
                 ->create();
         }
-        $user = User::first();
         $tiers = Tier::all()->sortBy('id');
+        // $user = User::first();
 
-        $tiers->each(
-            fn(Tier $tier) =>
-            $user->tiers()->attach($tier->id, [
-                'expires_at' => now()->addYear(),
-            ])
-        );
+        // $tiers->each(
+        //     fn(Tier $tier) =>
+        //     $user->tiers()->attach($tier->id, [
+        //         'expires_at' => now()->addYear(),
+        //     ])
+        // );
     }
 }
