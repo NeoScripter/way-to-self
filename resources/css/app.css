@@ -60,6 +60,11 @@
     background-color: #b8b89c;
 }
 
+.admin-navbar > li:not(.first-row) > * {
+    @apply -mt-1 lg:-mt-2;
+    box-shadow: 0 -4px 2px 0 rgba(0, 0, 0, 0.25);
+}
+
 .grid-auto {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));

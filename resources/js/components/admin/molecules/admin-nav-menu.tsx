@@ -1,8 +1,8 @@
-import { adminMenu, AdminMenuList } from "@/lib/data/admin-menu-items";
 import Exit from '@/assets/svgs/admin/admin-exit.svg';
-import { cn } from "@/lib/utils";
-import { Link, router } from "@inertiajs/react";
-import AdminNavLink from "../atoms/admin-nav-link";
+import { adminMenu, AdminMenuList } from '@/lib/data/admin-menu-items';
+import { cn } from '@/lib/utils';
+import { Link, router } from '@inertiajs/react';
+import AdminNavLink from '../atoms/admin-nav-link';
 
 type AdminNavMenuProps = {
     className?: string;
@@ -13,7 +13,7 @@ export default function AdminNavMenu({ className, show }: AdminNavMenuProps) {
     return (
         <div
             className={cn(
-                'fixed top-14.5 right-0 left-0 z-10 max-h-9/10 overflow-y-auto bg-black/30 transition-transform duration-500 ease-in-out sm:top-24 md:top-27 xl:overflow-y-visible xl:bg-transparent xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1',
+                'fixed top-14.5 right-0 bottom-0 left-0 z-10 bg-black/30 transition-transform duration-500 ease-in-out sm:top-24 md:top-27 xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent',
                 className,
                 show ? 'translate-x-0' : 'translate-x-full xl:translate-x-0',
             )}
@@ -22,7 +22,7 @@ export default function AdminNavMenu({ className, show }: AdminNavMenuProps) {
             aria-modal="true"
             aria-label="Навигационное меню"
         >
-            <div className="ml-auto max-w-86 rounded-b-md xl:rounded-3xl xl:ml-0 bg-white pt-11 pr-19 pb-16 pl-10 sm:rounded-b-3xl">
+            <div className="ml-auto max-h-full max-w-86 overflow-y-auto rounded-b-md bg-white pt-11 pr-19 pb-16 pl-10 sm:rounded-b-3xl xl:ml-0 xl:overflow-y-visible xl:rounded-3xl">
                 <div className="mb-15.5 space-y-8 sm:mb-30">
                     {adminMenu.map((list) => (
                         <AdminList
@@ -37,13 +37,13 @@ export default function AdminNavMenu({ className, show }: AdminNavMenuProps) {
                     onSuccess={() => router.flushAll()}
                     method="post"
                     as="button"
-                    className="flex cursor-pointer w-55 items-center hover:shadow-md transition-shadow justify-between rounded-xl border border-pale-swamp px-5 py-2 text-pale-gray shadow-xs shadow-pale-swamp"
+                    className="flex w-55 cursor-pointer items-center justify-between rounded-xl border border-pale-swamp px-5 py-2 text-pale-gray shadow-xs shadow-pale-swamp transition-shadow hover:shadow-md"
                 >
                     Выйти
                     <img
                         src={Exit}
                         aria-hidden="true"
-                        className="size-5 object-contain -mr-2"
+                        className="-mr-2 size-5 object-contain"
                         alt=""
                     />
                 </Link>

@@ -10,7 +10,7 @@ export default function AdminNavLink({ item }: AdminNavLinkProps) {
     const { url } = usePage();
 
     const isCurrent = false;
-    // const isCurrent = route(item.route).endsWith(url);
+    // const isCurrent = route(item.route).includes(url);
 
     return (
         <li
