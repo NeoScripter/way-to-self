@@ -1,4 +1,4 @@
-import Clock from '@/assets/svgs/admin/admin-metrics-auto-update.svg';
+import CreditCard from '@/assets/svgs/admin/admin-metrics-credit-card.svg';
 import Ghost from '@/assets/svgs/admin/admin-metrics-ghost.svg';
 import User from '@/assets/svgs/admin/admin-metrics-user.svg';
 import TierMetrics, {
@@ -16,7 +16,7 @@ export default function Dashboard() {
         tierData: TierMetricsProps[];
     }>().props;
 
-    const svgs = [User, Ghost, Clock];
+    const svgs = [User, CreditCard, Ghost];
 
     userData = userData.map((card, idx) => ({
         ...card,

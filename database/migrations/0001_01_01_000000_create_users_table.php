@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telegram')->nullable()->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('auto_update')->default(false);
             $table->string('password');
             $table->boolean('banned')->default(false);
             $table->rememberToken();

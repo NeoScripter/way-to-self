@@ -136,6 +136,13 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeActiveSince($query, int $days)
+    {
+        return $query->whereHas('tiers', function ($q) use ($days) {
+            $q->where('tier_user.expires_at', '>', now()->subDays($days));
+        })->count();
+    }
+
     public function prunable()
     {
         $adminEditorIds = Role::whereIn('name', [RoleEnum::ADMIN->value, RoleEnum::EDITOR->value])

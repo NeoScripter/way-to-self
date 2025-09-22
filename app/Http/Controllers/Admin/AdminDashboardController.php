@@ -12,7 +12,9 @@ use App\Models\Practice;
 use App\Models\Program;
 use App\Models\Recipe;
 use App\Models\Role;
+use App\Models\TierUser;
 use App\Models\User;
+use App\Models\VisitorLog;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,110 +28,52 @@ class AdminDashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $twoWeeksAgo = now()->subWeeks(2);
-        $monthAgo = now()->subMonth();
+        $validated = $request->validate([
+            'users_days' => 'nullable|integer|min:0',
+            'subs_days' => 'nullable|integer|min:0',
+            'visitors_days' => 'nullable|integer|min:0',
+        ]);
 
-        // 1. Exclude admins/editors
-        $adminEditorRoleIds = Role::whereIn('name', [
-            RoleEnum::ADMIN->value,
-            RoleEnum::EDITOR->value,
-        ])->pluck('id');
+        $uDays = $validated['users_days'] ?? 14;
+        $sDays = $validated['subs_days'] ?? 14;
+        $vDays = $validated['visitors_days'] ?? 14;
 
-        /*
-         * 2. Users with auto-renewal
-         */
-        $autoRenewStats = DB::table('tier_user')
-            ->selectRaw("
-            SUM(CASE WHEN auto_update = 1 THEN 1 ELSE 0 END) as current,
-            SUM(CASE WHEN auto_update = 1 AND auto_update_set_at <= ? THEN 1 ELSE 0 END) as past
-        ", [$twoWeeksAgo])
-            ->first();
+        $usersNow = TierUser::activeUsersSince(0);
+        $subsNow = TierUser::activeSubscriptionsSince(0);
+        $visitorsNow = VisitorLog::visitorsSince(0);
+        $usersSince = TierUser::activeUsersSince($uDays);
+        $subsSince = TierUser::activeSubscriptionsSince($sDays);
+        $visitorsSince = VisitorLog::visitorsSince($vDays);
 
-        $autoRenewCurrent = (int) $autoRenewStats->current;
-        $autoRenewPast    = (int) $autoRenewStats->past;
-        $autoRenewDiff    = $autoRenewCurrent - $autoRenewPast;
-
-        /*
-         * 3. Users without active subscriptions
-         */
-        $usersWithoutSubscription = DB::table('users')
-            ->leftJoin('tier_user', 'users.id', '=', 'tier_user.user_id')
-            ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-            ->select('users.id', DB::raw('MAX(tier_user.expires_at) as max_expires_at'))
-            ->groupBy('users.id')
-            ->havingRaw(
-                '( (max_expires_at IS NULL AND users.created_at < ?) OR max_expires_at < ? )',
-                [$twoWeeksAgo, $twoWeeksAgo]
-            )
-            ->whereNotIn('role_user.role_id', $adminEditorRoleIds)
-            ->pluck('users.id'); // just ids, no need for full rows
-
-        $withoutSubscriptionCount = $usersWithoutSubscription->count();
-
-        /*
-         * 4. Users with subscriptions = total non-admin/editor users - without subscription
-         */
-        $nonAdminEditorUsers = DB::table('users')
-            ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-            ->whereNotIn('role_user.role_id', $adminEditorRoleIds)
-            ->count('users.id');
-
-        $withSubscriptionCount = $nonAdminEditorUsers - $withoutSubscriptionCount;
-
-        $nonAdminEditorUsersPast = DB::table('users')
-            ->join('role_user', 'users.id', '=', 'role_user.user_id')
-            ->where('users.created_at', '<', $twoWeeksAgo)
-            ->whereNotIn('role_user.role_id', $adminEditorRoleIds)
-            ->count('users.id');
-
-        /*
-         * 5. Differences (compared to two weeks ago)
-         */
-        $withoutSubscriptionPast = DB::table('users')
-            ->leftJoin('tier_user', 'users.id', '=', 'tier_user.user_id')
-            ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
-            ->select('users.id', DB::raw('MAX(tier_user.expires_at) as max_expires_at'))
-            ->groupBy('users.id')
-            ->havingRaw(
-                '( (max_expires_at IS NULL AND users.created_at < ?) OR max_expires_at < ? )',
-                [$twoWeeksAgo, $twoWeeksAgo]
-            )
-            ->whereNotIn('role_user.role_id', $adminEditorRoleIds)
-            ->pluck('users.id')
-            ->count();
-
-        $withSubscriptionPast = $nonAdminEditorUsersPast - $withoutSubscriptionPast;
-
-        $withSubscriptionDiff    = $withSubscriptionCount - $withSubscriptionPast;
-        $withoutSubscriptionDiff = $withoutSubscriptionCount - $withoutSubscriptionPast;
-
-        /*
-         * 6. Prepare data for Inertia
-         */
         $userData = [
             [
                 'id'       => Str::uuid(),
                 'title'    => 'Пользователи с подпиской',
                 'icon'     => 'User',
-                'quantity' => $withSubscriptionCount,
-                'diff'     => $withSubscriptionDiff,
+                'quantity' => $usersNow,
+                'diff'     => $usersNow - $usersSince,
+                'paramName' => 'users_days',
             ],
             [
                 'id'       => Str::uuid(),
-                'title'    => 'Пользователи без подписки',
+                'title'    => 'Активные подписки',
                 'icon'     => 'Ghost',
-                'quantity' => $withoutSubscriptionCount,
-                'diff'     => $withoutSubscriptionDiff,
+                'quantity' => $subsNow,
+                'diff'     => $subsNow - $subsSince,
+                'paramName' => 'subs_days',
             ],
             [
                 'id'       => Str::uuid(),
-                'title'    => 'Пользователи с автопродлением',
+                'title'    => 'Посетителей сайта',
                 'icon'     => 'Clock',
-                'quantity' => $autoRenewCurrent,
-                'diff'     => $autoRenewDiff,
+                'quantity' => $visitorsNow,
+                'diff'     => $visitorsNow - $visitorsSince,
+                'paramName' => 'visitors_days',
             ],
         ];
 
+        $twoWeeksAgo = now()->subWeeks(2);
+        $monthAgo = now()->subMonth();
 
         $tierData = [
             $this->makeTierMetrics('Питание', [
@@ -155,8 +99,8 @@ class AdminDashboardController extends Controller
         ];
 
         return Inertia::render('admin/dashboard', [
-            'userData' => $userData,
-            'tierData' => $tierData
+            'userData' => fn() => $userData,
+            'tierData' => fn() => $tierData
         ]);
     }
 
