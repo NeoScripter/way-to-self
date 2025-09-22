@@ -32,7 +32,7 @@ export const adminMenu: AdminMenuList[] = [
             {
                 id: uuidv4(),
                 title: 'Личные данные',
-                route: 'admin.dashboard',
+                route: 'admin.profile',
                 icon: Profile,
             },
             {

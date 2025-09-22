@@ -58,7 +58,7 @@ type ListProps = {
 
 function List({ list }: ListProps) {
     return (
-        <div>
+        <div  >
             <h3 className="mb-4 w-55 px-5 font-medium text-black uppercase underline underline-offset-3">
                 {list.title}
             </h3>
