@@ -1,34 +1,45 @@
+import Clock from '@/assets/svgs/admin/admin-metrics-auto-update.svg';
+import Ghost from '@/assets/svgs/admin/admin-metrics-ghost.svg';
+import User from '@/assets/svgs/admin/admin-metrics-user.svg';
+import TierMetrics, {
+    TierMetricsProps,
+} from '@/components/admin/molecules/tier-metrics';
+import UserMetrics, {
+    UserMetricsProps,
+} from '@/components/admin/molecules/user-metrics';
 import AdminLayout from '@/layouts/admin/admin-layout';
-import { userMetrics } from '@/lib/data/user-metrics-data';
+import { usePage } from '@inertiajs/react';
 
 export default function Dashboard() {
+    let { userData, tierData } = usePage<{
+        userData: UserMetricsProps[];
+        tierData: TierMetricsProps[];
+    }>().props;
+
+    const svgs = [User, Ghost, Clock];
+
+    userData = userData.map((card, idx) => ({
+        ...card,
+        icon: svgs[idx],
+    }));
+
     return (
-        <AdminLayout pageClass="">
-            <ul className="grid gap-6">
-                {userMetrics.map(item => (
-                    <UserMetrics key={item.id} {...item} />
+        <AdminLayout pageClass="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid gap-6 lg:grid-cols-3 lg:gap-12 lg:col-span-3 xl:gap-13.5">
+                {userData.map((item) => (
+                    <UserMetrics
+                        key={item.id}
+                        {...item}
+                    />
                 ))}
             </ul>
+            {tierData.map((item) => (
+                <TierMetrics
+                    className=""
+                    key={item.id}
+                    {...item}
+                />
+            ))}
         </AdminLayout>
-    );
-}
-
-export type UserMetricsProps = {
-    id: string;
-    icon: string;
-    title: string;
-    diff: number;
-    quantity: number;
-};
-
-function UserMetrics({ icon, title, diff, quantity }: UserMetricsProps) {
-    return (
-        <li className="rounded-3xl border border-pale-swamp bg-mute-white px-4 py-6">
-            <h4 className='font-semibold mb-3'>{title}</h4>
-
-            <div>
-
-            </div>
-        </li>
     );
 }

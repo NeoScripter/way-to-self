@@ -47,6 +47,7 @@
     --color-pale-gray: oklch(0.7751 0.0385 107.27);
     --color-pale-olive: oklch(0.8441 0.033 116.67);
     --color-mute-white: oklch(0.9851 0 0);
+    --color-transparent-gray: oklch(0.9268 0.0053 106.5);
 
     --gradient-fade-olive: linear-gradient(
         180deg,

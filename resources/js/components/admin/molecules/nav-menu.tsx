@@ -4,12 +4,12 @@ import { cn } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
 import AdminNavLink from '../atoms/admin-nav-link';
 
-type AdminNavMenuProps = {
+type NavMenuProps = {
     className?: string;
     show: boolean;
 };
 
-export default function AdminNavMenu({ className, show }: AdminNavMenuProps) {
+export default function NavMenu({ className, show }: NavMenuProps) {
     return (
         <div
             className={cn(
@@ -25,7 +25,7 @@ export default function AdminNavMenu({ className, show }: AdminNavMenuProps) {
             <div className="ml-auto max-h-full max-w-86 overflow-y-auto rounded-b-md bg-white pt-11 pr-19 pb-16 pl-10 sm:rounded-b-3xl xl:ml-0 xl:overflow-y-visible xl:rounded-3xl">
                 <div className="mb-15.5 space-y-8 sm:mb-30">
                     {adminMenu.map((list) => (
-                        <AdminList
+                        <List
                             key={list.id}
                             list={list}
                         />
@@ -52,11 +52,11 @@ export default function AdminNavMenu({ className, show }: AdminNavMenuProps) {
     );
 }
 
-type AdminListProps = {
+type ListProps = {
     list: AdminMenuList;
 };
 
-function AdminList({ list }: AdminListProps) {
+function List({ list }: ListProps) {
     return (
         <div>
             <h3 className="mb-4 w-55 px-5 font-medium text-black uppercase underline underline-offset-3">

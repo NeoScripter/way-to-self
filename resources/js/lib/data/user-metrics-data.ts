@@ -1,4 +1,3 @@
-import { UserMetricsProps } from '@/pages/admin/dashboard';
 import { v4 as v4uuid } from 'uuid';
 import Ghost from '@/assets/svgs/admin/admin-metrics-ghost.svg';
 import User from '@/assets/svgs/admin/admin-metrics-user.svg';
@@ -10,7 +9,7 @@ export const userMetrics: UserMetricsProps[] = [
         title: "Пользователи с подпиской",
         icon: User,
         quantity: 221,
-        diff: 32
+        diff: -32
     },
     {
         id: v4uuid(),

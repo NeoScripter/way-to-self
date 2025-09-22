@@ -38,6 +38,10 @@ class UserSeeder extends Seeder
         $regularUsers = User::factory(994)->create();
 
         $withSubscriptions = $regularUsers->random(400);
+
+        $oldWithSubs = $withSubscriptions->random((int) round($withSubscriptions->count() * 0.3));
+        $recentWithSubs = $withSubscriptions->diff($oldWithSubs);
+
         $recentNoSubs = $regularUsers->diff($withSubscriptions)->random(200);
         $oldNoSubs = $regularUsers->diff($withSubscriptions)->diff($recentNoSubs);
 
@@ -98,6 +102,13 @@ class UserSeeder extends Seeder
         }
 
         foreach ($oldNoSubs as $user) {
+            $user->update(['created_at' => now()->subDays(rand(15, 200))]);
+        }
+
+        foreach ($recentWithSubs as $user) {
+            $user->update(['created_at' => now()->subDays(rand(0, 14))]);
+        }
+        foreach ($oldWithSubs as $user) {
             $user->update(['created_at' => now()->subDays(rand(15, 200))]);
         }
     }
