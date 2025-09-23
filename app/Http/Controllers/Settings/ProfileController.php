@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Support\UserRoles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,8 +38,13 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+        $route = 'account.edit';
+        if (UserRoles::isAdmin() || UserRoles::isEditor()) {
+            $route = 'admin.profile';
+        }
+
         return redirect()
-            ->route('account.edit');
+            ->route($route);
     }
 
     /**

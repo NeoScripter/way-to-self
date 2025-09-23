@@ -4,7 +4,7 @@ import { router } from '@inertiajs/react';
 import { useState } from 'react';
 import DislikeSound from '@/assets/audio/unlike.wav';
 import LikeSound from '@/assets/audio/like.wav';
-import { playAudio } from '@/lib/helpers/play-audio';
+import { playAudio } from '@/lib/helpers/playAudio';
 
 type LikeBtnProps = {
     isLiked: boolean;

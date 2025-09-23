@@ -13,7 +13,7 @@ export default function NavMenu({ className, show }: NavMenuProps) {
     return (
         <div
             className={cn(
-                'fixed top-14.5 right-0 bottom-0 left-0 z-10 bg-black/30 transition-transform duration-500 ease-in-out sm:top-24 md:top-27 xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent',
+                'fixed top-14.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-transform duration-500 ease-in-out sm:top-24 md:top-27 xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent',
                 className,
                 show ? 'translate-x-0' : 'translate-x-full xl:translate-x-0',
             )}
