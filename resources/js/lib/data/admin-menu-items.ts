@@ -44,7 +44,7 @@ export const adminMenu: AdminMenuList[] = [
             {
                 id: uuidv4(),
                 title: 'Администраторы',
-                route: 'admin.dashboard',
+                route: 'admin.editors.index',
                 icon: Editors,
             },
             {

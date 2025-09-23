@@ -10,7 +10,7 @@ export default function Profile() {
     }>().props;
 
     return (
-        <AdminLayout pageClass="">
+        <AdminLayout>
             <h3 className="mb-6 text-center text-xl font-bold sm:mb-8 sm:text-2xl lg:mb-10 lg:text-3xl">
                 Личные данные
             </h3>
