@@ -12,7 +12,9 @@ export type SortOption = {
 type DropdownProps = {
     options: SortOption[];
     buttonLabel: string;
-    href: (value: string | number) => string;
+    paramObj: {
+        [k: string]: string;
+    };
     only?: string[];
     currentValue?: string | number;
     className?: string;
@@ -21,20 +23,25 @@ type DropdownProps = {
 export default function Dropdown({
     options,
     buttonLabel,
-    href,
+    paramObj,
     only,
     currentValue,
-    className
+    className,
 }: DropdownProps) {
     return (
         <Menu>
-            <MenuButton className={cn("flex cursor-pointer pb-1.5 items-center gap-1 ease-in rounded-md border-2 border-slate-200 bg-white pl-1 pr-2 py-1 text-sm text-slate-500 shadow-sm transition-outline duration-100 outline-slate-200/60 hover:outline-3 focus:outline-3 focus:shadow focus:outline-none", className)}>
-                <ChevronDown className="size-4 mt-0.5" />
+            <MenuButton
+                className={cn(
+                    'transition-outline flex cursor-pointer items-center gap-1 rounded-md border-2 border-slate-200 bg-white py-1 pr-2 pb-1.5 pl-1 text-sm text-slate-500 shadow-sm outline-slate-200/60 duration-100 ease-in hover:outline-3 focus:shadow focus:outline-3 focus:outline-none',
+                    className,
+                )}
+            >
+                <ChevronDown className="mt-0.5 size-4" />
                 {buttonLabel}
             </MenuButton>
 
             <MenuItems
-                className="cursor-pointer rounded-md border-2 border-slate-200 bg-white px-2 py-1 text-sm text-slate-500 shadow-sm outline-slate-200/60 hover:outline-3 focus:outline-3 focus:shadow focus:outline-none"
+                className="cursor-pointer rounded-md border-2 border-slate-200 bg-white px-2 py-1 text-sm text-slate-500 shadow-sm outline-slate-200/60 hover:outline-3 focus:shadow focus:outline-3 focus:outline-none"
                 anchor="bottom end"
             >
                 {options.map(({ value, label }) => (
@@ -49,7 +56,11 @@ export default function Dropdown({
                                     focus && 'bg-transparent-gray',
                                     currentValue === value && 'font-semibold',
                                 )}
-                                href={href(value)}
+                                data={{
+                                    ...paramObj,
+                                    ['sort_by']: value
+                                }}
+                                href=""
                                 {...(only ? { only } : {})}
                                 preserveScroll
                             >

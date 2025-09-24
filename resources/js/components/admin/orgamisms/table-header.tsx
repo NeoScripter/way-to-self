@@ -53,13 +53,14 @@ export default function TableHeader({
                 <Dropdown
                     options={options}
                     buttonLabel="Сортировка"
-                    href={(sortBy) => `?sort_by=${sortBy}`}
+                    paramObj={paramsObj}
                     only={['editors']}
                     currentValue={sortBy}
+                    paramsObj={paramsObj}
                 />
 
                 <Link
-                    href={route('admin.editors.index')}
+                    href=""
                     data={{
                         ...paramsObj,
                         ['order']: next,

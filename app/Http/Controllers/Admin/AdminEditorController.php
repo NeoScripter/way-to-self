@@ -31,14 +31,14 @@ class AdminEditorController extends Controller
         $editors = User::whereHas(
             'roles',
             fn($query) =>
-            $query->where('name', RoleEnum::EDITOR->value)
+            $query->where('roles.name', RoleEnum::EDITOR->value)
         )->when($search, function ($query, $search) {
-            $search = mb_strtolower($search);
             $query->where(function ($q) use ($search) {
-                $q->whereRaw('LOWER(name) LIKE ?', ["%{$search}%"])
-                    ->orWhereRaw('LOWER(email) LIKE ?', ["%{$search}%"]);
+                $q->whereRaw('users.name LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('surname LIKE ?', ["%{$search}%"])
+                    ->orWhereRaw('email LIKE ?', ["%{$search}%"]);
             });
-        })->paginate(16)->withQueryString();
+        })->orderBy($sortBy, $order)->paginate(16)->withQueryString();
 
 
         return Inertia::render('admin/editors/index', [

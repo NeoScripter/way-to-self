@@ -10,7 +10,10 @@ type SearchInputProps = {
 };
 
 export default function SearchInput({ className }: SearchInputProps) {
-    const [term, setTerm] = useState('');
+    const searchParams = new URLSearchParams(window.location.search);
+    const search = searchParams.get('search') ?? '';
+
+    const [term, setTerm] = useState(search);
 
     useDebounce(
         () => {
@@ -20,7 +23,7 @@ export default function SearchInput({ className }: SearchInputProps) {
                 preserveState: true,
             });
         },
-        1000,
+        300,
         [term],
     );
 
