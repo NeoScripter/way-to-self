@@ -39,12 +39,10 @@ export const schema = z.object({
 
 type ProfileInfoProps = {
     routeName: string;
+    user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'>
 };
 
-export default function ProfileInfo({ routeName }: ProfileInfoProps) {
-    const { auth } = usePage<{
-        auth: { user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'> };
-    }>().props;
+export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
 
     const [infoEdited, setInfoEdited] = useState(false);
 
@@ -59,10 +57,10 @@ export default function ProfileInfo({ routeName }: ProfileInfoProps) {
         reset,
         clearErrors,
     } = useForm<ProfileForm>({
-        name: auth.user.name,
-        surname: auth.user.surname,
-        email: auth.user.email,
-        telegram: auth.user.telegram,
+        name: user.name,
+        surname: user.surname,
+        email: user.email,
+        telegram: user.telegram,
     });
 
     const handleCancelClick = () => {

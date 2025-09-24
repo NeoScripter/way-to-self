@@ -56,7 +56,6 @@ export default function TableHeader({
                     paramObj={paramsObj}
                     only={['editors']}
                     currentValue={sortBy}
-                    paramsObj={paramsObj}
                 />
 
                 <Link

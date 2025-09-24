@@ -48,7 +48,7 @@ function EditorItem({ editor }: EditorItemProps) {
         >
             <div className="w-3/7">
                 <Link
-                    href=""
+                    href={route('admin.editors.show', editor.id)}
                     prefetch
                     preserveState
                     className="cursor-pointer text-left underline-offset-4 transition-colors duration-200 ease-in-out hover:text-bright-salad hover:underline"
