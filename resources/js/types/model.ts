@@ -212,6 +212,15 @@ export type TierCart = {
     updated_at?: string;
     tiers?: Tier[];
 };
+export type TierUser = {
+    id: number;
+    tier_id: number;
+    user_id: number;
+    warning_count: number;
+    expires_at?: string;
+    created_at?: string;
+    updated_at?: string;
+};
 export type Video = {
     id: number;
     title: string;
@@ -223,6 +232,15 @@ export type Video = {
     created_at?: string;
     updated_at?: string;
     videoable?: any;
+};
+export type VisitorLog = {
+    id: number;
+    ip_address: string;
+    url: string;
+    visited_date: string;
+    visited_at: string;
+    created_at?: string;
+    updated_at?: string;
 };
 export enum ArticleType {
     NEWS = "news",

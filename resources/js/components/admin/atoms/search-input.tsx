@@ -1,12 +1,31 @@
+import useDebounce from '@/hooks/use-debounce';
+import { cn } from '@/lib/utils';
 import { Field, Input, Label } from '@headlessui/react';
+import { router } from '@inertiajs/react';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 
-export default function SearchInput() {
+type SearchInputProps = {
+    className?: string;
+};
+
+export default function SearchInput({ className }: SearchInputProps) {
     const [term, setTerm] = useState('');
 
+    useDebounce(
+        () => {
+            router.visit('', {
+                method: 'get',
+                data: { search: term },
+                preserveState: true,
+            });
+        },
+        1000,
+        [term],
+    );
+
     return (
-        <Field className="relative w-60">
+        <Field className={cn('relative w-60', className)}>
             <Label className="sr-only">Поиск</Label>
             <Input
                 className="peer ease h-full w-full rounded-md border-2 border-slate-200 bg-white px-2 py-1.5 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-gray-500 hover:border-bright-salad focus:border-bright-salad focus:shadow focus:outline-none"

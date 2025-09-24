@@ -38,6 +38,7 @@ export interface User {
     surname: string;
     email: string;
     telegram: string;
+    banned: boolean;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
