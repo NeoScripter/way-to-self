@@ -1,14 +1,12 @@
-import { Input } from '@/components/user/atoms/input';
-import InputError from '@/components/user/atoms/input-error';
-import InputSpan from '@/components/user/atoms/input-span';
-import { Label } from '@/components/user/atoms/label';
-import NeutralBtn from '@/components/user/atoms/neutral-btn';
-import notify from '@/components/user/atoms/notify';
-import { User } from '@/types';
+import Input from '@/components/admin/atoms/input';
+import InputError from '@/components/admin/atoms/input-error';
+import InputSpan from '@/components/admin/atoms/input-span';
+import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import { Button } from '@headlessui/react';
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import { z } from 'zod';
+import InputLabel from '../atoms/input-label';
 
 type ProfileForm = {
     name: string;
@@ -37,40 +35,29 @@ export const schema = z.object({
         .max(50, 'Telegram не должен превышать 50 символов'),
 });
 
-export default function ProfileInfo() {
-    const { auth } = usePage<{
-        auth: { user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'> };
-    }>().props;
+type CreateUserFormProps = {
+    routeName: string;
+};
 
-    const [infoEdited, setInfoEdited] = useState(false);
+export default function CreateUserForm({ routeName }: CreateUserFormProps) {
 
     const {
         data,
         setData,
         setError,
-        patch,
+        post,
         errors,
         processing,
         recentlySuccessful,
-        reset,
-        clearErrors,
     } = useForm<ProfileForm>({
-        name: auth.user.name,
-        surname: auth.user.surname,
-        email: auth.user.email,
-        telegram: auth.user.telegram,
+        name: '',
+        surname: '',
+        email: '',
+        telegram: '',
     });
-
-    const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
-        reset();
-        clearErrors();
-    };
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-
-        if (!infoEdited) return;
 
         const result = schema.safeParse(data);
         if (!result.success) {
@@ -87,28 +74,17 @@ export default function ProfileInfo() {
             return;
         }
 
-        patch(route('profile.update'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                setInfoEdited(false);
-                notify('Данные успешно изменены!');
-            },
-        });
+        post(routeName);
     };
 
     return (
         <div className="relative z-50 pt-4">
-            <div className="mx-auto max-w-177.5 space-y-6">
-                <h3 className="mb-6 block font-heading font-medium sm:text-lg md:text-xl lg:mb-8 lg:text-2xl">
-                    Данные пользователя
-                </h3>
-
+            <div className="mx-auto space-y-8">
                 <form onSubmit={submit}>
-                    <div className="grid gap-6 sm:grid-cols-2">
-                        <div className="grid content-start gap-2">
-                            <Label htmlFor="name">Имя</Label>
+                    <div className="grid gap-8 md:grid-cols-2 md:gap-10">
+                        <div className="grid content-start gap-4">
+                            <InputLabel htmlFor="name">Имя</InputLabel>
 
-                            {infoEdited ? (
                                 <Input
                                     id="name"
                                     className="mt-1 block w-full"
@@ -118,21 +94,17 @@ export default function ProfileInfo() {
                                     }
                                     required
                                     autoComplete="name"
-                                    placeholder="Ваше имя"
+                                    placeholder="Имя"
                                 />
-                            ) : (
-                                <InputSpan>{data.name}</InputSpan>
-                            )}
 
                             <InputError
                                 className="mt-2"
                                 message={errors.name}
                             />
                         </div>
-                        <div className="grid content-start gap-2">
-                            <Label htmlFor="name">Фамилия</Label>
+                        <div className="grid content-start gap-4">
+                            <InputLabel htmlFor="name">Фамилия</InputLabel>
 
-                            {infoEdited ? (
                                 <Input
                                     id="surname"
                                     className="mt-1 block w-full"
@@ -142,11 +114,8 @@ export default function ProfileInfo() {
                                     }
                                     required
                                     autoComplete="surname"
-                                    placeholder="Ваша фамилия"
+                                    placeholder="Фамилия"
                                 />
-                            ) : (
-                                <InputSpan>{data.surname}</InputSpan>
-                            )}
 
                             <InputError
                                 className="mt-2"
@@ -154,10 +123,9 @@ export default function ProfileInfo() {
                             />
                         </div>
 
-                        <div className="grid content-start gap-2">
-                            <Label htmlFor="email">Email</Label>
+                        <div className="grid content-start gap-4">
+                            <InputLabel htmlFor="email">Email</InputLabel>
 
-                            {infoEdited ? (
                                 <Input
                                     id="email"
                                     type="email"
@@ -170,9 +138,6 @@ export default function ProfileInfo() {
                                     autoComplete="email"
                                     placeholder="Email"
                                 />
-                            ) : (
-                                <InputSpan>{data.email}</InputSpan>
-                            )}
 
                             <InputError
                                 className="mt-2"
@@ -180,10 +145,11 @@ export default function ProfileInfo() {
                             />
                         </div>
 
-                        <div className="grid content-start gap-2">
-                            <Label htmlFor="telegram">Логин в телеграм</Label>
+                        <div className="grid content-start gap-4">
+                            <InputLabel htmlFor="telegram">
+                                Логин в телеграм
+                            </InputLabel>
 
-                            {infoEdited ? (
                                 <Input
                                     id="telegram"
                                     type="telegram"
@@ -196,9 +162,6 @@ export default function ProfileInfo() {
                                     autoComplete="telegram"
                                     placeholder="Telegram"
                                 />
-                            ) : (
-                                <InputSpan>{data.telegram}</InputSpan>
-                            )}
                             <InputError
                                 className="mt-2"
                                 message={errors.telegram}
@@ -206,19 +169,10 @@ export default function ProfileInfo() {
                         </div>
                     </div>
 
-                    <div className="mt-8 flex items-center justify-end gap-2 sm:gap-4">
-                        <Button
-                            type="button"
-                            onClick={handleCancelClick}
-                            className="cursor-pointer rounded-full px-6 py-3 text-sm sm:text-base"
-                            disabled={processing}
-                        >
-                            {infoEdited ? 'Отменить' : 'Редактировать'}
-                        </Button>
-
+                    <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
                         <NeutralBtn
                             className="px-8 py-3 sm:px-12"
-                            disabled={processing || !infoEdited}
+                            disabled={processing}
                         >
                             {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
                         </NeutralBtn>

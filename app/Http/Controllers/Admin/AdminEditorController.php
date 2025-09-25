@@ -5,9 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Models\Role;
 use App\Models\User;
+use App\Notifications\SendEditorPasswordNotification;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class AdminEditorController extends Controller
@@ -66,7 +70,33 @@ class AdminEditorController extends Controller
 
     public function create()
     {
-        return Inertia::render('admin/editors/create');
+        $count = User::whereHas(
+            'roles',
+            fn($query) =>
+            $query->where('roles.name', RoleEnum::EDITOR->value)
+        )->count();
+
+        return Inertia::render('admin/editors/create', [
+            'count' => $count
+        ]);
+    }
+
+    public function store(ProfileUpdateRequest $request)
+    {
+        $randomPassword = Str::random(12);
+
+        $user = User::create([
+            ...$request->validated(),
+            'password' => Hash::make($randomPassword),
+        ]);
+
+        $role = Role::where('name', RoleEnum::EDITOR->value)->first();
+
+        $user->roles()->sync([$role->id]);
+
+        $user->notify(new SendEditorPasswordNotification($randomPassword));
+
+        return redirect()->route('admin.editors.index')->with('message', 'Редактор успешно создан');
     }
 
     public function update(User $user, ProfileUpdateRequest $request): RedirectResponse

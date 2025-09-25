@@ -67,7 +67,7 @@ export default function Show() {
                 routeName={route('admin.editors.destroy', user.id)}
                 methodName="delete"
                 confirmBtnLabel='Удалить'
-                cancelBtnLabel='Не удалять'
+                cancelBtnLabel='Отмена'
             />
         </AdminLayout>
     );

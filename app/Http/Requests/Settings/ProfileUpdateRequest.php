@@ -9,6 +9,14 @@ use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'telegram' => $this->telegram
+                ? ltrim($this->telegram, '@')
+                : null,
+        ]);
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -20,12 +28,17 @@ class ProfileUpdateRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'max:255'],
-
+            'surname' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'string',
-                'lowercase',
                 'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($ignoreId),
+            ],
+            'telegram' => [
+                'required',
+                'string',
                 'max:255',
                 Rule::unique(User::class)->ignore($ignoreId),
             ],

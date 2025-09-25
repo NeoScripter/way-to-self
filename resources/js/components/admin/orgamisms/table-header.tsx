@@ -37,6 +37,7 @@ export default function TableHeader({
             <div className="flex flex-wrap items-center gap-2">
                 <Link
                     href={createRoute}
+                    as='button'
                     className="transition-outline flex cursor-pointer items-center gap-1.5 rounded-md bg-bright-salad px-2.5 py-1.5 text-sm text-white shadow-sm outline-bright-salad/30 duration-100 ease-in hover:outline-3 focus:shadow focus:outline-2 focus:outline-none"
                 >
                     <div className="size-3.5 shrink-0 text-white">

@@ -52,11 +52,9 @@ export default function ConfirmationDialog({
                 <p className="text-2xl font-semibold text-balance">{title}</p>
                 {description && <p className="text-lg"> {description}</p>}
 
-                <div
-                    onClick={handleClick}
-                    className="flex items-center gap-10"
-                >
+                <div className="flex items-center gap-10">
                     <NeutralBtn
+                        onClick={handleClick}
                         key={'confirm-btn'}
                         className="flex-1 border border-white bg-red-purple hover:bg-red-700"
                         type="submit"

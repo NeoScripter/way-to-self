@@ -193,7 +193,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                                     }
                                     required
                                     autoComplete="telegram"
-                                    placeholder="telegram"
+                                    placeholder="Telegram"
                                 />
                             ) : (
                                 <InputSpan>{data.telegram}</InputSpan>
