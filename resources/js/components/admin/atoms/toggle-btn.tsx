@@ -39,13 +39,13 @@ export default function ToggleBtn({
                     checked={checked}
                     onChange={handleChange}
                     className={cn(
-                        'group inline-flex h-8 w-16 items-center rounded-full bg-gray-200 transition',
+                        'group inline-flex cursor-pointer h-8 w-16 items-center rounded-full bg-gray-200 transition',
                         color,
                     )}
                 >
                     <span className="size-6 translate-x-1 rounded-full bg-white transition group-data-checked:translate-x-9" />
                 </Switch>
-                <Label className="text-sm font-medium sm:text-base">
+                <Label className="text-sm font-medium cursor-pointer sm:text-base">
                     {label}
                 </Label>
             </Field>

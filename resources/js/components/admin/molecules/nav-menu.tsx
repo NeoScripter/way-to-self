@@ -13,16 +13,23 @@ export default function NavMenu({ className, show }: NavMenuProps) {
     return (
         <div
             className={cn(
-                'fixed top-14.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-transform duration-500 ease-in-out sm:top-24 md:top-27 xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent',
+                'fixed top-12.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-opacity duration-500 ease-in-out sm:top-22 md:top-25 xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent xl:opacity-100 xl:pointer-events-auto',
                 className,
-                show ? 'translate-x-0' : 'translate-x-full xl:translate-x-0',
+                show ? 'opacity-100' : 'opacity-0 pointer-events-none',
             )}
             id="mobile-navigation"
             role="dialog"
             aria-modal="true"
             aria-label="Навигационное меню"
         >
-            <div className="ml-auto max-h-full max-w-86 overflow-y-auto rounded-b-md bg-white pt-11 pr-19 pb-16 pl-10 sm:rounded-b-3xl xl:ml-0 xl:overflow-y-visible xl:rounded-3xl">
+            <div
+                className={cn(
+                    'ml-auto max-h-full max-w-86 overflow-y-auto rounded-b-md transition-transform duration-500 ease-in-out bg-white pt-11 pr-19 pb-16 pl-10 sm:rounded-b-3xl xl:ml-0 xl:overflow-y-visible xl:rounded-3xl',
+                    show
+                        ? 'translate-x-0'
+                        : 'translate-x-full xl:translate-x-0',
+                )}
+            >
                 <div className="mb-15.5 space-y-8 sm:mb-30">
                     {adminMenu.map((list) => (
                         <List
@@ -58,7 +65,7 @@ type ListProps = {
 
 function List({ list }: ListProps) {
     return (
-        <div  >
+        <div>
             <h3 className="mb-4 w-55 px-5 font-medium text-black uppercase underline underline-offset-3">
                 {list.title}
             </h3>

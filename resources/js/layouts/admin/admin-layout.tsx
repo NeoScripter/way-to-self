@@ -51,6 +51,7 @@ export default function AdminLayout({
 
             <main className="relative px-3 pt-6 pb-3.5 sm:px-9.5 sm:pt-5 sm:pb-7.5 lg:pt-10 lg:pb-14.5 xl:flex xl:items-start xl:gap-6.5 2xl:gap-10 2xl:px-15">
                 <NavMenu show={showMenu} />
+
                 <div className="w-full">
                     {hasMenu && <nav>
                         <ul
