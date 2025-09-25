@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckUserBanStatus;
 use App\Http\Middleware\HandleAppearance;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\LogVisitor;
@@ -31,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'tier.access' => TierAccess::class,
             'role' => RoleMiddleware::class,
+            'banned' => CheckUserBanStatus::class,
         ]);
     })
     // ->withEvents(discover: [

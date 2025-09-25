@@ -46,7 +46,7 @@ Route::get('/audio/{audio}/segments/{file}', [StreamAudioController::class, 'seg
 
 Route::get('/dev-login', [AuthenticatedSessionController::class, 'dev'])->name('dev.login');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'banned'])->group(function () {
     Route::get('account', [AccountController::class, 'index'])->name('account');
 
     Route::name('account.')->middleware('role:user')->group(function () {

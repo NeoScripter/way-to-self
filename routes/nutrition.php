@@ -6,7 +6,7 @@ use App\Http\Controllers\Account\NutritionRecipeController;
 use App\Http\Controllers\Account\NutritionSearchController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'tier.access:nutrition'])->prefix('account/nutrition')->name('nutrition.')->group(function () {
+Route::middleware(['auth',  'banned', 'tier.access:nutrition'])->prefix('account/nutrition')->name('nutrition.')->group(function () {
 
     Route::get('', [NutritionController::class, 'index'])->name('index');
 

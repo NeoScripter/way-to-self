@@ -52,6 +52,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'banned' => 'bool'
         ];
     }
 
@@ -101,6 +102,22 @@ class User extends Authenticatable
 
         $relation->attach($id);
         return true;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this
+            ->roles()
+            ->where('roles.name', RoleEnum::ADMIN->value)
+            ->exists();
+    }
+
+    public function isEditor(): bool
+    {
+        return $this
+            ->roles()
+            ->where('roles.name', RoleEnum::EDITOR->value)
+            ->exists();
     }
 
     public function hasTier($tierRoute): bool

@@ -105,7 +105,7 @@ export default function ProfileInfo() {
 
                 <form onSubmit={submit}>
                     <div className="grid gap-6 sm:grid-cols-2">
-                        <div className="grid gap-2">
+                        <div className="grid content-start gap-2">
                             <Label htmlFor="name">Имя</Label>
 
                             {infoEdited ? (
@@ -129,7 +129,7 @@ export default function ProfileInfo() {
                                 message={errors.name}
                             />
                         </div>
-                        <div className="grid gap-2">
+                        <div className="grid content-start gap-2">
                             <Label htmlFor="name">Фамилия</Label>
 
                             {infoEdited ? (
@@ -154,7 +154,7 @@ export default function ProfileInfo() {
                             />
                         </div>
 
-                        <div className="grid gap-2">
+                        <div className="grid content-start gap-2">
                             <Label htmlFor="email">Email</Label>
 
                             {infoEdited ? (
@@ -180,7 +180,7 @@ export default function ProfileInfo() {
                             />
                         </div>
 
-                        <div className="grid gap-2">
+                        <div className="grid content-start gap-2">
                             <Label htmlFor="telegram">Логин в телеграм</Label>
 
                             {infoEdited ? (

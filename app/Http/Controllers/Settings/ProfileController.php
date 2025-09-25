@@ -37,6 +37,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+        $request->user()->touch();
 
         $route = 'account.edit';
         if (UserRoles::isAdmin() || UserRoles::isEditor()) {

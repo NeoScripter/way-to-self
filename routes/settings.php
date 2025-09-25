@@ -5,7 +5,7 @@ use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'banned')->group(function () {
     // Route::get('account/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('account/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('account/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

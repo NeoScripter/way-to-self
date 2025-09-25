@@ -5,7 +5,7 @@ import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { User } from '@/types';
 import { Button } from '@headlessui/react';
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import { z } from 'zod';
 import InputLabel from '../atoms/input-label';
@@ -39,11 +39,10 @@ export const schema = z.object({
 
 type ProfileInfoProps = {
     routeName: string;
-    user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'>
+    user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'>;
 };
 
 export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
-
     const [infoEdited, setInfoEdited] = useState(false);
 
     const {
@@ -102,8 +101,8 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
         <div className="relative z-50 pt-4">
             <div className="mx-auto space-y-8">
                 <form onSubmit={submit}>
-                    <div className="grid gap-8 md:gap-10 md:grid-cols-2">
-                        <div className="grid gap-4">
+                    <div className="grid gap-8 md:grid-cols-2 md:gap-10">
+                        <div className="grid content-start gap-4">
                             <InputLabel htmlFor="name">Имя</InputLabel>
 
                             {infoEdited ? (
@@ -127,7 +126,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                                 message={errors.name}
                             />
                         </div>
-                        <div className="grid gap-4">
+                        <div className="grid content-start gap-4">
                             <InputLabel htmlFor="name">Фамилия</InputLabel>
 
                             {infoEdited ? (
@@ -152,7 +151,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                             />
                         </div>
 
-                        <div className="grid gap-4">
+                        <div className="grid content-start gap-4">
                             <InputLabel htmlFor="email">Email</InputLabel>
 
                             {infoEdited ? (
@@ -178,7 +177,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                             />
                         </div>
 
-                        <div className="grid gap-4">
+                        <div className="grid content-start gap-4">
                             <InputLabel htmlFor="telegram">
                                 Логин в телеграм
                             </InputLabel>
@@ -206,11 +205,11 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                         </div>
                     </div>
 
-                    <div className="mt-16 md:mt-20 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+                    <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
                         <Button
                             type="button"
                             onClick={handleCancelClick}
-                            className="cursor-pointer rounded-lg px-6 py-3 order-2 sm:order-0 text-sm sm:text-base"
+                            className="order-2 cursor-pointer rounded-lg px-6 py-3 text-sm sm:order-0 sm:text-base"
                             disabled={processing}
                         >
                             {infoEdited ? 'Отменить' : 'Редактировать'}

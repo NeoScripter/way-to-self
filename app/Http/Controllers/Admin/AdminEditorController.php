@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Settings\ProfileUpdateRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -50,13 +52,30 @@ class AdminEditorController extends Controller
 
     public function show(User $user)
     {
+        $count = User::whereHas(
+            'roles',
+            fn($query) =>
+            $query->where('roles.name', RoleEnum::EDITOR->value)
+        )->count();
+
         return Inertia::render('admin/editors/show', [
-            'user' => $user
+            'user' => $user,
+            'count' => $count
         ]);
     }
 
     public function create()
     {
         return Inertia::render('admin/editors/create');
+    }
+
+    public function update(User $user, ProfileUpdateRequest $request): RedirectResponse
+    {
+        $user->fill($request->validated());
+
+        $user->save();
+        $user->touch();
+
+        return redirect()->back();
     }
 }

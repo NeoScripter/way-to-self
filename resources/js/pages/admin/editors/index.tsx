@@ -11,7 +11,6 @@ export default function Index() {
         editors: PaginationMeta<User>;
     }>().props;
 
-
     return (
         <AdminLayout>
             <TableHeader
@@ -44,6 +43,7 @@ function EditorItem({ editor }: EditorItemProps) {
         <div
             className={cn(
                 'flex items-center gap-2 text-text-black md:justify-between',
+                editor.banned && 'text-red-700',
             )}
         >
             <div className="w-3/7">

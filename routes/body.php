@@ -7,7 +7,7 @@ use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'tier.access:body'])->prefix('account/body')->name('body.')->group(function () {
+Route::middleware(['auth', 'banned', 'tier.access:body'])->prefix('account/body')->name('body.')->group(function () {
 
     Route::get('', [BodyController::class, 'index'])->name('index');
     Route::get('/articles', [BodyArticleController::class, 'index'])->name('articles');

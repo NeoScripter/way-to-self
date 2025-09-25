@@ -1,0 +1,79 @@
+import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import DialogLayout from '@/components/user/molecules/dialog-layout';
+import { cn } from '@/lib/utils';
+import { router } from '@inertiajs/react';
+
+type ConfirmationDialogProps = {
+    className?: string;
+    closeDialog: () => void;
+    show: boolean;
+    title: string;
+    description?: string;
+    routeName: string;
+    methodName: 'delete' | 'post' | 'patch';
+    confirmBtnLabel: string;
+    cancelBtnLabel: string;
+};
+export default function ConfirmationDialog({
+    className,
+    closeDialog,
+    show,
+    title,
+    description,
+    routeName,
+    methodName,
+    confirmBtnLabel,
+    cancelBtnLabel,
+}: ConfirmationDialogProps) {
+    const handleClick = () => {
+        router.visit(routeName, {
+            method: methodName,
+            preserveScroll: true,
+            onSuccess: () => closeModal(),
+        });
+    };
+
+    const closeModal = () => {
+        closeDialog();
+    };
+
+    return (
+        <DialogLayout
+            show={show}
+            onClose={closeDialog}
+            showBtn={false}
+        >
+            <div
+                className={cn(
+                    'mx-auto max-w-150 space-y-6 rounded-[4rem] border-2 border-white/20 bg-card-backdrop-gray px-12 pt-11 pb-12.5 text-center backdrop-blur-sm',
+                    className,
+                )}
+            >
+                <p className="text-2xl font-semibold text-balance">{title}</p>
+                {description && <p className="text-lg"> {description}</p>}
+
+                <div
+                    onClick={handleClick}
+                    className="flex items-center gap-10"
+                >
+                    <NeutralBtn
+                        key={'confirm-btn'}
+                        className="flex-1 border border-white bg-red-purple hover:bg-red-700"
+                        type="submit"
+                    >
+                        {confirmBtnLabel}
+                    </NeutralBtn>
+
+                    <NeutralBtn
+                        key={'cancel-btn'}
+                        className="flex-1 border border-white"
+                        onClick={closeModal}
+                        type="button"
+                    >
+                        {cancelBtnLabel}
+                    </NeutralBtn>
+                </div>
+            </div>
+        </DialogLayout>
+    );
+}

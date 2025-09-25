@@ -10,7 +10,7 @@ class VisitorLog extends Model
     public function scopeVisitorsSince($query, int $days)
     {
         return $query
-            ->where('visited_date', '>=', now()->subDays($days)->toDateString())
+            ->where('visited_date', '<=', now()->subDays($days)->toDateString())
             ->count();
     }
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\Account\SoulSearchController;
 use App\Http\Controllers\Account\SoulArticleController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'tier.access:soul'])->prefix('account/soul')->name('soul.')->group(function () {
+Route::middleware(['auth', 'banned', 'tier.access:soul'])->prefix('account/soul')->name('soul.')->group(function () {
 
     Route::get('', [SoulController::class, 'index'])->name('index');
 
