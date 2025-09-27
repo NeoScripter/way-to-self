@@ -130,6 +130,16 @@ export type ProgramBlock = {
     program?: Program;
     exercises?: Exercise[];
 };
+export type Promo = {
+    id: number;
+    name: string;
+    expires_at: string;
+    discount: number;
+    discount_type: string;
+    enabled: any;
+    created_at?: string;
+    updated_at?: string;
+};
 export type Recipe = {
     id: number;
     title: string;

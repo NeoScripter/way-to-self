@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminEditorController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,19 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::post('/editors/{user}', [UserController::class, 'update'])->name('editors.ban');
         Route::delete('/editors/{user}', [UserController::class, 'destroy'])->name('editors.destroy');
     });
+
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show');
     Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
     Route::post('/users/{user}', [UserController::class, 'update'])->name('users.ban');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+
+    Route::get('/promos/create', [PromoController::class, 'create'])->name('promos.create');
+    Route::post('/promos/store', [PromoController::class, 'store'])->name('promos.store');
+    Route::get('/promos', [PromoController::class, 'index'])->name('promos.index');
+    Route::get('/promos/{promo}', [PromoController::class, 'show'])->name('promos.show');
+    Route::patch('/promos/{promo}', [PromoController::class, 'update'])->name('promos.update');
+    Route::patch('/promos/toggle/{promo}', [PromoController::class, 'toggle'])->name('promos.toggle');
+    Route::delete('/promos/{promo}', [PromoController::class, 'destroy'])->name('promos.destroy');
 });
