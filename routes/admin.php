@@ -36,5 +36,5 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
     Route::get('/promos/{promo}', [PromoController::class, 'show'])->name('promos.show');
     Route::patch('/promos/{promo}', [PromoController::class, 'update'])->name('promos.update');
     Route::patch('/promos/toggle/{promo}', [PromoController::class, 'toggle'])->name('promos.toggle');
-    Route::delete('/promos/{promo}', [PromoController::class, 'destroy'])->name('promos.destroy');
+    Route::delete('/promos', [PromoController::class, 'destroy'])->name('promos.destroy');
 });

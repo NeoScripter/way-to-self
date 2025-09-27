@@ -67,9 +67,9 @@ export default function Show() {
             <ConfirmationDialog
                 show={showModal}
                 closeDialog={() => toggleModal(false)}
-                title="Вы точно уверены, что хотите удалить данного пользователя?"
-                description="Восстановление данного пользователя будет невозможно"
-                routeName={route('admin.promos.destroy', promo.id)}
+                title="Вы точно уверены, что хотите удалить данный промокод?"
+                routeName={route('admin.promos.destroy')}
+                payload={{ ids: [promo.id] }}
                 methodName="delete"
                 confirmBtnLabel="Удалить"
                 cancelBtnLabel="Отмена"

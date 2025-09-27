@@ -4,15 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Enums\RoleEnum;
-use App\Http\Requests\Settings\ProfileUpdateRequest;
 use App\Models\Promo;
-use App\Models\Role;
-use App\Models\User;
-use App\Notifications\SendEditorPasswordNotification;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 
@@ -101,23 +94,45 @@ class PromoController extends Controller
 
     public function toggle(Promo $promo)
     {
-        // TODO
-        return redirect()->back()->with('message', 'Промокод успешно активирован');
+        $promo->update(['enabled' => !$promo->enabled]);
+
+        $message = $promo->enabled
+            ? "промокод успешно активирован"
+            : "Промокод успешно деактивирован";
+
+        return redirect()
+            ->back()
+            ->with('message', $message);
     }
 
-    public function destroy(Promo $promo)
+    public function destroy(Request $request)
     {
-        $promo->delete();
+        $validated = $request->validate([
+            'ids'   => ['required', 'array'],
+            'ids.*' => ['integer', 'exists:promos,id'],
+        ]);
 
-        return redirect()->route('admin.promos.index')->with('message', 'Промокод успешно удален');
+        $promos = Promo::whereIn('id', $validated['ids'])->get();
+
+        $message = $promos->count() > 1
+            ? "Промокоды успешно удалены"
+            : "Промокод успешно удален";
+
+        $promos->each(fn($promo) => $promo->delete());
+
+        return redirect()->route('admin.promos.index')->with('message', $message);
     }
 
     public function update(Promo $promo, Request $request): RedirectResponse
     {
-        $promo->fill($request->validated());
+        $validated = $request->validate([
+            'name'          => 'required|string|min:1|max:100',
+            'expires_at'    => 'required|date',
+            'discount'      => 'required|numeric|min:0',
+            'discount_type' => 'required|string|in:currency,percent',
+        ]);
 
-        $promo->save();
-        $promo->touch();
+        $promo->update($validated);
 
         return redirect()->back();
     }

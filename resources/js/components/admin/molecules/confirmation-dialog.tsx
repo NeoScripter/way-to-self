@@ -13,6 +13,7 @@ type ConfirmationDialogProps = {
     methodName: 'delete' | 'post' | 'patch';
     confirmBtnLabel: string;
     cancelBtnLabel: string;
+    payload?: Record<string, any>;
 };
 export default function ConfirmationDialog({
     className,
@@ -24,12 +25,14 @@ export default function ConfirmationDialog({
     methodName,
     confirmBtnLabel,
     cancelBtnLabel,
+    payload,
 }: ConfirmationDialogProps) {
     const handleClick = () => {
         router.visit(routeName, {
             method: methodName,
             preserveScroll: true,
             onSuccess: () => closeModal(),
+            data: payload ? { ...payload } : {},
         });
     };
 
