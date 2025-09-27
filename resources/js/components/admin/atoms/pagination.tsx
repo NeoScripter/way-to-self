@@ -56,7 +56,7 @@ export default function Pagination({
                     scrollElementId={scrollElementId}
                 >
                     {renderLinkContent(links[0], 0)}
-                    Вперед
+                    Назад
                 </PaginationBtn>
 
                 <PaginationBtn
@@ -66,7 +66,7 @@ export default function Pagination({
                     shouldScroll={shouldScroll}
                     scrollElementId={scrollElementId}
                 >
-                    Назад
+                    Вперед
                     {renderLinkContent(
                         links[links.length - 1],
                         links.length - 1,
@@ -85,7 +85,7 @@ export default function Pagination({
                 <div>
                     <nav
                         aria-label="Pagination"
-                        className="isolate flex items-center justify-center gap-2 2xl:gap-3"
+                        className="isolate flex flex-wrap items-center justify-center gap-2 2xl:gap-3"
                     >
                         {links.map((link, index) => (
                             <PaginationBtn

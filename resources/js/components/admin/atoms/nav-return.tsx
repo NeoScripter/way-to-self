@@ -26,8 +26,6 @@ export default function NavReturn({
     return (
         <Link
             href={routeName}
-            prefetch
-            preserveState
             as="button"
             className={cn(
                 'cursor-pointer transition-colors duration-200 ease-in-out hover:text-bright-salad',

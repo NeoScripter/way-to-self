@@ -29,7 +29,7 @@ class UserController extends Controller
     {
         $route = $user->isEditor()
             ? 'admin.editors.index'
-            : 'admin.editors.index';
+            : 'admin.users.index';
 
         $user->delete();
 

@@ -9,13 +9,14 @@ type AdminNavLinkProps = {
 export default function AdminNavLink({ item }: AdminNavLinkProps) {
     const { url } = usePage();
 
-    const isCurrent = false;
-    // const isCurrent = route(item.route).includes(url);
+    const isCurrent = route(item.route).includes(
+        url.includes('?') ? url.split('?')[0] : url,
+    );
 
     return (
         <li
             className={cn(
-                'flex relative list-none items-center gap-2 rounded-xl px-5 py-2 whitespace-nowrap text-dark-swamp transition-all duration-200 ease-in-out select-none',
+                'relative flex cursor-pointer list-none items-center gap-2 rounded-xl px-5 py-2 whitespace-nowrap text-dark-swamp transition-all duration-200 ease-in-out select-none',
                 isCurrent
                     ? 'bg-pale-swamp/20 shadow-sm ring-1 shadow-pale-swamp ring-pale-swamp'
                     : 'hover:shadow-sm hover:ring-1 hover:shadow-pale-swamp hover:ring-pale-swamp',
@@ -24,9 +25,8 @@ export default function AdminNavLink({ item }: AdminNavLinkProps) {
             <Link
                 href={route(item.route)}
                 as="button"
-                className="absolute cursor-pointer inset-0"
-            >
-            </Link>
+                className="absolute inset-0 cursor-pointer"
+            ></Link>
             <img
                 src={item.icon}
                 alt=""

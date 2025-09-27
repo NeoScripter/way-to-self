@@ -22,6 +22,7 @@ export type AdminMenuItem = {
     title: string;
     route: string;
     icon: string;
+    allowed: string[];
 };
 
 export const adminMenu: AdminMenuList[] = [
@@ -34,73 +35,84 @@ export const adminMenu: AdminMenuList[] = [
                 title: 'Личные данные',
                 route: 'admin.profile',
                 icon: Profile,
+                allowed: ['admin', 'editor'],
             },
             {
                 id: uuidv4(),
                 title: 'Статистика',
                 route: 'admin.dashboard',
                 icon: Dashboard,
+                allowed: ['admin', 'editor'],
             },
             {
                 id: uuidv4(),
                 title: 'Администраторы',
                 route: 'admin.editors.index',
                 icon: Editors,
+                allowed: ['admin'],
             },
             {
                 id: uuidv4(),
                 title: 'Пользователи',
-                route: 'admin.dashboard',
+                route: 'admin.users.index',
                 icon: Users,
+                allowed: ['admin', 'editor'],
             },
-            {
-                id: uuidv4(),
-                title: 'Промокоды',
-                route: 'admin.dashboard',
-                icon: Promo,
-            },
-            {
-                id: uuidv4(),
-                title: 'Тарифы',
-                route: 'admin.dashboard',
-                icon: Plans,
-            },
+            // {
+            //     id: uuidv4(),
+            //     title: 'Промокоды',
+            //     route: 'admin.dashboard',
+            //     icon: Promo,
+            //     allowed: ['admin', 'editor'],
+            // },
+            // {
+            //     id: uuidv4(),
+            //     title: 'Тарифы',
+            //     route: 'admin.dashboard',
+            //     icon: Plans,
+            //     allowed: ['admin', 'editor'],
+            // },
         ],
     },
-    {
-        id: uuidv4(),
-        title: 'Управление',
-        items: [
-            {
-                id: uuidv4(),
-                title: 'Главная',
-                route: 'admin.dashboard',
-                icon: Home,
-            },
-            {
-                id: uuidv4(),
-                title: 'Питание',
-                route: 'admin.dashboard',
-                icon: Food,
-            },
-            {
-                id: uuidv4(),
-                title: 'Душа',
-                route: 'admin.dashboard',
-                icon: Soul,
-            },
-            {
-                id: uuidv4(),
-                title: 'Тело',
-                route: 'admin.dashboard',
-                icon: Body,
-            },
-            {
-                id: uuidv4(),
-                title: 'Новости',
-                route: 'admin.dashboard',
-                icon: Articles,
-            },
-        ],
-    },
+    // {
+    //     id: uuidv4(),
+    //     title: 'Управление',
+    //     items: [
+    //         {
+    //             id: uuidv4(),
+    //             title: 'Главная',
+    //             route: 'admin.dashboard',
+    //             icon: Home,
+    //             allowed: ['admin', 'editor'],
+    //         },
+    //         {
+    //             id: uuidv4(),
+    //             title: 'Питание',
+    //             route: 'admin.dashboard',
+    //             icon: Food,
+    //             allowed: ['admin', 'editor'],
+    //         },
+    //         {
+    //             id: uuidv4(),
+    //             title: 'Душа',
+    //             route: 'admin.dashboard',
+    //             icon: Soul,
+    //             allowed: ['admin', 'editor'],
+    //         },
+    //         {
+    //             id: uuidv4(),
+    //             title: 'Тело',
+    //             route: 'admin.dashboard',
+    //             icon: Body,
+    //             allowed: ['admin', 'editor'],
+    //         },
+    //         {
+    //             id: uuidv4(),
+    //             title: 'Новости',
+    //             route: 'admin.dashboard',
+    //             icon: Articles,
+    //             allowed: ['admin', 'editor'],
+    //         },
+    //     ],
+    // },
 ];

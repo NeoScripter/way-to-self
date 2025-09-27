@@ -8,8 +8,8 @@ import { User } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
 export default function Index() {
-    const { editors, count } = usePage<{
-        editors: PaginationMeta<User>;
+    const { users, count } = usePage<{
+        users: PaginationMeta<User>;
         count: number;
     }>().props;
 
@@ -19,19 +19,18 @@ export default function Index() {
         <AdminLayout>
             <TableHeader
                 only={['users']}
-                label={'все админы'}
+                label={'все пользователи'}
                 badge={`${count} ${badge}`}
-                createRoute={route('admin.editors.create')}
             />
             <Table
-                meta={editors}
-                width="min-w-150"
-                columns={['Имя администратора', 'Email', 'Статус']}
+                meta={users}
+                width="min-w-220"
+                columns={['Имя пользователя', 'Email', 'Телеграм', 'Статус']}
             >
-                {editors.data.map((editor) => (
-                    <EditorItem
-                        key={editor.id}
-                        editor={editor}
+                {users.data.map((user) => (
+                    <UserItem
+                        key={user.id}
+                        user={user}
                     />
                 ))}
             </Table>
@@ -39,28 +38,29 @@ export default function Index() {
     );
 }
 
-type EditorItemProps = {
-    editor: User;
+type UserItemProps = {
+    user: User;
 };
 
-function EditorItem({ editor }: EditorItemProps) {
+function UserItem({ user }: UserItemProps) {
     return (
         <div
             className={cn(
                 'flex items-center gap-2 text-text-black md:justify-between',
-                editor.banned && 'text-red-700',
+                user.banned && 'text-red-700',
             )}
         >
-            <div className="w-3/7">
+            <div className="w-2/7">
                 <Link
-                    href={route('admin.editors.show', editor.id)}
+                    href={route('admin.users.show', user.id)}
                     className="cursor-pointer text-left underline-offset-4 transition-colors duration-200 ease-in-out hover:text-bright-salad hover:underline"
                     as="button"
-                >{`${editor.name} ${editor.surname}`}</Link>
+                >{`${user.name} ${user.surname}`}</Link>
             </div>
-            <span className="">{editor.email}</span>
+            <span className="w-2/7 mr-10 xl:w-1/3 xl:mr-0">{user.email}</span>
+            <span className="">{user.telegram}</span>
             <span className="ml-auto text-right">
-                {editor.banned ? 'Заблокирован' : 'Активен'}
+                {user.banned ? 'Заблокирован' : 'Активен'}
             </span>
         </div>
     );

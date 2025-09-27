@@ -23,18 +23,18 @@ export default function Show() {
     return (
         <AdminLayout>
             <NavReturn
-                routeName={route('admin.editors.index')}
+                routeName={route('admin.users.index')}
                 badge={`${count} ${badge}`}
-                label="список админов"
+                label="список пользователей"
             />
 
             <h3 className="mt-12 mb-6 text-center text-xl font-bold sm:mt-16 sm:mb-8 sm:text-2xl lg:mb-10 lg:text-3xl xl:mt-20">
-                Редактировать данные редактора
+                Редактировать данные пользователя
             </h3>
 
             <ProfileInfo
                 user={user}
-                routeName={route('admin.editors.update', user.id)}
+                routeName={route('admin.users.update', user.id)}
             />
 
             <div className="my-10 flex flex-col items-center justify-between gap-10 md:my-16 md:flex-row xl:my-20">
@@ -46,7 +46,7 @@ export default function Show() {
                             : 'Пользователь активен'
                     }
                     checked={user.banned}
-                    routeName={route('admin.editors.ban', user.id)}
+                    routeName={route('admin.users.ban', user.id)}
                 />
 
                 <button
@@ -67,7 +67,7 @@ export default function Show() {
                 closeDialog={() => toggleModal(false)}
                 title="Вы точно уверены, что хотите удалить данного пользователя?"
                 description="Восстановление данного пользователя будет невозможно"
-                routeName={route('admin.editors.destroy', user.id)}
+                routeName={route('admin.users.destroy', user.id)}
                 methodName="delete"
                 confirmBtnLabel='Удалить'
                 cancelBtnLabel='Отмена'

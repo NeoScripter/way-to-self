@@ -1,7 +1,8 @@
 import Exit from '@/assets/svgs/admin/admin-exit.svg';
 import { adminMenu, AdminMenuList } from '@/lib/data/admin-menu-items';
 import { cn } from '@/lib/utils';
-import { Link, router } from '@inertiajs/react';
+import { Auth } from '@/types';
+import { Link, router, usePage } from '@inertiajs/react';
 import AdminNavLink from '../atoms/admin-nav-link';
 
 type NavMenuProps = {
@@ -13,9 +14,9 @@ export default function NavMenu({ className, show }: NavMenuProps) {
     return (
         <div
             className={cn(
-                'fixed top-12.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-opacity duration-500 ease-in-out sm:top-22 md:top-25 xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent xl:opacity-100 xl:pointer-events-auto',
+                'fixed top-12.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-opacity duration-500 ease-in-out sm:top-22 md:top-25 xl:pointer-events-auto xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent xl:opacity-100',
                 className,
-                show ? 'opacity-100' : 'opacity-0 pointer-events-none',
+                show ? 'opacity-100' : 'pointer-events-none opacity-0',
             )}
             id="mobile-navigation"
             role="dialog"
@@ -24,7 +25,7 @@ export default function NavMenu({ className, show }: NavMenuProps) {
         >
             <div
                 className={cn(
-                    'ml-auto max-h-full max-w-86 overflow-y-auto rounded-b-md transition-transform duration-500 ease-in-out bg-white pt-11 pr-19 pb-16 pl-10 sm:rounded-b-3xl xl:ml-0 xl:overflow-y-visible xl:rounded-3xl',
+                    'ml-auto max-h-full max-w-86 overflow-y-auto rounded-b-md bg-white pt-11 pr-19 pb-16 pl-10 transition-transform duration-500 ease-in-out sm:rounded-b-3xl xl:ml-0 xl:overflow-y-visible xl:rounded-3xl',
                     show
                         ? 'translate-x-0'
                         : 'translate-x-full xl:translate-x-0',
@@ -64,18 +65,32 @@ type ListProps = {
 };
 
 function List({ list }: ListProps) {
+    const { auth } = usePage<{ auth: Auth }>().props;
+
+    function includedIn(allowed: string[]) {
+        for (const role of auth.roles) {
+            if (allowed.includes(role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     return (
         <div>
             <h3 className="mb-4 w-55 px-5 font-medium text-black uppercase underline underline-offset-3">
                 {list.title}
             </h3>
             <ul className="space-y-1">
-                {list.items.map((item) => (
-                    <AdminNavLink
-                        key={item.id}
-                        item={item}
-                    />
-                ))}
+                {list.items.map((item) =>
+                    includedIn(item.allowed) ? (
+                        <AdminNavLink
+                            key={item.id}
+                            item={item}
+                        />
+                    ) : null,
+                )}
             </ul>
         </div>
     );

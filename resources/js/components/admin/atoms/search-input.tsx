@@ -19,7 +19,7 @@ export default function SearchInput({ className }: SearchInputProps) {
         () => {
             router.visit('', {
                 method: 'get',
-                data: { search: term },
+                data: { search: term, page: 1 },
                 preserveState: true,
             });
         },
