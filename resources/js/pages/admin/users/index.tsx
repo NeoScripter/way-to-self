@@ -24,8 +24,9 @@ export default function Index() {
             />
             <Table
                 meta={users}
-                width="min-w-220"
+                width="min-w-150 sm:min-w-190 lg:min-w-220"
                 columns={['Имя пользователя', 'Email', 'Телеграм', 'Статус']}
+                isEmpty={users.data.length === 0}
             >
                 {users.data.map((user) => (
                     <UserItem
@@ -57,7 +58,7 @@ function UserItem({ user }: UserItemProps) {
                     as="button"
                 >{`${user.name} ${user.surname}`}</Link>
             </div>
-            <span className="w-2/7 mr-10 xl:w-1/3 xl:mr-0">{user.email}</span>
+            <span className="mr-10 w-2/7 xl:mr-0 xl:w-1/3">{user.email}</span>
             <span className="">{user.telegram}</span>
             <span className="ml-auto text-right">
                 {user.banned ? 'Заблокирован' : 'Активен'}

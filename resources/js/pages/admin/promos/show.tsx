@@ -8,7 +8,7 @@ import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { Promo } from '@/types/model';
 import { TrashIcon } from '@heroicons/react/24/solid';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 
 export default function Show() {
     const { promo, count } = usePage<{
@@ -17,6 +17,15 @@ export default function Show() {
     }>().props;
 
     const [showModal, toggleModal] = useToggle(false);
+    const [showDisableModal, toggleDisableModal] = useToggle(false);
+
+    function handleChange() {
+        if (!promo.enabled) {
+            router.patch(route('admin.promos.toggle', promo.id));
+        } else {
+            toggleDisableModal(true);
+        }
+    }
 
     const badge = pluralizeRu(count, 'промокод', 'промокода', 'промокодов');
 
@@ -43,10 +52,10 @@ export default function Show() {
                     label={
                         promo.enabled
                             ? 'Промокод активен'
-                            : 'Пользователь деактивирован'
+                            : 'Промокод деактивирован'
                     }
                     checked={!promo.enabled}
-                    routeName={route('admin.promos.toggle', promo.id)}
+                    handleChange={handleChange}
                 />
 
                 <button
@@ -72,6 +81,16 @@ export default function Show() {
                 payload={{ ids: [promo.id] }}
                 methodName="delete"
                 confirmBtnLabel="Удалить"
+                cancelBtnLabel="Отмена"
+            />
+
+            <ConfirmationDialog
+                show={showDisableModal}
+                closeDialog={() => toggleDisableModal(false)}
+                title="Вы точно уверены, что хотите деактивировать данный промокод?"
+                routeName={route('admin.promos.toggle', promo.id)}
+                methodName="patch"
+                confirmBtnLabel="Деактивировать"
                 cancelBtnLabel="Отмена"
             />
         </AdminLayout>

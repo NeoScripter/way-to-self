@@ -8,7 +8,7 @@ import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { User } from '@/types';
 import { TrashIcon } from '@heroicons/react/24/solid';
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 
 export default function Show() {
     const { user, count } = usePage<{
@@ -17,6 +17,15 @@ export default function Show() {
     }>().props;
 
     const [showModal, toggleModal] = useToggle(false);
+    const [showDisableModal, toggleDisableModal] = useToggle(false);
+
+    function handleChange() {
+        if (user.banned) {
+            router.post(route('admin.users.ban', user.id));
+        } else {
+            toggleDisableModal(true);
+        }
+    }
 
     const badge = pluralizeRu(count, 'аккаунт', 'аккаунта', 'аккаунтов');
 
@@ -46,7 +55,7 @@ export default function Show() {
                             : 'Пользователь активен'
                     }
                     checked={user.banned}
-                    routeName={route('admin.users.ban', user.id)}
+                    handleChange={handleChange}
                 />
 
                 <button
@@ -69,8 +78,19 @@ export default function Show() {
                 description="Восстановление данного пользователя будет невозможно"
                 routeName={route('admin.users.destroy', user.id)}
                 methodName="delete"
-                confirmBtnLabel='Удалить'
-                cancelBtnLabel='Отмена'
+                confirmBtnLabel="Удалить"
+                cancelBtnLabel="Отмена"
+            />
+
+            <ConfirmationDialog
+                show={showDisableModal}
+                closeDialog={() => toggleDisableModal(false)}
+                title="Вы точно уверены, что хотите заблокировать данного пользователя?"
+                description="После блокировки пользователь не сможет больше войти в аккаунт"
+                routeName={route('admin.users.ban', user.id)}
+                methodName="post"
+                confirmBtnLabel="Заблокировать"
+                cancelBtnLabel="Отмена"
             />
         </AdminLayout>
     );

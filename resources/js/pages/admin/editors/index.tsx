@@ -25,8 +25,9 @@ export default function Index() {
             />
             <Table
                 meta={editors}
-                width="min-w-150"
+                width="min-w-120 sm:min-w-150 lg:min-w-200"
                 columns={['Имя администратора', 'Email', 'Статус']}
+                isEmpty={editors.data.length === 0}
             >
                 {editors.data.map((editor) => (
                     <EditorItem

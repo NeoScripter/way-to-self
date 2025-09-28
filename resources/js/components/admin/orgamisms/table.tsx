@@ -7,12 +7,25 @@ type TableProps = {
     columns: string[];
     width: string;
     meta: PaginationMeta<unknown>;
+    isEmpty?: boolean;
 };
 
-export default function Table({ meta, children, width, columns }: TableProps) {
+export default function Table({
+    meta,
+    children,
+    width,
+    columns,
+    isEmpty = false,
+}: TableProps) {
+    const params = new URLSearchParams(window.location.search);
+    const emptyBox =
+        params.has('search') && params.get('search') !== ''
+            ? 'По вашему запросу ничего не найдено'
+            : 'Пока здесь ничего нет';
+
     return (
         <div>
-            <div className="overflow-x-auto pb-9">
+            <div className="overflow-x-auto pb-9 text-xs sm:text-sm lg:text-base">
                 <div
                     className={cn(
                         'my-9 flex items-center justify-between gap-2 text-pale-gray',
@@ -29,7 +42,11 @@ export default function Table({ meta, children, width, columns }: TableProps) {
                     ))}
                 </div>
 
-                <div className={cn('space-y-4', width)}>{children}</div>
+                {isEmpty ? (
+                    <div className="text-balance text-sm md:text-base">{emptyBox}</div>
+                ) : (
+                    <div className={cn('space-y-4', width)}>{children}</div>
+                )}
             </div>
             <Pagination
                 className="mt-10"
