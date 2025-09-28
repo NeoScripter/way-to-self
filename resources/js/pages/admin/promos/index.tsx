@@ -51,12 +51,14 @@ export default function Index() {
                 createRoute={route('admin.promos.create')}
             />
             <div className="mt-9 mb-3 flex items-center gap-3">
-                <button
-                    onClick={handleSelectAll}
-                    className="ease transition-outline flex cursor-pointer items-center rounded-md border-2 border-slate-200 bg-white px-1 py-0.5 pb-1 text-xs text-slate-400 shadow-sm outline-slate-200/60 duration-100 hover:outline-3 focus:shadow focus:outline-3 focus:outline-none sm:order-0"
-                >
-                    {allSelected ? 'очистить' : 'выбрать все'}
-                </button>
+                {promos.data.length > 0 && (
+                    <button
+                        onClick={handleSelectAll}
+                        className="ease transition-outline flex cursor-pointer items-center rounded-md border-2 border-slate-200 bg-white px-1 py-0.5 pb-1 text-xs text-slate-400 shadow-sm outline-slate-200/60 duration-100 hover:outline-3 focus:shadow focus:outline-3 focus:outline-none sm:order-0"
+                    >
+                        {allSelected ? 'очистить' : 'выбрать все'}
+                    </button>
+                )}
                 {selected.length > 0 && (
                     <button
                         onClick={() => toggleDeleteModal(true)}

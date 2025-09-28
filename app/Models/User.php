@@ -64,6 +64,7 @@ class User extends Authenticatable
     public function tiers(): BelongsToMany
     {
         return $this->belongsToMany(Tier::class)
+            ->withTimestamps()
             ->withPivot(['expires_at', 'warning_count']);
     }
 

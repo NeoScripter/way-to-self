@@ -31,6 +31,7 @@ class Tier extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
+            ->withTimestamps()
             ->withPivot(['expires_at', 'warning_count']);
     }
 }

@@ -6,14 +6,47 @@ import useToggle from '@/hooks/use-toggle';
 import AdminLayout from '@/layouts/admin/admin-layout';
 import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
+import { cn } from '@/lib/utils';
 import { User } from '@/types';
 import { TrashIcon } from '@heroicons/react/24/solid';
 import { router, usePage } from '@inertiajs/react';
 
+type Column = {
+    id: string;
+    title: string;
+    start: string;
+    end: string;
+};
+
+type TierTableProps = {
+    columns: Column[];
+};
+
+function TierTable({ columns }: TierTableProps) {
+    return (
+        <>
+            {columns.map((column, idx) => (
+                <div
+                    key={column.id}
+                    className={cn(
+                        'flex items-center justify-between rounded-md border border-slate-300 px-1 py-3 text-center text-xs sm:text-sm md:text-base',
+                        idx === 0 && 'text-slate-400',
+                    )}
+                >
+                    <span className="w-full">{column.title}</span>
+                    <span className="w-full">{column.start}</span>
+                    <span className="w-full">{column.end}</span>
+                </div>
+            ))}
+        </>
+    );
+}
+
 export default function Show() {
-    const { user, count } = usePage<{
+    const { user, count, columns } = usePage<{
         user: User;
         count: number;
+        columns: Column[] | undefined;
     }>().props;
 
     const [showModal, toggleModal] = useToggle(false);
@@ -38,13 +71,19 @@ export default function Show() {
             />
 
             <h3 className="mt-12 mb-6 text-center text-xl font-bold sm:mt-16 sm:mb-8 sm:text-2xl lg:mb-10 lg:text-3xl xl:mt-20">
-                Редактировать данные пользователя
+                Личные данные пользователя
             </h3>
 
             <ProfileInfo
                 user={user}
                 routeName={route('admin.users.update', user.id)}
             />
+
+            {columns != null && (
+                <div className="my-10 space-y-1 md:my-16 xl:my-20">
+                    <TierTable columns={columns} />
+                </div>
+            )}
 
             <div className="my-10 flex flex-col items-center justify-between gap-10 md:my-16 md:flex-row xl:my-20">
                 <ToggleBtn
