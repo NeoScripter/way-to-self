@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DiscountType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,11 @@ class TierCart extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function promo(): BelongsTo
+    {
+        return $this->belongsTo(Promo::class);
+    }
+
     public static function getCart(): TierCart
     {
         if (Auth::check()) {
@@ -39,7 +45,18 @@ class TierCart extends Model
 
     public function total(): int
     {
-        return $this->tiers()->sum('price');
+        $sum = $this->tiers()->sum('price');
+
+        $promo = $this->promo;
+        if ($promo && $promo->expires_at->isFuture()) {
+            if ($promo->discount_type === DiscountType::PERCENT->value) {
+                $sum = intdiv($sum * (100 - $promo->discount), 100);
+            } else {
+                $sum -= $promo->discount;
+            }
+        }
+
+        return max($sum, 0);
     }
 
     public function clear()

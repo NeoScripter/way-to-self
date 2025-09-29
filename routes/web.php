@@ -23,6 +23,7 @@ Route::post('/telegram/webhook', [BotController::class, 'webhook']);
 
 Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
 Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('cart.tiers.update');
+Route::post('/tier-cart-promo', [TierCartController::class, 'store'])->name('cart.tiers.store');
 Route::post('/empty-cart', [TierCartController::class, 'empty'])->name('cart.tiers.empty');
 
 Route::get('/payment/process', [RegisteredUserController::class, 'processPayment'])

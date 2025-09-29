@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\DiscountType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamp('expires_at');
             $table->unsignedInteger('discount');
-            $table->enum('discount_type', ['percent', 'currency']);
+            $table->enum('discount_type', [DiscountType::PERCENT, DiscountType::CURRENCY]);
             $table->boolean('enabled')->default(true);
             $table->timestamps();
         });

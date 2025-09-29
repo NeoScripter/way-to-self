@@ -58,11 +58,6 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($randomPassword),
         ]);
 
-        // Mail::send('emails.password', ['password' => $randomPassword], function ($message) use ($user) {
-        //     $message->to($user->email)
-        //         ->subject('Пароль от вашего аккаунта');
-        // });
-
         $user->notify(new SendPasswordNotification($randomPassword));
 
         event(new Registered($user));
