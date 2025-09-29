@@ -3,6 +3,7 @@ import formatCurrency from '@/lib/helpers/formatCurrency';
 import { cn } from '@/lib/utils';
 import { Field, Input, Label } from '@headlessui/react';
 import { useForm, usePage } from '@inertiajs/react';
+import confetti from 'canvas-confetti';
 import { Check, Tag } from 'lucide-react';
 import InputError from '../atoms/input-error';
 
@@ -21,9 +22,10 @@ export default function DiscountField({ className }: DiscountFieldProps) {
         total: number;
     }>().props;
 
-    const { data, clearErrors, setData, reset, post, setError, errors } = useForm({
-        code: '',
-    });
+    const { data, clearErrors, setData, reset, post, setError, errors } =
+        useForm({
+            code: '',
+        });
 
     function handleSubmit() {
         if (data.code === '') {
@@ -33,6 +35,11 @@ export default function DiscountField({ className }: DiscountFieldProps) {
         post(route('cart.tiers.store'), {
             preserveScroll: true,
             preserveState: true,
+            onSuccess: () =>
+                confetti({
+                    particleCount: 200,
+                    spread: 120,
+                }),
         });
         reset();
         setTimeout(() => clearErrors(), 1000 * 5);
