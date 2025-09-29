@@ -16,21 +16,26 @@ type Discount = {
 };
 
 export default function DiscountField({ className }: DiscountFieldProps) {
-    const { discount } = usePage<{ discount: Discount | undefined }>().props;
+    const { discount, total } = usePage<{
+        discount: Discount | undefined;
+        total: number;
+    }>().props;
 
-    const { data, setData, post, setError, errors } = useForm({
+    const { data, clearErrors, setData, reset, post, setError, errors } = useForm({
         code: '',
     });
 
     function handleSubmit() {
-        // if (data.code === '') {
-        //     setError('code', 'Введите промокод');
-        //     return;
-        // }
+        if (data.code === '') {
+            setError('code', 'Введите промокод');
+            return;
+        }
         post(route('cart.tiers.store'), {
             preserveScroll: true,
             preserveState: true,
         });
+        reset();
+        setTimeout(() => clearErrors(), 1000 * 5);
     }
 
     return (
@@ -64,7 +69,7 @@ export default function DiscountField({ className }: DiscountFieldProps) {
                 />
             )}
 
-            {discount != null && (
+            {discount && total > 0 && (
                 <div
                     role="status"
                     aria-live="polite"
@@ -72,7 +77,7 @@ export default function DiscountField({ className }: DiscountFieldProps) {
                     className="mt-5 flex items-center justify-between gap-2 text-xl text-very-bright-salad sm:mt-7 sm:text-2xl"
                 >
                     <span>{`Скидка ${discount.percent}`}</span>
-                    <span>{formatCurrency(discount.amount)}</span>
+                    <span>{`-${formatCurrency(discount.amount)}`}</span>
                 </div>
             )}
         </div>

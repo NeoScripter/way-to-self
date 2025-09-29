@@ -33,9 +33,9 @@ class UserSeeder extends Seeder
             $editor->roles()->sync([$editorRole->id])
         );
 
-        $regularUsers = User::factory(994)->create();
+        $regularUsers = User::factory(94)->create();
 
-        $withSubscriptions = $regularUsers->random(400);
+        $withSubscriptions = $regularUsers->random(40);
 
         $tiers = Tier::all();
 

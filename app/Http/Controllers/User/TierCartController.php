@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Promo;
 use App\Models\Tier;
 use App\Models\TierCart;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TierCartController extends Controller
@@ -29,7 +30,7 @@ class TierCartController extends Controller
             return back()->withErrors(['code' => 'Промокод указан неверно']);
         }
 
-        if (! $promo->expires_at->isFuture()) {
+        if (! Carbon::parse($promo->expires_at)->isFuture()) {
             return back()->withErrors(['code' => 'Срок действия данного промокода истек']);
         }
 

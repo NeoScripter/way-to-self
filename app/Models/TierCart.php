@@ -48,7 +48,7 @@ class TierCart extends Model
         $sum = $this->tiers()->sum('price');
 
         $promo = $this->promo;
-        if ($promo && $promo->expires_at->isFuture()) {
+        if ($promo && Carbon::parse($promo->expires_at)->isFuture()) {
             if ($promo->discount_type === DiscountType::PERCENT->value) {
                 $sum = intdiv($sum * (100 - $promo->discount), 100);
             } else {

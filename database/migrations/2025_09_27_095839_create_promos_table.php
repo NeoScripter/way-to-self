@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamp('expires_at');
             $table->unsignedInteger('discount');
-            $table->enum('discount_type', [DiscountType::PERCENT, DiscountType::CURRENCY]);
+            $table->enum('discount_type', [DiscountType::PERCENT->value, DiscountType::CURRENCY->value]);
             $table->boolean('enabled')->default(true);
             $table->timestamps();
         });

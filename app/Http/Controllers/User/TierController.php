@@ -19,13 +19,17 @@ class TierController extends Controller
 
         if ($discount) {
             if ($discount->discount_type === DiscountType::PERCENT->value) {
-                $percent = $discount->discount . '%';
+                $percent = $discount->discount;
+                $original = $total * 100 / (100 - $percent);
+                $amount = $original - $total;
+                $percent .= '%';
             } else {
-                $percent = $discount->discount . 'руб.';
+                $percent = $discount->discount . ' руб.';
+                $amount = $discount->discount;
             }
 
             $discount = [
-                'discount' => $discount->discount,
+                'amount' => $amount,
                 'percent' => $percent,
             ];
         }

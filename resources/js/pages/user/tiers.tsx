@@ -170,7 +170,7 @@ function TierCard({ tier, className, selected }: TierCardProps) {
             method: 'post',
             preserveScroll: true,
             preserveState: true,
-            only: ['added', 'total'],
+            only: ['added', 'total', 'discount'],
         });
     }
 
