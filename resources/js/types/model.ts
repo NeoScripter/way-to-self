@@ -89,6 +89,17 @@ export type Image = {
     updated_at?: string;
     imageable?: any;
 };
+export type Plan = {
+    id: number;
+    title: string;
+    enabled: any;
+    description: string;
+    price: number;
+    tier_count: number;
+    created_at?: string;
+    updated_at?: string;
+    image?: Image;
+};
 export type Practice = {
     id: number;
     title: string;
@@ -139,6 +150,7 @@ export type Promo = {
     enabled: any;
     created_at?: string;
     updated_at?: string;
+    tier_carts?: TierCart[];
 };
 export type Recipe = {
     id: number;
@@ -218,9 +230,11 @@ export type TierCart = {
     id: number;
     user_id?: number;
     session_id?: string;
+    promo_id?: number;
     created_at?: string;
     updated_at?: string;
     tiers?: Tier[];
+    promo?: Promo;
 };
 export type TierUser = {
     id: number;
@@ -269,6 +283,10 @@ export enum CategoryType {
 export enum ContentType {
     FREE = "free",
     PAID = "paid"
+}
+export enum DiscountType {
+    PERCENT = "percent",
+    CURRENCY = "currency"
 }
 export enum RoleEnum {
     USER = "user",

@@ -35,7 +35,7 @@ class TierUser extends Model
      */
     public function scopeActiveUsersSince($query, int $days)
     {
-        return $query->where('expires_at', '>', now()->subDays($days))
+        return $query->where('expires_at', '>=', now()->subDays($days))
             ->distinct('user_id')
             ->count('user_id');
     }
@@ -45,7 +45,7 @@ class TierUser extends Model
      */
     public function scopeActiveSubscriptionsSince($query, int $days)
     {
-        return $query->where('expires_at', '>', now()->subDays($days))
+        return $query->where('expires_at', '>=', now()->subDays($days))
             ->count();
     }
 }

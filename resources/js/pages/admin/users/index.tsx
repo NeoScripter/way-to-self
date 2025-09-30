@@ -44,11 +44,13 @@ type UserItemProps = {
 };
 
 function UserItem({ user }: UserItemProps) {
+    const isDeleted = user.deleted_at != null;
+
     return (
         <div
             className={cn(
                 'flex items-center gap-2 text-text-black md:justify-between',
-                user.banned && 'text-red-700',
+                isDeleted ? 'text-orange-500' : user.banned && 'text-red-700',
             )}
         >
             <div className="w-2/7">
@@ -61,7 +63,7 @@ function UserItem({ user }: UserItemProps) {
             <span className="mr-10 w-2/7 xl:mr-0 xl:w-1/3">{user.email}</span>
             <span className="">{user.telegram}</span>
             <span className="ml-auto text-right">
-                {user.banned ? 'Заблокирован' : 'Активен'}
+                {isDeleted ? 'Удален' : user.banned ? 'Заблокирован' : 'Активен'}
             </span>
         </div>
     );

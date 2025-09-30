@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\TierCart;
 use App\Models\User;
@@ -104,8 +105,15 @@ class RegisteredUserController extends Controller
                 ->route('account')
                 ->with('message', 'Подписка успешно продлена!');
         } else {
+            $adminEmail = User::whereHas('roles', function ($query) {
+                    $query->where('name', RoleEnum::ADMIN->value);
+                })
+                ->pluck('email')
+                ->first();
+
             return Inertia::render('user/payment', [
-                'status' => 'success'
+                'status' => 'success',
+                'adminEmail' => $adminEmail
             ]);
         }
     }

@@ -49,11 +49,14 @@ export default function Show() {
         columns: Column[] | undefined;
     }>().props;
 
+    const isDeleted = user.deleted_at != null;
     const [showModal, toggleModal] = useToggle(false);
     const [showDisableModal, toggleDisableModal] = useToggle(false);
 
     function handleChange() {
-        if (user.banned) {
+        if (isDeleted) {
+            toggleDisableModal(true);
+        } else if (user.banned) {
             router.post(route('admin.users.ban', user.id));
         } else {
             toggleDisableModal(true);
@@ -86,16 +89,25 @@ export default function Show() {
             )}
 
             <div className="my-10 flex flex-col items-center justify-between gap-10 md:my-16 md:flex-row xl:my-20">
-                <ToggleBtn
-                    color="data-checked:bg-red-700"
-                    label={
-                        user.banned
-                            ? 'Пользователь заблокирован'
-                            : 'Пользователь активен'
-                    }
-                    checked={user.banned}
-                    handleChange={handleChange}
-                />
+                {isDeleted ? (
+                    <ToggleBtn
+                        color="data-checked:bg-orange-500"
+                        label="Восстановить пользователя"
+                        checked={isDeleted}
+                        handleChange={handleChange}
+                    />
+                ) : (
+                    <ToggleBtn
+                        color="data-checked:bg-red-700"
+                        label={
+                            user.banned
+                                ? 'Пользователь заблокирован'
+                                : 'Пользователь активен'
+                        }
+                        checked={user.banned}
+                        handleChange={handleChange}
+                    />
+                )}
 
                 <button
                     onClick={() => toggleModal(true)}
@@ -121,16 +133,28 @@ export default function Show() {
                 cancelBtnLabel="Отмена"
             />
 
-            <ConfirmationDialog
-                show={showDisableModal}
-                closeDialog={() => toggleDisableModal(false)}
-                title="Вы точно уверены, что хотите заблокировать данного пользователя?"
-                description="После блокировки пользователь не сможет больше войти в аккаунт"
-                routeName={route('admin.users.ban', user.id)}
-                methodName="post"
-                confirmBtnLabel="Заблокировать"
-                cancelBtnLabel="Отмена"
-            />
+            {isDeleted ? (
+                <ConfirmationDialog
+                    show={showDisableModal}
+                    closeDialog={() => toggleDisableModal(false)}
+                    title="Вы точно уверены, что хотите восстановить аккаунт данного пользователя?"
+                    routeName={route('admin.users.restore', user.id)}
+                    methodName="post"
+                    confirmBtnLabel="Восстановить"
+                    cancelBtnLabel="Отмена"
+                />
+            ) : (
+                <ConfirmationDialog
+                    show={showDisableModal}
+                    closeDialog={() => toggleDisableModal(false)}
+                    title="Вы точно уверены, что хотите заблокировать данного пользователя?"
+                    description="После блокировки пользователь не сможет больше войти в аккаунт"
+                    routeName={route('admin.users.ban', user.id)}
+                    methodName="post"
+                    confirmBtnLabel="Заблокировать"
+                    cancelBtnLabel="Отмена"
+                />
+            )}
         </AdminLayout>
     );
 }

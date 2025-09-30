@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use AhoCorasick\MultiStringMatcher;
+use App\Models\Plan;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             'program' => Program::class,
             'tier' => Tier::class,
             'recipe' => Recipe::class,
+            'plan' => Plan::class,
             'exercise' => Exercise::class,
             'recipe_info' => RecipeInfo::class,
             'recipe_step' => RecipeStep::class,

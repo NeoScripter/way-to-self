@@ -39,7 +39,7 @@ class AdminUserController extends Controller
             $query->where('roles.name', RoleEnum::USER->value)
         )->count();
 
-        $users = User::whereHas(
+        $users = User::withTrashed()->whereHas(
             'roles',
             fn($query) =>
             $query->where('roles.name', RoleEnum::USER->value)

@@ -65,13 +65,13 @@ export const adminMenu: AdminMenuList[] = [
                 icon: Promo,
                 allowed: ['admin', 'editor'],
             },
-            // {
-            //     id: uuidv4(),
-            //     title: 'Тарифы',
-            //     route: 'admin.dashboard',
-            //     icon: Plans,
-            //     allowed: ['admin', 'editor'],
-            // },
+            {
+                id: uuidv4(),
+                title: 'Тарифы',
+                route: 'admin.plans.index',
+                icon: Plans,
+                allowed: ['admin', 'editor'],
+            },
         ],
     },
     // {

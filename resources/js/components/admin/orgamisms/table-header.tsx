@@ -10,6 +10,8 @@ type TableHeaderProps = {
     badge: string;
     label: string;
     only: string[];
+    hasSearch?: boolean;
+    hasSorting?: boolean;
 };
 
 export default function TableHeader({
@@ -17,10 +19,14 @@ export default function TableHeader({
     badge,
     createRoute,
     only,
+    hasSearch = true,
+    hasSorting = true,
 }: TableHeaderProps) {
-    const { options } = usePage<{ options: SortOption[] }>().props;
+    const { options = [] } = usePage<{ options: SortOption[] | undefined }>().props;
     const searchParams = new URLSearchParams(window.location.search);
-    const sortBy = searchParams.get('sort_by') ?? options[0].value;
+
+    const sortBy =
+        searchParams.get('sort_by') ?? options[0]?.value ?? null;
 
     const current = (searchParams.get('order') as 'asc' | 'desc') ?? 'asc';
     const next = current === 'asc' ? 'desc' : 'asc';
@@ -34,49 +40,55 @@ export default function TableHeader({
                 badge={badge}
             />
 
-            <SearchInput className="order-2 lg:order-0" />
+            {hasSearch && <SearchInput className="order-2 lg:order-0" />}
 
             <div className="flex flex-wrap items-center gap-2">
-                {createRoute != null && <Link
-                    href={createRoute}
-                    as='button'
-                    className="transition-outline flex cursor-pointer items-center gap-1.5 rounded-md bg-bright-salad px-2.5 py-1.5 text-sm text-white shadow-sm outline-bright-salad/30 duration-100 ease-in hover:outline-3 focus:shadow focus:outline-2 focus:outline-none"
-                >
-                    <div className="size-3.5 shrink-0 text-white">
-                        <img
-                            src={UserPlus}
-                            alt=""
-                            aria-hidden="true"
-                            className="size-full object-contain object-center"
+                {createRoute != null && (
+                    <Link
+                        href={createRoute}
+                        as="button"
+                        className="transition-outline flex cursor-pointer items-center gap-1.5 rounded-md bg-bright-salad px-2.5 py-1.5 text-sm text-white shadow-sm outline-bright-salad/30 duration-100 ease-in hover:outline-3 focus:shadow focus:outline-2 focus:outline-none"
+                    >
+                        <div className="size-3.5 shrink-0 text-white">
+                            <img
+                                src={UserPlus}
+                                alt=""
+                                aria-hidden="true"
+                                className="size-full object-contain object-center"
+                            />
+                        </div>
+                        Добавить
+                    </Link>
+                )}
+
+                {hasSorting && (
+                    <>
+                        <Dropdown
+                            options={options}
+                            buttonLabel="Сортировка"
+                            paramObj={paramsObj}
+                            only={only}
+                            currentValue={sortBy}
                         />
-                    </div>
-                    Добавить
-                </Link>}
 
-                <Dropdown
-                    options={options}
-                    buttonLabel="Сортировка"
-                    paramObj={paramsObj}
-                    only={only}
-                    currentValue={sortBy}
-                />
-
-                <Link
-                    href=""
-                    data={{
-                        ...paramsObj,
-                        ['order']: next,
-                    }}
-                    preserveScroll
-                    only={only}
-                    className="ease transition-outline -order-2 flex cursor-pointer items-center rounded-md border-2 border-slate-200 bg-white px-2 py-2 text-sm text-slate-500 shadow-sm outline-slate-200/60 duration-100 hover:outline-3 focus:shadow focus:outline-3 focus:outline-none sm:order-0"
-                >
-                    {current === 'asc' ? (
-                        <MoveUp className="size-3.5 text-lime-600" />
-                    ) : (
-                        <MoveDown className="size-3.5 text-red-700" />
-                    )}
-                </Link>
+                        <Link
+                            href=""
+                            data={{
+                                ...paramsObj,
+                                ['order']: next,
+                            }}
+                            preserveScroll
+                            only={only}
+                            className="ease transition-outline -order-2 flex cursor-pointer items-center rounded-md border-2 border-slate-200 bg-white px-2 py-2 text-sm text-slate-500 shadow-sm outline-slate-200/60 duration-100 hover:outline-3 focus:shadow focus:outline-3 focus:outline-none sm:order-0"
+                        >
+                            {current === 'asc' ? (
+                                <MoveUp className="size-3.5 text-lime-600" />
+                            ) : (
+                                <MoveDown className="size-3.5 text-red-700" />
+                            )}
+                        </Link>
+                    </>
+                )}
             </div>
         </header>
     );

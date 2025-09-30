@@ -47,7 +47,7 @@ class AdminDashboardController extends Controller
                 'title'    => 'Пользователи с подпиской',
                 'icon'     => 'User',
                 'quantity' => $usersNow,
-                'diff'     => $usersNow - $usersSince,
+                'diff'     => $usersSince - $usersNow,
                 'paramName' => 'users_days',
             ],
             [
@@ -55,7 +55,7 @@ class AdminDashboardController extends Controller
                 'title'    => 'Активные подписки',
                 'icon'     => 'Ghost',
                 'quantity' => $subsNow,
-                'diff'     => $subsNow - $subsSince,
+                'diff'     => $subsSince - $subsNow,
                 'paramName' => 'subs_days',
             ],
             [

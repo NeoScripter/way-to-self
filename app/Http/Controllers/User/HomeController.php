@@ -10,6 +10,7 @@ use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\FaqItem;
+use App\Models\Plan;
 use App\Models\Recipe;
 use App\Models\Review;
 use App\Models\Video;
@@ -27,6 +28,10 @@ final class HomeController extends Controller
             ->get();
 
         $reviews = Review::with(['image'])
+            ->latest()
+            ->get();
+
+        $plans = Plan::with(['image'])
             ->latest()
             ->get();
 
@@ -64,6 +69,7 @@ final class HomeController extends Controller
             'faqs' => $faqs,
             'reviews' => $reviews,
             'articles' => $articles,
+            'plans' => $plans,
             'recipes' => $recipes,
             'exercises' => $exercises,
             'video' => $video->srcVideo(),

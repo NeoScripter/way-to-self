@@ -36,6 +36,10 @@ class TierCartController extends Controller
 
         $cart = TierCart::getCart();
 
+        if ($cart->promo->name === $promo->name) {
+            return back()->withErrors(['code' => 'Данный промокод уже активирован']);
+        }
+
         $cart->promo()->associate($promo);
         $cart->save();
 
