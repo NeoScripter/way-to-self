@@ -1,4 +1,5 @@
 import CheckboxSolid from '@/components/admin/atoms/checkbox-solid';
+import TrashBtn from '@/components/admin/atoms/trash-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import Table from '@/components/admin/orgamisms/table';
 import TableHeader from '@/components/admin/orgamisms/table-header';
@@ -9,7 +10,6 @@ import pluralizeRu from '@/lib/helpers/pluralize';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
 import { Promo } from '@/types/model';
-import { TrashIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -60,12 +60,10 @@ export default function Index() {
                     </button>
                 )}
                 {selected.length > 0 && (
-                    <button
+                    <TrashBtn
                         onClick={() => toggleDeleteModal(true)}
-                        className="flex cursor-pointer items-center gap-1 text-red-700 transition-colors duration-200 ease-in hover:text-red-500"
-                    >
-                        <TrashIcon className="size-5" />
-                    </button>
+                        size="size-5"
+                    />
                 )}
             </div>
             <Table
@@ -108,7 +106,7 @@ function PromoItem({ promo, selected, onChange }: PromoItemProps) {
     return (
         <div
             className={cn(
-                'relative isolate flex items-center gap-2 px-2 text-text-black md:justify-between',
+                'relative isolate grid grid-cols-3 gap-2 px-2 text-text-black md:justify-between',
                 !promo.enabled && 'text-red-700',
                 selected && 'text-bright-salad',
             )}
@@ -120,7 +118,7 @@ function PromoItem({ promo, selected, onChange }: PromoItemProps) {
                     selected && 'opacity-100',
                 )}
             ></span>
-            <div className="flex w-2/5 items-center gap-1 md:w-3/7 2xl:mr-5">
+            <div className="flex items-center gap-1">
                 <CheckboxSolid
                     checked={selected}
                     onChange={() => onChange(promo.id)}
@@ -130,9 +128,11 @@ function PromoItem({ promo, selected, onChange }: PromoItemProps) {
                     href={route('admin.promos.show', promo.id)}
                     className="cursor-pointer text-left underline-offset-4 transition-colors duration-200 ease-in-out hover:text-bright-salad hover:underline"
                     as="button"
-                >{`${promo.name}`}</Link>
+                >
+                    {`${promo.name}`}
+                </Link>
             </div>
-            <span className="mr-10 lg:mr-0">{`${promo.discount} ${promo.discount_type === 'percent' ? '%' : 'руб.'}`}</span>
+            <span className="text-center">{`${promo.discount} ${promo.discount_type === 'percent' ? '%' : 'руб.'}`}</span>
             <span className="ml-auto text-right">
                 {`До ${formatDate(promo.expires_at)}`}
             </span>

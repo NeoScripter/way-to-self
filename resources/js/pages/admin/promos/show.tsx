@@ -1,5 +1,6 @@
 import NavReturn from '@/components/admin/atoms/nav-return';
 import ToggleBtn from '@/components/admin/atoms/toggle-btn';
+import TrashBtn from '@/components/admin/atoms/trash-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import EditPromo from '@/components/admin/molecules/edit-promo';
 import useToggle from '@/hooks/use-toggle';
@@ -58,13 +59,10 @@ export default function Show() {
                     handleChange={handleChange}
                 />
 
-                <button
+                <TrashBtn
                     onClick={() => toggleModal(true)}
-                    className="flex cursor-pointer items-center gap-1 text-red-700 transition-colors duration-200 ease-in hover:text-red-500"
-                >
-                    <TrashIcon className="size-6" />
-                    Удалить
-                </button>
+                    label="Удалить"
+                />
             </div>
 
             {promo.updated_at && (

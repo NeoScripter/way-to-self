@@ -22,11 +22,11 @@ export default function TableHeader({
     hasSearch = true,
     hasSorting = true,
 }: TableHeaderProps) {
-    const { options = [] } = usePage<{ options: SortOption[] | undefined }>().props;
+    const { options = [] } = usePage<{ options: SortOption[] | undefined }>()
+        .props;
     const searchParams = new URLSearchParams(window.location.search);
 
-    const sortBy =
-        searchParams.get('sort_by') ?? options[0]?.value ?? null;
+    const sortBy = searchParams.get('sort_by') ?? options[0]?.value ?? null;
 
     const current = (searchParams.get('order') as 'asc' | 'desc') ?? 'asc';
     const next = current === 'asc' ? 'desc' : 'asc';

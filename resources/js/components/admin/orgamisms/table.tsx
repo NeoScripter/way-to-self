@@ -8,6 +8,7 @@ type TableProps = {
     width: string;
     meta: PaginationMeta<unknown>;
     isEmpty?: boolean;
+    columnClass?: string;
 };
 
 export default function Table({
@@ -16,6 +17,7 @@ export default function Table({
     width,
     columns,
     isEmpty = false,
+    columnClass
 }: TableProps) {
     const params = new URLSearchParams(window.location.search);
     const emptyBox =
@@ -28,14 +30,14 @@ export default function Table({
             <div className="overflow-x-auto pb-9 text-xs sm:text-sm lg:text-base">
                 <div
                     className={cn(
-                        'my-9 flex items-center justify-between gap-2 text-pale-gray',
+                        'my-9 flex items-center justify-between gap-2 text-pale-gray [&>*]:flex-1',
                         width,
                     )}
                 >
                     {columns.map((column, idx) => (
                         <span
                             key={idx}
-                            className="text-center first-of-type:text-left last-of-type:text-right"
+                            className={cn("text-center first-of-type:text-left last-of-type:text-right", columnClass)}
                         >
                             {column}
                         </span>

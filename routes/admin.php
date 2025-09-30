@@ -47,5 +47,5 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
     Route::get('/plans/{plan}', [PlanController::class, 'show'])->name('plans.show');
     Route::patch('/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
     Route::patch('/plans/toggle/{plan}', [PlanController::class, 'toggle'])->name('plans.toggle');
-    Route::delete('/plans', [PlanController::class, 'destroy'])->name('plans.destroy');
+    Route::delete('/plans/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
 });

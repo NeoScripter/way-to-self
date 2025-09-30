@@ -60,7 +60,7 @@ function UserItem({ user }: UserItemProps) {
                     as="button"
                 >{`${user.name} ${user.surname}`}</Link>
             </div>
-            <span className="mr-10 w-2/7 xl:mr-0 xl:w-1/3">{user.email}</span>
+            <span className="w-2/7">{user.email}</span>
             <span className="">{user.telegram}</span>
             <span className="ml-auto text-right">
                 {isDeleted ? 'Удален' : user.banned ? 'Заблокирован' : 'Активен'}

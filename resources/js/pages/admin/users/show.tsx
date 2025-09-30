@@ -1,5 +1,6 @@
 import NavReturn from '@/components/admin/atoms/nav-return';
 import ToggleBtn from '@/components/admin/atoms/toggle-btn';
+import TrashBtn from '@/components/admin/atoms/trash-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ProfileInfo from '@/components/admin/molecules/profile-info';
 import useToggle from '@/hooks/use-toggle';
@@ -8,7 +9,6 @@ import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { cn } from '@/lib/utils';
 import { User } from '@/types';
-import { TrashIcon } from '@heroicons/react/24/solid';
 import { router, usePage } from '@inertiajs/react';
 
 type Column = {
@@ -109,13 +109,10 @@ export default function Show() {
                     />
                 )}
 
-                <button
+                <TrashBtn
                     onClick={() => toggleModal(true)}
-                    className="flex cursor-pointer items-center gap-1 text-red-700 transition-colors duration-200 ease-in hover:text-red-500"
-                >
-                    <TrashIcon className="size-6" />
-                    Удалить
-                </button>
+                    label="Удалить"
+                />
             </div>
 
             <p className="mt-8 text-center text-sm font-semibold sm:text-base">

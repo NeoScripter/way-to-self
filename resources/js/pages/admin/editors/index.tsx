@@ -52,7 +52,7 @@ function EditorItem({ editor }: EditorItemProps) {
                 editor.banned && 'text-red-700',
             )}
         >
-            <div className="w-3/7">
+            <div className="w-2/5">
                 <Link
                     href={route('admin.editors.show', editor.id)}
                     className="cursor-pointer text-left underline-offset-4 transition-colors duration-200 ease-in-out hover:text-bright-salad hover:underline"

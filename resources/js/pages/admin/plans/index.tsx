@@ -1,14 +1,17 @@
+import TrashBtn from '@/components/admin/atoms/trash-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import Table from '@/components/admin/orgamisms/table';
 import TableHeader from '@/components/admin/orgamisms/table-header';
-import useToggle from '@/hooks/use-toggle';
+import LazyImage from '@/components/user/atoms/lazy-image';
 import AdminLayout from '@/layouts/admin/admin-layout';
 import pluralizeRu from '@/lib/helpers/pluralize';
+import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
 import { Plan } from '@/types/model';
-import { TrashIcon } from '@heroicons/react/24/solid';
+import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 export default function Index() {
     const { plans, count } = usePage<{
@@ -16,7 +19,7 @@ export default function Index() {
         count: number;
     }>().props;
 
-    const [showDeleteModal, toggleDeleteModal] = useToggle(false);
+    const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
     const badge = pluralizeRu(count, 'тариф', 'тарифа', 'тарифов');
 
@@ -32,54 +35,70 @@ export default function Index() {
             />
             <Table
                 meta={plans}
-                width="min-w-100 sm:min-w-120 lg:min-w-150"
+                width="min-w-150 sm:min-w-180 lg:min-w-220 space-y-8"
                 columns={['Фото', 'Название', 'Описание', '']}
                 isEmpty={plans.data.length === 0}
+                columnClass="!text-center"
             >
                 {plans.data.map((plan) => (
                     <PlanItem
                         key={plan.id}
                         plan={plan}
+                        onClick={() => setSelectedPlan(plan)}
                     />
                 ))}
             </Table>
 
-            <ConfirmationDialog
-                show={showDeleteModal}
-                closeDialog={() => toggleDeleteModal(false)}
-                title="Вы точно уверены, что хотите удалить все выделенные промокоды?"
-                routeName={route('admin.plans.destroy')}
-                methodName="delete"
-                confirmBtnLabel="Удалить"
-                cancelBtnLabel="Отмена"
-            />
+            {selectedPlan != null && (
+                <ConfirmationDialog
+                    show={selectedPlan != null}
+                    closeDialog={() => setSelectedPlan(null)}
+                    title="Вы точно уверены, что хотите удалить данный тариф?"
+                    routeName={route('admin.plans.destroy', selectedPlan)}
+                    methodName="delete"
+                    confirmBtnLabel="Удалить"
+                    cancelBtnLabel="Отмена"
+                />
+            )}
         </AdminLayout>
     );
 }
 
 type PlanItemProps = {
     plan: Plan;
+    onClick: () => void;
 };
 
-function PlanItem({ plan }: PlanItemProps) {
+function PlanItem({ plan, onClick }: PlanItemProps) {
     return (
         <div
             className={cn(
-                'relative isolate flex items-center gap-2 text-text-black md:justify-between',
-                !plan.enabled && 'text-red-700'
+                'relative grid grid-cols-4 gap-2 text-center text-text-black md:justify-between',
+                !plan.enabled && 'text-red-700',
             )}
         >
-            <div className="flex w-2/5 items-center gap-1 md:w-3/7 2xl:mr-5">
+            <div className="">
+                {plan.image && (
+                    <LazyImage
+                        parentClass="max-w-25 mx-auto"
+                        img={plan.image.path}
+                        tinyImg={plan.image.tiny_path}
+                        alt={plan.image.alt}
+                    />
+                )}
+            </div>
+            <span className="pt-4 font-semibold">{plan.title}</span>
+            <span className="">{shortenDescription(plan.description)}</span>
+            <div className="flex items-center justify-end gap-2">
                 <Link
                     href={route('admin.plans.show', plan.id)}
-                    className="cursor-pointer text-left underline-offset-4 transition-colors duration-200 ease-in-out hover:text-bright-salad hover:underline"
+                    className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
-                >{`${plan.title}`}</Link>
+                >
+                    <PencilIcon className="size-6" />
+                </Link>
+                <TrashBtn onClick={onClick} size='size-7' />
             </div>
-            <span className="mr-10 lg:mr-0">TODO</span>
-            <span className="ml-auto text-right">
-                TODO
-            </span>
         </div>
     );
 }
