@@ -1,6 +1,7 @@
 import ToggleBtn from '@/components/admin/atoms/toggle-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import EditPromo from '@/components/admin/molecules/edit-promo';
+import PlanUpsert from '@/components/admin/molecules/plan-upsert';
 import useToggle from '@/hooks/use-toggle';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { formatDate } from '@/lib/helpers/formatDate';
@@ -29,7 +30,7 @@ export default function Show() {
             title="Редактировать тариф"
             updatedAt={plan.updated_at}
         >
-            <EditPromo
+            <PlanUpsert
                 plan={plan}
                 routeName={route('admin.plans.update', plan.id)}
             />

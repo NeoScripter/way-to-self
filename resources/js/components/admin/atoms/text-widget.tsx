@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 import InputError from './input-error';
 import InputLabel from './input-label';
@@ -10,6 +11,8 @@ type TextWidgetProps = {
     children: ReactNode;
     fallback?: ReactNode;
     error?: string;
+    textarea?: boolean;
+    textleft?: boolean;
 };
 
 export function TextWidget({
@@ -19,6 +22,8 @@ export function TextWidget({
     children,
     fallback,
     error,
+    textarea = false,
+    textleft = false,
 }: TextWidgetProps) {
     return (
         <div className="grid content-start gap-4">
@@ -28,7 +33,14 @@ export function TextWidget({
                 edit ? (
                     children
                 ) : (
-                    <InputSpan>{fallback}</InputSpan>
+                    <InputSpan
+                        className={cn(
+                            textarea && 'block py-2 min-h-40 text-left',
+                            textleft && 'text-left justify-start',
+                        )}
+                    >
+                        {fallback}
+                    </InputSpan>
                 )
             ) : (
                 children

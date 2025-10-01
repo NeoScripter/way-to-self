@@ -45,7 +45,7 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
     Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store');
     Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
     Route::get('/plans/{plan}', [PlanController::class, 'show'])->name('plans.show');
-    Route::patch('/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
+    Route::post('/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
     Route::patch('/plans/toggle/{plan}', [PlanController::class, 'toggle'])->name('plans.toggle');
     Route::delete('/plans/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
 });

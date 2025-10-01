@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\Plan;
+use App\Services\ImageResizer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 class PlanController extends Controller
@@ -78,13 +81,32 @@ class PlanController extends Controller
     public function update(Plan $plan, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name'          => 'required|string|min:1|max:100',
-            'expires_at'    => 'required|date',
-            'discount'      => 'required|numeric|min:0',
-            'discount_type' => 'required|string|in:currency,percent',
+            'name'        => 'nullable|string|max:100',
+            'description' => 'nullable|sometimes|string|max:500',
+            'tier_count'  => 'nullable|numeric|min:1|max:3',
+            'price'       => 'nullable|numeric',
+            'image'       => 'nullable|image',
         ]);
 
-        $plan->update($validated);
+        $plan->update(Arr::except($validated, ['image']));
+
+        if ($request->hasFile('image')) {
+            if ($plan->image) {
+                $plan->image->delete();
+            }
+
+            $file = $request->file('image');
+            $paths = app(ImageResizer::class)->handleImage($file);
+
+            $image = new Image([
+                'type'      => 'image',
+                'alt'      => 'image',
+                'path'      => $paths['original'],
+                'tiny_path' => $paths['tiny'],
+            ]);
+
+            $plan->image()->save($image);
+        }
 
         return redirect()->back();
     }
