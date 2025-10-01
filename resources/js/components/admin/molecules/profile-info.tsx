@@ -1,14 +1,12 @@
 import Input from '@/components/admin/atoms/input';
-import InputError from '@/components/admin/atoms/input-error';
-import InputSpan from '@/components/admin/atoms/input-span';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { User } from '@/types';
-import { Button } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import { z } from 'zod';
-import InputLabel from '../atoms/input-label';
+import EditBtn from '../atoms/edit-btn';
+import { TextWidget } from '../atoms/text-widget';
 
 type ProfileForm = {
     name: string;
@@ -102,118 +100,95 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
             <div className="mx-auto space-y-8">
                 <form onSubmit={submit}>
                     <div className="grid gap-8 md:grid-cols-2 md:gap-10">
-                        <div className="grid content-start gap-4">
-                            <InputLabel htmlFor="name">Имя</InputLabel>
-
-                            {infoEdited ? (
-                                <Input
-                                    id="name"
-                                    className="mt-1 block w-full"
-                                    value={data.name}
-                                    onChange={(e) =>
-                                        setData('name', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="name"
-                                    placeholder="Ваше имя"
-                                />
-                            ) : (
-                                <InputSpan>{data.name}</InputSpan>
-                            )}
-
-                            <InputError
-                                className="mt-2"
-                                message={errors.name}
+                        <TextWidget
+                            label="Имя"
+                            key="Имя"
+                            htmlFor="name"
+                            edit={infoEdited}
+                            error={errors.name}
+                            fallback={data.name}
+                        >
+                            <Input
+                                id="name"
+                                className="mt-1 block w-full"
+                                value={data.name}
+                                onChange={(e) =>
+                                    setData('name', e.target.value)
+                                }
+                                required
+                                autoComplete="name"
+                                placeholder="Ваше имя"
                             />
-                        </div>
-                        <div className="grid content-start gap-4">
-                            <InputLabel htmlFor="name">Фамилия</InputLabel>
+                        </TextWidget>
 
-                            {infoEdited ? (
-                                <Input
-                                    id="surname"
-                                    className="mt-1 block w-full"
-                                    value={data.surname}
-                                    onChange={(e) =>
-                                        setData('surname', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="surname"
-                                    placeholder="Ваша фамилия"
-                                />
-                            ) : (
-                                <InputSpan>{data.surname}</InputSpan>
-                            )}
-
-                            <InputError
-                                className="mt-2"
-                                message={errors.surname}
+                        <TextWidget
+                            label="Фамилия"
+                            htmlFor="surname"
+                            edit={infoEdited}
+                            error={errors.surname}
+                            fallback={data.surname}
+                        >
+                            <Input
+                                id="surname"
+                                className="mt-1 block w-full"
+                                value={data.surname}
+                                onChange={(e) =>
+                                    setData('surname', e.target.value)
+                                }
+                                required
+                                autoComplete="surname"
+                                placeholder="Ваша фамилия"
                             />
-                        </div>
+                        </TextWidget>
 
-                        <div className="grid content-start gap-4">
-                            <InputLabel htmlFor="email">Email</InputLabel>
-
-                            {infoEdited ? (
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    className="mt-1 block w-full"
-                                    value={data.email}
-                                    onChange={(e) =>
-                                        setData('email', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="email"
-                                    placeholder="Email"
-                                />
-                            ) : (
-                                <InputSpan>{data.email}</InputSpan>
-                            )}
-
-                            <InputError
-                                className="mt-2"
-                                message={errors.email}
+                        <TextWidget
+                            label="Email"
+                            htmlFor="email"
+                            edit={infoEdited}
+                            error={errors.email}
+                            fallback={data.email}
+                        >
+                            <Input
+                                id="email"
+                                type="email"
+                                className="mt-1 block w-full"
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData('email', e.target.value)
+                                }
+                                required
+                                autoComplete="email"
+                                placeholder="Email"
                             />
-                        </div>
+                        </TextWidget>
 
-                        <div className="grid content-start gap-4">
-                            <InputLabel htmlFor="telegram">
-                                Логин в телеграм
-                            </InputLabel>
-
-                            {infoEdited ? (
-                                <Input
-                                    id="telegram"
-                                    type="telegram"
-                                    className="mt-1 block w-full"
-                                    value={data.telegram}
-                                    onChange={(e) =>
-                                        setData('telegram', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="telegram"
-                                    placeholder="Telegram"
-                                />
-                            ) : (
-                                <InputSpan>{data.telegram}</InputSpan>
-                            )}
-                            <InputError
-                                className="mt-2"
-                                message={errors.telegram}
+                        <TextWidget
+                            label="Логин в телеграм"
+                            htmlFor="telegram"
+                            edit={infoEdited}
+                            error={errors.telegram}
+                            fallback={data.telegram}
+                        >
+                            <Input
+                                id="telegram"
+                                className="mt-1 block w-full"
+                                value={data.telegram}
+                                onChange={(e) =>
+                                    setData('telegram', e.target.value)
+                                }
+                                required
+                                autoComplete="telegram"
+                                placeholder="Telegram"
                             />
-                        </div>
+                        </TextWidget>
                     </div>
 
                     <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                        <Button
-                            type="button"
+                        <EditBtn
                             onClick={handleCancelClick}
-                            className="order-2 cursor-pointer rounded-lg px-6 py-3 text-sm sm:order-0 sm:text-base"
                             disabled={processing}
-                        >
-                            {infoEdited ? 'Отменить' : 'Редактировать'}
-                        </Button>
+                            isEdited={infoEdited}
+                        />
 
                         <NeutralBtn
                             className="px-8 py-3 sm:px-12"

@@ -1,23 +1,18 @@
-import NavReturn from '@/components/admin/atoms/nav-return';
 import ToggleBtn from '@/components/admin/atoms/toggle-btn';
-import TrashBtn from '@/components/admin/atoms/trash-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import EditPromo from '@/components/admin/molecules/edit-promo';
 import useToggle from '@/hooks/use-toggle';
-import AdminLayout from '@/layouts/admin/admin-layout';
+import EditingLayout from '@/layouts/admin/editing-layout';
 import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { Plan } from '@/types/model';
-import { TrashIcon } from '@heroicons/react/24/solid';
 import { router, usePage } from '@inertiajs/react';
 
 export default function Show() {
-    const { plan, count } = usePage<{
+    const { plan } = usePage<{
         plan: Plan;
-        count: number;
     }>().props;
 
-    const [showModal, toggleModal] = useToggle(false);
     const [showDisableModal, toggleDisableModal] = useToggle(false);
 
     function handleChange() {
@@ -28,20 +23,12 @@ export default function Show() {
         }
     }
 
-    const badge = pluralizeRu(count, 'тариф', 'тарифа', 'тарифов');
-
     return (
-        <AdminLayout>
-            <NavReturn
-                routeName={route('admin.plans.index')}
-                badge={`${count} ${badge}`}
-                label="список промокодов"
-            />
-
-            <h3 className="mt-12 mb-6 text-center text-xl font-bold sm:mt-16 sm:mb-8 sm:text-2xl lg:mb-10 lg:text-3xl xl:mt-20">
-                Редактировать промокод
-            </h3>
-
+        <EditingLayout
+            navKey="plans"
+            title="Редактировать тариф"
+            updatedAt={plan.updated_at}
+        >
             <EditPromo
                 plan={plan}
                 routeName={route('admin.plans.update', plan.id)}
@@ -58,29 +45,7 @@ export default function Show() {
                     checked={!plan.enabled}
                     handleChange={handleChange}
                 />
-
-                <TrashBtn
-                    label="Удалить"
-                    onClick={() => toggleModal(true)}
-                />
             </div>
-
-            {plan.updated_at && (
-                <p className="mt-8 text-center text-sm font-semibold sm:text-base">
-                    Дата последнего изменения: {formatDate(plan.updated_at)}
-                </p>
-            )}
-
-            <ConfirmationDialog
-                show={showModal}
-                closeDialog={() => toggleModal(false)}
-                title="Вы точно уверены, что хотите удалить данный промокод?"
-                routeName={route('admin.plans.destroy')}
-                payload={{ ids: [plan.id] }}
-                methodName="delete"
-                confirmBtnLabel="Удалить"
-                cancelBtnLabel="Отмена"
-            />
 
             <ConfirmationDialog
                 show={showDisableModal}
@@ -91,6 +56,6 @@ export default function Show() {
                 confirmBtnLabel="Деактивировать"
                 cancelBtnLabel="Отмена"
             />
-        </AdminLayout>
+        </EditingLayout>
     );
 }

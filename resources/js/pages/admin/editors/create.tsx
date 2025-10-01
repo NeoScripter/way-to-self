@@ -1,32 +1,13 @@
-import NavReturn from '@/components/admin/atoms/nav-return';
 import CreateUserForm from '@/components/admin/molecules/create-user-form';
-import AdminLayout from '@/layouts/admin/admin-layout';
-import pluralizeRu from '@/lib/helpers/pluralize';
-import { usePage } from '@inertiajs/react';
+import EditingLayout from '@/layouts/admin/editing-layout';
 
 export default function Create() {
-    const { count } = usePage<{
-        count: number;
-    }>().props;
-
-    const badge = pluralizeRu(count, 'аккаунт', 'аккаунта', 'аккаунтов');
-
     return (
-        <AdminLayout>
-            <NavReturn
-                routeName={route('admin.editors.index')}
-                badge={`${count} ${badge}`}
-                label="список админов"
-            />
-
-            <h3 className="mt-12 mb-6 text-center text-xl font-bold sm:mt-16 sm:mb-8 sm:text-2xl lg:mb-10 lg:text-3xl xl:mt-20">
-                Создать редактора
-            </h3>
-
-            <CreateUserForm
-                routeName={route('admin.editors.store')}
-            />
-        </AdminLayout>
+        <EditingLayout
+            navKey="editors"
+            title="Создать редактора"
+        >
+            <CreateUserForm routeName={route('admin.editors.store')} />
+        </EditingLayout>
     );
 }
-

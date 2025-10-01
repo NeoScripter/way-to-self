@@ -11,6 +11,7 @@ type NavMenuProps = {
 };
 
 export default function NavMenu({ className, show }: NavMenuProps) {
+
     return (
         <div
             className={cn(

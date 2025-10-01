@@ -27,6 +27,14 @@ export default function AdminLayout({
     const ulRef = useRef<HTMLUListElement>(null);
     const hasMenu = topMenuItems && topMenuItems.length > 0;
 
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const target = e.target as HTMLElement;
+
+        if (target.id === 'mobile-navigation') {
+            toggleMenu(false);
+        }
+    };
+
     useEffect(() => {
         if (ulRef.current) {
             markLastRow(ulRef.current);
@@ -41,7 +49,7 @@ export default function AdminLayout({
     }, []);
 
     return (
-        <div className={cn('min-h-screen bg-light-bg', layoutClass)}>
+        <div onClick={handleClick}   className={cn('min-h-screen bg-light-bg', layoutClass)}>
             {flash.message && <FlashMessage message={flash.message} />}
 
             <AdminHeader

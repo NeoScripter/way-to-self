@@ -1,12 +1,9 @@
-import NavReturn from '@/components/admin/atoms/nav-return';
 import ToggleBtn from '@/components/admin/atoms/toggle-btn';
 import TrashBtn from '@/components/admin/atoms/trash-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ProfileInfo from '@/components/admin/molecules/profile-info';
 import useToggle from '@/hooks/use-toggle';
-import AdminLayout from '@/layouts/admin/admin-layout';
-import { formatDate } from '@/lib/helpers/formatDate';
-import pluralizeRu from '@/lib/helpers/pluralize';
+import EditingLayout from '@/layouts/admin/editing-layout';
 import { cn } from '@/lib/utils';
 import { User } from '@/types';
 import { router, usePage } from '@inertiajs/react';
@@ -43,9 +40,8 @@ function TierTable({ columns }: TierTableProps) {
 }
 
 export default function Show() {
-    const { user, count, columns } = usePage<{
+    const { user, columns } = usePage<{
         user: User;
-        count: number;
         columns: Column[] | undefined;
     }>().props;
 
@@ -63,19 +59,12 @@ export default function Show() {
         }
     }
 
-    const badge = pluralizeRu(count, 'аккаунт', 'аккаунта', 'аккаунтов');
-
     return (
-        <AdminLayout>
-            <NavReturn
-                routeName={route('admin.users.index')}
-                badge={`${count} ${badge}`}
-                label="список пользователей"
-            />
-
-            <h3 className="mt-12 mb-6 text-center text-xl font-bold sm:mt-16 sm:mb-8 sm:text-2xl lg:mb-10 lg:text-3xl xl:mt-20">
-                Личные данные пользователя
-            </h3>
+        <EditingLayout
+            navKey="users"
+            title="Личные данные пользователя"
+            updatedAt={user.updated_at}
+        >
 
             <ProfileInfo
                 user={user}
@@ -115,10 +104,6 @@ export default function Show() {
                 />
             </div>
 
-            <p className="mt-8 text-center text-sm font-semibold sm:text-base">
-                Дата последнего изменения: {formatDate(user.updated_at)}
-            </p>
-
             <ConfirmationDialog
                 show={showModal}
                 closeDialog={() => toggleModal(false)}
@@ -152,6 +137,6 @@ export default function Show() {
                     cancelBtnLabel="Отмена"
                 />
             )}
-        </AdminLayout>
+        </EditingLayout>
     );
 }

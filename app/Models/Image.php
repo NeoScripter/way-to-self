@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ImageResizer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -21,33 +22,18 @@ class Image extends Model
 
     protected static function booted(): void
     {
-        // Handle storing
-        static::creating(function (Image $image) {
+        static::saving(function (Image $image) {
             if ($image->path instanceof \Illuminate\Http\UploadedFile) {
-                // Store original
-                $storedPath = $image->path->store('images');
-                $image->path = $storedPath;
 
-                $thumbnail = ImageManager::make(Storage::path($storedPath))
-                    ->resize(300, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    });
+                $paths = app(ImageResizer::class)->handleImage($image->path);
 
-                $tinyPath = 'images/tiny/' . basename($storedPath);
-                Storage::put($tinyPath, (string) $thumbnail->encode());
-
-                $image->tiny_path = $tinyPath;
+                $image->path = $paths['original'];
+                $image->tiny_path = $paths['tiny'];
             }
         });
 
         static::deleting(function (Image $image) {
-            if ($image->path && Storage::exists($image->path)) {
-                Storage::delete($image->path);
-            }
-            if ($image->tiny_path && Storage::exists($image->tiny_path)) {
-                Storage::delete($image->tiny_path);
-            }
+            Storage::delete([$image->path, $image->tiny_path]);
         });
     }
 }
