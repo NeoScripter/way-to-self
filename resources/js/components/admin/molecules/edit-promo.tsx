@@ -95,9 +95,11 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
 
         patch(routeName, {
             preserveScroll: true,
+            preserveState: false,
             onSuccess: () => {
                 setInfoEdited(false);
                 notify('Данные успешно изменены!');
+                reset();
             },
         });
     };
@@ -107,7 +109,6 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
             <div className="mx-auto space-y-8">
                 <form onSubmit={submit}>
                     <div className="grid gap-8 sm:grid-cols-2 md:gap-10">
-
                         <TextWidget
                             label="Название промокода"
                             key="Название промокода"
@@ -123,7 +124,6 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                                 onChange={(e) =>
                                     setData('name', e.target.value)
                                 }
-                                required
                                 placeholder="Название промокода"
                             />
                         </TextWidget>
@@ -144,7 +144,6 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                                 onChange={(e) =>
                                     setData('expires_at', e.target.value)
                                 }
-                                required
                             />
                         </TextWidget>
 
@@ -171,8 +170,6 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                                             : 0,
                                     )
                                 }
-                                required
-                                min={0}
                             />
                         </TextWidget>
 

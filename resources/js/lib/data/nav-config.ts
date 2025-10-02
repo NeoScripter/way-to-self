@@ -15,4 +15,8 @@ export const navConfig = {
         route: 'admin.editors.index',
         forms: ['админ', 'админа', 'админов'],
     },
+    articles: {
+        route: 'admin.articles.index',
+        forms: ['статья', 'статьи', 'статей'],
+    },
 };

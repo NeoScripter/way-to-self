@@ -88,9 +88,11 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
 
         patch(routeName, {
             preserveScroll: true,
+            preserveState: false,
             onSuccess: () => {
                 setInfoEdited(false);
                 notify('Данные успешно изменены!');
+                reset();
             },
         });
     };
@@ -115,9 +117,8 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                                 onChange={(e) =>
                                     setData('name', e.target.value)
                                 }
-                                required
                                 autoComplete="name"
-                                placeholder="Ваше имя"
+                                placeholder="Имя"
                             />
                         </TextWidget>
 
@@ -135,9 +136,8 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                                 onChange={(e) =>
                                     setData('surname', e.target.value)
                                 }
-                                required
                                 autoComplete="surname"
-                                placeholder="Ваша фамилия"
+                                placeholder="Фамилия"
                             />
                         </TextWidget>
 
@@ -156,7 +156,6 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                                 onChange={(e) =>
                                     setData('email', e.target.value)
                                 }
-                                required
                                 autoComplete="email"
                                 placeholder="Email"
                             />
@@ -176,7 +175,6 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                                 onChange={(e) =>
                                     setData('telegram', e.target.value)
                                 }
-                                required
                                 autoComplete="telegram"
                                 placeholder="Telegram"
                             />

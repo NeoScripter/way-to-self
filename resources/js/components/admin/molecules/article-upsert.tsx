@@ -1,30 +1,38 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
-import { Plan } from '@/types/model';
-import { useForm } from '@inertiajs/react';
+import { Article } from '@/types/model';
+import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
+import SelectBox, { Option } from '../atoms/select-box';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 
-type PlanForm = {
+type ArticleForm = {
     title: string;
     description: string;
-    price: number;
-    tier_count: number;
+    body: string;
+    type: string;
     image: File | null;
-    alt: string;
+    thumbnail: File | null;
+    image_alt: string;
+    thumbnail_alt: string;
 };
 
-type PlanUpsertProps = {
+type ArticleUpsertProps = {
     routeName: string;
-    plan?: Plan;
+    article?: Article;
 };
 
-export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(plan == null);
+export default function ArticleUpsert({
+    routeName,
+    article,
+}: ArticleUpsertProps) {
+    const { options } = usePage<{ options: Option<string>[] }>().props;
+
+    const [infoEdited, setInfoEdited] = useState(article == null);
 
     const {
         data,
@@ -36,13 +44,15 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
         progress,
         processing,
         recentlySuccessful,
-    } = useForm<PlanForm>({
-        title: plan?.title || '',
-        description: plan?.description || '',
-        price: plan?.price || 0,
-        tier_count: plan?.tier_count || 0,
+    } = useForm<ArticleForm>({
+        title: article?.title || '',
+        description: article?.description || '',
+        body: article?.body || '',
+        type: article?.type || options[0].value,
         image: null,
-        alt: plan?.image?.alt || '',
+        thumbnail: null,
+        image_alt: article?.image?.alt || '',
+        thumbnail_alt: article?.thumbnail?.alt || '',
     });
 
     const handleCancelClick = () => {
@@ -87,7 +97,8 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                             className="mt-1 block w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Название тарифа"
+                            required
+                            placeholder="Название статьи"
                         />
                     </TextWidget>
 
@@ -102,87 +113,65 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                     >
                         <TextArea
                             id="description"
+                            placeholder="Описание статьи"
                             className="mt-1 block w-full"
                             value={data.description}
                             onChange={(e) =>
                                 setData('description', e.target.value)
                             }
-                            required
-                        />
-                    </TextWidget>
-                </div>
-                <div className="grid gap-8 sm:grid-cols-2 md:gap-10">
-                    <TextWidget
-                        label="Цена"
-                        key="Цена"
-                        htmlFor="price"
-                        edit={infoEdited}
-                        error={errors.price}
-                        fallback={data.price}
-                        fbClass="text-left justify-start"
-                    >
-                        <Input
-                            id="price"
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            className="mt-1 block w-full text-left"
-                            value={data.price}
-                            onChange={(e) =>
-                                setData(
-                                    'price',
-                                    !isNaN(Number(e.target.value))
-                                        ? Number(e.target.value)
-                                        : 0,
-                                )
-                            }
-                            required
-                            min={0}
                         />
                     </TextWidget>
 
                     <TextWidget
-                        label="Количество разделов"
-                        key="Количество разделов"
-                        htmlFor="tier_count"
+                        label="Тип статьи"
+                        key="Тип статьи"
+                        htmlFor="type"
                         edit={infoEdited}
-                        error={errors.tier_count}
-                        fallback={data.tier_count}
-                        fbClass="text-left justify-start"
+                        error={errors.type}
+                        fallback={
+                            options.find((opt) => opt.value === data.type)
+                                ?.label
+                        }
+                        fbClass="max-w-100"
                     >
-                        <Input
-                            id="price"
-                            type="text"
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            className="mt-1 block w-full text-left"
-                            value={data.tier_count}
-                            onChange={(e) =>
-                                setData(
-                                    'tier_count',
-                                    !isNaN(Number(e.target.value))
-                                        ? Number(e.target.value)
-                                        : 0,
-                                )
-                            }
+                        <SelectBox
+                            value={data.type}
+                            onChange={(val) => setData('type', val)}
+                            options={options}
+                            className="mt-1 max-w-100"
+                            disabled={!infoEdited}
                         />
                     </TextWidget>
                 </div>
 
                 <div>
                     <ImgInput
+                        key="image-input"
                         progress={progress}
                         isEdited={infoEdited}
                         onChange={(file) => setData('image', file)}
-                        src={plan?.image?.path}
-                        onAltChange={(val) => setData('alt', val)}
-                        altError={errors.alt}
-                        altText={data.alt}
+                        src={article?.image?.path}
+                        onAltChange={(val) => setData('image_alt', val)}
+                        altError={errors.image_alt}
+                        altText={data.image_alt}
+                    />
+                </div>
+
+                <div>
+                    <ImgInput
+                        key="thumbnail-input"
+                        progress={progress}
+                        isEdited={infoEdited}
+                        onChange={(file) => setData('thumbnail', file)}
+                        src={article?.thumbnail?.path}
+                        onAltChange={(val) => setData('thumbnail_alt', val)}
+                        altError={errors.thumbnail_alt}
+                        altText={data.thumbnail_alt}
                     />
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {plan != null && (
+                    {article != null && (
                         <EditBtn
                             onClick={handleCancelClick}
                             disabled={processing}

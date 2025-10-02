@@ -43,7 +43,7 @@ export default function ImgInput({
         progress && progress.percentage && progress.percentage < 98;
 
     return (
-        <div className="flex max-w-140 md:flex-row flex-col items-center justify-between gap-10">
+        <div className="flex max-w-140 flex-col items-center justify-between gap-10 md:flex-row">
             {isEdited && (
                 <input
                     type="file"
@@ -54,7 +54,7 @@ export default function ImgInput({
                 />
             )}
 
-            <div className='shrink-0'>
+            <div className="shrink-0">
                 <label
                     htmlFor={id}
                     className={cn(
@@ -106,17 +106,19 @@ type AltInputProps = {
 };
 
 function AltInput({ altText, altError, onAltChange }: AltInputProps) {
+    const id = useId();
+
     return (
         <div className="grid gap-1 text-xs">
             <label
-                htmlFor="alt"
-                className="mt-2"
+                htmlFor={id}
+                className="mt-3"
             >
                 Альтернативный текст для фото
             </label>
             <textarea
                 name="Альтернативный текст"
-                id="alt"
+                id={id}
                 value={altText}
                 onChange={(e) => onAltChange(e.target.value)}
                 className="focus-visible:border-ring min-h-15 rounded-sm border border-zinc-700 p-1 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[2px] focus-visible:ring-dark-swamp/80"

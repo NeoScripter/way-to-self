@@ -10,9 +10,8 @@ type TextWidgetProps = {
     edit?: boolean;
     children: ReactNode;
     fallback?: ReactNode;
+    fbClass?: string;
     error?: string;
-    textarea?: boolean;
-    textleft?: boolean;
 };
 
 export function TextWidget({
@@ -21,9 +20,8 @@ export function TextWidget({
     edit,
     children,
     fallback,
+    fbClass,
     error,
-    textarea = false,
-    textleft = false,
 }: TextWidgetProps) {
     return (
         <div className="grid content-start gap-4">
@@ -34,10 +32,7 @@ export function TextWidget({
                     children
                 ) : (
                     <InputSpan
-                        className={cn(
-                            textarea && 'block py-2 min-h-40 text-left',
-                            textleft && 'text-left justify-start',
-                        )}
+                        className={fbClass}
                     >
                         {fallback}
                     </InputSpan>

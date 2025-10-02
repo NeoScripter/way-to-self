@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminEditorController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
@@ -48,4 +49,12 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
     Route::post('/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
     Route::patch('/plans/toggle/{plan}', [PlanController::class, 'toggle'])->name('plans.toggle');
     Route::delete('/plans/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
+
+
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store');
+    Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+    Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
+    Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 });
