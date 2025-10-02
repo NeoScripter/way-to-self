@@ -57,8 +57,8 @@ class PlanSeeder extends Seeder
                     Image::factory()->create([
                         'imageable_id' => $planCard,
                         'alt' => $plan['alt'],
-                        'path' => asset('storage/models/plans/' . $plan['path']),
-                        'tiny_path' => asset('storage/models/plans/' . $plan['tiny_path']),
+                        'path' => 'models/plans/' . $plan['path'],
+                        'tiny_path' => 'models/plans/' . $plan['tiny_path'],
                     ]);
                 })
                 ->create();

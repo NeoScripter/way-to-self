@@ -9,6 +9,7 @@ use App\Services\ImageResizer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class PlanController extends Controller
@@ -28,6 +29,7 @@ class PlanController extends Controller
     public function show(Plan $plan)
     {
         $count = Plan::all()->count();
+        $plan->load('image');
 
         return Inertia::render('admin/plans/show', [
             'plan' => fn() => $plan,
@@ -81,11 +83,17 @@ class PlanController extends Controller
     public function update(Plan $plan, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name'        => 'nullable|string|max:100',
-            'description' => 'nullable|sometimes|string|max:500',
-            'tier_count'  => 'nullable|numeric|min:1|max:3',
+            'title'        => 'nullable|string|max:100',
+            'description' => 'nullable|string|max:500',
             'price'       => 'nullable|numeric',
-            'image'       => 'nullable|image',
+            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
+            'tier_count' => [
+                'nullable',
+                'numeric',
+                'min:1',
+                'max:3',
+                Rule::unique('plans', 'tier_count')->ignore($plan->id),
+            ],
         ]);
 
         $plan->update(Arr::except($validated, ['image']));
@@ -95,17 +103,7 @@ class PlanController extends Controller
                 $plan->image->delete();
             }
 
-            $file = $request->file('image');
-            $paths = app(ImageResizer::class)->handleImage($file);
-
-            $image = new Image([
-                'type'      => 'image',
-                'alt'      => 'image',
-                'path'      => $paths['original'],
-                'tiny_path' => $paths['tiny'],
-            ]);
-
-            $plan->image()->save($image);
+            Image::attachTo($plan, $request->file('image'), $plan->title, 240);
         }
 
         return redirect()->back();

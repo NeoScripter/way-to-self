@@ -32,6 +32,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
         reset,
         clearErrors,
         errors,
+        progress,
         processing,
         recentlySuccessful,
     } = useForm<PlanForm>({
@@ -51,8 +52,6 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        console.log('hit');
-
         post(routeName, {
             preserveScroll: true,
             onSuccess: () => {
@@ -60,7 +59,6 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                 notify('Данные успешно изменены!');
             },
         });
-
     };
 
     return (
@@ -172,8 +170,10 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
 
                 <div>
                     <ImgInput
+                        progress={progress}
                         isEdited={infoEdited}
                         onChange={(file) => setData('image', file)}
+                        src={plan.image?.path}
                     />
                 </div>
 

@@ -32,8 +32,8 @@ class RecipeSeeder extends Seeder
                     ->free()
                     ->afterCreating(function ($recipe) use ($raw) {
 
-                        $img = asset('storage/models/' . $raw['image']);
-                        $tinyImg = asset('storage/models/' . $raw['tiny_image']);
+                        $img = 'models/' . $raw['image'];
+                        $tinyImg = 'models/' . $raw['tiny_image'];
 
                         Image::factory()->create([
                             'imageable_id' => $recipe,
@@ -110,8 +110,8 @@ class RecipeSeeder extends Seeder
                     Image::factory()->create([
                         'imageable_id' => $recipeInfo,
                         'type' => 'image',
-                        'path' => asset('storage/models/recipes/recipe-info.webp'),
-                        'tiny_path' => asset('storage/models/recipes/recipe-info-tiny.webp'),
+                        'path' => 'models/recipes/recipe-info.webp',
+                        'tiny_path' => 'models/recipes/recipe-info-tiny.webp',
                     ]);
                 })->create();
 

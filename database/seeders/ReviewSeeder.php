@@ -27,8 +27,8 @@ class ReviewSeeder extends Seeder
                     Image::factory()->create([
                         'imageable_id' => $review,
                         'alt' => $raw['alt'],
-                        'path' => asset('storage/models/' . $raw['image']),
-                        'tiny_path' => asset('storage/models/' . $raw['tiny_image']),
+                        'path' => 'models/' . $raw['image'],
+                        'tiny_path' => 'models/' . $raw['tiny_image'],
                     ]);
                 })
                 ->create();

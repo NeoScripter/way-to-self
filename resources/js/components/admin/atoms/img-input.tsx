@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 type ImgInputProps = {
     src?: string;
     isEdited: boolean;
     onChange: (file: File | null) => void;
-    error?: string | null;
+    error?: string;
+    progress?: ProgressEvent;
 };
 
 export default function ImgInput({
@@ -12,36 +13,22 @@ export default function ImgInput({
     isEdited,
     onChange,
     error,
+    progress,
 }: ImgInputProps) {
-    const [preview, setPreview] = useState<string | null>(src || null);
-    const [loading, setLoading] = useState(false);
+    const [preview, setPreview] = useState(src);
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
         if (!file) return;
 
-        console.log(file);
-        setLoading(true);
         setPreview(URL.createObjectURL(file));
         onChange(file);
-
-        // simulate async upload (replace with real upload if needed)
-        setTimeout(() => setLoading(false), 800);
     };
-
-    // reset preview if editing stops
-    useEffect(() => {
-        if (!isEdited) {
-            setPreview(src || null);
-            onChange(null);
-            setLoading(false);
-        }
-    }, [isEdited, src, onChange]);
 
     return (
         <div className="flex flex-col gap-2">
             <div className="relative flex h-48 w-48 items-center justify-center rounded border">
-                {loading && <div className="absolute">Loading...</div>}
+                {progress != null && <div className="absolute">Loading...</div>}
 
                 {preview ? (
                     <img
@@ -63,6 +50,7 @@ export default function ImgInput({
                 />
             )}
 
+            <span className="text-sm text-red-500">Erro</span>
             {error && <span className="text-sm text-red-500">{error}</span>}
         </div>
     );

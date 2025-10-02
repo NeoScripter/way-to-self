@@ -31,8 +31,8 @@ class PracticeSeeder extends Seeder
                             'imageable_id' => $audio,
                             'type' => 'image',
                             'alt' => 'meditation image',
-                            'path' => asset('storage/models/practices/practice.webp'),
-                            'tiny_path' => asset('storage/models/practices/practice.webp'),
+                            'path' => 'models/practices/practice.webp',
+                            'tiny_path' => 'models/practices/practice.webp',
                         ]);
                         Video::factory()->create([
                             'videoable_id' => $audio,

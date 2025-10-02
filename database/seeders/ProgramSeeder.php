@@ -30,8 +30,8 @@ class ProgramSeeder extends Seeder
             )
                 ->afterCreating(function ($program) use ($raw) {
 
-                    $img = asset('storage/models/' . $raw['image']);
-                    $tinyImg = asset('storage/models/' . $raw['tiny_image']);
+                    $img = 'models/' . $raw['image'];
+                    $tinyImg = 'models/' . $raw['tiny_image'];
 
                     Image::factory()->create([
                         'imageable_id' => $program,
