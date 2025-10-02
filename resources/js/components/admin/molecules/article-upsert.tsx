@@ -6,6 +6,7 @@ import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
+import MarkdownEditor from '../atoms/markdown-editor';
 import SelectBox, { Option } from '../atoms/select-box';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
@@ -119,6 +120,21 @@ export default function ArticleUpsert({
                             onChange={(e) =>
                                 setData('description', e.target.value)
                             }
+                        />
+                    </TextWidget>
+
+                    <TextWidget
+                        label="Описание"
+                        key="Описание"
+                        htmlFor="body"
+                        edit={infoEdited}
+                        error={errors.body}
+                        fallback={article?.html}
+                        fbClass="block py-2 min-h-40 text-left"
+                    >
+                        <MarkdownEditor
+                            value={data.body}
+                            onChange={(e) => setData('body', e)}
                         />
                     </TextWidget>
 

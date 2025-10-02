@@ -38,9 +38,9 @@ export default function ImgInput({
     };
 
     const showCheckMark =
-        progress && progress.percentage && progress.percentage > 98;
+        progress && progress.percentage && progress.percentage > 98 && preview !== src;
     const showLoadingRing =
-        progress && progress.percentage && progress.percentage < 98;
+        progress && progress.percentage && progress.percentage < 98 && preview !== src;
 
     return (
         <div className="flex max-w-140 flex-col items-center justify-between gap-10 md:flex-row">
