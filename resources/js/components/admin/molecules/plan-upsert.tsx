@@ -15,6 +15,7 @@ type PlanForm = {
     price: number;
     tier_count: number;
     image: File | null;
+    alt: string;
 };
 
 type PlanUpsertProps = {
@@ -27,20 +28,21 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
 
     const {
         data,
-        setData,
         post,
         reset,
         clearErrors,
+        setData,
         errors,
         progress,
         processing,
         recentlySuccessful,
     } = useForm<PlanForm>({
-        title: plan.title,
-        description: plan.description,
-        price: plan.price,
-        tier_count: plan.tier_count,
+        title: plan.title || '',
+        description: plan.description || '',
+        price: plan.price || 0,
+        tier_count: plan.tier_count || 0,
         image: null,
+        alt: plan.image?.alt || '',
     });
 
     const handleCancelClick = () => {
@@ -174,6 +176,9 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         isEdited={infoEdited}
                         onChange={(file) => setData('image', file)}
                         src={plan.image?.path}
+                        onAltChange={(val) => setData('alt', val)}
+                        altError={errors.alt}
+                        altText={data.alt}
                     />
                 </div>
 

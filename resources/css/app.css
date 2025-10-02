@@ -18,6 +18,21 @@
 
     --breakpoint-3xl: 110rem;
 
+    --animate-shimmer: shimmer 2s ease-in-out infinite;
+
+    @keyframes shimmer {
+        50% {
+            opacity: 0.2;
+        }
+    }
+
+    --animate-fade: fadeIn 750ms ease-out forwards;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+    }
     /* Custom colors */
 
     --color-red-purple: oklch(0.4135 0.1309 24.95);
@@ -63,7 +78,7 @@
 }
 
 .admin-link-hover {
-    @apply hover:shadow-sm hover:ring-1 hover:shadow-pale-swamp hover:ring-pale-swamp transition-all duration-200 ease-in-out select-none rounded-xl;
+    @apply rounded-xl transition-all duration-200 ease-in-out select-none hover:shadow-sm hover:ring-1 hover:shadow-pale-swamp hover:ring-pale-swamp;
 }
 
 .admin-navbar > li:not(.first-row) > * {

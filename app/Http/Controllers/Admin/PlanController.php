@@ -83,11 +83,12 @@ class PlanController extends Controller
     public function update(Plan $plan, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'        => 'nullable|string|max:100',
-            'description' => 'nullable|string|max:500',
-            'price'       => 'nullable|numeric',
+            'title'       => 'required|string|max:100',
+            'alt'         => 'required|string|min:1|max:300',
+            'description' => 'required|string|max:500',
+            'price'       => 'required|numeric',
             'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'tier_count' => [
+            'tier_count'  => [
                 'nullable',
                 'numeric',
                 'min:1',
@@ -96,14 +97,14 @@ class PlanController extends Controller
             ],
         ]);
 
-        $plan->update(Arr::except($validated, ['image']));
+        $plan->update(Arr::except($validated, ['image', 'alt']));
 
         if ($request->hasFile('image')) {
             if ($plan->image) {
                 $plan->image->delete();
             }
 
-            Image::attachTo($plan, $request->file('image'), $plan->title, 240);
+            Image::attachTo($plan, $request->file('image'), $validated['alt'], 240);
         }
 
         return redirect()->back();
