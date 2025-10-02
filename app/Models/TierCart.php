@@ -45,7 +45,14 @@ class TierCart extends Model
 
     public function total(): int
     {
-        $sum = $this->tiers()->sum('price');
+        $count = $this->tiers()->count();
+        $plan = Plan::select('price', 'enabled')->where('tier_count', '=', $count)->first();
+
+        if (! $plan || ! $plan->enabled) {
+            $sum = $this->tiers()->sum('price');
+        } else {
+            $sum = $plan->price;
+        }
 
         $promo = $this->promo;
         if ($promo && Carbon::parse($promo->expires_at)->isFuture()) {
