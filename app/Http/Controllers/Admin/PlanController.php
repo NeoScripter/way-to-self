@@ -49,13 +49,29 @@ class PlanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'          => 'required|string|min:1|max:100',
-            'expires_at'    => 'required|date',
-            'discount'      => 'required|numeric|min:0',
-            'discount_type' => 'required|string|in:currency,percent',
+            'title'       => 'required|string|max:100',
+            'alt'         => 'required|string|min:1|max:400',
+            'description' => 'required|string|max:500',
+            'price'       => 'required|numeric',
+            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
+            'tier_count'  => [
+                'nullable',
+                'numeric',
+                'min:1',
+                'max:3',
+                Rule::unique('plans', 'tier_count'),
+            ],
         ]);
 
-        Plan::create($validated);
+        $plan = Plan::create(Arr::except($validated, ['image', 'alt']));
+
+        if ($request->hasFile('image')) {
+            if ($plan->image) {
+                $plan->image->delete();
+            }
+
+            Image::attachTo($plan, $request->file('image'), $validated['alt'], 240);
+        }
 
         return redirect()->route('admin.plans.index')->with('message', 'Тариф успешно создан');
     }
@@ -84,7 +100,7 @@ class PlanController extends Controller
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:100',
-            'alt'         => 'required|string|min:1|max:300',
+            'alt'         => 'nullable|string|max:400',
             'description' => 'required|string|max:500',
             'price'       => 'required|numeric',
             'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',

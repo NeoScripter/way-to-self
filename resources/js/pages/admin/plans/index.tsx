@@ -27,7 +27,7 @@ export default function Index() {
         <AdminLayout>
             <TableHeader
                 only={['plans']}
-                label={'все промокоды'}
+                label={'все тарифы'}
                 badge={`${count} ${badge}`}
                 createRoute={route('admin.plans.create')}
                 hasSearch={false}

@@ -20,11 +20,11 @@ type PlanForm = {
 
 type PlanUpsertProps = {
     routeName: string;
-    plan: Plan;
+    plan?: Plan;
 };
 
 export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(false);
+    const [infoEdited, setInfoEdited] = useState(plan == null);
 
     const {
         data,
@@ -37,12 +37,12 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
         processing,
         recentlySuccessful,
     } = useForm<PlanForm>({
-        title: plan.title || '',
-        description: plan.description || '',
-        price: plan.price || 0,
-        tier_count: plan.tier_count || 0,
+        title: plan?.title || '',
+        description: plan?.description || '',
+        price: plan?.price || 0,
+        tier_count: plan?.tier_count || 0,
         image: null,
-        alt: plan.image?.alt || '',
+        alt: plan?.image?.alt || '',
     });
 
     const handleCancelClick = () => {
@@ -58,7 +58,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
             preserveScroll: true,
             onSuccess: () => {
                 setInfoEdited(false);
-                notify('Данные успешно изменены!');
+                notify('Сохранено!');
             },
         });
     };
@@ -158,7 +158,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                             value={data.tier_count}
                             onChange={(e) =>
                                 setData(
-                                    'price',
+                                    'tier_count',
                                     !isNaN(Number(e.target.value))
                                         ? Number(e.target.value)
                                         : 0,
@@ -175,7 +175,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         progress={progress}
                         isEdited={infoEdited}
                         onChange={(file) => setData('image', file)}
-                        src={plan.image?.path}
+                        src={plan?.image?.path}
                         onAltChange={(val) => setData('alt', val)}
                         altError={errors.alt}
                         altText={data.alt}
@@ -183,11 +183,13 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    <EditBtn
-                        onClick={handleCancelClick}
-                        disabled={processing}
-                        isEdited={infoEdited}
-                    />
+                    {plan != null && (
+                        <EditBtn
+                            onClick={handleCancelClick}
+                            disabled={processing}
+                            isEdited={infoEdited}
+                        />
+                    )}
 
                     <NeutralBtn
                         className="px-8 py-3 sm:px-12"
