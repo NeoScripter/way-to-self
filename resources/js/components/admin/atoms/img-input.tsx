@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import Placeholder from '@/assets/images/shared/placeholder.webp';
+import { cn } from '@/lib/utils';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
+import React, { useId, useState } from 'react';
 
 type ImgInputProps = {
     src?: string;
@@ -16,6 +19,7 @@ export default function ImgInput({
     progress,
 }: ImgInputProps) {
     const [preview, setPreview] = useState(src);
+    const id = useId();
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
@@ -26,31 +30,34 @@ export default function ImgInput({
     };
 
     return (
-        <div className="flex flex-col gap-2">
-            <div className="relative flex h-48 w-48 items-center justify-center rounded border">
-                {progress != null && <div className="absolute">Loading...</div>}
-
-                {preview ? (
-                    <img
-                        src={preview}
-                        alt="Preview"
-                        className="h-full w-full rounded object-cover"
-                    />
-                ) : (
-                    <div className="text-gray-400">No image</div>
-                )}
-            </div>
-
+        <div className="flex items-center gap-6">
             {isEdited && (
                 <input
                     type="file"
                     accept="image/*"
                     onChange={handleFile}
-                    className="mt-1"
+                    className="mt-1 hidden"
+                    id={id}
                 />
             )}
 
-            <span className="text-sm text-red-500">Erro</span>
+            <label
+                htmlFor={id}
+                className={cn("flex h-fit text-sm cursor-pointer items-center gap-2 rounded-md bg-slate-800 px-6 py-3 text-white", !isEdited && "opacity-50 cursor-not-allowed")}
+            >
+                <ArrowDownTrayIcon className="size-5" />
+                Фото для превью
+            </label>
+
+            <div className="relative flex size-35 items-center justify-center">
+                <img
+                    src={preview ?? Placeholder}
+                    alt="Preview"
+                    className="h-full w-full rounded object-cover"
+                />
+            </div>
+
+            {progress != null && <div className="">Loading...</div>}
             {error && <span className="text-sm text-red-500">{error}</span>}
         </div>
     );
