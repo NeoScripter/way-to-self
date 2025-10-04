@@ -67,7 +67,7 @@ export default function ArticleUpsert({
 
         post(routeName, {
             preserveScroll: true,
-            preserveState: false,
+            preserveState: true,
             onSuccess: () => {
                 setInfoEdited(false);
                 notify('Сохранено!');
@@ -98,7 +98,6 @@ export default function ArticleUpsert({
                             className="mt-1 block w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            required
                             placeholder="Название статьи"
                         />
                     </TextWidget>

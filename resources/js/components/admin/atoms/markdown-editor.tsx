@@ -22,7 +22,7 @@ export default function MarkdownEditor({
         extensions: [StarterKit, Markdown],
         editorProps: {
             attributes: {
-                class: 'prose prose-sm min-h-40 max-w-none outline-none transition-[color,box-shadow] selection:bg-bright-salad selection:text-white placeholder:text-gray-500 disabled:opacity-50',
+                class: 'prose prose-sm min-h-40 max-w-full outline-none transition-[color,box-shadow] selection:bg-bright-salad selection:text-white placeholder:text-gray-500 disabled:opacity-50',
             },
         },
         content: value,
@@ -41,7 +41,7 @@ export default function MarkdownEditor({
                 className,
             )}
         >
-            <menu className="mb-4 flex items-center rounded-md p-2 shadow-md">
+            <menu className="mb-4 flex items-center flex-wrap rounded-md p-2 shadow-md">
                 {markdownBtns.map((btn, i) => (
                     <MarkdownBtn
                         key={btn.title}

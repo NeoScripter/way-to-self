@@ -74,37 +74,45 @@ class ArticleController extends Controller
     public function create()
     {
         $count = Article::all()->count();
+        $options = [
+            ['value' => ArticleType::NEWS,  'label' => 'Новости'],
+            ['value' => ArticleType::EXERCISE,  'label' => 'Тело'],
+            ['value' => ArticleType::SOUL,  'label' => 'Душа'],
+            ['value' => ArticleType::NUTRITION,  'label' => 'Питание'],
+        ];
 
         return Inertia::render('admin/articles/create', [
             'count' => $count,
+            'options' => $options,
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:100',
-            'alt'         => 'required|string|min:1|max:400',
+            'title'       => 'required|string|max:120',
             'description' => 'required|string|max:500',
-            'price'       => 'required|numeric',
-            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'tier_count'  => [
-                'nullable',
-                'numeric',
-                'min:1',
-                'max:3',
-                Rule::unique('articles', 'tier_count'),
-            ],
+            'body' => 'required|string|max:64000',
+            'type' => ['required', new Enum(ArticleType::class)],
+            'image_alt'         => 'nullable|string|max:400',
+            'thumbnail_alt'         => 'nullable|string|max:400',
+            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
+            'thumbnail'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
         ]);
 
-        $article = Article::create(Arr::except($validated, ['image', 'alt']));
+        $article = Article::create(Arr::except($validated, ['image', 'image_alt', 'thumbnail', 'thumbnail_alt']));
 
         if ($request->hasFile('image')) {
             if ($article->image) {
                 $article->image->delete();
             }
-
-            Image::attachTo($article, $request->file('image'), $validated['alt'], 240);
+            Image::attachTo($article, $request->file('image'), $validated['thumbnail_alt'], 560, 'image');
+        }
+        if ($request->hasFile('thumbnail')) {
+            if ($article->thumbnail) {
+                $article->thumbnail->delete();
+            }
+            Image::attachTo($article, $request->file('thumbnail'), $validated['thumbnail_alt'], 300, 'thumbnail');
         }
 
         return redirect()->route('admin.articles.index')->with('message', 'Статья успешно создана');
