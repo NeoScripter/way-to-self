@@ -124,13 +124,20 @@ export default function ArticleUpsert({
                     </TextWidget>
 
                     <TextWidget
-                        label="Описание"
-                        key="Описание"
+                        label="Содержание"
+                        key="Содержание"
                         htmlFor="body"
                         edit={infoEdited}
                         error={errors.body}
-                        fallback={article?.html}
-                        fbClass="block py-2 min-h-40 text-left"
+                        fallback={
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: article?.html || '',
+                                }}
+                                className='prose prose-sm block max-w-full'
+                            />
+                        }
+                        fbClass="block py-2 min-h-40 h-auto text-left px-3"
                     >
                         <MarkdownEditor
                             value={data.body}
