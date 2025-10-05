@@ -12,24 +12,41 @@ import { Article } from '@/types/model';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
+import { bodyMenuItems } from '../body/body-menu-items';
+
 
 export default function Index() {
-    const { articles, count } = usePage<{
+    const {
+        articles,
+        count,
+        namespace = 'news',
+    } = usePage<{
         articles: PaginationMeta<Article>;
         count: number;
+        namespace: string;
     }>().props;
 
-    const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+    const [selectedArticle, setSelectedArticle] = useState<Article | null>(
+        null,
+    );
 
     const badge = pluralizeRu(count, 'статья', 'статьи', 'статей');
 
+    const menuItems = () => {
+        if (namespace === 'body') {
+            return bodyMenuItems;
+        }
+
+        return undefined;
+    }
+
     return (
-        <AdminLayout>
+        <AdminLayout topMenuItems={menuItems()}>
             <TableHeader
                 only={['articles']}
                 label={'все статьи'}
                 badge={`${count} ${badge}`}
-                createRoute={route('admin.articles.create')}
+                createRoute={route(`admin.${namespace}.articles.create`)}
             />
             <Table
                 meta={articles}
@@ -52,7 +69,10 @@ export default function Index() {
                     show={selectedArticle != null}
                     closeDialog={() => setSelectedArticle(null)}
                     title="Вы точно уверены, что хотите удалить данную статью?"
-                    routeName={route('admin.articles.destroy', selectedArticle)}
+                    routeName={route(
+                        `admin.${namespace}.articles.destroy`,
+                        selectedArticle,
+                    )}
                     methodName="delete"
                     confirmBtnLabel="Удалить"
                     cancelBtnLabel="Отмена"
@@ -68,6 +88,10 @@ type ArticleItemProps = {
 };
 
 function ArticleItem({ article, onClick }: ArticleItemProps) {
+    const { namespace = 'news' } = usePage<{
+        namespace: string;
+    }>().props;
+
     return (
         <div
             className={cn(
@@ -88,13 +112,16 @@ function ArticleItem({ article, onClick }: ArticleItemProps) {
             <span className="">{shortenDescription(article.description)}</span>
             <div className="flex items-center justify-end gap-2">
                 <Link
-                    href={route('admin.articles.show', article.id)}
+                    href={route(`admin.${namespace}.articles.show`, article.id)}
                     className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
                 >
                     <PencilIcon className="size-6" />
                 </Link>
-                <TrashBtn onClick={onClick} size='size-7' />
+                <TrashBtn
+                    onClick={onClick}
+                    size="size-7"
+                />
             </div>
         </div>
     );

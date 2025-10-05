@@ -4,8 +4,9 @@ import { Article } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Show() {
-    const { article } = usePage<{
+    const { article, namespace = 'news' } = usePage<{
         article: Article;
+        namespace: 'news';
     }>().props;
 
     return (
@@ -16,7 +17,7 @@ export default function Show() {
         >
             <ArticleUpsert
                 article={article}
-                routeName={route('admin.articles.update', article.id)}
+                routeName={route(`admin.${namespace}.articles.update`, article.id)}
             />
         </EditingLayout>
     );
