@@ -108,7 +108,7 @@ function TopBarLink({ item }: TopBarLinkProps) {
             <Link
                 href={route(item.route)}
                 className={cn(
-                    'flex cursor-pointer items-center justify-center rounded-t-[2.25rem] bg-pale-olive px-4 py-2 text-xs text-white sm:text-sm lg:py-3 lg:text-base',
+                    'flex cursor-pointer text-center items-center justify-center rounded-t-[2.25rem] bg-pale-olive px-4 py-2 text-xs text-white sm:text-sm lg:text-base',
                     isCurrent
                         ? 'bg-bright-salad'
                         : 'transition-colors duration-200 ease-in-out hover:bg-light-swamp',

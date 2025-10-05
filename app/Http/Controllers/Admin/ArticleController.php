@@ -94,10 +94,10 @@ class ArticleController extends Controller
             'description' => 'required|string|max:500',
             'body' => 'required|string|max:64000',
             'type' => ['required', new Enum(ArticleType::class)],
-            'image_alt'         => 'nullable|string|max:400',
-            'thumbnail_alt'         => 'nullable|string|max:400',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'thumbnail'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
+            'image_alt'         => 'required|string|max:400',
+            'thumbnail_alt'         => 'required|string|max:400',
+            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
+            'thumbnail'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
         ]);
 
         $article = Article::create(Arr::except($validated, ['image', 'image_alt', 'thumbnail', 'thumbnail_alt']));
@@ -132,8 +132,8 @@ class ArticleController extends Controller
             'description' => 'required|string|max:500',
             'body' => 'required|string|max:64000',
             'type' => ['required', new Enum(ArticleType::class)],
-            'image_alt'         => 'nullable|string|max:400',
-            'thumbnail_alt'         => 'nullable|string|max:400',
+            'image_alt'         => 'required|string|max:400',
+            'thumbnail_alt'         => 'required|string|max:400',
             'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
             'thumbnail'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
         ]);

@@ -1,8 +1,8 @@
-import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 import InputError from './input-error';
 import InputLabel from './input-label';
 import InputSpan from './input-span';
+import { cn } from '@/lib/utils';
 
 type TextWidgetProps = {
     label: string;
@@ -11,6 +11,8 @@ type TextWidgetProps = {
     children: ReactNode;
     fallback?: ReactNode;
     fbClass?: string;
+    labelClass?: string;
+    className?: string;
     error?: string;
 };
 
@@ -21,21 +23,24 @@ export function TextWidget({
     children,
     fallback,
     fbClass,
+    labelClass,
+    className,
     error,
 }: TextWidgetProps) {
     return (
-        <div className="grid content-start gap-4">
-            <InputLabel htmlFor={htmlFor}>{label}</InputLabel>
+        <div className={cn("grid content-start gap-4", className)}>
+            <InputLabel
+                className={labelClass}
+                htmlFor={htmlFor}
+            >
+                {label}
+            </InputLabel>
 
             {edit !== undefined ? (
                 edit ? (
                     children
                 ) : (
-                    <InputSpan
-                        className={fbClass}
-                    >
-                        {fallback}
-                    </InputSpan>
+                    <InputSpan className={fbClass}>{fallback}</InputSpan>
                 )
             ) : (
                 children

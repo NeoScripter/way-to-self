@@ -56,6 +56,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
         reset,
         clearErrors,
         errors,
+        setDefaults,
         processing,
         recentlySuccessful,
     } = useForm<PromoForm>({
@@ -99,7 +100,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
             onSuccess: () => {
                 setInfoEdited(false);
                 notify('Данные успешно изменены!');
-                reset();
+                setDefaults();
             },
         });
     };

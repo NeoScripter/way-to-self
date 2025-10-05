@@ -52,6 +52,7 @@ export default function ProfileInfo() {
         errors,
         processing,
         recentlySuccessful,
+        setDefaults,
         reset,
         clearErrors,
     } = useForm<ProfileForm>({
@@ -90,6 +91,7 @@ export default function ProfileInfo() {
         patch(route('profile.update'), {
             preserveScroll: true,
             onSuccess: () => {
+                setDefaults();
                 setInfoEdited(false);
                 notify('Данные успешно изменены!');
             },

@@ -52,6 +52,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
         processing,
         recentlySuccessful,
         reset,
+        setDefaults,
         clearErrors,
     } = useForm<ProfileForm>({
         name: user.name,
@@ -92,7 +93,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
             onSuccess: () => {
                 setInfoEdited(false);
                 notify('Данные успешно изменены!');
-                reset();
+                setDefaults();
             },
         });
     };

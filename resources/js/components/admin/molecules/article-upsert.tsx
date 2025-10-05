@@ -44,6 +44,7 @@ export default function ArticleUpsert({
         errors,
         progress,
         processing,
+        setDefaults,
         recentlySuccessful,
     } = useForm<ArticleForm>({
         title: article?.title || '',
@@ -69,9 +70,9 @@ export default function ArticleUpsert({
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {
-                setInfoEdited(false);
                 notify('Сохранено!');
-                reset();
+                setDefaults();
+                setInfoEdited(false);
             },
         });
     };
@@ -133,7 +134,7 @@ export default function ArticleUpsert({
                                 dangerouslySetInnerHTML={{
                                     __html: article?.html || '',
                                 }}
-                                className='prose prose-sm block max-w-full'
+                                className="prose prose-sm block max-w-full"
                             />
                         }
                         fbClass="block py-2 min-h-40 h-auto text-left px-3"

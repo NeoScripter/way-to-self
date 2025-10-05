@@ -99,13 +99,13 @@ export const adminMenu: AdminMenuList[] = [
             //     icon: Soul,
             //     allowed: ['admin', 'editor'],
             // },
-            // {
-            //     id: uuidv4(),
-            //     title: 'Тело',
-            //     route: 'admin.dashboard',
-            //     icon: Body,
-            //     allowed: ['admin', 'editor'],
-            // },
+            {
+                id: uuidv4(),
+                title: 'Тело',
+                route: 'admin.body.faqs.index',
+                icon: Body,
+                allowed: ['admin', 'editor'],
+            },
             {
                 id: uuidv4(),
                 title: 'Новости',

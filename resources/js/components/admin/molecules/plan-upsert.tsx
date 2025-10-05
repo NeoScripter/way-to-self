@@ -35,6 +35,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
         errors,
         progress,
         processing,
+        setDefaults,
         recentlySuccessful,
     } = useForm<PlanForm>({
         title: plan?.title || '',
@@ -60,7 +61,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
             onSuccess: () => {
                 setInfoEdited(false);
                 notify('Сохранено!');
-                reset();
+                setDefaults();
             },
         });
     };
