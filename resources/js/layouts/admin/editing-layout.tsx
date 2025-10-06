@@ -18,8 +18,9 @@ export default function EditingLayout({
     updatedAt,
     children,
 }: EditingLayoutProps) {
-    const { count } = usePage<{ count: number }>().props;
-    const nav = navConfig[navKey];
+    const { count, namespace = '' } = usePage<{ count: number, namespace: string | undefined }>().props;
+    const suffix = namespace !== '' ? `_${namespace}` : '';
+    const nav = navConfig[`${navKey}${suffix}`];
 
     const badge =
         nav && count !== undefined

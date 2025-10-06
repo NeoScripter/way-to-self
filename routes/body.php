@@ -5,6 +5,9 @@ use App\Http\Controllers\Account\BodyController;
 use App\Http\Controllers\Account\BodyExerciseController;
 use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
+use App\Http\Controllers\Admin\Body\ArticleController;
+use App\Http\Controllers\Admin\Body\FAQController;
+use App\Http\Controllers\Admin\Body\ExerciseFilterController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'banned', 'tier.access:body'])->prefix('account/body')->name('body.')->group(function () {
@@ -27,3 +30,31 @@ Route::middleware(['auth', 'banned', 'tier.access:body'])->prefix('account/body'
 
     Route::get('/search', BodySearchController::class)->name('search');
 });
+
+Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')->name('admin.body.')->group(function () {
+
+    Route::prefix('/faqs')->name('faqs.')->group(function () {
+        Route::post('/store', [FAQController::class, 'store'])->name('store');
+        Route::get('/', [FAQController::class, 'index'])->name('index');
+        Route::post('/{faq}', [FAQController::class, 'update'])->name('update');
+        Route::delete('/{faq}', [FAQController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/articles')->name('articles.')->group(function () {
+        Route::get('/', [ArticleController::class, 'index'])->name('index');
+        Route::post('/store', [ArticleController::class, 'store'])->name('store');
+        Route::post('/{article}', [ArticleController::class, 'update'])->name('update');
+        Route::get('/create', [ArticleController::class, 'create'])->name('create');
+        Route::get('/{article}', [ArticleController::class, 'show'])->name('show');
+        Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/exercise/filters')->name('exercise.filters.')->group(function () {
+        Route::get('/', [ExerciseFilterController::class, 'index'])->name('index');
+        Route::post('/store', [ExerciseFilterController::class, 'store'])->name('store');
+        Route::post('/update/{title}', [ExerciseFilterController::class, 'update'])->name('update');
+        Route::delete('/mass-destroy', [ExerciseFilterController::class, 'massDestroy'])->name('massDestroy');
+        Route::delete('/{filter}', [ExerciseFilterController::class, 'destroy'])->name('destroy');
+    });
+});
+

@@ -33,6 +33,11 @@ export const menuItems = [
                 type: 'audio',
                 label: 'Медитации',
             },
+            {
+                id: v4uuid(),
+                type: 'practices',
+                label: 'Практики',
+            },
         ],
     },
     {
@@ -43,6 +48,11 @@ export const menuItems = [
                 id: v4uuid(),
                 type: 'exercises',
                 label: 'Упражнения',
+            },
+            {
+                id: v4uuid(),
+                type: 'programs',
+                label: 'Программы',
             },
         ],
     },

@@ -109,7 +109,7 @@ export const adminMenu: AdminMenuList[] = [
             {
                 id: uuidv4(),
                 title: 'Новости',
-                route: 'admin.articles.index',
+                route: 'admin.news.articles.index',
                 icon: Articles,
                 allowed: ['admin', 'editor'],
             },

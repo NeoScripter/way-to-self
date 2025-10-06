@@ -84,5 +84,4 @@ require __DIR__ . '/soul.php';
 require __DIR__ . '/nutrition.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/settings.php';
-require __DIR__ . '/admin-tiers/body.php';
 require __DIR__ . '/auth.php';

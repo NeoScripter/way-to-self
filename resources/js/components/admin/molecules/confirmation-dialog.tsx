@@ -48,14 +48,14 @@ export default function ConfirmationDialog({
         >
             <div
                 className={cn(
-                    'mx-auto max-w-150 space-y-6 rounded-[4rem] border-2 border-white/20 bg-card-backdrop-gray px-12 pt-11 pb-12.5 text-center backdrop-blur-sm',
+                    'mx-auto max-w-150 space-y-6 rounded-[4rem] border-2 border-white/20 bg-card-backdrop-gray px-6 sm:px-12 pt-11 pb-12.5 text-center backdrop-blur-sm',
                     className,
                 )}
             >
-                <p className="text-2xl font-semibold text-balance">{title}</p>
+                <p className="sm:text-2xl font-semibold text-balance">{title}</p>
                 {description && <p className="text-lg"> {description}</p>}
 
-                <div className="flex items-center gap-10">
+                <div className="flex items-center gap-4 sm:gap-10">
                     <NeutralBtn
                         onClick={handleClick}
                         key={'confirm-btn'}

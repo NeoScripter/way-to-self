@@ -7,11 +7,11 @@ export const bodyMenuItems: BarMenuItem[] = [
         route: 'admin.body.faqs.index',
         title: 'Вопросы',
     },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Рецепты',
-    // },
+    {
+        id: v4uuid(),
+        route: 'admin.body.exercise.filters.index',
+        title: 'Фильтры',
+    },
     // {
     //     id: v4uuid(),
     //     route: 'admin.dashboard',

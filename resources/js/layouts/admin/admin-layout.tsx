@@ -65,7 +65,7 @@ export default function AdminLayout({
                         <nav>
                             <ul
                                 ref={ulRef}
-                                className="grid-auto admin-navbar gap-x-0.5 [--min:100px] sm:[--min:120px] lg:[--min:140px]"
+                                className="grid-auto admin-navbar gap-x-0.5 [--min:100px] [--max:140px] sm:[--min:120px] sm:[--max:160px] lg:[--min:140px]"
                             >
                                 {topMenuItems.map((item) => (
                                     <TopBarLink
@@ -108,7 +108,7 @@ function TopBarLink({ item }: TopBarLinkProps) {
             <Link
                 href={route(item.route)}
                 className={cn(
-                    'flex cursor-pointer text-center items-center justify-center rounded-t-[2.25rem] bg-pale-olive px-4 py-2 text-xs text-white sm:text-sm lg:text-base',
+                    'flex cursor-pointer text-center items-center justify-center rounded-t-[2.25rem] bg-pale-olive px-2 sm:px-4 py-2 text-xs text-white sm:text-sm lg:text-base',
                     isCurrent
                         ? 'bg-bright-salad'
                         : 'transition-colors duration-200 ease-in-out hover:bg-light-swamp',

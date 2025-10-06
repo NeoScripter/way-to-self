@@ -72,6 +72,9 @@ export default function FaqItemUpsert({
                     closeForm();
                 }
             },
+            onError: () => {
+                window.setTimeout(() => clearErrors(), 5000);
+            },
         });
     };
 
@@ -102,7 +105,7 @@ export default function FaqItemUpsert({
                                 onChange={(e) =>
                                     setData('title', e.target.value)
                                 }
-                                placeholder="Название статьи"
+                                placeholder="Вопрос"
                             />
                         </TextWidget>
 

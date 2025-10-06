@@ -12,7 +12,7 @@ use Inertia\Inertia;
 
 class BodyArticleController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $articles = Article::select(['id', 'description', 'title'])
             ->where('type', ArticleType::EXERCISE)

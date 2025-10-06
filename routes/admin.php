@@ -14,47 +14,51 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
     Route::get('/dashboard', AdminDashboardController::class)->name('dashboard');
     Route::get('/profile', [AdminProfileController::class, 'show'])->name('profile');
 
-
-    Route::middleware('role:admin')->group(function () {
-        Route::get('/editors/create', [AdminEditorController::class, 'create'])->name('editors.create');
-        Route::post('/editors/store', [AdminEditorController::class, 'store'])->name('editors.store');
-        Route::get('/editors', [AdminEditorController::class, 'index'])->name('editors.index');
-        Route::get('/editors/{user}', [AdminEditorController::class, 'show'])->name('editors.show');
-        Route::patch('/editors/{user}', [AdminEditorController::class, 'update'])->name('editors.update');
-        Route::post('/editors/{user}', [UserController::class, 'update'])->name('editors.ban');
-        Route::delete('/editors/{user}', [UserController::class, 'destroy'])->name('editors.destroy');
+    Route::prefix('/editors')->name('editors.')->middleware('role:admin')->group(function () {
+        Route::get('/create', [AdminEditorController::class, 'create'])->name('create');
+        Route::post('/store', [AdminEditorController::class, 'store'])->name('store');
+        Route::get('/', [AdminEditorController::class, 'index'])->name('index');
+        Route::get('/{user}', [AdminEditorController::class, 'show'])->name('show');
+        Route::patch('/{user}', [AdminEditorController::class, 'update'])->name('update');
+        Route::post('/{user}', [UserController::class, 'update'])->name('ban');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
     });
 
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index')->withTrashed();
-    Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('users.show')->withTrashed();
-    Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
-    Route::post('/users/{user}', [UserController::class, 'update'])->name('users.ban');
-    Route::post('/users/restore/{user}', [UserController::class, 'restore'])->name('users.restore')->withTrashed();
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->withTrashed();
+    Route::prefix('/users')->name('users.')->group(function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('index')->withTrashed();
+        Route::get('/{user}', [AdminUserController::class, 'show'])->name('show')->withTrashed();
+        Route::patch('/{user}', [AdminUserController::class, 'update'])->name('update');
+        Route::post('/{user}', [UserController::class, 'update'])->name('ban');
+        Route::post('/restore/{user}', [UserController::class, 'restore'])->name('restore')->withTrashed();
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy')->withTrashed();
+    });
 
+    Route::prefix('/promos')->name('promos.')->group(function () {
+        Route::get('/create', [PromoController::class, 'create'])->name('create');
+        Route::post('/store', [PromoController::class, 'store'])->name('store');
+        Route::get('/', [PromoController::class, 'index'])->name('index');
+        Route::get('/{promo}', [PromoController::class, 'show'])->name('show');
+        Route::patch('/{promo}', [PromoController::class, 'update'])->name('update');
+        Route::patch('/toggle/{promo}', [PromoController::class, 'toggle'])->name('toggle');
+        Route::delete('/', [PromoController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::get('/promos/create', [PromoController::class, 'create'])->name('promos.create');
-    Route::post('/promos/store', [PromoController::class, 'store'])->name('promos.store');
-    Route::get('/promos', [PromoController::class, 'index'])->name('promos.index');
-    Route::get('/promos/{promo}', [PromoController::class, 'show'])->name('promos.show');
-    Route::patch('/promos/{promo}', [PromoController::class, 'update'])->name('promos.update');
-    Route::patch('/promos/toggle/{promo}', [PromoController::class, 'toggle'])->name('promos.toggle');
-    Route::delete('/promos', [PromoController::class, 'destroy'])->name('promos.destroy');
+    Route::prefix('/plans')->name('plans.')->group(function () {
+        Route::get('/create', [PlanController::class, 'create'])->name('create');
+        Route::post('/store', [PlanController::class, 'store'])->name('store');
+        Route::get('/', [PlanController::class, 'index'])->name('index');
+        Route::get('/{plan}', [PlanController::class, 'show'])->name('show');
+        Route::post('/{plan}', [PlanController::class, 'update'])->name('update');
+        Route::patch('/toggle/{plan}', [PlanController::class, 'toggle'])->name('toggle');
+        Route::delete('/{plan}', [PlanController::class, 'destroy'])->name('destroy');
+    });
 
-
-    Route::get('/plans/create', [PlanController::class, 'create'])->name('plans.create');
-    Route::post('/plans/store', [PlanController::class, 'store'])->name('plans.store');
-    Route::get('/plans', [PlanController::class, 'index'])->name('plans.index');
-    Route::get('/plans/{plan}', [PlanController::class, 'show'])->name('plans.show');
-    Route::post('/plans/{plan}', [PlanController::class, 'update'])->name('plans.update');
-    Route::patch('/plans/toggle/{plan}', [PlanController::class, 'toggle'])->name('plans.toggle');
-    Route::delete('/plans/{plan}', [PlanController::class, 'destroy'])->name('plans.destroy');
-
-
-    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-    Route::post('/articles/store', [ArticleController::class, 'store'])->name('articles.store');
-    Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-    Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
-    Route::post('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
-    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::prefix('/articles')->name('news.articles.')->group(function () {
+        Route::get('/create', [ArticleController::class, 'create'])->name('create');
+        Route::post('/store', [ArticleController::class, 'store'])->name('store');
+        Route::get('/', [ArticleController::class, 'index'])->name('index');
+        Route::get('/{article}', [ArticleController::class, 'show'])->name('show');
+        Route::post('/{article}', [ArticleController::class, 'update'])->name('update');
+        Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
+    });
 });

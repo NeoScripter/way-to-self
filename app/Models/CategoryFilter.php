@@ -44,7 +44,7 @@ class CategoryFilter extends Model
 
     public static function menuItemsForCategory(CategoryType $category): array
     {
-        $categories = static::where('category', $category->value)->get();
+        $categories = static::where('category', $category->value)->whereNotNull('name')->get();
 
         return $categories
             ->groupBy('title')

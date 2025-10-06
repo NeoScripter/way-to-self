@@ -1,4 +1,4 @@
-export const navConfig = {
+export const navConfig: Record<string, { route: string; forms: string[] }> = {
     plans: {
         route: 'admin.plans.index',
         forms: ['тариф', 'тарифа', 'тарифов'],
@@ -15,8 +15,21 @@ export const navConfig = {
         route: 'admin.editors.index',
         forms: ['админ', 'админа', 'админов'],
     },
-    articles: {
-        route: 'admin.articles.index',
+    articles_news: {
+        route: 'admin.news.articles.index',
+        forms: ['статья', 'статьи', 'статей'],
+    },
+    articles_body: {
+        route: 'admin.body.articles.index',
+        forms: ['статья', 'статьи', 'статей'],
+    },
+    articles_nutrition: {
+        route: 'admin.nutrtition.articles.index',
+        forms: ['статья', 'статьи', 'статей'],
+    },
+    articles_soul: {
+        route: 'admin.soul.articles.index',
         forms: ['статья', 'статьи', 'статей'],
     },
 };
+

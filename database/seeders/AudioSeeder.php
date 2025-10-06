@@ -30,8 +30,8 @@ class AudioSeeder extends Seeder
                             'imageable_id' => $audio,
                             'type' => 'image',
                             'alt' => 'meditation image',
-                            'path' => asset('storage/models/audios/meditation.webp'),
-                            'tiny_path' => asset('storage/models/audios/meditation.webp'),
+                            'path' => 'models/audios/meditation.webp',
+                            'tiny_path' => 'models/audios/meditation.webp',
                         ]);
                     })
                     ->create();

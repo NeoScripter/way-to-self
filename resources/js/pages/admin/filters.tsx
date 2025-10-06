@@ -1,11 +1,17 @@
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
+import FilterPanel from '@/components/admin/molecules/filter-panel';
 import FilterUpsert from '@/components/admin/molecules/filter-upsert';
 import useToggle from '@/hooks/use-toggle';
-import { CategoryFilter  } from '@/types/model';
+import { MenuItem } from '@/lib/data/account-menu-items';
 import { Transition } from '@headlessui/react';
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
+
+type Filter = {
+    title: string;
+    items: MenuItem[];
+};
 
 type FiltersProps = {
     namespace: string;
@@ -13,43 +19,51 @@ type FiltersProps = {
 
 export default function Filters({ namespace }: FiltersProps) {
     const { filters } = usePage<{
-        filters: CategoryFilter[];
+        filters: Filter[];
     }>().props;
 
-    const [selectedFilter, setSelectedFilter] = useState<CategoryFilter | null>(null);
+    const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
     const [showCreatePanel, toggleCreatePanel] = useToggle(false);
 
     return (
         <>
             <div className="mb-4 flex items-center gap-2 md:mb-6">
                 <NeutralBtn onClick={() => toggleCreatePanel()}>
-                    Новый вопрос
+                    Новая категория
                 </NeutralBtn>
             </div>
             <ul className="space-y-4 md:space-y-6">
                 <Transition show={showCreatePanel}>
                     <li
                         key={`create-filter-item`}
-                        className="max-h-500 list-decimal font-bold transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out"
+                        className="max-h-500 list-none transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out"
                     >
                         <FilterUpsert
                             closeForm={() => toggleCreatePanel(false)}
-                            routeName={route(`admin.${namespace}.filters.store`)}
+                            routeName={route(
+                                `admin.${namespace}.filters.store`,
+                            )}
                         />
                     </li>
                 </Transition>
-                {filters?.map((filter) => (
+                {Object.entries(filters || {}).map(([category, items]) => (
                     <li
-                        key={`filter-${filter.id}`}
-                        className="list-decimal font-bold"
+                        key={category}
+                        className="list-none space-y-4"
                     >
                         <FilterUpsert
-                            onDeleteClick={() => setSelectedFilter(filter)}
-                            filter={filter}
+                            onDeleteClick={() => setSelectedFilter(category)}
+                            filter={category}
                             routeName={route(
                                 `admin.${namespace}.filters.update`,
-                                filter.id,
+                                category,
                             )}
+                        />
+
+                        <FilterPanel
+                            title={category}
+                            items={items.filter(item => item.name != null)}
+                            namespace={namespace}
                         />
                     </li>
                 ))}
@@ -60,10 +74,8 @@ export default function Filters({ namespace }: FiltersProps) {
                     show={selectedFilter != null}
                     closeDialog={() => setSelectedFilter(null)}
                     title="Вы точно уверены, что хотите удалить все фильтры в данной категории?"
-                    routeName={route(
-                        `admin.${namespace}.filters.destroy`,
-                        selectedFilter,
-                    )}
+                    routeName={route(`admin.${namespace}.filters.massDestroy`)}
+                    payload={{ title: selectedFilter }}
                     methodName="delete"
                     confirmBtnLabel="Удалить"
                     cancelBtnLabel="Отмена"

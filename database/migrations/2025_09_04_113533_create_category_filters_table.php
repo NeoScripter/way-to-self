@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('category_filters', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('name');
-            $table->string('category');
+            $table->string('name')->nullable();
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }
