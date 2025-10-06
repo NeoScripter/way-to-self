@@ -13,6 +13,7 @@ import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { bodyMenuItems } from '../body/body-menu-items';
+import { soulMenuItems } from '../soul/soul-menu-items';
 
 
 export default function Index() {
@@ -37,6 +38,9 @@ export default function Index() {
             return bodyMenuItems;
         }
 
+        if (namespace === 'soul') {
+            return soulMenuItems;
+        }
         return undefined;
     }
 

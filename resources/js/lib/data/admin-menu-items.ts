@@ -92,13 +92,13 @@ export const adminMenu: AdminMenuList[] = [
             //     icon: Food,
             //     allowed: ['admin', 'editor'],
             // },
-            // {
-            //     id: uuidv4(),
-            //     title: 'Душа',
-            //     route: 'admin.dashboard',
-            //     icon: Soul,
-            //     allowed: ['admin', 'editor'],
-            // },
+            {
+                id: uuidv4(),
+                title: 'Душа',
+                route: 'admin.soul.faqs.index',
+                icon: Soul,
+                allowed: ['admin', 'editor'],
+            },
             {
                 id: uuidv4(),
                 title: 'Тело',

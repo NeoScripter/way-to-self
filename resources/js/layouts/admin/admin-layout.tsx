@@ -104,7 +104,7 @@ function TopBarLink({ item }: TopBarLinkProps) {
     );
 
     return (
-        <li>
+        <li className='select-none'>
             <Link
                 href={route(item.route)}
                 className={cn(

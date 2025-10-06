@@ -8,6 +8,7 @@ use App\Http\Controllers\Account\BodySearchController;
 use App\Http\Controllers\Admin\Body\ArticleController;
 use App\Http\Controllers\Admin\Body\FAQController;
 use App\Http\Controllers\Admin\Body\ExerciseFilterController;
+use App\Http\Controllers\Admin\Body\ProgramFilterController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'banned', 'tier.access:body'])->prefix('account/body')->name('body.')->group(function () {
@@ -55,6 +56,14 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
         Route::post('/update/{title}', [ExerciseFilterController::class, 'update'])->name('update');
         Route::delete('/mass-destroy', [ExerciseFilterController::class, 'massDestroy'])->name('massDestroy');
         Route::delete('/{filter}', [ExerciseFilterController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/programs/filters')->name('programs.filters.')->group(function () {
+        Route::get('/', [ProgramFilterController::class, 'index'])->name('index');
+        Route::post('/store', [ProgramFilterController::class, 'store'])->name('store');
+        Route::post('/update/{title}', [ProgramFilterController::class, 'update'])->name('update');
+        Route::delete('/mass-destroy', [ProgramFilterController::class, 'massDestroy'])->name('massDestroy');
+        Route::delete('/{filter}', [ProgramFilterController::class, 'destroy'])->name('destroy');
     });
 });
 

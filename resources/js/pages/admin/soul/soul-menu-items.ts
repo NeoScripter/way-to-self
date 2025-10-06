@@ -1,20 +1,20 @@
 import { BarMenuItem } from '@/lib/data/admin-top-bar-items';
 import { v4 as v4uuid } from 'uuid';
 
-export const bodyMenuItems: BarMenuItem[] = [
+export const soulMenuItems: BarMenuItem[] = [
     {
         id: v4uuid(),
-        route: 'admin.body.faqs.index',
+        route: 'admin.soul.faqs.index',
         title: 'Вопросы',
     },
     {
         id: v4uuid(),
-        route: 'admin.body.exercise.filters.index',
-        title: 'Фильтры У',
+        route: 'admin.soul.audios.filters.index',
+        title: 'Фильтры М',
     },
     {
         id: v4uuid(),
-        route: 'admin.body.programs.filters.index',
+        route: 'admin.soul.practices.filters.index',
         title: 'Фильтры П',
     },
     // {
@@ -49,7 +49,7 @@ export const bodyMenuItems: BarMenuItem[] = [
     // },
     {
         id: v4uuid(),
-        route: 'admin.body.articles.index',
+        route: 'admin.soul.articles.index',
         title: 'Советы',
     },
 ];
