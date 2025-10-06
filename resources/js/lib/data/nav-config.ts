@@ -24,7 +24,7 @@ export const navConfig: Record<string, { route: string; forms: string[] }> = {
         forms: ['статья', 'статьи', 'статей'],
     },
     articles_nutrition: {
-        route: 'admin.nutrtition.articles.index',
+        route: 'admin.nutrition.articles.index',
         forms: ['статья', 'статьи', 'статей'],
     },
     articles_soul: {

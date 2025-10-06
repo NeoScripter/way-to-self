@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Body;
+namespace App\Http\Controllers\Admin\Nutrition;
 
 use App\Enums\ArticleType;
 use App\Http\Controllers\Controller;
@@ -46,7 +46,7 @@ class ArticleController extends Controller
             'articles' => fn() => $articles,
             'options' => fn() => $options,
             'count' => fn() => $count,
-            'namespace' => fn() => 'body',
+            'namespace' => fn() => 'nutrition',
         ]);
     }
 
@@ -59,7 +59,7 @@ class ArticleController extends Controller
         return Inertia::render('admin/articles/show', [
             'article' => fn() => $article,
             'count' => fn() => $count,
-            'namespace' => fn() => 'body',
+            'namespace' => fn() => 'nutrition',
         ]);
     }
 
@@ -69,7 +69,7 @@ class ArticleController extends Controller
 
         return Inertia::render('admin/articles/create', [
             'count' => $count,
-            'namespace' => fn() => 'body',
+            'namespace' => fn() => 'nutrition',
         ]);
     }
 
@@ -85,7 +85,7 @@ class ArticleController extends Controller
             'thumbnail'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
         ]);
 
-        $validated['type'] = ArticleType::EXERCISE;
+        $validated['type'] = ArticleType::NUTRITION;
 
 
         $article = Article::create(Arr::except($validated, ['image', 'image_alt', 'thumbnail', 'thumbnail_alt']));
@@ -103,14 +103,14 @@ class ArticleController extends Controller
             Image::attachTo($article, $request->file('thumbnail'), $validated['thumbnail_alt'], 300, 'thumbnail');
         }
 
-        return redirect()->route('admin.body.articles.index')->with('message', 'Статья успешно создана');
+        return redirect()->route('admin.nutrition.articles.index')->with('message', 'Статья успешно создана');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
 
-        return redirect()->route('admin.body.articles.index')->with('message', 'Статья успешно удалена');
+        return redirect()->route('admin.nutrition.articles.index')->with('message', 'Статья успешно удалена');
     }
 
     public function update(Article $article, Request $request): RedirectResponse
@@ -125,7 +125,7 @@ class ArticleController extends Controller
             'thumbnail'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
         ]);
 
-        $validated['type'] = ArticleType::EXERCISE;
+        $validated['type'] = ArticleType::NUTRITION;
 
         $article->update(Arr::except($validated, ['image', 'image_alt', 'thumbnail', 'thumbnail_alt']));
 

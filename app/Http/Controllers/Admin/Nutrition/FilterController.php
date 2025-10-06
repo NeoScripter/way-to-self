@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Body;
+namespace App\Http\Controllers\Admin\Nutrition;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
@@ -9,16 +9,16 @@ use App\Models\CategoryFilter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ExerciseFilterController extends Controller
+class FilterController extends Controller
 {
     public function index()
     {
-        $filters = CategoryFilter::where('category', CategoryType::EXERCISES)
+        $filters = CategoryFilter::where('category', CategoryType::RECIPES)
             ->latest()
             ->get()
             ->groupBy('title');
 
-        return Inertia::render('admin/body/exercise-filters', [
+        return Inertia::render('admin/nutrition/recipe-filters', [
             'filters' => fn() => $filters,
         ]);
     }
@@ -30,7 +30,7 @@ class ExerciseFilterController extends Controller
             'name' => 'nullable|string|max:140',
         ]);
 
-        $validated['category'] = CategoryType::EXERCISES;
+        $validated['category'] = CategoryType::RECIPES;
 
         CategoryFilter::create($validated);
 
@@ -51,7 +51,7 @@ class ExerciseFilterController extends Controller
         ]);
 
         CategoryFilter::where(function ($q) {
-            $q->where('category', CategoryType::EXERCISES)
+            $q->where('category', CategoryType::RECIPES)
                 ->orWhereNull('category');
             })
             ->where('title', $validated['title'])
@@ -67,7 +67,7 @@ class ExerciseFilterController extends Controller
         ]);
 
         $filters = CategoryFilter::where(function ($q) {
-            $q->where('category', CategoryType::EXERCISES)
+            $q->where('category', CategoryType::RECIPES)
                 ->orWhereNull('category');
             })
             ->where('title', $title)

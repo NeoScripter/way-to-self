@@ -85,13 +85,13 @@ export const adminMenu: AdminMenuList[] = [
             //     icon: Home,
             //     allowed: ['admin', 'editor'],
             // },
-            // {
-            //     id: uuidv4(),
-            //     title: 'Питание',
-            //     route: 'admin.dashboard',
-            //     icon: Food,
-            //     allowed: ['admin', 'editor'],
-            // },
+            {
+                id: uuidv4(),
+                title: 'Питание',
+                route: 'admin.nutrition.faqs.index',
+                icon: Food,
+                allowed: ['admin', 'editor'],
+            },
             {
                 id: uuidv4(),
                 title: 'Душа',

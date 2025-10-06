@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Body;
+namespace App\Http\Controllers\Admin\Nutrition;
 
 use App\Enums\ArticleType;
 use App\Http\Controllers\Controller;
@@ -13,9 +13,9 @@ class FAQController extends Controller
 {
     public function index()
     {
-        $faqs = FaqItem::where('type', '=', ArticleType::EXERCISE)->latest()->get();
+        $faqs = FaqItem::where('type', '=', ArticleType::NUTRITION)->latest()->get();
 
-        return Inertia::render('admin/body/faqs', [
+        return Inertia::render('admin/nutrition/faqs', [
             'faqs' => fn() => $faqs,
         ]);
     }
@@ -27,7 +27,7 @@ class FAQController extends Controller
             'body' => 'required|string|max:64000',
         ]);
 
-        $validated['type'] = ArticleType::EXERCISE;
+        $validated['type'] = ArticleType::NUTRITION;
 
         FaqItem::create($validated);
 
@@ -48,7 +48,7 @@ class FAQController extends Controller
             'body' => 'nullable|string|max:64000',
         ]);
 
-        $validated['type'] = ArticleType::EXERCISE;
+        $validated['type'] = ArticleType::NUTRITION;
 
         $faq->update($validated);
 

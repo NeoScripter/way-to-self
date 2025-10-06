@@ -14,6 +14,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { bodyMenuItems } from '../body/body-menu-items';
 import { soulMenuItems } from '../soul/soul-menu-items';
+import { nutritionMenuItems } from '../nutrition/nutrition-menu-items';
 
 
 export default function Index() {
@@ -41,6 +42,11 @@ export default function Index() {
         if (namespace === 'soul') {
             return soulMenuItems;
         }
+
+        if (namespace === 'nutrition') {
+            return nutritionMenuItems;
+        }
+
         return undefined;
     }
 
