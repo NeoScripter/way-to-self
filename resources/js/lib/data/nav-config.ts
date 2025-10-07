@@ -31,5 +31,28 @@ export const navConfig: Record<string, { route: string; forms: string[] }> = {
         route: 'admin.soul.articles.index',
         forms: ['статья', 'статьи', 'статей'],
     },
+    exercises: {
+        route: 'admin.exercises.index',
+        forms: ['упражнение', 'упражнения', 'упражнений'],
+    },
+    practices: {
+        route: 'admin.practices.index',
+        forms: ['практика', 'практики', 'практик'],
+    },
+    programs: {
+        route: 'admin.programs.index',
+        forms: ['программа', 'программы', 'программ'],
+    },
+    recipes: {
+        route: 'admin.recipes.index',
+        forms: ['рецепт', 'рецепта', 'рецептов'],
+    },
+    audios: {
+        route: 'admin.audios.index',
+        forms: ['медитация', 'медитации', 'медитаций'],
+    },
+    reviews: {
+        route: 'admin.reviews.index',
+        forms: ['отзыв', 'отзыва', 'отзывов'],
+    },
 };
-

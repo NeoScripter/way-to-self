@@ -6,6 +6,7 @@ use App\Http\Controllers\Account\BodyExerciseController;
 use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
 use App\Http\Controllers\Admin\Body\ArticleController;
+use App\Http\Controllers\Admin\Body\ExerciseController;
 use App\Http\Controllers\Admin\Body\FAQController;
 use App\Http\Controllers\Admin\Body\ExerciseFilterController;
 use App\Http\Controllers\Admin\Body\ProgramFilterController;
@@ -67,3 +68,14 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
     });
 });
 
+Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
+
+    Route::prefix('/exercises')->name('exercises.')->group(function () {
+        Route::get('/', [ExerciseController::class, 'index'])->name('index');
+        Route::post('/store', [ExerciseController::class, 'store'])->name('store');
+        Route::post('/{exercise}', [ExerciseController::class, 'update'])->name('update');
+        Route::get('/create', [ExerciseController::class, 'create'])->name('create');
+        Route::get('/{exercise}', [ExerciseController::class, 'show'])->name('show');
+        Route::delete('/{exercise}', [ExerciseController::class, 'destroy'])->name('destroy');
+    });
+});

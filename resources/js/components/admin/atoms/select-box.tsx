@@ -8,12 +8,12 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { Fragment } from 'react';
 
-export type Option<T extends string> = {
+export type Option<T extends string | number> = {
     value: T;
     label: string;
 };
 
-type SelectBoxProps<T extends string> = {
+type SelectBoxProps<T extends string | number> = {
     value: T;
     onChange: (val: T) => void;
     options: Option<T>[];
@@ -21,7 +21,7 @@ type SelectBoxProps<T extends string> = {
     disabled?: boolean;
 };
 
-export default function SelectBox<T extends string>({
+export default function SelectBox<T extends string | number>({
     value,
     onChange,
     options,
