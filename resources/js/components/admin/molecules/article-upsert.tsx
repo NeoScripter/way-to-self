@@ -151,6 +151,7 @@ export default function ArticleUpsert({
                         onAltChange={(val) => setData('image_alt', val)}
                         altError={errors.image_alt}
                         altText={data.image_alt}
+                        error={errors.image}
                     />
                 </div>
 
@@ -164,6 +165,8 @@ export default function ArticleUpsert({
                         onAltChange={(val) => setData('thumbnail_alt', val)}
                         altError={errors.thumbnail_alt}
                         altText={data.thumbnail_alt}
+                        label='Фото для превью'
+                        error={errors.thumbnail}
                     />
                 </div>
 

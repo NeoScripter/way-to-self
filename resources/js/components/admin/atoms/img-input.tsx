@@ -1,4 +1,5 @@
 import Placeholder from '@/assets/images/shared/placeholder.webp';
+import DialogLayout from '@/components/user/molecules/dialog-layout';
 import { cn } from '@/lib/utils';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 import type { AxiosProgressEvent } from 'axios';
@@ -14,6 +15,7 @@ type ImgInputProps = {
     altText: string;
     altError?: string;
     onAltChange: (value: string) => void;
+    label?: string;
 };
 
 export default function ImgInput({
@@ -25,6 +27,7 @@ export default function ImgInput({
     altText,
     altError,
     onAltChange,
+    label = 'Главное фото',
 }: ImgInputProps) {
     const [preview, setPreview] = useState(src);
     const id = useId();
@@ -37,64 +40,99 @@ export default function ImgInput({
         onChange(file);
     };
 
+    const [showPopup, setShowPopup] = useState(false);
+
     const showCheckMark =
-        progress && progress.percentage && progress.percentage > 98 && preview !== src;
+        progress &&
+        progress.percentage &&
+        progress.percentage > 98 &&
+        preview !== src;
     const showLoadingRing =
-        progress && progress.percentage && progress.percentage < 98 && preview !== src;
+        progress &&
+        progress.percentage &&
+        progress.percentage < 98 &&
+        preview !== src;
 
     return (
-        <div className="flex max-w-140 flex-col items-center justify-between gap-10 md:flex-row">
-            {isEdited && (
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFile}
-                    className="mt-1 hidden"
-                    id={id}
-                />
-            )}
-
-            <div className="shrink-0">
-                <label
-                    htmlFor={id}
-                    className={cn(
-                        'flex h-fit cursor-pointer items-center gap-2 rounded-md bg-slate-800 px-6 py-3 text-sm text-white transition-opacity duration-200 focus-within:opacity-90 hover:opacity-90',
-                        !isEdited && 'cursor-not-allowed opacity-50',
-                    )}
-                >
-                    <ArrowDownTrayIcon className="size-5" />
-                    Фото для превью
-                </label>
-
+        <div>
+            <p className="mb-2 text-center md:text-left font-semibold sm:text-lg">{label}</p>
+            <div className="flex max-w-140 flex-col items-center justify-between gap-10 md:flex-row">
                 {isEdited && (
-                    <AltInput
-                        altText={altText}
-                        altError={altError}
-                        onAltChange={onAltChange}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFile}
+                        className="mt-1 hidden"
+                        id={id}
                     />
                 )}
-            </div>
-            <div className="relative flex size-35 items-center justify-center">
-                <img
-                    src={preview ?? Placeholder}
-                    alt="Preview"
-                    className="h-full w-full rounded object-cover"
-                />
-            </div>
 
-            <div className="relative flex aspect-square size-20 flex-wrap place-content-center text-xs font-bold">
-                {showLoadingRing && <LoadingRing />}
+                <div className="shrink-0">
+                    <label
+                        htmlFor={id}
+                        className={cn(
+                            'flex h-fit cursor-pointer items-center gap-2 rounded-md bg-slate-800 px-6 py-3 text-sm text-white transition-opacity duration-200 focus-within:opacity-90 hover:opacity-90',
+                            !isEdited && 'cursor-not-allowed opacity-50',
+                        )}
+                    >
+                        <ArrowDownTrayIcon className="size-5" />
+                        Загрузить фото
+                    </label>
 
-                {showLoadingRing && <span>{`${progress.percentage}%`}</span>}
-
-                {showCheckMark && (
-                    <div className="flex size-8 animate-fade flex-wrap place-content-center rounded-full bg-bright-salad">
-                        <Check className="text-white" />
+                    {isEdited && (
+                        <AltInput
+                            altText={altText}
+                            altError={altError}
+                            onAltChange={onAltChange}
+                        />
+                    )}
+                </div>
+                <div>
+                    <div
+                        onClick={() => setShowPopup(true)}
+                        className="relative flex size-35 cursor-pointer items-center justify-center"
+                    >
+                        <img
+                            src={preview ?? Placeholder}
+                            alt="Preview"
+                            className="h-full w-full rounded object-cover"
+                        />
                     </div>
-                )}
+                    {error && (
+                        <span className="block max-w-35 text-sm text-red-500">
+                            {error}
+                        </span>
+                    )}
+                </div>
+
+                {showCheckMark || showLoadingRing && <div className="relative flex aspect-square size-20 flex-wrap place-content-center text-xs font-bold">
+                    {showLoadingRing && <LoadingRing />}
+
+                    {showLoadingRing && (
+                        <span>{`${progress.percentage}%`}</span>
+                    )}
+
+                    {showCheckMark && (
+                        <div className="flex size-8 animate-fade flex-wrap place-content-center rounded-full bg-bright-salad">
+                            <Check className="text-white" />
+                        </div>
+                    )}
+                </div>}
             </div>
 
-            {error && <span className="text-sm text-red-500">{error}</span>}
+            <DialogLayout
+                show={showPopup}
+                onClose={() => setShowPopup(false)}
+                className="mx-auto w-fit max-w-260"
+            >
+                {' '}
+                <div className='w-fit mx-auto'>
+                    <img
+                        src={preview}
+                        alt={altText}
+                    />
+                </div>
+            </DialogLayout>
         </div>
     );
 }
