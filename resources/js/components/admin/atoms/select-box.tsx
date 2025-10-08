@@ -42,7 +42,7 @@ export default function SelectBox<T extends string | number>({
             value={value}
             onChange={onChange}
         >
-            <div className={cn('relative', className)}>
+            <div className={cn('relative z-20', className)}>
                 <ListboxButton
                     className={cn(
                         'focus-visible:border-ring flex h-12 w-full items-center justify-between rounded-lg border border-text-black bg-white px-4 py-1 text-center text-sm text-text-black shadow-sm transition-[color,box-shadow] outline-none md:text-base',

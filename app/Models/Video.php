@@ -69,10 +69,13 @@ class Video extends Model
     protected static function booted(): void
     {
         static::deleting(function (Video $video) {
-            Storage::disk('public')->delete([
-                $video->getRawOriginal('video_path'),
-                $video->getRawOriginal('hls_path'),
-            ]);
+            if ($video->getRawOriginal('video_path')) {
+                Storage::disk('public')->delete($video->getRawOriginal('video_path'));
+            }
+
+            if ($video->getRawOriginal('hls_path')) {
+                Storage::disk('public')->deleteDirectory(dirname($video->getRawOriginal('hls_path')));
+            }
         });
     }
 }

@@ -21,7 +21,7 @@ class RecipeSeeder extends Seeder
     {
         $recipeData = RecipeFixtures::getFixtures();
 
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             $recipeData->each(function (array $raw) {
                 Recipe::factory(
                     [

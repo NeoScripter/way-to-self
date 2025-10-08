@@ -18,7 +18,7 @@ class ExerciseSeeder extends Seeder
     {
         $exerciseData = ExerciseFixtures::getFixtures();
 
-        for ($i = 0; $i < 9; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             $exerciseData->each(function (array $raw) {
                 Exercise::factory(
                     [

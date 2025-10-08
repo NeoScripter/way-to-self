@@ -17,7 +17,7 @@ class PracticeSeeder extends Seeder
     {
         $practiceData = PracticeFixtures::getFixtures();
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             $practiceData->each(function (array $raw) {
                 Practice::factory(
                     [

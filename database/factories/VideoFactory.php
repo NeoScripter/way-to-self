@@ -17,7 +17,6 @@ class VideoFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => 'recipe',
             'videoable_type' => $this->videoableType(...),
             'video_path' => 'videos/recipe.mp4',
         ];

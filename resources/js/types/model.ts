@@ -59,7 +59,7 @@ export type Exercise = {
     video?: Video;
     category?: ExerciseCategory;
     program_blocks?: ProgramBlock[];
-    filters?: any;
+    filters?: CategoryFilter[];
 };
 export type ExerciseCategory = {
     id: number;

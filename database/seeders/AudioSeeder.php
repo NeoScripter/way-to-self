@@ -16,7 +16,7 @@ class AudioSeeder extends Seeder
     {
         $audioData = AudioFixtures::getFixtures();
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 1; $i++) {
             $audioData->each(function (array $raw) {
                 Audio::factory(
                     [

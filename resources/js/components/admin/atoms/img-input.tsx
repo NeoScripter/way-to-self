@@ -90,7 +90,7 @@ export default function ImgInput({
                 <div>
                     <div
                         onClick={() => setShowPopup(true)}
-                        className="relative flex size-35 cursor-pointer items-center justify-center"
+                        className="relative transition-scale duration-200 ease-in hover:scale-110 flex size-35 cursor-pointer items-center justify-center"
                     >
                         <img
                             src={preview ?? Placeholder}

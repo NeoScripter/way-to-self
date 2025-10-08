@@ -57,7 +57,7 @@ class ExerciseController extends Controller
     public function show(Exercise $exercise)
     {
         $count = Exercise::all()->count();
-        $exercise->load(['image', 'video', 'filters']);
+        $exercise->load(['image', 'filters']);
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
@@ -81,11 +81,14 @@ class ExerciseController extends Controller
             ];
         })->toArray();
 
+        $video = $exercise->video?->srcVideo();
+
         return Inertia::render('admin/body/exercises/show', [
             'exercise' => fn() => $exercise,
             'count' => fn() => $count,
             'filters' => fn() => $filters,
             'categories' => fn() => $categories,
+            'video' => fn() => $video,
         ]);
     }
 

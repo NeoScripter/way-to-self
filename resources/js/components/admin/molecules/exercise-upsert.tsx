@@ -14,6 +14,8 @@ import MarkdownEditor from '../atoms/markdown-editor';
 import SelectBox, { Option } from '../atoms/select-box';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
+import VideoInput from '../atoms/video-input';
+import { cn } from '@/lib/utils';
 
 type ExerciseForm = {
     title: string;
@@ -49,6 +51,13 @@ export default function ExerciseUpsert({
         filters: Option<number>[];
     }>().props;
 
+    const categoryId =
+        exercise?.category?.id || categories.length > 0
+            ? categories[0].value
+            : null;
+
+    const exerciseFilters = exercise?.filters?.map((filter) => filter.id) || [];
+
     const {
         data,
         post,
@@ -69,8 +78,8 @@ export default function ExerciseUpsert({
         complexity: exercise?.complexity || 0,
         duration: exercise?.duration || 0,
         video: null,
-        category_id: exercise?.category?.id || categories.length > 0 ? categories[0].value : null,
-        filters: exercise?.filters?.map((f) => f.id) || [],
+        category_id: categoryId,
+        filters: exerciseFilters,
     });
 
     const addFilter = (id: number) => {
@@ -93,6 +102,9 @@ export default function ExerciseUpsert({
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
+
+        if (!data.image) delete data.image;
+        if (!data.video) delete data.video;
 
         post(routeName, {
             preserveScroll: true,
@@ -209,22 +221,24 @@ export default function ExerciseUpsert({
                         />
                     </TextWidget>
 
-                    {data.category_id && <div className="grid content-start gap-4">
-                        <InputLabel htmlFor="category_id">
-                            Тип упражнения
-                        </InputLabel>
-                        <SelectBox
-                            value={data.category_id}
-                            onChange={(val) => setData('category_id', val)}
-                            options={categories}
-                            className="mt-1"
-                            disabled={!infoEdited}
-                        />
-                        <InputError
-                            className="mt-2"
-                            message={errors.category_id}
-                        />
-                    </div>}
+                    {data.category_id && (
+                        <div className="grid content-start gap-4">
+                            <InputLabel htmlFor="category_id">
+                                Тип упражнения
+                            </InputLabel>
+                            <SelectBox
+                                value={data.category_id}
+                                onChange={(val) => setData('category_id', val)}
+                                options={categories}
+                                className="mt-1"
+                                disabled={!infoEdited}
+                            />
+                            <InputError
+                                className="mt-2"
+                                message={errors.category_id}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div>
@@ -240,6 +254,27 @@ export default function ExerciseUpsert({
                         error={errors.image}
                     />
                 </div>
+                <div>
+                    <VideoInput
+                        key="video-input"
+                        progress={progress}
+                        isEdited={infoEdited}
+                        onChange={(file) => setData('video', file)}
+                        error={errors.video}
+                    />
+                </div>
+
+                {/* <DialogLayout */}
+                {/*     show={showDialog} */}
+                {/*     onClose={() => setShowDialog(false)} */}
+                {/*     className='max-w-260 mx-auto' */}
+                {/* > */}
+                {/*     {' '} */}
+                {/*     <VideoPlayer */}
+                {/*         src={video} */}
+                {/*         className="" */}
+                {/*     /> */}
+                {/* </DialogLayout> */}
 
                 <div className="mb-15 max-w-120 space-y-5">
                     <div className="grid content-start gap-4">
@@ -263,6 +298,7 @@ export default function ExerciseUpsert({
                                 onClick={() => removeFilter(filter.value)}
                                 key={filter.label}
                                 item={filter}
+                                disabled={!infoEdited}
                             />
                         ))}
                     </div>
@@ -316,16 +352,18 @@ export default function ExerciseUpsert({
 type FilterProps = {
     item: Option<number>;
     onClick: () => void;
+    disabled?: boolean;
 };
 
-function Filter({ item, onClick }: FilterProps) {
+function Filter({ item, onClick, disabled = false }: FilterProps) {
     return (
         <div className="flex items-center gap-2 rounded-md bg-bright-salad px-2 py-1 text-white">
             <span>{capitalize(item.label)}</span>
             <button
+                disabled={disabled}
                 onClick={onClick}
                 type="button"
-                className="cursor-pointer text-gray-300 transition-colors hover:text-gray-400"
+                className={cn("cursor-pointer text-gray-300 transition-colors", !disabled && "hover:text-gray-400")}
             >
                 <X className="size-6" />
             </button>

@@ -22,7 +22,7 @@ export default function DialogLayout({
             open={show}
             onClose={onClose}
             className={cn(
-                'fixed inset-0 z-50 flex items-center justify-center overflow-y-auto text-white',
+                'fixed inset-0 outline-none z-50 flex items-center justify-center overflow-y-auto text-white',
                 className,
             )}
         >
