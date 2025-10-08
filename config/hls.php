@@ -100,7 +100,7 @@ return [
      *
      * Default: 'public'
      */
-    'video_disk' => 'public',
+    'video_disk' => 'local',
 
     /**
      * The disk where the HLS output files are stored.

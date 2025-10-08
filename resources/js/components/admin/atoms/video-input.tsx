@@ -37,8 +37,6 @@ export default function VideoInput({
         onChange(file);
     };
 
-    const [showPopup, setShowPopup] = useState(false);
-
     const showCheckMark =
         progress &&
         progress.percentage &&
@@ -63,6 +61,7 @@ export default function VideoInput({
                         onChange={handleFile}
                         className="mt-1 hidden"
                         id={id}
+                        name={`video-input-${id}`}
                     />
                 )}
 

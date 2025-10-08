@@ -64,6 +64,7 @@ export default function ImgInput({
                         onChange={handleFile}
                         className="mt-1 hidden"
                         id={id}
+                        name={`image-input-${id}`}
                     />
                 )}
 

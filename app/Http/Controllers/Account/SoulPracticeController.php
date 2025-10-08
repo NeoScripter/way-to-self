@@ -49,7 +49,7 @@ class SoulPracticeController extends Controller
             'practice' => $practice,
             'isFavorite' => $isFavorite,
             'labels' => ['Главная', 'Душа', 'Практики'],
-            'video' => $practice->video->srcVideo(),
+            'video' => $practice->video->hlsVideo(),
         ]);
     }
 

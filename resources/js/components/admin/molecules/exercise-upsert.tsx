@@ -103,9 +103,6 @@ export default function ExerciseUpsert({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        if (!data.image) delete data.image;
-        if (!data.video) delete data.video;
-
         post(routeName, {
             preserveScroll: true,
             preserveState: true,
@@ -263,18 +260,6 @@ export default function ExerciseUpsert({
                         error={errors.video}
                     />
                 </div>
-
-                {/* <DialogLayout */}
-                {/*     show={showDialog} */}
-                {/*     onClose={() => setShowDialog(false)} */}
-                {/*     className='max-w-260 mx-auto' */}
-                {/* > */}
-                {/*     {' '} */}
-                {/*     <VideoPlayer */}
-                {/*         src={video} */}
-                {/*         className="" */}
-                {/*     /> */}
-                {/* </DialogLayout> */}
 
                 <div className="mb-15 max-w-120 space-y-5">
                     <div className="grid content-start gap-4">

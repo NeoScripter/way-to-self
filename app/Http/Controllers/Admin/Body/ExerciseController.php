@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Body;
 use App\Enums\ArticleType;
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
+use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
 use App\Models\Image;
 use App\Models\Exercise;
@@ -81,7 +82,7 @@ class ExerciseController extends Controller
             ];
         })->toArray();
 
-        $video = $exercise->video?->srcVideo();
+        $video = $exercise->video?->hlsVideo();
 
         return Inertia::render('admin/body/exercises/show', [
             'exercise' => fn() => $exercise,
@@ -136,12 +137,12 @@ class ExerciseController extends Controller
             if ($exercise->video) {
                 $exercise->video->delete();
             }
-            Video::attachTo($exercise, $request->file('video'));
+            ProcessAndAttachVideo::dispatch($exercise, $request->file('video'));
         }
 
         return redirect()
             ->route('admin.exercises.index')
-            ->with('message', 'Упражнение успешно создано');
+            ->with('message', 'Упражнение успешно создано. Ожидайте окончания обработки видео в течение часа.');
     }
 
     public function destroy(Exercise $exercise)
@@ -186,9 +187,10 @@ class ExerciseController extends Controller
             if ($exercise->video) {
                 $exercise->video->delete();
             }
-            Video::attachTo($exercise, $request->file('video'));
+            $tempPath = $request->file('video')->store('temp_videos');
+            ProcessAndAttachVideo::dispatch($exercise, $tempPath);
         }
 
-        return redirect()->back()->with('status', 'Упражнение успешно обновлено!');
+        return redirect()->back()->with('status', 'Упражнение успешно обновлено! Ожидайте окончания обработки видео в течение часа.');
     }
 }

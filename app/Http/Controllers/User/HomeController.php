@@ -72,7 +72,7 @@ final class HomeController extends Controller
             'plans' => $plans,
             'recipes' => $recipes,
             'exercises' => $exercises,
-            'video' => $video->srcVideo(),
+            'video' => $video->hlsVideo(),
             'audio' => $audio,
             'prefix' => 'user.articles.show'
         ]);

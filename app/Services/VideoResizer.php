@@ -23,11 +23,12 @@ class VideoResizer
         $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $filename = Str::slug($originalName) . '-' . uniqid();
         $tempPath = $file->getRealPath();
-        $outputDir = storage_path('app/public/videos');
+        $outputDir = storage_path('app/private/videos');
         $outputPath = "{$outputDir}/{$filename}.webm";
 
-        // Ensure directory exists
-        Storage::disk('public')->makeDirectory('videos');
+        if (! is_dir($outputDir)) {
+            mkdir($outputDir, 0775, true);
+        }
 
         // FFmpeg command
         // -c:v libvpx-vp9 : use VP9 codec (better compression for web)
@@ -37,12 +38,18 @@ class VideoResizer
         $command = [
             'ffmpeg',
             '-y', // overwrite output
-            '-i', $tempPath,
-            '-c:v', 'libvpx-vp9',
-            '-b:v', '0',
-            '-crf', '30',
-            '-vf', "scale={$width}:-1",
-            '-c:a', 'libopus',
+            '-i',
+            $tempPath,
+            '-c:v',
+            'libvpx-vp9',
+            '-b:v',
+            '0',
+            '-crf',
+            '30',
+            '-vf',
+            "scale={$width}:-1",
+            '-c:a',
+            'libopus',
             $outputPath,
         ];
 

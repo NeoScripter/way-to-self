@@ -19,7 +19,7 @@ class ExerciseController extends Controller
 
         return Inertia::render('user/exercise', [
             'exercise' => $exercise,
-            'video' => $exercise->video->srcVideo(),
+            'video' => $exercise->video->hlsVideo(),
             'isFavorite' => $isFavorite,
         ]);
     }

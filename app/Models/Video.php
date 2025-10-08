@@ -52,29 +52,29 @@ class Video extends Model
         return $this->morphTo();
     }
 
-    public function getVideoPathAttribute(): ?string
-    {
-        $path = $this->attributes['video_path'] ?? null;
+    // public function getVideoPathAttribute(): ?string
+    // {
+    //     $path = $this->attributes['video_path'] ?? null;
 
-        return $path ? Storage::disk('public')->url($path) : null;
-    }
+    //     return $path ? Storage::disk('public')->url($path) : null;
+    // }
 
-    public function getHlsPathAttribute(): ?string
-    {
-        $path = $this->attributes['hls_path'] ?? null;
+    // public function getHlsPathAttribute(): ?string
+    // {
+    //     $path = $this->attributes['hls_path'] ?? null;
 
-        return $path ? Storage::disk('public')->url($path) : null;
-    }
+    //     return $path ? Storage::disk('public')->url($path) : null;
+    // }
 
     protected static function booted(): void
     {
         static::deleting(function (Video $video) {
             if ($video->getRawOriginal('video_path')) {
-                Storage::disk('public')->delete($video->getRawOriginal('video_path'));
+                Storage::disk('local')->delete($video->getRawOriginal('video_path'));
             }
 
             if ($video->getRawOriginal('hls_path')) {
-                Storage::disk('public')->deleteDirectory(dirname($video->getRawOriginal('hls_path')));
+                Storage::disk('local')->deleteDirectory(dirname($video->getRawOriginal('hls_path')));
             }
         });
     }
