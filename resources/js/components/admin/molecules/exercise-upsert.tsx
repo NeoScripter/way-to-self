@@ -1,8 +1,10 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
+import capitalize from '@/lib/helpers/capitalize';
 import { Exercise } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
+import { X } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
@@ -22,12 +24,18 @@ type ExerciseForm = {
     duration: number;
     complexity: number;
     video: File | null;
-    category_id: number;
+    category_id: number | null;
+    filters: number[];
 };
 
 type ExerciseUpsertProps = {
     routeName: string;
     exercise?: Exercise;
+};
+
+const dummyFilter = {
+    label: 'Название фильтра',
+    value: -1,
 };
 
 export default function ExerciseUpsert({
@@ -36,7 +44,10 @@ export default function ExerciseUpsert({
 }: ExerciseUpsertProps) {
     const [infoEdited, setInfoEdited] = useState(exercise == null);
 
-    const { options } = usePage<{options: Option<number>[] }>().props;
+    const { categories, filters } = usePage<{
+        categories: Option<number>[];
+        filters: Option<number>[];
+    }>().props;
 
     const {
         data,
@@ -55,11 +66,24 @@ export default function ExerciseUpsert({
         body: exercise?.body || '',
         image: null,
         image_alt: exercise?.image?.alt || '',
-        complexity: 0,
-        duration: 0,
+        complexity: exercise?.complexity || 0,
+        duration: exercise?.duration || 0,
         video: null,
-        category_id: exercise?.category?.id || 0,
+        category_id: exercise?.category?.id || categories.length > 0 ? categories[0].value : null,
+        filters: exercise?.filters?.map((f) => f.id) || [],
     });
+
+    const addFilter = (id: number) => {
+        if (data.filters.includes(id)) return;
+        setData('filters', [...data.filters, id]);
+    };
+
+    const removeFilter = (id: number) => {
+        setData(
+            'filters',
+            data.filters.filter((f) => f !== id),
+        );
+    };
 
     const handleCancelClick = () => {
         setInfoEdited((o) => !o);
@@ -80,6 +104,10 @@ export default function ExerciseUpsert({
             },
         });
     };
+
+    const selectedFilters = filters.filter((f) =>
+        data.filters.includes(f.value),
+    );
 
     return (
         <div className="relative z-50 pt-4">
@@ -128,17 +156,17 @@ export default function ExerciseUpsert({
                     </TextWidget>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <TextWidget
-                        label="Скидка"
-                        key="Скидка"
+                        label="Продолжительность (мин)"
+                        key="Продолжительность"
                         htmlFor="duration"
                         edit={infoEdited}
                         error={errors.duration}
                         fallback={data.duration}
                     >
                         <Input
-                            id="complexity"
+                            id="duration"
                             type="text"
                             inputMode="numeric"
                             pattern="[0-9]*"
@@ -156,8 +184,8 @@ export default function ExerciseUpsert({
                     </TextWidget>
 
                     <TextWidget
-                        label="Скидка"
-                        key="Скидка"
+                        label="Сложность (1-10)"
+                        key="Сложность (1-10)"
                         htmlFor="complexity"
                         edit={infoEdited}
                         error={errors.complexity}
@@ -181,21 +209,22 @@ export default function ExerciseUpsert({
                         />
                     </TextWidget>
 
-                    <div className="grid content-start gap-4">
+                    {data.category_id && <div className="grid content-start gap-4">
                         <InputLabel htmlFor="category_id">
                             Тип упражнения
                         </InputLabel>
                         <SelectBox
                             value={data.category_id}
                             onChange={(val) => setData('category_id', val)}
-                            options={options}
+                            options={categories}
                             className="mt-1"
+                            disabled={!infoEdited}
                         />
                         <InputError
                             className="mt-2"
                             message={errors.category_id}
                         />
-                    </div>
+                    </div>}
                 </div>
 
                 <div>
@@ -210,6 +239,33 @@ export default function ExerciseUpsert({
                         altText={data.image_alt}
                         error={errors.image}
                     />
+                </div>
+
+                <div className="mb-15 max-w-120 space-y-5">
+                    <div className="grid content-start gap-4">
+                        <InputLabel htmlFor="filters">Фильтры</InputLabel>
+                        <SelectBox
+                            value={-1}
+                            onChange={(val) => addFilter(val)}
+                            options={[...filters, dummyFilter]}
+                            className="mt-1"
+                            disabled={!infoEdited}
+                        />
+                        <InputError
+                            className="mt-2"
+                            message={errors.filters}
+                        />
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                        {selectedFilters.map((filter) => (
+                            <Filter
+                                onClick={() => removeFilter(filter.value)}
+                                key={filter.label}
+                                item={filter}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 <div>
@@ -253,6 +309,26 @@ export default function ExerciseUpsert({
                     </NeutralBtn>
                 </div>
             </form>
+        </div>
+    );
+}
+
+type FilterProps = {
+    item: Option<number>;
+    onClick: () => void;
+};
+
+function Filter({ item, onClick }: FilterProps) {
+    return (
+        <div className="flex items-center gap-2 rounded-md bg-bright-salad px-2 py-1 text-white">
+            <span>{capitalize(item.label)}</span>
+            <button
+                onClick={onClick}
+                type="button"
+                className="cursor-pointer text-gray-300 transition-colors hover:text-gray-400"
+            >
+                <X className="size-6" />
+            </button>
         </div>
     );
 }

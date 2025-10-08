@@ -34,8 +34,8 @@ export type Audio = {
 export type CategoryFilter = {
     id: number;
     title: string;
-    name: string;
-    category: string;
+    name?: string;
+    category?: string;
     created_at?: string;
     updated_at?: string;
     recipes?: any;
@@ -67,6 +67,7 @@ export type ExerciseCategory = {
     name: string;
     created_at?: string;
     updated_at?: string;
+    exercise?: Exercise;
 };
 export type FaqItem = {
     id: number;
@@ -276,7 +277,6 @@ export enum CategoryType {
     RECIPES = "recipes",
     EXERCISES = "exercises",
     AUDIOS = "audios",
-    ARTICLES = "articles",
     PRACTICES = "practices",
     PROGRAMS = "programs"
 }

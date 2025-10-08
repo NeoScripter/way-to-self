@@ -91,7 +91,7 @@ export default function FilterPanel({
 
             <div className="flex flex-wrap gap-2">
                 {items &&
-                    items.map((item) => (
+                    items.filter(item => item.name != null).map((item) => (
                         <Filter
                             key={item.id}
                             item={item}

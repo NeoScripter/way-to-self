@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CategoryFilter;
 use App\Models\Image;
 use App\Models\Exercise;
+use App\Models\ExerciseCategory;
 use App\Models\Video;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -56,14 +57,24 @@ class ExerciseController extends Controller
     public function show(Exercise $exercise)
     {
         $count = Exercise::all()->count();
-        $exercise->load(['image', 'video']);
+        $exercise->load(['image', 'video', 'filters']);
 
-        $categories = CategoryFilter::select(['id', 'name'])
+        $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
             ->where('category', '=', CategoryType::EXERCISES)
             ->get();
 
-        $options = $categories->map(function ($category) {
+        $filters = $filters->map(function ($filter) {
+            return [
+                'value' => $filter->id,
+                'label' => $filter->name,
+            ];
+        })->toArray();
+
+        $categories = ExerciseCategory::select(['id', 'name'])
+            ->get();
+
+        $categories = $categories->map(function ($category) {
             return [
                 'value' => $category->id,
                 'label' => $category->name,
@@ -73,7 +84,8 @@ class ExerciseController extends Controller
         return Inertia::render('admin/body/exercises/show', [
             'exercise' => fn() => $exercise,
             'count' => fn() => $count,
-            'options' => fn() => $options,
+            'filters' => fn() => $filters,
+            'categories' => fn() => $categories,
         ]);
     }
 
@@ -94,16 +106,21 @@ class ExerciseController extends Controller
             'body'        => 'required|string|max:64000',
             'duration'    => 'required|numeric|min:1|max:200',
             'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'required|numeric|exists:category_filters,id',
+            'category_id' => 'required|numeric|exists:exercise_categories,id',
+            'filters' => 'required|array',
+            'filters.*' => 'numeric|exists:category_filters,id',
             'image_alt'   => 'required|string|max:400',
             'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
             'video'       => ['required', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
         ]);
 
-        $exercise = Exercise::create(Arr::except($validated, ['image', 'image_alt', 'video', 'category_id']));
+        $exercise = Exercise::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
-        $category = CategoryFilter::find($validated['category_id']);
-        $exercise->category()->associate($category);
+        $category = ExerciseCategory::find($validated['category_id']);
+        $category->exercise()->associate($exercise);
+        $category->save();
+
+        $exercise->filters()->sync($validated['filters']);
 
         if ($request->hasFile('image')) {
             if ($exercise->image) {
@@ -140,16 +157,20 @@ class ExerciseController extends Controller
             'duration'    => 'required|numeric|min:1|max:200',
             'complexity'  => 'required|numeric|min:1|max:10',
             'category_id' => 'required|numeric|exists:category_filters,id',
+            'filters' => 'required|array',
+            'filters.*' => 'numeric|exists:category_filters,id',
             'image_alt'   => 'nullable|string|max:400',
             'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
             'video'       => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
         ]);
 
-        $exercise->update(Arr::except($validated, ['image', 'image_alt', 'video', 'category_id']));
+        $exercise->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
-        $category = CategoryFilter::find($validated['category_id']);
-        $exercise->category()->associate($category);
-        $exercise->save();
+        $category = ExerciseCategory::find($validated['category_id']);
+        $category->exercise()->associate($exercise);
+        $category->save();
+
+        $exercise->filters()->sync($validated['filters']);
 
         if ($request->hasFile('image')) {
             if ($exercise->image) {

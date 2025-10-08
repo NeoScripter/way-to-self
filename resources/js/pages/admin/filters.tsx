@@ -62,7 +62,7 @@ export default function Filters({ namespace }: FiltersProps) {
 
                         <FilterPanel
                             title={category}
-                            items={items.filter(item => item.name != null)}
+                            items={items}
                             namespace={namespace}
                         />
                     </li>
