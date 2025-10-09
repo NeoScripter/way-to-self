@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CategoryType;
+use App\Models\ContentCategory;
 use App\Models\Image;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
@@ -47,9 +49,10 @@ class RecipeSeeder extends Seeder
 
                         $this->createRecipeInfos($recipe->id);
 
-                        RecipeCategory::factory([
-                            'recipe_id' => $recipe->id,
+                        ContentCategory::factory([
+                            'categorizable_id' => $recipe,
                             'name' => $raw['category'],
+                            'type' => CategoryType::RECIPES,
                         ])->create();
 
                         for ($i = 1; $i <= 4; $i++) {

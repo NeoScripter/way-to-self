@@ -6,6 +6,7 @@ use App\Http\Controllers\Account\BodyExerciseController;
 use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
 use App\Http\Controllers\Admin\Body\ArticleController;
+use App\Http\Controllers\Admin\Body\CategoryController;
 use App\Http\Controllers\Admin\Body\ExerciseController;
 use App\Http\Controllers\Admin\Body\FAQController;
 use App\Http\Controllers\Admin\Body\ExerciseFilterController;
@@ -65,6 +66,12 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
         Route::post('/update/{title}', [ProgramFilterController::class, 'update'])->name('update');
         Route::delete('/mass-destroy', [ProgramFilterController::class, 'massDestroy'])->name('massDestroy');
         Route::delete('/{filter}', [ProgramFilterController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/categories')->name('categories.')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 });
 

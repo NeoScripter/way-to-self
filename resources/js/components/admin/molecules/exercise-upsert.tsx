@@ -1,10 +1,7 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
-import notify from '@/components/user/atoms/notify';
-import capitalize from '@/lib/helpers/capitalize';
 import { Exercise } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
-import { X } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
@@ -12,10 +9,10 @@ import InputError from '../atoms/input-error';
 import InputLabel from '../atoms/input-label';
 import MarkdownEditor from '../atoms/markdown-editor';
 import SelectBox, { Option } from '../atoms/select-box';
+import TagPicker from '../atoms/tag-picker';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
-import { cn } from '@/lib/utils';
 
 type ExerciseForm = {
     title: string;
@@ -33,11 +30,6 @@ type ExerciseForm = {
 type ExerciseUpsertProps = {
     routeName: string;
     exercise?: Exercise;
-};
-
-const dummyFilter = {
-    label: 'Название фильтра',
-    value: -1,
 };
 
 export default function ExerciseUpsert({
@@ -82,18 +74,6 @@ export default function ExerciseUpsert({
         filters: exerciseFilters,
     });
 
-    const addFilter = (id: number) => {
-        if (data.filters.includes(id)) return;
-        setData('filters', [...data.filters, id]);
-    };
-
-    const removeFilter = (id: number) => {
-        setData(
-            'filters',
-            data.filters.filter((f) => f !== id),
-        );
-    };
-
     const handleCancelClick = () => {
         setInfoEdited((o) => !o);
         reset();
@@ -107,16 +87,12 @@ export default function ExerciseUpsert({
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {
-                notify('Сохранено!');
+                // notify('Сохранено!');
                 setDefaults();
                 setInfoEdited(false);
             },
         });
     };
-
-    const selectedFilters = filters.filter((f) =>
-        data.filters.includes(f.value),
-    );
 
     return (
         <div className="relative z-50 pt-4">
@@ -261,33 +237,14 @@ export default function ExerciseUpsert({
                     />
                 </div>
 
-                <div className="mb-15 max-w-120 space-y-5">
-                    <div className="grid content-start gap-4">
-                        <InputLabel htmlFor="filters">Фильтры</InputLabel>
-                        <SelectBox
-                            value={-1}
-                            onChange={(val) => addFilter(val)}
-                            options={[...filters, dummyFilter]}
-                            className="mt-1"
-                            disabled={!infoEdited}
-                        />
-                        <InputError
-                            className="mt-2"
-                            message={errors.filters}
-                        />
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                        {selectedFilters.map((filter) => (
-                            <Filter
-                                onClick={() => removeFilter(filter.value)}
-                                key={filter.label}
-                                item={filter}
-                                disabled={!infoEdited}
-                            />
-                        ))}
-                    </div>
-                </div>
+                <TagPicker
+                    className="mb-15"
+                    value={data.filters}
+                    disabled={!infoEdited}
+                    onChange={(v) => setData('filters', v)}
+                    error={errors.filters}
+                    options={filters}
+                />
 
                 <div>
                     <TextWidget
@@ -330,28 +287,6 @@ export default function ExerciseUpsert({
                     </NeutralBtn>
                 </div>
             </form>
-        </div>
-    );
-}
-
-type FilterProps = {
-    item: Option<number>;
-    onClick: () => void;
-    disabled?: boolean;
-};
-
-function Filter({ item, onClick, disabled = false }: FilterProps) {
-    return (
-        <div className="flex items-center gap-2 rounded-md bg-bright-salad px-2 py-1 text-white">
-            <span>{capitalize(item.label)}</span>
-            <button
-                disabled={disabled}
-                onClick={onClick}
-                type="button"
-                className={cn("cursor-pointer text-gray-300 transition-colors", !disabled && "hover:text-gray-400")}
-            >
-                <X className="size-6" />
-            </button>
         </div>
     );
 }

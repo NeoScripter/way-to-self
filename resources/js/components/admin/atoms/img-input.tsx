@@ -56,7 +56,7 @@ export default function ImgInput({
     return (
         <div>
             <p className="mb-2 text-center md:text-left font-semibold sm:text-lg">{label}</p>
-            <div className="flex max-w-140 flex-col items-center justify-between gap-10 md:flex-row">
+            <div className="flex max-w-150 flex-col items-center justify-between gap-10 md:flex-row">
                 {isEdited && (
                     <input
                         type="file"
@@ -91,7 +91,7 @@ export default function ImgInput({
                 <div>
                     <div
                         onClick={() => setShowPopup(true)}
-                        className="relative transition-scale duration-200 ease-in hover:scale-110 flex size-35 cursor-pointer items-center justify-center"
+                        className="relative transition-scale duration-200 ease-in hover:scale-110 flex size-50 cursor-pointer items-center justify-center"
                     >
                         <img
                             src={preview ?? Placeholder}
@@ -100,7 +100,7 @@ export default function ImgInput({
                         />
                     </div>
                     {error && (
-                        <span className="block max-w-35 text-sm text-red-500">
+                        <span className="block font-medium max-w-50 text-sm text-red-500">
                             {error}
                         </span>
                     )}

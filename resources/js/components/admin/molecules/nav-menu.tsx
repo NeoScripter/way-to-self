@@ -15,7 +15,7 @@ export default function NavMenu({ className, show }: NavMenuProps) {
     return (
         <div
             className={cn(
-                'fixed top-12.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-opacity duration-500 ease-in-out sm:top-22 md:top-25 xl:pointer-events-auto xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent xl:opacity-100',
+                'fixed top-14.5 right-0 bottom-0 left-0 z-100 bg-black/30 transition-opacity duration-500 ease-in-out sm:top-24 md:top-27 xl:pointer-events-auto xl:static xl:block xl:h-auto xl:max-w-90 xl:flex-1 xl:bg-transparent xl:opacity-100',
                 className,
                 show ? 'opacity-100' : 'pointer-events-none opacity-0',
             )}

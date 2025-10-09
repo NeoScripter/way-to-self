@@ -18,7 +18,7 @@ export default function AdminHeader({ className, show, onClick }: AdminHeaderPro
     return (
         <header
             className={cn(
-                'relative z-10 flex items-center justify-between gap-x-5 bg-light-swamp px-7 text-white md:px-13 xl:rounded-b-[2.25rem] xl:px-18 2xl:px-30',
+                'sticky top-0 z-150 flex items-center justify-between gap-x-5 bg-light-swamp px-7 text-white md:px-13 xl:rounded-b-[2.25rem] xl:px-18 2xl:px-30',
                 className,
             )}
         >

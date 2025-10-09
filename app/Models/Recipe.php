@@ -39,9 +39,9 @@ class Recipe extends Model
         return $this->hasMany(RecipeStep::class);
     }
 
-    public function category(): HasOne
+    public function category(): MorphOne
     {
-        return $this->hasOne(RecipeCategory::class);
+        return $this->morphOne(ContentCategory::class, 'categorizable');
     }
 
     public function filters()

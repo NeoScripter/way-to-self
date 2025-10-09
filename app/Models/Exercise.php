@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Exercise extends Model
@@ -30,9 +29,9 @@ class Exercise extends Model
         return $this->morphOne(Video::class, 'videoable');
     }
 
-    public function category(): HasOne
+    public function category(): MorphOne
     {
-        return $this->hasOne(ExerciseCategory::class);
+        return $this->morphOne(ContentCategory::class, 'categorizable');
     }
 
     public function favoritedBy()

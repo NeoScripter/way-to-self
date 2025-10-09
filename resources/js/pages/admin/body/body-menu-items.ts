@@ -14,6 +14,11 @@ export const bodyMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.body.categories.index',
+        title: 'Категории У',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.body.exercise.filters.index',
         title: 'Фильтры У',
     },

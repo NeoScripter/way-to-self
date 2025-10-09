@@ -36,6 +36,10 @@ export default function AdminLayout({
     };
 
     useEffect(() => {
+        document.documentElement.style.overflowY = showMenu ? 'hidden' : '';
+    }, [showMenu])
+
+    useEffect(() => {
         if (ulRef.current) {
             markLastRow(ulRef.current);
         }

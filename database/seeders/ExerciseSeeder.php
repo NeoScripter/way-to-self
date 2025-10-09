@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CategoryType;
+use App\Models\ContentCategory;
 use App\Models\Exercise;
-use App\Models\ExerciseCategory;
 use App\Models\Image;
 use App\Models\Video;
 use App\Support\ExerciseFixtures;
@@ -44,9 +45,10 @@ class ExerciseSeeder extends Seeder
                             'video_path' => 'videos/exercise.mp4',
                         ]);
 
-                        ExerciseCategory::factory([
-                            'exercise_id' => $exercise->id,
+                        ContentCategory::factory([
+                            'categorizable_id' => $exercise,
                             'name' => $raw['category'],
+                            'type' => CategoryType::EXERCISES,
                         ])->create();
 
                     })

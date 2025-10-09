@@ -1,4 +1,4 @@
-import Placeholder from '@/assets/images/shared/placeholder.webp';
+import Placeholder from '@/assets/images/admin/video-placeholder.webp';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import { cn } from '@/lib/utils';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
@@ -78,17 +78,21 @@ export default function VideoInput({
                     </label>
                 </div>
                 <div>
-                    <div
-                        onClick={() => setShowPopup(true)}
-                        className="relative flex max-w-120 cursor-pointer items-center justify-center duration-200"
-                    >
-                        <VideoPlayer
-                            src={preview || Placeholder}
-                            className="h-full w-full rounded object-cover"
-                        />
+                    <div className="relative flex max-w-120 items-center justify-center duration-200">
+                        {preview ? (
+                            <VideoPlayer
+                                src={preview}
+                                className="h-full w-full rounded object-cover"
+                            />
+                        ) : (
+                            <img
+                                src={Placeholder}
+                                alt="Нет видео"
+                            />
+                        )}
                     </div>
                     {error && (
-                        <span className="block max-w-35 text-sm text-red-500">
+                        <span className="block font-medium max-w-120 mt-1 text-sm text-red-500">
                             {error}
                         </span>
                     )}
