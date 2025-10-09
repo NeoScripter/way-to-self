@@ -24,6 +24,11 @@ export const bodyMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.programs.index',
+        title: 'Программы',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.body.programs.filters.index',
         title: 'Фильтры П',
     },
