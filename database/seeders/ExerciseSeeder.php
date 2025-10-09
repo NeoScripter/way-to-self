@@ -48,7 +48,6 @@ class ExerciseSeeder extends Seeder
                         ContentCategory::factory([
                             'categorizable_id' => $exercise,
                             'name' => $raw['category'],
-                            'type' => CategoryType::EXERCISES,
                         ])->create();
 
                     })

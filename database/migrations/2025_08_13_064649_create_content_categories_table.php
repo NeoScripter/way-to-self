@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('content_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->morphs('categorizable');
-            $table->string('type');
+            $table->unsignedBigInteger('categorizable_id')->nullable();
+            $table->string('categorizable_type')->nullable();
             $table->timestamps();
         });
     }

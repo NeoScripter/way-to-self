@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Body;
+namespace App\Http\Controllers\Admin\Nutrition;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContentCategory;
-use App\Models\Exercise;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,10 +14,10 @@ class CategoryController extends Controller
     {
         $categories = ContentCategory::query()
             ->select(['id', 'name'])
-            ->where('categorizable_type', Exercise::class)
+            ->where('categorizable_type', Recipe::class)
             ->get();
 
-        return Inertia::render('admin/body/exercise-categories', [
+        return Inertia::render('admin/nutrition/recipe-categories', [
             'categories' => $categories,
         ]);
     }
@@ -28,7 +28,7 @@ class CategoryController extends Controller
             'name' => 'required|string|max:140|unique:content_categories,name',
         ]);
 
-        $validated['categorizable_type'] = Exercise::class;
+        $validated['categorizable_type'] = Recipe::class;
 
         ContentCategory::create($validated);
 

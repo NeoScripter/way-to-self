@@ -52,7 +52,6 @@ class RecipeSeeder extends Seeder
                         ContentCategory::factory([
                             'categorizable_id' => $recipe,
                             'name' => $raw['category'],
-                            'type' => CategoryType::RECIPES,
                         ])->create();
 
                         for ($i = 1; $i <= 4; $i++) {

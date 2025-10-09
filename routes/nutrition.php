@@ -5,6 +5,7 @@ use App\Http\Controllers\Account\NutritionController;
 use App\Http\Controllers\Account\NutritionRecipeController;
 use App\Http\Controllers\Account\NutritionSearchController;
 use App\Http\Controllers\Admin\Nutrition\ArticleController;
+use App\Http\Controllers\Admin\Nutrition\CategoryController;
 use App\Http\Controllers\Admin\Nutrition\FAQController;
 use App\Http\Controllers\Admin\Nutrition\FilterController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,10 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/nutrit
         Route::delete('/mass-destroy', [FilterController::class, 'massDestroy'])->name('massDestroy');
         Route::delete('/{filter}', [FilterController::class, 'destroy'])->name('destroy');
     });
+
+    Route::prefix('/categories')->name('categories.')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('index');
+        Route::post('/store', [CategoryController::class, 'store'])->name('store');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
+    });
 });
-
-

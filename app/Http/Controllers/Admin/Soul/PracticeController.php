@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Body;
+namespace App\Http\Controllers\Admin\Soul;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
-use App\Models\ContentCategory;
 use App\Models\Image;
-use App\Models\Exercise;
+use App\Models\Practice;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 
-class ExerciseController extends Controller
+class PracticeController extends Controller
 {
     public function index(Request $request)
     {
@@ -34,9 +33,9 @@ class ExerciseController extends Controller
             ['value' => 'updated_at', 'label' => 'По дате изменения'],
         ];
 
-        $count = Exercise::all()->count();
+        $count = Practice::all()->count();
 
-        $exercises = Exercise::with(['image'])
+        $practices = Practice::with(['image'])
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->whereRaw('title LIKE ?', ["%{$search}%"]);
@@ -45,22 +44,22 @@ class ExerciseController extends Controller
             ->paginate(16)
             ->withQueryString();
 
-        return Inertia::render('admin/body/exercises/index', [
-            'exercises' => fn() => $exercises,
+        return Inertia::render('admin/soul/practices/index', [
+            'practices' => fn() => $practices,
             'options' => fn() => $options,
             'count' => fn() => $count,
         ]);
     }
 
 
-    public function show(Exercise $exercise)
+    public function show(Practice $practice)
     {
-        $count = Exercise::all()->count();
-        $exercise->load(['image', 'filters']);
+        $count = Practice::all()->count();
+        $practice->load(['image', 'filters']);
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
-            ->where('category', '=', CategoryType::EXERCISES)
+            ->where('category', '=', CategoryType::PRACTICES)
             ->get();
 
         $filters = $filters->map(function ($filter) {
@@ -70,35 +69,23 @@ class ExerciseController extends Controller
             ];
         })->toArray();
 
-        $categories = ContentCategory::select(['id', 'name'])
-            ->where('categorizable_type', Exercise::class)
-            ->get();
+        $video = $practice->video?->hlsVideo();
 
-        $categories = $categories->map(function ($category) {
-            return [
-                'value' => $category->id,
-                'label' => $category->name,
-            ];
-        })->toArray();
-
-        $video = $exercise->video?->hlsVideo();
-
-        return Inertia::render('admin/body/exercises/show', [
-            'exercise' => fn() => $exercise,
+        return Inertia::render('admin/soul/practices/show', [
+            'practice' => fn() => $practice,
             'count' => fn() => $count,
             'filters' => fn() => $filters,
-            'categories' => fn() => $categories,
             'video' => fn() => $video,
         ]);
     }
 
     public function create()
     {
-        $count = Exercise::all()->count();
+        $count = Practice::all()->count();
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
-            ->where('category', '=', CategoryType::EXERCISES)
+            ->where('category', '=', CategoryType::PRACTICES)
             ->get();
 
         $filters = $filters->map(function ($filter) {
@@ -108,22 +95,9 @@ class ExerciseController extends Controller
             ];
         })->toArray();
 
-        $categories = ContentCategory::select(['id', 'name'])
-            ->where('categorizable_type', Exercise::class)
-            ->get();
-
-
-        $categories = $categories->map(function ($category) {
-            return [
-                'value' => $category->id,
-                'label' => $category->name,
-            ];
-        })->toArray();
-
-        return Inertia::render('admin/body/exercises/create', [
+        return Inertia::render('admin/soul/practices/create', [
             'count' => $count,
             'filters' => fn() => $filters,
-            'categories' => fn() => $categories,
         ]);
     }
 
@@ -135,7 +109,6 @@ class ExerciseController extends Controller
             'body'        => 'required|string|max:64000',
             'duration'    => 'required|numeric|min:1|max:200',
             'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'required|numeric|exists:content_categories,id',
             'filters' => 'required|array',
             'filters.*' => 'numeric|exists:category_filters,id',
             'image_alt'   => 'required|string|max:400',
@@ -143,44 +116,41 @@ class ExerciseController extends Controller
             'video'       => ['required', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
         ]);
 
-        $exercise = Exercise::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
+        $practice = Practice::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
-        $category = ContentCategory::find($validated['category_id']);
-        $exercise->category()->save($category);
-
-        $exercise->filters()->sync($validated['filters']);
+        $practice->filters()->sync($validated['filters']);
 
         if ($request->hasFile('image')) {
-            if ($exercise->image) {
-                $exercise->image->delete();
+            if ($practice->image) {
+                $practice->image->delete();
             }
-            Image::attachTo($exercise, $request->file('image'), $validated['image_alt'], 560, 'image');
+            Image::attachTo($practice, $request->file('image'), $validated['image_alt'], 560, 'image');
         }
 
         if ($request->hasFile('video')) {
-            if ($exercise->video) {
-                $exercise->video->delete();
+            if ($practice->video) {
+                $practice->video->delete();
             }
             $tempPath = $request->file('video')->store('temp_videos');
-            ProcessAndAttachVideo::dispatch($exercise, $tempPath);
+            ProcessAndAttachVideo::dispatch($practice, $tempPath);
             return redirect()
-                ->route('admin.exercises.index')
-                ->with('message', 'Упражнение успешно создано. Ожидайте окончания обработки видео в течение часа.');
+                ->route('admin.practices.index')
+                ->with('message', 'Практика успешно создана. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.exercises.index')
-            ->with('message', 'Упражнение успешно создано.');
+            ->route('admin.practices.index')
+            ->with('message', 'Практика успешно создана.');
     }
 
-    public function destroy(Exercise $exercise)
+    public function destroy(Practice $practice)
     {
-        $exercise->delete();
+        $practice->delete();
 
-        return redirect()->route('admin.exercises.index')->with('message', 'Упражнение успешно удалено');
+        return redirect()->route('admin.practices.index')->with('message', 'Практика успешно удалена');
     }
 
-    public function update(Exercise $exercise, Request $request): RedirectResponse
+    public function update(Practice $practice, Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:400',
@@ -188,7 +158,6 @@ class ExerciseController extends Controller
             'body'        => 'required|string|max:64000',
             'duration'    => 'required|numeric|min:1|max:200',
             'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'required|numeric|exists:content_categories,id',
             'filters' => 'required|array',
             'filters.*' => 'numeric|exists:category_filters,id',
             'image_alt'   => 'nullable|string|max:400',
@@ -196,31 +165,28 @@ class ExerciseController extends Controller
             'video'       => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
         ]);
 
-        $exercise->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
+        $practice->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
-        $category = ContentCategory::find($validated['category_id']);
-        $exercise->category()->save($category);
-
-        $exercise->filters()->sync($validated['filters']);
+        $practice->filters()->sync($validated['filters']);
 
         if ($request->hasFile('image')) {
-            if ($exercise->image) {
-                $exercise->image->delete();
+            if ($practice->image) {
+                $practice->image->delete();
             }
-            Image::attachTo($exercise, $request->file('image'), $validated['image_alt'], 560, 'image');
+            Image::attachTo($practice, $request->file('image'), $validated['image_alt'], 560, 'image');
         }
 
         if ($request->hasFile('video')) {
-            if ($exercise->video) {
-                $exercise->video->delete();
+            if ($practice->video) {
+                $practice->video->delete();
             }
             $tempPath = $request->file('video')->store('temp_videos');
-            ProcessAndAttachVideo::dispatch($exercise, $tempPath);
+            ProcessAndAttachVideo::dispatch($practice, $tempPath);
             return redirect()
                 ->back()
-                ->with('message', 'Упражнение успешно обновлено. Ожидайте окончания обработки видео в течение часа.');
+                ->with('message', 'Практика успешно обновлена. Ожидайте окончания обработки видео в течение часа.');
         }
 
-        return redirect()->back()->with('message', 'Упражнение успешно обновлено!');
+        return redirect()->back()->with('message', 'Практика успешно обновлена!');
     }
 }

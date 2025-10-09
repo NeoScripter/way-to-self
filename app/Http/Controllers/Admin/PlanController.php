@@ -50,7 +50,7 @@ class PlanController extends Controller
         $validated = $request->validate([
             'title'       => 'required|string|max:100',
             'alt'         => 'required|string|min:1|max:400',
-            'description' => 'required|string|max:500',
+            'description' => 'required|string|max:4000',
             'price'       => 'required|numeric',
             'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
             'tier_count'  => [
@@ -100,7 +100,7 @@ class PlanController extends Controller
         $validated = $request->validate([
             'title'       => 'required|string|max:100',
             'alt'         => 'nullable|string|max:400',
-            'description' => 'required|string|max:500',
+            'description' => 'required|string|max:4000',
             'price'       => 'required|numeric',
             'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
             'tier_count'  => [

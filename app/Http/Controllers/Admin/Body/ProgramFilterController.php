@@ -26,7 +26,7 @@ class ProgramFilterController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:120',
+            'title'       => 'required|string|max:400',
             'name' => 'nullable|string|max:140',
         ]);
 
@@ -47,7 +47,7 @@ class ProgramFilterController extends Controller
     public function massDestroy(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:120',
+            'title'       => 'required|string|max:400',
         ]);
 
         CategoryFilter::where(function ($q) {
@@ -63,7 +63,7 @@ class ProgramFilterController extends Controller
     public function update(string $title, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:120',
+            'title'       => 'required|string|max:400',
         ]);
 
         $filters = CategoryFilter::where(function ($q) {

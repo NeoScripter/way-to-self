@@ -23,7 +23,7 @@ class FAQController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:120',
+            'title'       => 'required|string|max:400',
             'body' => 'required|string|max:64000',
         ]);
 
@@ -44,7 +44,7 @@ class FAQController extends Controller
     public function update(FaqItem $faq, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'       => 'nullable|string|max:120',
+            'title'       => 'nullable|string|max:400',
             'body' => 'nullable|string|max:64000',
         ]);
 

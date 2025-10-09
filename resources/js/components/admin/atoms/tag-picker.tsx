@@ -47,7 +47,7 @@ export default function TagPicker({
     };
 
     return (
-        <div className={cn("max-w-120 space-y-5", className)}>
+        <div className={cn("max-w-120 select-none space-y-5", className)}>
             <div className="grid content-start gap-4">
                 <InputLabel>Фильтры</InputLabel>
 

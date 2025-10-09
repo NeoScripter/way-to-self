@@ -76,8 +76,8 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:120',
-            'description' => 'required|string|max:500',
+            'title'       => 'required|string|max:400',
+            'description' => 'required|string|max:4000',
             'body' => 'required|string|max:64000',
             'image_alt'         => 'required|string|max:400',
             'thumbnail_alt'         => 'required|string|max:400',
@@ -116,8 +116,8 @@ class ArticleController extends Controller
     public function update(Article $article, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:120',
-            'description' => 'required|string|max:500',
+            'title'       => 'required|string|max:400',
+            'description' => 'required|string|max:4000',
             'body' => 'required|string|max:64000',
             'image_alt'         => 'required|string|max:400',
             'thumbnail_alt'         => 'required|string|max:400',

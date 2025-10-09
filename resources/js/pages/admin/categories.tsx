@@ -52,6 +52,9 @@ export default function Categories({ namespace }: CategoriesProps) {
             onSuccess: () => {
                 reset();
             },
+            onError: () => {
+                window.setTimeout(() => clearErrors('name'), 5000);
+            },
         });
     };
 
@@ -91,14 +94,13 @@ export default function Categories({ namespace }: CategoriesProps) {
 
             <div className="flex flex-wrap gap-2">
                 {categories &&
-                    categories
-                        .map((category) => (
-                            <CategoryTag
-                                key={category.id}
-                                category={category}
-                                namespace={namespace}
-                            />
-                        ))}
+                    categories.map((category) => (
+                        <CategoryTag
+                            key={category.id}
+                            category={category}
+                            namespace={namespace}
+                        />
+                    ))}
             </div>
         </div>
     );
@@ -116,7 +118,10 @@ function CategoryTag({ category, namespace }: CategoryTagProps) {
             <Link
                 method="delete"
                 as="button"
-                href={route(`admin.${namespace}.categories.destroy`, category.id)}
+                href={route(
+                    `admin.${namespace}.categories.destroy`,
+                    category.id,
+                )}
                 preserveScroll={true}
                 preserveState={true}
                 className="cursor-pointer text-gray-300 transition-colors hover:text-gray-400"

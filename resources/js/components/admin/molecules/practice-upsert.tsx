@@ -1,6 +1,6 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
-import { Exercise } from '@/types/model';
+import { Practice } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
@@ -14,7 +14,7 @@ import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
 
-type ExerciseForm = {
+type PracticeForm = {
     title: string;
     description: string;
     body: string;
@@ -23,32 +23,26 @@ type ExerciseForm = {
     duration: number;
     complexity: number;
     video: File | null;
-    category_id: number | null;
     filters: number[];
 };
 
-type ExerciseUpsertProps = {
+type PracticeUpsertProps = {
     routeName: string;
-    exercise?: Exercise;
+    practice?: Practice;
 };
 
-export default function ExerciseUpsert({
+export default function PracticeUpsert({
     routeName,
-    exercise,
-}: ExerciseUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(exercise == null);
+    practice,
+}: PracticeUpsertProps) {
+    const [infoEdited, setInfoEdited] = useState(practice == null);
 
-    const { categories, filters } = usePage<{
-        categories: Option<number>[];
+    const { filters } = usePage<{
         filters: Option<number>[];
     }>().props;
 
-    const categoryId =
-        exercise?.category?.id || categories.length > 0
-            ? categories[0]?.value
-            : null;
 
-    const exerciseFilters = exercise?.filters?.map((filter) => filter.id) || [];
+    const practiceFilters = practice?.filters?.map((filter) => filter.id) || [];
 
     const {
         data,
@@ -61,17 +55,16 @@ export default function ExerciseUpsert({
         processing,
         setDefaults,
         recentlySuccessful,
-    } = useForm<ExerciseForm>({
-        title: exercise?.title || '',
-        description: exercise?.description || '',
-        body: exercise?.body || '',
+    } = useForm<PracticeForm>({
+        title: practice?.title || '',
+        description: practice?.description || '',
+        body: practice?.body || '',
         image: null,
-        image_alt: exercise?.image?.alt || '',
-        complexity: exercise?.complexity || 0,
-        duration: exercise?.duration || 0,
+        image_alt: practice?.image?.alt || '',
+        complexity: practice?.complexity || 0,
+        duration: practice?.duration || 0,
         video: null,
-        category_id: categoryId,
-        filters: exerciseFilters,
+        filters: practiceFilters,
     });
 
     const handleCancelClick = () => {
@@ -87,7 +80,6 @@ export default function ExerciseUpsert({
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {
-                // notify('Сохранено!');
                 setDefaults();
                 setInfoEdited(false);
             },
@@ -141,7 +133,7 @@ export default function ExerciseUpsert({
                     </TextWidget>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 sm:grid-cols-2 max-w-200">
                     <TextWidget
                         label="Продолжительность (мин)"
                         key="Продолжительность"
@@ -193,25 +185,6 @@ export default function ExerciseUpsert({
                             }
                         />
                     </TextWidget>
-
-                    {data.category_id && (
-                        <div className="grid content-start gap-4">
-                            <InputLabel htmlFor="category_id">
-                                Тип упражнения
-                            </InputLabel>
-                            <SelectBox
-                                value={data.category_id}
-                                onChange={(val) => setData('category_id', val)}
-                                options={categories}
-                                className="mt-1"
-                                disabled={!infoEdited}
-                            />
-                            <InputError
-                                className="mt-2"
-                                message={errors.category_id}
-                            />
-                        </div>
-                    )}
                 </div>
 
                 <div>
@@ -220,7 +193,7 @@ export default function ExerciseUpsert({
                         progress={progress}
                         isEdited={infoEdited}
                         onChange={(file) => setData('image', file)}
-                        src={exercise?.image?.path}
+                        src={practice?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
                         altError={errors.image_alt}
                         altText={data.image_alt}
@@ -256,7 +229,7 @@ export default function ExerciseUpsert({
                         fallback={
                             <span
                                 dangerouslySetInnerHTML={{
-                                    __html: exercise?.html || '',
+                                    __html: practice?.html || '',
                                 }}
                                 className="prose prose-sm block max-w-full"
                             />
@@ -271,7 +244,7 @@ export default function ExerciseUpsert({
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {exercise != null && (
+                    {practice != null && (
                         <EditBtn
                             onClick={handleCancelClick}
                             disabled={processing}

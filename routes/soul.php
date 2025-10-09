@@ -8,6 +8,7 @@ use App\Http\Controllers\Account\SoulArticleController;
 use App\Http\Controllers\Admin\Soul\ArticleController;
 use App\Http\Controllers\Admin\Soul\AudioFilterController;
 use App\Http\Controllers\Admin\Soul\FAQController;
+use App\Http\Controllers\Admin\Soul\PracticeController;
 use App\Http\Controllers\Admin\Soul\PracticeFilterController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,3 +69,14 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/soul')
     });
 });
 
+Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
+
+    Route::prefix('/practices')->name('practices.')->group(function () {
+        Route::get('/', [PracticeController::class, 'index'])->name('index');
+        Route::post('/store', [PracticeController::class, 'store'])->name('store');
+        Route::post('/{practice}', [PracticeController::class, 'update'])->name('update');
+        Route::get('/create', [PracticeController::class, 'create'])->name('create');
+        Route::get('/{practice}', [PracticeController::class, 'show'])->name('show');
+        Route::delete('/{practice}', [PracticeController::class, 'destroy'])->name('destroy');
+    });
+});

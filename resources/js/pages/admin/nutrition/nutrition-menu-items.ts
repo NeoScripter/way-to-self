@@ -9,6 +9,11 @@ export const nutritionMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.nutrition.categories.index',
+        title: 'Категории Р',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.nutrition.filters.index',
         title: 'Фильтры',
     },

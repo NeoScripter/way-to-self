@@ -44,6 +44,15 @@ export type CategoryFilter = {
     articles?: any;
     audios?: any;
 };
+export type ContentCategory = {
+    id: number;
+    name: string;
+    categorizable_id?: number;
+    categorizable_type?: string;
+    created_at?: string;
+    updated_at?: string;
+    categorizable?: any;
+};
 export type Exercise = {
     id: number;
     title: string;
@@ -57,17 +66,9 @@ export type Exercise = {
     updated_at?: string;
     image?: Image;
     video?: Video;
-    category?: ExerciseCategory;
+    category?: ContentCategory;
     program_blocks?: ProgramBlock[];
-    filters?: CategoryFilter[];
-};
-export type ExerciseCategory = {
-    id: number;
-    exercise_id: number;
-    name: string;
-    created_at?: string;
-    updated_at?: string;
-    exercise?: Exercise;
+    filters?: any;
 };
 export type FaqItem = {
     id: number;
@@ -166,15 +167,8 @@ export type Recipe = {
     video?: Video;
     infos?: RecipeInfo[];
     steps?: RecipeStep[];
-    category?: RecipeCategory;
+    category?: ContentCategory;
     filters?: any;
-};
-export type RecipeCategory = {
-    id: number;
-    recipe_id: number;
-    name: string;
-    created_at?: string;
-    updated_at?: string;
 };
 export type RecipeInfo = {
     id: number;
@@ -248,7 +242,6 @@ export type TierUser = {
 };
 export type Video = {
     id: number;
-    title: string;
     video_path: string;
     hls_path?: string;
     videoable_type: string;

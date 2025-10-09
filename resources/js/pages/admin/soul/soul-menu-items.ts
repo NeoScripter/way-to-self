@@ -14,6 +14,11 @@ export const soulMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.practices.index',
+        title: 'Практики',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.soul.practices.filters.index',
         title: 'Фильтры П',
     },
