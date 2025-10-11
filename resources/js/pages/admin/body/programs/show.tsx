@@ -1,6 +1,7 @@
 import BlockUpsert from '@/components/admin/molecules/block-upsert';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ExpandablePanel from '@/components/admin/molecules/expandable-panel';
+import GridItemPicker from '@/components/admin/molecules/grid-item-picker';
 import ProgramUpsert from '@/components/admin/molecules/program-upsert';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { Program, ProgramBlock } from '@/types/model';
@@ -53,6 +54,13 @@ export default function Show() {
                         block={block}
                         onClick={() => setSelectedBlock(block)}
                     />
+
+                    {block.exercises && (
+                        <GridItemPicker
+                            gridItems={block.exercises}
+                            items={block.exercises}
+                        />
+                    )}
                 </ExpandablePanel>
             ))}
 

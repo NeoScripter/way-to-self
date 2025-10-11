@@ -4,7 +4,7 @@ import Input from '../atoms/input';
 
 type GridItem = {
     id: number;
-    image: string;
+    image?: string;
     title: string;
     description: string;
 };
@@ -21,6 +21,7 @@ type GridItemPickerProps = {
     deleteRoute: string;
     storeRoute: string;
     placeholder: string;
+    parentId?: number;
 };
 
 export default function GridItemPicker({
@@ -35,8 +36,18 @@ export default function GridItemPicker({
         <section className="">
             {label && <h4 className="mb-2 font-bold">{label}</h4>}
             <div className="rounded-md border border-text-black px-4 py-3">
-                <div className="mb-6">
+                <div className="relative mb-6">
                     <Input placeholder={placeholder} />
+
+                    {/* <ul className="absolute right-0 bottom-full left-0 grid"> */}
+                    {/*     {listItems.map((item) => ( */}
+                    {/*         <li key={item.id}> */}
+                    {/*             <Link href={route(storeRoute, item.id)}> */}
+                    {/*                 {item.title} */}
+                    {/*             </Link> */}
+                    {/*         </li> */}
+                    {/*     ))} */}
+                    {/* </ul> */}
                 </div>
 
                 <ul className="grid gap-4">
@@ -45,15 +56,15 @@ export default function GridItemPicker({
                             key={item.id}
                             className="relative space-y-2"
                         >
-                            <div>
+                            {item.image && <div>
                                 <img
                                     src={item.image}
                                     alt=""
                                 />
-                            </div>
+                            </div>}
 
                             <Link
-                                href={deleteRoute}
+                                href={route(deleteRoute, item.id)}
                                 preserveScroll={true}
                                 preserveState={false}
                             >
