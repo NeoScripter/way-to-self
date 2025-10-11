@@ -7,6 +7,7 @@ use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
 use App\Http\Controllers\Admin\Body\ArticleController;
 use App\Http\Controllers\Admin\Body\BlockController;
+use App\Http\Controllers\Admin\Body\BlockExerciseController;
 use App\Http\Controllers\Admin\Body\CategoryController;
 use App\Http\Controllers\Admin\Body\ExerciseController;
 use App\Http\Controllers\Admin\Body\FAQController;
@@ -102,4 +103,6 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::post('/{block}', [BlockController::class, 'update'])->name('update');
         Route::delete('/{block}', [BlockController::class, 'destroy'])->name('destroy');
     });
+
+    Route::patch('/{block}/{id}', [BlockExerciseController::class, 'update'])->name('exercise.toggle');
 });
