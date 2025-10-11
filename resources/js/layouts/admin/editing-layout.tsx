@@ -1,15 +1,17 @@
+import NavReturn from '@/components/admin/atoms/nav-return';
 import { navConfig } from '@/lib/data/nav-config';
+import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { usePage } from '@inertiajs/react';
 import AdminLayout from './admin-layout';
-import NavReturn from '@/components/admin/atoms/nav-return';
-import { formatDate } from '@/lib/helpers/formatDate';
 
 type EditingLayoutProps = {
     navKey: keyof typeof navConfig;
     title?: string;
     updatedAt?: string;
     children?: React.ReactNode;
+    layoutClass?: string;
+    pageClass?: string;
 };
 
 export default function EditingLayout({
@@ -17,8 +19,13 @@ export default function EditingLayout({
     title,
     updatedAt,
     children,
+    layoutClass,
+    pageClass,
 }: EditingLayoutProps) {
-    const { count, namespace = '' } = usePage<{ count: number, namespace: string | undefined }>().props;
+    const { count, namespace = '' } = usePage<{
+        count: number;
+        namespace: string | undefined;
+    }>().props;
     const suffix = namespace !== '' ? `_${namespace}` : '';
     const nav = navConfig[`${navKey}${suffix}`];
 
@@ -28,7 +35,10 @@ export default function EditingLayout({
             : null;
 
     return (
-        <AdminLayout>
+        <AdminLayout
+            pageClass={pageClass}
+            layoutClass={layoutClass}
+        >
             {badge && (
                 <NavReturn
                     routeName={route(nav.route)}

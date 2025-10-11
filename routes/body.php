@@ -6,10 +6,12 @@ use App\Http\Controllers\Account\BodyExerciseController;
 use App\Http\Controllers\Account\BodyProgramController;
 use App\Http\Controllers\Account\BodySearchController;
 use App\Http\Controllers\Admin\Body\ArticleController;
+use App\Http\Controllers\Admin\Body\BlockController;
 use App\Http\Controllers\Admin\Body\CategoryController;
 use App\Http\Controllers\Admin\Body\ExerciseController;
 use App\Http\Controllers\Admin\Body\FAQController;
 use App\Http\Controllers\Admin\Body\ExerciseFilterController;
+use App\Http\Controllers\Admin\Body\ProgramController;
 use App\Http\Controllers\Admin\Body\ProgramFilterController;
 use Illuminate\Support\Facades\Route;
 
@@ -84,5 +86,20 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::get('/create', [ExerciseController::class, 'create'])->name('create');
         Route::get('/{exercise}', [ExerciseController::class, 'show'])->name('show');
         Route::delete('/{exercise}', [ExerciseController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/programs')->name('programs.')->group(function () {
+        Route::get('/', [ProgramController::class, 'index'])->name('index');
+        Route::post('/store', [ProgramController::class, 'store'])->name('store');
+        Route::post('/{program}', [ProgramController::class, 'update'])->name('update');
+        Route::get('/create', [ProgramController::class, 'create'])->name('create');
+        Route::get('/{program}', [ProgramController::class, 'show'])->name('show');
+        Route::delete('/{program}', [ProgramController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/blocks')->name('blocks.')->group(function () {
+        Route::post('/store/{program}', [BlockController::class, 'store'])->name('store');
+        Route::post('/{block}', [BlockController::class, 'update'])->name('update');
+        Route::delete('/{block}', [BlockController::class, 'destroy'])->name('destroy');
     });
 });

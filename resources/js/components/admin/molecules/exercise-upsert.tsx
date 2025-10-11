@@ -116,7 +116,7 @@ export default function ExerciseUpsert({
                             className="mt-1 block w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Название статьи"
+                            placeholder="Название упражнения"
                         />
                     </TextWidget>
 

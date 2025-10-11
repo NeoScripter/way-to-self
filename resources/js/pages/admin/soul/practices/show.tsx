@@ -11,7 +11,7 @@ export default function Show() {
     return (
         <EditingLayout
             navKey="practices"
-            title="Редактировать упражнение"
+            title="Редактировать практику"
             updatedAt={practice.updated_at}
         >
             <PracticeUpsert

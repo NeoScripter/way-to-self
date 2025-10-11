@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Soul;
+namespace App\Http\Controllers\Admin\Body;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
 use App\Models\Image;
-use App\Models\Practice;
+use App\Models\Program;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
 
 
-class PracticeController extends Controller
+class ProgramController extends Controller
 {
     public function index(Request $request)
     {
@@ -33,9 +33,9 @@ class PracticeController extends Controller
             ['value' => 'updated_at', 'label' => 'По дате изменения'],
         ];
 
-        $count = Practice::all()->count();
+        $count = Program::all()->count();
 
-        $practices = Practice::with(['image'])
+        $programs = Program::with(['image'])
             ->when($search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
                     $q->whereRaw('title LIKE ?', ["%{$search}%"]);
@@ -44,22 +44,22 @@ class PracticeController extends Controller
             ->paginate(16)
             ->withQueryString();
 
-        return Inertia::render('admin/soul/practices/index', [
-            'practices' => fn() => $practices,
+        return Inertia::render('admin/body/programs/index', [
+            'programs' => fn() => $programs,
             'options' => fn() => $options,
             'count' => fn() => $count,
         ]);
     }
 
 
-    public function show(Practice $practice)
+    public function show(Program $program)
     {
-        $count = Practice::all()->count();
-        $practice->load(['image', 'filters']);
+        $count = Program::all()->count();
+        $program->load(['image', 'filters', 'blocks']);
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
-            ->where('category', '=', CategoryType::PRACTICES)
+            ->where('category', '=', CategoryType::PROGRAMS)
             ->get();
 
         $filters = $filters->map(function ($filter) {
@@ -69,10 +69,10 @@ class PracticeController extends Controller
             ];
         })->toArray();
 
-        $video = $practice->video?->hlsVideo();
+        $video = $program->video?->hlsVideo();
 
-        return Inertia::render('admin/soul/practices/show', [
-            'practice' => fn() => $practice,
+        return Inertia::render('admin/body/programs/show', [
+            'program' => fn() => $program,
             'count' => fn() => $count,
             'filters' => fn() => $filters,
             'video' => fn() => $video,
@@ -81,11 +81,11 @@ class PracticeController extends Controller
 
     public function create()
     {
-        $count = Practice::all()->count();
+        $count = Program::all()->count();
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
-            ->where('category', '=', CategoryType::PRACTICES)
+            ->where('category', '=', CategoryType::PROGRAMS)
             ->get();
 
         $filters = $filters->map(function ($filter) {
@@ -95,7 +95,7 @@ class PracticeController extends Controller
             ];
         })->toArray();
 
-        return Inertia::render('admin/soul/practices/create', [
+        return Inertia::render('admin/body/programs/create', [
             'count' => $count,
             'filters' => fn() => $filters,
         ]);
@@ -116,41 +116,41 @@ class PracticeController extends Controller
             'video'       => ['required', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
         ]);
 
-        $practice = Practice::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
+        $program = Program::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
 
-        $practice->filters()->sync($validated['filters']);
+        $program->filters()->sync($validated['filters']);
 
         if ($request->hasFile('image')) {
-            if ($practice->image) {
-                $practice->image->delete();
+            if ($program->image) {
+                $program->image->delete();
             }
-            Image::attachTo($practice, $request->file('image'), $validated['image_alt'], 560, 'image');
+            Image::attachTo($program, $request->file('image'), $validated['image_alt'], 560, 'image');
         }
 
         if ($request->hasFile('video')) {
-            if ($practice->video) {
-                $practice->video->delete();
+            if ($program->video) {
+                $program->video->delete();
             }
             $tempPath = $request->file('video')->store('temp_videos');
-            ProcessAndAttachVideo::dispatch($practice, $tempPath);
+            ProcessAndAttachVideo::dispatch($program, $tempPath);
             return redirect()
-                ->route('admin.practices.index')
-                ->with('message', 'Практика успешно создана. Ожидайте окончания обработки видео в течение часа.');
+                ->route('admin.programs.index')
+                ->with('message', 'Программа успешно создана. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.practices.index')
-            ->with('message', 'Практика успешно создана.');
+            ->route('admin.programs.index')
+            ->with('message', 'Программа успешно создана.');
     }
 
-    public function destroy(Practice $practice)
+    public function destroy(Program $program)
     {
-        $practice->delete();
+        $program->delete();
 
-        return redirect()->route('admin.practices.index')->with('message', 'Практика успешно удалена');
+        return redirect()->route('admin.programs.index')->with('message', 'Программа успешно удалена');
     }
 
-    public function update(Practice $practice, Request $request): RedirectResponse
+    public function update(Program $program, Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title'       => 'required|string|max:400',
@@ -165,28 +165,28 @@ class PracticeController extends Controller
             'video'       => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
         ]);
 
-        $practice->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
+        $program->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
 
-        $practice->filters()->sync($validated['filters']);
+        $program->filters()->sync($validated['filters']);
 
         if ($request->hasFile('image')) {
-            if ($practice->image) {
-                $practice->image->delete();
+            if ($program->image) {
+                $program->image->delete();
             }
-            Image::attachTo($practice, $request->file('image'), $validated['image_alt'], 560, 'image');
+            Image::attachTo($program, $request->file('image'), $validated['image_alt'], 560, 'image');
         }
 
         if ($request->hasFile('video')) {
-            if ($practice->video) {
-                $practice->video->delete();
+            if ($program->video) {
+                $program->video->delete();
             }
             $tempPath = $request->file('video')->store('temp_videos');
-            ProcessAndAttachVideo::dispatch($practice, $tempPath);
+            ProcessAndAttachVideo::dispatch($program, $tempPath);
             return redirect()
                 ->back()
-                ->with('message', 'Практика успешно обновлена. Ожидайте окончания обработки видео в течение часа.');
+                ->with('message', 'Программа успешно обновлена. Ожидайте окончания обработки видео в течение часа.');
         }
 
-        return redirect()->back()->with('message', 'Практика успешно обновлена!');
+        return redirect()->back()->with('message', 'Программа успешно обновлена!');
     }
 }

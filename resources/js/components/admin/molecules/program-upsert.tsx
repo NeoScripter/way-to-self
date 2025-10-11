@@ -1,6 +1,6 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
-import { Practice } from '@/types/model';
+import { Program } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
@@ -12,7 +12,7 @@ import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
 
-type PracticeForm = {
+type ProgramForm = {
     title: string;
     description: string;
     body: string;
@@ -24,22 +24,22 @@ type PracticeForm = {
     filters: number[];
 };
 
-type PracticeUpsertProps = {
+type ProgramUpsertProps = {
     routeName: string;
-    practice?: Practice;
+    program?: Program;
 };
 
-export default function PracticeUpsert({
+export default function ProgramUpsert({
     routeName,
-    practice,
-}: PracticeUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(practice == null);
+    program,
+}: ProgramUpsertProps) {
+    const [infoEdited, setInfoEdited] = useState(program == null);
 
     const { filters } = usePage<{
         filters: Option<number>[];
     }>().props;
 
-    const practiceFilters = practice?.filters?.map((filter) => filter.id) || [];
+    const programFilters = program?.filters?.map((filter) => filter.id) || [];
 
     const {
         data,
@@ -52,16 +52,16 @@ export default function PracticeUpsert({
         processing,
         setDefaults,
         recentlySuccessful,
-    } = useForm<PracticeForm>({
-        title: practice?.title || '',
-        description: practice?.description || '',
-        body: practice?.body || '',
+    } = useForm<ProgramForm>({
+        title: program?.title || '',
+        description: program?.description || '',
+        body: program?.body || '',
         image: null,
-        image_alt: practice?.image?.alt || '',
-        complexity: practice?.complexity || 0,
-        duration: practice?.duration || 0,
+        image_alt: program?.image?.alt || '',
+        complexity: program?.complexity || 0,
+        duration: program?.duration || 0,
         video: null,
-        filters: practiceFilters,
+        filters: programFilters,
     });
 
     const handleCancelClick = () => {
@@ -105,7 +105,7 @@ export default function PracticeUpsert({
                             className="mt-1 block w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Название практики"
+                            placeholder="Название программы"
                         />
                     </TextWidget>
 
@@ -120,7 +120,7 @@ export default function PracticeUpsert({
                     >
                         <TextArea
                             id="description"
-                            placeholder="Описание практики"
+                            placeholder="Описание программы"
                             className="mt-1 block w-full"
                             value={data.description}
                             onChange={(e) =>
@@ -190,7 +190,7 @@ export default function PracticeUpsert({
                         progress={progress}
                         isEdited={infoEdited}
                         onChange={(file) => setData('image', file)}
-                        src={practice?.image?.path}
+                        src={program?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
                         altError={errors.image_alt}
                         altText={data.image_alt}
@@ -226,7 +226,7 @@ export default function PracticeUpsert({
                         fallback={
                             <span
                                 dangerouslySetInnerHTML={{
-                                    __html: practice?.html || '',
+                                    __html: program?.html || '',
                                 }}
                                 className="prose prose-sm block max-w-full"
                             />
@@ -241,7 +241,7 @@ export default function PracticeUpsert({
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {practice != null && (
+                    {program != null && (
                         <EditBtn
                             onClick={handleCancelClick}
                             disabled={processing}
