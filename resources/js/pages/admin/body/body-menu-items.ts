@@ -9,7 +9,7 @@ export const bodyMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
-        route: 'admin.exercises.index',
+        route: 'admin.body.exercises.index',
         title: 'Упражнения',
     },
     {
@@ -24,7 +24,7 @@ export const bodyMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
-        route: 'admin.programs.index',
+        route: 'admin.body.programs.index',
         title: 'Программы',
     },
     {

@@ -8,7 +8,7 @@ export default function Create() {
             navKey="programs"
             title="Создать программу"
         >
-            <ProgramUpsert routeName={route(`admin.programs.store`)} />
+            <ProgramUpsert routeName={route(`admin.body.programs.store`)} />
         </EditingLayout>
     );
 }

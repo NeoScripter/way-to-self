@@ -32,15 +32,15 @@ export const navConfig: Record<string, { route: string; forms: string[] }> = {
         forms: ['статья', 'статьи', 'статей'],
     },
     exercises: {
-        route: 'admin.exercises.index',
+        route: 'admin.body.exercises.index',
         forms: ['упражнение', 'упражнения', 'упражнений'],
     },
     practices: {
-        route: 'admin.practices.index',
+        route: 'admin.soul.practices.index',
         forms: ['практика', 'практики', 'практик'],
     },
     programs: {
-        route: 'admin.programs.index',
+        route: 'admin.body.programs.index',
         forms: ['программа', 'программы', 'программ'],
     },
     recipes: {

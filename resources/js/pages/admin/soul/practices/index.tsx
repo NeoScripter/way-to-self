@@ -37,7 +37,7 @@ export default function Index() {
                 only={['practices']}
                 label={'все практики'}
                 badge={`${count} ${badge}`}
-                createRoute={route(`admin.practices.create`)}
+                createRoute={route(`admin.soul.practices.create`)}
             />
             <Table
                 meta={practices}
@@ -61,7 +61,7 @@ export default function Index() {
                     closeDialog={() => setSelectedPractice(null)}
                     title="Вы точно уверены, что хотите удалить данную практику?"
                     routeName={route(
-                        `admin.practices.destroy`,
+                        `admin.soul.practices.destroy`,
                         selectedPractice,
                     )}
                     methodName="delete"
@@ -100,7 +100,7 @@ function PracticeItem({ practice, onClick }: PracticeItemProps) {
             <span className="">{shortenDescription(practice.description)}</span>
             <div className="flex items-center justify-end gap-2">
                 <Link
-                    href={route(`admin.practices.show`, practice.id)}
+                    href={route(`admin.soul.practices.show`, practice.id)}
                     className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
                 >

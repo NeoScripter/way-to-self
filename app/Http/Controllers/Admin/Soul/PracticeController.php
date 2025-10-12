@@ -134,12 +134,12 @@ class PracticeController extends Controller
             $tempPath = $request->file('video')->store('temp_videos');
             ProcessAndAttachVideo::dispatch($practice, $tempPath);
             return redirect()
-                ->route('admin.practices.index')
+                ->route('admin.soul.practices.index')
                 ->with('message', 'Практика успешно создана. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.practices.index')
+            ->route('admin.soul.practices.index')
             ->with('message', 'Практика успешно создана.');
     }
 
@@ -147,7 +147,7 @@ class PracticeController extends Controller
     {
         $practice->delete();
 
-        return redirect()->route('admin.practices.index')->with('message', 'Практика успешно удалена');
+        return redirect()->route('admin.soul.practices.index')->with('message', 'Практика успешно удалена');
     }
 
     public function update(Practice $practice, Request $request): RedirectResponse

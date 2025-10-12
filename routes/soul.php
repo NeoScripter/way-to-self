@@ -52,7 +52,7 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/soul')
         Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('/audios/filters')->name('audios.filters.')->group(function () {
+    Route::prefix('/filters/audios')->name('audios.filters.')->group(function () {
         Route::get('/', [AudioFilterController::class, 'index'])->name('index');
         Route::post('/store', [AudioFilterController::class, 'store'])->name('store');
         Route::post('/update/{title}', [AudioFilterController::class, 'update'])->name('update');
@@ -60,16 +60,13 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/soul')
         Route::delete('/{filter}', [AudioFilterController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('/practices/filters')->name('practices.filters.')->group(function () {
+    Route::prefix('/filters/practices')->name('practices.filters.')->group(function () {
         Route::get('/', [PracticeFilterController::class, 'index'])->name('index');
         Route::post('/store', [PracticeFilterController::class, 'store'])->name('store');
         Route::post('/update/{title}', [PracticeFilterController::class, 'update'])->name('update');
         Route::delete('/mass-destroy', [PracticeFilterController::class, 'massDestroy'])->name('massDestroy');
         Route::delete('/{filter}', [PracticeFilterController::class, 'destroy'])->name('destroy');
     });
-});
-
-Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
 
     Route::prefix('/practices')->name('practices.')->group(function () {
         Route::get('/', [PracticeController::class, 'index'])->name('index');
@@ -80,3 +77,4 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::delete('/{practice}', [PracticeController::class, 'destroy'])->name('destroy');
     });
 });
+

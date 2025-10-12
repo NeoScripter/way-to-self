@@ -144,12 +144,12 @@ class ProgramController extends Controller
             $tempPath = $request->file('video')->store('temp_videos');
             ProcessAndAttachVideo::dispatch($program, $tempPath);
             return redirect()
-                ->route('admin.programs.index')
+                ->route('admin.body.programs.index')
                 ->with('message', 'Программа успешно создана. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.programs.index')
+            ->route('admin.body.programs.index')
             ->with('message', 'Программа успешно создана.');
     }
 
@@ -157,7 +157,7 @@ class ProgramController extends Controller
     {
         $program->delete();
 
-        return redirect()->route('admin.programs.index')->with('message', 'Программа успешно удалена');
+        return redirect()->route('admin.body.programs.index')->with('message', 'Программа успешно удалена');
     }
 
     public function update(Program $program, Request $request): RedirectResponse

@@ -8,7 +8,7 @@ export default function Create() {
             navKey="exercises"
             title="Создать упражнение"
         >
-            <ExerciseUpsert routeName={route(`admin.exercises.store`)} />
+            <ExerciseUpsert routeName={route(`admin.body.exercises.store`)} />
         </EditingLayout>
     );
 }

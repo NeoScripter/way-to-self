@@ -37,7 +37,7 @@ export default function Index() {
                 only={['exercises']}
                 label={'все упражнения'}
                 badge={`${count} ${badge}`}
-                createRoute={route(`admin.exercises.create`)}
+                createRoute={route(`admin.body.exercises.create`)}
             />
             <Table
                 meta={exercises}
@@ -61,7 +61,7 @@ export default function Index() {
                     closeDialog={() => setSelectedExercise(null)}
                     title="Вы точно уверены, что хотите удалить данное упражнение?"
                     routeName={route(
-                        `admin.exercises.destroy`,
+                        `admin.body.exercises.destroy`,
                         selectedExercise,
                     )}
                     methodName="delete"
@@ -100,7 +100,7 @@ function ExerciseItem({ exercise, onClick }: ExerciseItemProps) {
             <span className="">{shortenDescription(exercise.description)}</span>
             <div className="flex items-center justify-end gap-2">
                 <Link
-                    href={route(`admin.exercises.show`, exercise.id)}
+                    href={route(`admin.body.exercises.show`, exercise.id)}
                     className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
                 >

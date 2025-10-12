@@ -7,11 +7,12 @@ type AdminNavLinkProps = {
 };
 
 export default function AdminNavLink({ item }: AdminNavLinkProps) {
-    const { url } = usePage();
+    let { url } = usePage();
 
-    const isCurrent = route(item.route).includes(
-        url.includes('?') ? url.split('?')[0] : url,
-    );
+    url = url.includes('?') ? url.split('?')[0] : url;
+    const parsed = route(item.route).split('/').slice(3, 5).join('/');
+
+    const isCurrent = url.includes(parsed);
 
     return (
         <li

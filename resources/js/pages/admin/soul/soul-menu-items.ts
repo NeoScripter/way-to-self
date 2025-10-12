@@ -14,7 +14,7 @@ export const soulMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
-        route: 'admin.practices.index',
+        route: 'admin.soul.practices.index',
         title: 'Практики',
     },
     {

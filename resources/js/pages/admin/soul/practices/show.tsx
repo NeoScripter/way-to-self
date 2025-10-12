@@ -16,7 +16,7 @@ export default function Show() {
         >
             <PracticeUpsert
                 practice={practice}
-                routeName={route(`admin.practices.update`, practice.id)}
+                routeName={route(`admin.soul.practices.update`, practice.id)}
             />
         </EditingLayout>
     );

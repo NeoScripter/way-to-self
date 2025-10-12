@@ -16,7 +16,7 @@ export default function Show() {
         >
             <ExerciseUpsert
                 exercise={exercise}
-                routeName={route(`admin.exercises.update`, exercise.id)}
+                routeName={route(`admin.body.exercises.update`, exercise.id)}
             />
         </EditingLayout>
     );

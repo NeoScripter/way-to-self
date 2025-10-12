@@ -8,7 +8,7 @@ export default function Create() {
             navKey="practices"
             title="Создать практику"
         >
-            <PracticeUpsert routeName={route(`admin.practices.store`)} />
+            <PracticeUpsert routeName={route(`admin.soul.practices.store`)} />
         </EditingLayout>
     );
 }

@@ -37,7 +37,7 @@ export default function Index() {
                 only={['programs']}
                 label={'все программы'}
                 badge={`${count} ${badge}`}
-                createRoute={route(`admin.programs.create`)}
+                createRoute={route(`admin.body.programs.create`)}
             />
             <Table
                 meta={programs}
@@ -61,7 +61,7 @@ export default function Index() {
                     closeDialog={() => setSelectedProgram(null)}
                     title="Вы точно уверены, что хотите удалить данную программу?"
                     routeName={route(
-                        `admin.programs.destroy`,
+                        `admin.body.programs.destroy`,
                         selectedProgram,
                     )}
                     methodName="delete"
@@ -100,7 +100,7 @@ function ProgramItem({ program, onClick }: ProgramItemProps) {
             <span className="">{shortenDescription(program.description)}</span>
             <div className="flex items-center justify-end gap-2">
                 <Link
-                    href={route(`admin.programs.show`, program.id)}
+                    href={route(`admin.body.programs.show`, program.id)}
                     className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
                 >

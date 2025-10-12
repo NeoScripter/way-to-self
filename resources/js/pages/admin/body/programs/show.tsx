@@ -28,7 +28,7 @@ export default function Show() {
             >
                 <ProgramUpsert
                     program={program}
-                    routeName={route(`admin.programs.update`, program.id)}
+                    routeName={route(`admin.body.programs.update`, program.id)}
                 />
             </ExpandablePanel>
 
@@ -41,7 +41,7 @@ export default function Show() {
                 label="Создать новый блок"
             >
                 <BlockUpsert
-                    routeName={route('admin.blocks.store', program.id)}
+                    routeName={route('admin.body.blocks.store', program.id)}
                 />
             </ExpandablePanel>
             {program.blocks?.map((block, idx) => (
@@ -61,7 +61,7 @@ export default function Show() {
                     show={selectedBlock != null}
                     closeDialog={() => setSelectedBlock(null)}
                     title="Вы точно уверены, что хотите удалить данный блок?"
-                    routeName={route(`admin.blocks.destroy`, selectedBlock)}
+                    routeName={route(`admin.body.blocks.destroy`, selectedBlock)}
                     methodName="delete"
                     confirmBtnLabel="Удалить"
                     cancelBtnLabel="Отмена"
@@ -92,7 +92,7 @@ function BlockEntry({ block, onClick }: BlockEntryProps) {
     return (
         <div>
             <BlockUpsert
-                routeName={route('admin.blocks.update', block.id)}
+                routeName={route('admin.body.blocks.update', block.id)}
                 block={block}
                 onClick={onClick}
             />
@@ -101,8 +101,8 @@ function BlockEntry({ block, onClick }: BlockEntryProps) {
                 <ItemPicker
                     label="Выбор упражнения"
                     placeholder="Название упражнения"
-                    onAdd="admin.exercise.toggle"
-                    onRemove="admin.exercise.toggle"
+                    onAdd="admin.body.exercise.toggle"
+                    onRemove="admin.body.exercise.toggle"
                     selected={selected ?? []}
                     options={options}
                     payload={{ block_id: [block.id] }}

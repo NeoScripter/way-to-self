@@ -55,7 +55,7 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
         Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('/exercise/filters')->name('exercise.filters.')->group(function () {
+    Route::prefix('/filters/exercise')->name('exercise.filters.')->group(function () {
         Route::get('/', [ExerciseFilterController::class, 'index'])->name('index');
         Route::post('/store', [ExerciseFilterController::class, 'store'])->name('store');
         Route::post('/update/{title}', [ExerciseFilterController::class, 'update'])->name('update');
@@ -63,7 +63,7 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
         Route::delete('/{filter}', [ExerciseFilterController::class, 'destroy'])->name('destroy');
     });
 
-    Route::prefix('/programs/filters')->name('programs.filters.')->group(function () {
+    Route::prefix('/filters/programs')->name('programs.filters.')->group(function () {
         Route::get('/', [ProgramFilterController::class, 'index'])->name('index');
         Route::post('/store', [ProgramFilterController::class, 'store'])->name('store');
         Route::post('/update/{title}', [ProgramFilterController::class, 'update'])->name('update');
@@ -76,11 +76,7 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
-});
-
-Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
-
-    Route::prefix('/exercises')->name('exercises.')->group(function () {
+        Route::prefix('/exercises')->name('exercises.')->group(function () {
         Route::get('/', [ExerciseController::class, 'index'])->name('index');
         Route::post('/store', [ExerciseController::class, 'store'])->name('store');
         Route::post('/{exercise}', [ExerciseController::class, 'update'])->name('update');
@@ -106,3 +102,4 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
 
     Route::patch('/{id}', [BlockExerciseController::class, 'update'])->name('exercise.toggle');
 });
+

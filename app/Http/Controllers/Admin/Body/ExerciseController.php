@@ -166,12 +166,12 @@ class ExerciseController extends Controller
             $tempPath = $request->file('video')->store('temp_videos');
             ProcessAndAttachVideo::dispatch($exercise, $tempPath);
             return redirect()
-                ->route('admin.exercises.index')
+                ->route('admin.body.exercises.index')
                 ->with('message', 'Упражнение успешно создано. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.exercises.index')
+            ->route('admin.body.exercises.index')
             ->with('message', 'Упражнение успешно создано.');
     }
 
@@ -179,7 +179,7 @@ class ExerciseController extends Controller
     {
         $exercise->delete();
 
-        return redirect()->route('admin.exercises.index')->with('message', 'Упражнение успешно удалено');
+        return redirect()->route('admin.body.exercises.index')->with('message', 'Упражнение успешно удалено');
     }
 
     public function update(Exercise $exercise, Request $request): RedirectResponse
