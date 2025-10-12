@@ -10,14 +10,12 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\HasFilterSearch;
-use App\Models\Concerns\ConvertsAudioToHls;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Audio extends Model
 {
     /** @use HasFactory<\Database\Factories\AudioFactory> */
-    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml, ConvertsAudioToHls;
+    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
 
     protected $appends = ['stream_path'];
 
@@ -42,16 +40,14 @@ class Audio extends Model
         $query->where('type', ContentType::FREE);
     }
 
-    public function getOriginalUrlAttribute(): string
+    public function getAudioUrlAttribute(): string
     {
-        return asset(str_replace('public/', 'storage/', $this->original_path));
+        return asset(str_replace('private/', 'storage/', $this->audio_path));
     }
 
     public function getHlsUrlAttribute(): ?string
     {
-        return $this->hls_path
-            ? asset("storage/{$this->hls_path}")
-            : null;
+        return $this->hls_path ?: null;
     }
 
     public function streamHls(string $file = 'index.m3u8')
@@ -77,6 +73,20 @@ class Audio extends Model
             return $this->hls_path;
         }
 
-        return $this->raw_path;
+        return null;
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Audio $audio) {
+            if ($audio->getRawOriginal('audio_path')) {
+                Storage::disk('local')->delete($audio->getRawOriginal('audio_path'));
+            }
+
+            $hlsDir = "private/audios/{$audio->id}";
+            if (Storage::disk('local')->exists($hlsDir)) {
+                Storage::disk('local')->deleteDirectory($hlsDir);
+            }
+        });
     }
 }

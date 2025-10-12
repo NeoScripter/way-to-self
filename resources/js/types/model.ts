@@ -15,8 +15,7 @@ export type Audio = {
     id: number;
     title: string;
     description: string;
-    raw_path: string;
-    original_path: string;
+    audio_path: string;
     hls_path?: string;
     duration: number;
     complexity: number;

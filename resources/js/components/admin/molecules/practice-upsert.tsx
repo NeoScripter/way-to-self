@@ -11,6 +11,7 @@ import TagPicker from '../atoms/tag-picker';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
+import ExpandablePanel from './expandable-panel';
 
 type PracticeForm = {
     title: string;
@@ -217,27 +218,29 @@ export default function PracticeUpsert({
                 />
 
                 <div>
-                    <TextWidget
-                        label="Содержание"
-                        key="Содержание"
-                        htmlFor="body"
-                        edit={infoEdited}
-                        error={errors.body}
-                        fallback={
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: practice?.html || '',
-                                }}
-                                className="prose prose-sm block max-w-full"
+                    <ExpandablePanel label="Содержание">
+                        <TextWidget
+                            label="Содержание"
+                            key="Содержание"
+                            htmlFor="body"
+                            edit={infoEdited}
+                            error={errors.body}
+                            fallback={
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: practice?.html || '',
+                                    }}
+                                    className="prose prose-sm block max-w-full"
+                                />
+                            }
+                            fbClass="block py-2 min-h-40 h-auto text-left px-3"
+                        >
+                            <MarkdownEditor
+                                value={data.body}
+                                onChange={(e) => setData('body', e)}
                             />
-                        }
-                        fbClass="block py-2 min-h-40 h-auto text-left px-3"
-                    >
-                        <MarkdownEditor
-                            value={data.body}
-                            onChange={(e) => setData('body', e)}
-                        />
-                    </TextWidget>
+                        </TextWidget>
+                    </ExpandablePanel>
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">

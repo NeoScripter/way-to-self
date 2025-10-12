@@ -11,5 +11,8 @@ trait ConvertsAudioToHls
         static::created(function (self $model) {
             dispatch(new ConvertAudioToHls($model));
         });
+        static::updated(function (self $model) {
+            dispatch(new ConvertAudioToHls($model));
+        });
     }
 }

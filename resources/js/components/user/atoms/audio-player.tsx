@@ -33,7 +33,7 @@ export default function AudioPlayer({
 
         let hls: Hls | null = null;
 
-        if (Hls.isSupported() && src.endsWith('stream')) {
+        if (Hls.isSupported() && src != null && src.endsWith('stream')) {
             hls = new Hls();
             hls.loadSource(src);
             hls.attachMedia(audio);

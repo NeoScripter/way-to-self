@@ -13,9 +13,8 @@ import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { bodyMenuItems } from '../body/body-menu-items';
-import { soulMenuItems } from '../soul/soul-menu-items';
 import { nutritionMenuItems } from '../nutrition/nutrition-menu-items';
-
+import { soulMenuItems } from '../soul/soul-menu-items';
 
 export default function Index() {
     const {
@@ -48,7 +47,7 @@ export default function Index() {
         }
 
         return undefined;
-    }
+    };
 
     return (
         <AdminLayout topMenuItems={menuItems()}>
@@ -108,7 +107,11 @@ function ArticleItem({ article, onClick }: ArticleItemProps) {
                 'relative grid grid-cols-4 gap-2 text-center text-text-black md:justify-between',
             )}
         >
-            <div className="">
+            <Link
+                href={route(`admin.${namespace}.articles.show`, article.id)}
+                className="transition-scale block cursor-pointer duration-200 hover:scale-105"
+                as="button"
+            >
                 {article.thumbnail && (
                     <LazyImage
                         parentClass="max-w-25 mx-auto"
@@ -117,7 +120,7 @@ function ArticleItem({ article, onClick }: ArticleItemProps) {
                         alt={article.thumbnail.alt}
                     />
                 )}
-            </div>
+            </Link>
             <span className="pt-4 font-semibold">{article.title}</span>
             <span className="">{shortenDescription(article.description)}</span>
             <div className="flex items-center justify-end gap-2">

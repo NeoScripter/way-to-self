@@ -43,7 +43,7 @@ class SoulAudioController extends Controller
         $user = Auth::user();
 
         $audio->load(['image'])
-            ->makeHidden(['raw_path', 'original_path', 'hls_path']);
+            ->makeHidden(['audio_path', 'hls_path']);
 
         $isFavorite = $audio
             ->favoritedBy()

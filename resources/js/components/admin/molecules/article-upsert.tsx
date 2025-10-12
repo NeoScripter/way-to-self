@@ -9,6 +9,7 @@ import ImgInput from '../atoms/img-input';
 import MarkdownEditor from '../atoms/markdown-editor';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
+import ExpandablePanel from './expandable-panel';
 
 type ArticleForm = {
     title: string;
@@ -118,27 +119,29 @@ export default function ArticleUpsert({
                         />
                     </TextWidget>
 
-                    <TextWidget
-                        label="Содержание"
-                        key="Содержание"
-                        htmlFor="body"
-                        edit={infoEdited}
-                        error={errors.body}
-                        fallback={
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: article?.html || '',
-                                }}
-                                className="prose prose-sm block max-w-full"
+                    <ExpandablePanel label="Содержание">
+                        <TextWidget
+                            label="Содержание"
+                            key="Содержание"
+                            htmlFor="body"
+                            edit={infoEdited}
+                            error={errors.body}
+                            fallback={
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: article?.html || '',
+                                    }}
+                                    className="prose prose-sm block max-w-full"
+                                />
+                            }
+                            fbClass="block py-2 min-h-40 h-auto text-left px-3"
+                        >
+                            <MarkdownEditor
+                                value={data.body}
+                                onChange={(e) => setData('body', e)}
                             />
-                        }
-                        fbClass="block py-2 min-h-40 h-auto text-left px-3"
-                    >
-                        <MarkdownEditor
-                            value={data.body}
-                            onChange={(e) => setData('body', e)}
-                        />
-                    </TextWidget>
+                        </TextWidget>
+                    </ExpandablePanel>
                 </div>
 
                 <div>
@@ -165,7 +168,7 @@ export default function ArticleUpsert({
                         onAltChange={(val) => setData('thumbnail_alt', val)}
                         altError={errors.thumbnail_alt}
                         altText={data.thumbnail_alt}
-                        label='Фото для превью'
+                        label="Фото для превью"
                         error={errors.thumbnail}
                     />
                 </div>

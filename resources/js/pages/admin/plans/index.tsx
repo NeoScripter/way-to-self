@@ -77,7 +77,11 @@ function PlanItem({ plan, onClick }: PlanItemProps) {
                 !plan.enabled && 'text-red-700',
             )}
         >
-            <div className="">
+            <Link
+                href={route('admin.plans.show', plan.id)}
+                className="transition-scale block cursor-pointer duration-200 hover:scale-105"
+                as="button"
+            >
                 {plan.image && (
                     <LazyImage
                         parentClass="max-w-25 mx-auto"
@@ -86,7 +90,8 @@ function PlanItem({ plan, onClick }: PlanItemProps) {
                         alt={plan.image.alt}
                     />
                 )}
-            </div>
+            </Link>
+
             <span className="pt-4 font-semibold">{plan.title}</span>
             <span className="">{shortenDescription(plan.description)}</span>
             <div className="flex items-center justify-end gap-2">
@@ -97,7 +102,10 @@ function PlanItem({ plan, onClick }: PlanItemProps) {
                 >
                     <PencilIcon className="size-6" />
                 </Link>
-                <TrashBtn onClick={onClick} size='size-7' />
+                <TrashBtn
+                    onClick={onClick}
+                    size="size-7"
+                />
             </div>
         </div>
     );

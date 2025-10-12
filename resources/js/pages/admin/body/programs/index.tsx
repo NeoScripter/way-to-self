@@ -8,18 +8,14 @@ import pluralizeRu from '@/lib/helpers/pluralize';
 import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
+import { Program } from '@/types/model';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
-import { Program } from '@/types/model';
 import { bodyMenuItems } from '../body-menu-items';
 
-
 export default function Index() {
-    const {
-        programs,
-        count,
-    } = usePage<{
+    const { programs, count } = usePage<{
         programs: PaginationMeta<Program>;
         count: number;
         namespace: string;
@@ -79,14 +75,17 @@ type ProgramItemProps = {
 };
 
 function ProgramItem({ program, onClick }: ProgramItemProps) {
-
     return (
         <div
             className={cn(
                 'relative grid grid-cols-4 gap-2 text-center text-text-black md:justify-between',
             )}
         >
-            <div className="">
+            <Link
+                href={route(`admin.body.programs.show`, program.id)}
+                className="transition-scale block cursor-pointer duration-200 hover:scale-105"
+                as="button"
+            >
                 {program.image && (
                     <LazyImage
                         parentClass="max-w-25 mx-auto"
@@ -95,7 +94,8 @@ function ProgramItem({ program, onClick }: ProgramItemProps) {
                         alt={program.image.alt}
                     />
                 )}
-            </div>
+            </Link>
+
             <span className="pt-4 font-semibold">{program.title}</span>
             <span className="">{shortenDescription(program.description)}</span>
             <div className="flex items-center justify-end gap-2">

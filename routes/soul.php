@@ -6,6 +6,7 @@ use App\Http\Controllers\Account\SoulPracticeController;
 use App\Http\Controllers\Account\SoulSearchController;
 use App\Http\Controllers\Account\SoulArticleController;
 use App\Http\Controllers\Admin\Soul\ArticleController;
+use App\Http\Controllers\Admin\Soul\AudioController;
 use App\Http\Controllers\Admin\Soul\AudioFilterController;
 use App\Http\Controllers\Admin\Soul\FAQController;
 use App\Http\Controllers\Admin\Soul\PracticeController;
@@ -76,5 +77,13 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/soul')
         Route::get('/{practice}', [PracticeController::class, 'show'])->name('show');
         Route::delete('/{practice}', [PracticeController::class, 'destroy'])->name('destroy');
     });
-});
 
+    Route::prefix('/audios')->name('audios.')->group(function () {
+        Route::get('/', [AudioController::class, 'index'])->name('index');
+        Route::post('/store', [AudioController::class, 'store'])->name('store');
+        Route::post('/{audio}', [AudioController::class, 'update'])->name('update');
+        Route::get('/create', [AudioController::class, 'create'])->name('create');
+        Route::get('/{audio}', [AudioController::class, 'show'])->name('show');
+        Route::delete('/{audio}', [AudioController::class, 'destroy'])->name('destroy');
+    });
+});

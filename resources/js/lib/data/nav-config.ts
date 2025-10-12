@@ -44,11 +44,11 @@ export const navConfig: Record<string, { route: string; forms: string[] }> = {
         forms: ['программа', 'программы', 'программ'],
     },
     recipes: {
-        route: 'admin.recipes.index',
+        route: 'admin.nutrition.recipes.index',
         forms: ['рецепт', 'рецепта', 'рецептов'],
     },
     audios: {
-        route: 'admin.audios.index',
+        route: 'admin.soul.audios.index',
         forms: ['медитация', 'медитации', 'медитаций'],
     },
     reviews: {

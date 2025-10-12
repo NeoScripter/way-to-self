@@ -8,18 +8,14 @@ import pluralizeRu from '@/lib/helpers/pluralize';
 import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
+import { Exercise } from '@/types/model';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { bodyMenuItems } from '../body-menu-items';
-import { Exercise } from '@/types/model';
-
 
 export default function Index() {
-    const {
-        exercises,
-        count,
-    } = usePage<{
+    const { exercises, count } = usePage<{
         exercises: PaginationMeta<Exercise>;
         count: number;
         namespace: string;
@@ -79,14 +75,17 @@ type ExerciseItemProps = {
 };
 
 function ExerciseItem({ exercise, onClick }: ExerciseItemProps) {
-
     return (
         <div
             className={cn(
                 'relative grid grid-cols-4 gap-2 text-center text-text-black md:justify-between',
             )}
         >
-            <div className="">
+            <Link
+                href={route(`admin.body.exercises.show`, exercise.id)}
+                className="transition-scale block cursor-pointer duration-200 hover:scale-105"
+                as="button"
+            >
                 {exercise.image && (
                     <LazyImage
                         parentClass="max-w-25 mx-auto"
@@ -95,7 +94,7 @@ function ExerciseItem({ exercise, onClick }: ExerciseItemProps) {
                         alt={exercise.image.alt}
                     />
                 )}
-            </div>
+            </Link>
             <span className="pt-4 font-semibold">{exercise.title}</span>
             <span className="">{shortenDescription(exercise.description)}</span>
             <div className="flex items-center justify-end gap-2">

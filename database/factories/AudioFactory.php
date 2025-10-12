@@ -24,8 +24,7 @@ class AudioFactory extends Factory
             'description' => fake()->realText(200),
             'duration' => 5,
             'complexity' => fake()->numberBetween(2, 10),
-            'original_path' => "public/models/audios/{$filename}",
-            'raw_path' => asset("storage/models/audios/{$filename}"),
+            'audio_path' => "private/models/audios/{$filename}",
             'hls_path' => null,
             'type' => ContentType::FREE,
         ];

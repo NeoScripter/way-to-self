@@ -15,9 +15,9 @@ class TierSeeder extends Seeder
     public function run(): void
     {
         $tierImages = [
-            'soul' => ['tiers-soul.webp', 'tiers-soul-tiny.webp'],
-            'food' => ['tiers-food.webp', 'tiers-food-tiny.webp'],
-            'sport' => ['tiers-sport.webp', 'tiers-sport-tiny.webp'],
+            'soul' => ['soul.webp', 'soul-tiny.webp'],
+            'food' => ['food.webp', 'food-tiny.webp'],
+            'sport' => ['body.webp', 'body-tiny.webp'],
         ];
 
         $tiers = [

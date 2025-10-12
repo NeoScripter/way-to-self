@@ -6,31 +6,59 @@ use App\Models\Audio;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 class ConvertAudioToHls implements ShouldQueue
 {
-    use Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Audio $audio) {}
+    public function __construct(
+        public Audio $audio,
+               public string $tempPath
+    ) {}
 
     public function handle(): void
     {
         $audio = $this->audio;
+        $file = $this->file;
 
+        // Prepare directories and filenames
+        $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '-' . uniqid();
         $hlsDir = storage_path("app/private/audios/{$audio->id}");
         File::ensureDirectoryExists($hlsDir, 0755, true);
 
-        $inputPath  = storage_path('app/' . ltrim($audio->getRawOriginal('original_path'), '/'));
-        $outputPath = $hlsDir . '/index.m3u8';
+        $tempPath = $file->getRealPath();
+        $outputPath = "{$hlsDir}/index.m3u8";
 
-        $cmd = sprintf(
-            'ffmpeg -i %s -codec copy -start_number 0 -hls_time 10 -hls_list_size 0 -f hls %s',
-            escapeshellarg($inputPath),
-            escapeshellarg($outputPath)
-        );
+        // Convert to HLS (AAC audio)
+        $command = [
+            'ffmpeg',
+            '-y',
+            '-i', $tempPath,
+            '-c:a', 'aac',
+            '-b:a', '128k',
+            '-hls_time', '10',
+            '-hls_list_size', '0',
+            '-f', 'hls',
+            $outputPath,
+        ];
 
-        exec($cmd);
+        $process = new Process($command);
+        $process->setTimeout(null);
+        $process->run();
 
+        if (! $process->isSuccessful()) {
+            Log::error('FFmpeg failed for audio ID ' . $audio->id . ': ' . $process->getErrorOutput());
+            throw new ProcessFailedException($process);
+        }
+
+        // Update DB with stream route
         $audio->update([
             'hls_path' => route('audio.stream', ['audio' => $audio->id]),
         ]);
