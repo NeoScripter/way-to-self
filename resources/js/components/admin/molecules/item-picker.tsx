@@ -1,9 +1,9 @@
+import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { Transition } from '@headlessui/react';
 import { Link } from '@inertiajs/react';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 import Input from '../atoms/input';
-import { shortenDescription } from '@/lib/helpers/shortenDescription';
 
 export type Item = {
     id: number;
@@ -51,7 +51,7 @@ export default function ItemPicker({
             {label && <h4 className="mb-4 font-bold">{label}</h4>}
 
             <div className="rounded-md border border-text-black p-4 font-normal md:p-10">
-                <div className="relative mb-10 max-w-100">
+                <div className="relative mb-10 max-w-100 mx-auto">
                     <Input
                         placeholder={placeholder}
                         className=""
@@ -81,7 +81,7 @@ export default function ItemPicker({
                     </Transition>
                 </div>
 
-                <ul className="grid gap-4 grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))]">
+                <ul className="grid place-content-center grid-cols-[repeat(auto-fit,_10rem)] gap-6">
                     {selected.map((item) => (
                         <SelectedItem
                             key={item.id}
@@ -137,9 +137,9 @@ type SelectedItemProps = {
 
 function SelectedItem({ item, onRemove, payload }: SelectedItemProps) {
     return (
-        <li className="relative space-y-2">
+        <li className="relative space-y-2 max-w-40">
             {item.image && (
-                <div className="size-40">
+                <div className="size-40 overflow-clip rounded-xl">
                     <img
                         src={item.image}
                         alt=""
@@ -154,12 +154,13 @@ function SelectedItem({ item, onRemove, payload }: SelectedItemProps) {
                 preserveState
                 data={payload}
                 method="patch"
+                className="transition-scale absolute top-0 right-0 flex size-6 translate-x-2 -translate-y-2 cursor-pointer items-center justify-center rounded-full bg-red-700 duration-300 ease-in-out hover:scale-105"
             >
-                <X className="size-4 text-white" />
+                <X className="size-5 text-white" />
             </Link>
 
-            <h5 className='text-sm'>{item.title}</h5>
-            <p className='text-xs'>{shortenDescription(item.description)}</p>
+            <h5 className="text-sm font-medium">{item.title}</h5>
+            <p className="text-xs">{shortenDescription(item.description)}</p>
         </li>
     );
 }
