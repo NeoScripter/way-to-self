@@ -135,7 +135,7 @@ class ExerciseController extends Controller
             'body'        => 'required|string|max:64000',
             'duration'    => 'required|numeric|min:1|max:200',
             'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'required|numeric|exists:content_categories,id',
+            'category_id' => 'nullable|numeric|exists:content_categories,id',
             'filters' => 'required|array',
             'filters.*' => 'numeric|exists:category_filters,id',
             'image_alt'   => 'required|string|max:400',
@@ -145,8 +145,10 @@ class ExerciseController extends Controller
 
         $exercise = Exercise::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
-        $category = ContentCategory::find($validated['category_id']);
-        $exercise->category()->save($category);
+        if (isset($validated['category_id'])) {
+            $category = ContentCategory::find($validated['category_id']);
+            $exercise->category()->save($category);
+        }
 
         $exercise->filters()->sync($validated['filters']);
 
@@ -188,7 +190,7 @@ class ExerciseController extends Controller
             'body'        => 'required|string|max:64000',
             'duration'    => 'required|numeric|min:1|max:200',
             'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'required|numeric|exists:content_categories,id',
+            'category_id' => 'nullable|numeric|exists:content_categories,id',
             'filters' => 'required|array',
             'filters.*' => 'numeric|exists:category_filters,id',
             'image_alt'   => 'nullable|string|max:400',
@@ -198,8 +200,10 @@ class ExerciseController extends Controller
 
         $exercise->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
-        $category = ContentCategory::find($validated['category_id']);
-        $exercise->category()->save($category);
+        if (isset($validated['category_id'])) {
+            $category = ContentCategory::find($validated['category_id']);
+            $exercise->category()->save($category);
+        }
 
         $exercise->filters()->sync($validated['filters']);
 

@@ -6,6 +6,7 @@ use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
+use App\Models\Exercise;
 use App\Models\Image;
 use App\Models\Program;
 use Illuminate\Http\RedirectResponse;
@@ -55,7 +56,7 @@ class ProgramController extends Controller
     public function show(Program $program)
     {
         $count = Program::all()->count();
-        $program->load(['image', 'filters', 'blocks']);
+        $program->load(['image', 'filters', 'blocks.exercises.image']);
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')
@@ -69,6 +70,14 @@ class ProgramController extends Controller
             ];
         })->toArray();
 
+        $exercises = Exercise::select(['id', 'title'])->with('image')->get()->map(function ($exercise) {
+            return [
+                'id' => $exercise->id,
+                'title' => $exercise->title,
+                'image' => $exercise->image->path ?? null
+            ];
+        });
+
         $video = $program->video?->hlsVideo();
 
         return Inertia::render('admin/body/programs/show', [
@@ -76,6 +85,7 @@ class ProgramController extends Controller
             'count' => fn() => $count,
             'filters' => fn() => $filters,
             'video' => fn() => $video,
+            'options' => fn() => $exercises,
         ]);
     }
 

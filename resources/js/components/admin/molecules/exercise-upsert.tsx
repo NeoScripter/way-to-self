@@ -1,8 +1,9 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
+import notify from '@/components/user/atoms/notify';
 import { Exercise } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useEffect, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
 import InputError from '../atoms/input-error';
@@ -13,6 +14,7 @@ import TagPicker from '../atoms/tag-picker';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
+import ExpandablePanel from './expandable-panel';
 
 type ExerciseForm = {
     title: string;
@@ -73,6 +75,14 @@ export default function ExerciseUpsert({
         category_id: categoryId,
         filters: exerciseFilters,
     });
+
+    useEffect(() => {
+        if (categories.length === 0) {
+            notify(
+                'Перед созданием упражнения необходимо создать хотя бы одну категорию упражнений в секции "Категории У"',
+            );
+        }
+    }, []);
 
     const handleCancelClick = () => {
         setInfoEdited((o) => !o);
@@ -247,27 +257,29 @@ export default function ExerciseUpsert({
                 />
 
                 <div>
-                    <TextWidget
-                        label="Содержание"
-                        key="Содержание"
-                        htmlFor="body"
-                        edit={infoEdited}
-                        error={errors.body}
-                        fallback={
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: exercise?.html || '',
-                                }}
-                                className="prose prose-sm block max-w-full"
+                    <ExpandablePanel label="Содержание">
+                        <TextWidget
+                            label="Содержание"
+                            key="Содержание"
+                            htmlFor="body"
+                            edit={infoEdited}
+                            error={errors.body}
+                            fallback={
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: exercise?.html || '',
+                                    }}
+                                    className="prose prose-sm block max-w-full"
+                                />
+                            }
+                            fbClass="block py-2 min-h-40 h-auto text-left px-3"
+                        >
+                            <MarkdownEditor
+                                value={data.body}
+                                onChange={(e) => setData('body', e)}
                             />
-                        }
-                        fbClass="block py-2 min-h-40 h-auto text-left px-3"
-                    >
-                        <MarkdownEditor
-                            value={data.body}
-                            onChange={(e) => setData('body', e)}
-                        />
-                    </TextWidget>
+                        </TextWidget>
+                    </ExpandablePanel>
                 </div>
 
                 <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">

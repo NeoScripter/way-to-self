@@ -104,5 +104,5 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::delete('/{block}', [BlockController::class, 'destroy'])->name('destroy');
     });
 
-    Route::patch('/{block}/{id}', [BlockExerciseController::class, 'update'])->name('exercise.toggle');
+    Route::patch('/{id}', [BlockExerciseController::class, 'update'])->name('exercise.toggle');
 });

@@ -18,6 +18,7 @@ export default function ExpandablePanel({
         <div className="space-y-6">
             <div className="mb-4 flex items-center gap-2 md:mb-6">
                 <DarkBtn
+                    type='button'
                     className="w-100 rounded-sm flex max-w-full justify-between"
                     onClick={() => toggle()}
                 >
@@ -27,7 +28,6 @@ export default function ExpandablePanel({
             </div>
             <Transition show={show}>
                 <div
-                    key={`create-faq-item`}
                     className="max-h-500 list-decimal font-bold transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out"
                 >
                     {children}

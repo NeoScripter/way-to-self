@@ -1,7 +1,7 @@
 import BlockUpsert from '@/components/admin/molecules/block-upsert';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ExpandablePanel from '@/components/admin/molecules/expandable-panel';
-import GridItemPicker from '@/components/admin/molecules/grid-item-picker';
+import ItemPicker, { Option } from '@/components/admin/molecules/item-picker';
 import ProgramUpsert from '@/components/admin/molecules/program-upsert';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { Program, ProgramBlock } from '@/types/model';
@@ -49,18 +49,10 @@ export default function Show() {
                     key={block.id}
                     label={`Блок ${idx + 1}`}
                 >
-                    <BlockUpsert
-                        routeName={route('admin.blocks.update', block.id)}
+                    <BlockEntry
                         block={block}
                         onClick={() => setSelectedBlock(block)}
                     />
-
-                    {block.exercises && (
-                        <GridItemPicker
-                            gridItems={block.exercises}
-                            items={block.exercises}
-                        />
-                    )}
                 </ExpandablePanel>
             ))}
 
@@ -76,5 +68,46 @@ export default function Show() {
                 />
             )}
         </EditingLayout>
+    );
+}
+
+type BlockEntryProps = {
+    block: ProgramBlock;
+    onClick: () => void;
+};
+
+function BlockEntry({ block, onClick }: BlockEntryProps) {
+    let { options } = usePage<{ options: Option[] }>().props;
+
+    const selected = block?.exercises?.map((e) => {
+        return {
+            id: e.id,
+            image: e.image?.path,
+            title: e.title,
+            description: e.description,
+        };
+    });
+    options = options.filter((o) => !selected?.find((e) => e.id === o.id));
+
+    return (
+        <div>
+            <BlockUpsert
+                routeName={route('admin.blocks.update', block.id)}
+                block={block}
+                onClick={onClick}
+            />
+
+            {block.exercises && (
+                <ItemPicker
+                    label="Выбор упражнения"
+                    placeholder="Название упражнения"
+                    onAdd="admin.exercise.toggle"
+                    onRemove="admin.exercise.toggle"
+                    selected={selected ?? []}
+                    options={options}
+                    payload={{ block_id: [block.id] }}
+                />
+            )}
+        </div>
     );
 }
