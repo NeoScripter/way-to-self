@@ -8,57 +8,55 @@ import pluralizeRu from '@/lib/helpers/pluralize';
 import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { cn } from '@/lib/utils';
-import { Practice } from '@/types/model';
+import { Audio } from '@/types/model';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { soulMenuItems } from '../soul-menu-items';
 
 export default function Index() {
-    const { practices, count } = usePage<{
-        practices: PaginationMeta<Practice>;
+    const { audios, count } = usePage<{
+        audios: PaginationMeta<Audio>;
         count: number;
         namespace: string;
     }>().props;
 
-    const [selectedPractice, setSelectedPractice] = useState<Practice | null>(
-        null,
-    );
+    const [selectedAudio, setSelectedAudio] = useState<Audio | null>(null);
 
-    const badge = pluralizeRu(count, 'практика', 'практики', 'практик');
+    const badge = pluralizeRu(count, 'медитация', 'медитации', 'медитаций');
 
     return (
         <AdminLayout topMenuItems={soulMenuItems}>
             <TableHeader
-                only={['practices']}
+                only={['audios']}
                 label={'все практики'}
                 badge={`${count} ${badge}`}
-                createRoute={route(`admin.soul.practices.create`)}
+                createRoute={route(`admin.soul.audios.create`)}
             />
             <Table
-                meta={practices}
+                meta={audios}
                 width="min-w-150 sm:min-w-180 lg:min-w-220 space-y-8"
                 columns={['Фото', 'Заголовок', 'Краткое описание', '']}
-                isEmpty={practices.data.length === 0}
+                isEmpty={audios.data.length === 0}
                 columnClass="!text-center"
             >
-                {practices.data.map((practice) => (
-                    <PracticeItem
-                        key={practice.id}
-                        practice={practice}
-                        onClick={() => setSelectedPractice(practice)}
+                {audios.data.map((audio) => (
+                    <AudioItem
+                        key={audio.id}
+                        audio={audio}
+                        onClick={() => setSelectedAudio(audio)}
                     />
                 ))}
             </Table>
 
-            {selectedPractice != null && (
+            {selectedAudio != null && (
                 <ConfirmationDialog
-                    show={selectedPractice != null}
-                    closeDialog={() => setSelectedPractice(null)}
-                    title="Вы точно уверены, что хотите удалить данную практику?"
+                    show={selectedAudio != null}
+                    closeDialog={() => setSelectedAudio(null)}
+                    title="Вы точно уверены, что хотите удалить данную медитацию?"
                     routeName={route(
-                        `admin.soul.practices.destroy`,
-                        selectedPractice,
+                        `admin.soul.audios.destroy`,
+                        selectedAudio,
                     )}
                     methodName="delete"
                     confirmBtnLabel="Удалить"
@@ -69,12 +67,12 @@ export default function Index() {
     );
 }
 
-type PracticeItemProps = {
-    practice: Practice;
+type AudioItemProps = {
+    audio: Audio;
     onClick: () => void;
 };
 
-function PracticeItem({ practice, onClick }: PracticeItemProps) {
+function AudioItem({ audio, onClick }: AudioItemProps) {
     return (
         <div
             className={cn(
@@ -82,25 +80,25 @@ function PracticeItem({ practice, onClick }: PracticeItemProps) {
             )}
         >
             <Link
-                href={route(`admin.soul.practices.show`, practice.id)}
+                href={route(`admin.soul.audios.show`, audio.id)}
                 className="transition-scale block cursor-pointer duration-200 hover:scale-105"
                 as="button"
             >
-                {practice.image && (
+                {audio.image && (
                     <LazyImage
                         parentClass="max-w-25 mx-auto"
-                        img={practice.image.path}
-                        tinyImg={practice.image.tiny_path}
-                        alt={practice.image.alt}
+                        img={audio.image.path}
+                        tinyImg={audio.image.tiny_path}
+                        alt={audio.image.alt}
                     />
                 )}
             </Link>
 
-            <span className="pt-4 font-semibold">{practice.title}</span>
-            <span className="">{shortenDescription(practice.description)}</span>
+            <span className="pt-4 font-semibold">{audio.title}</span>
+            <span className="">{shortenDescription(audio.description)}</span>
             <div className="flex items-center justify-end gap-2">
                 <Link
-                    href={route(`admin.soul.practices.show`, practice.id)}
+                    href={route(`admin.soul.audios.show`, audio.id)}
                     className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
                 >

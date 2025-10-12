@@ -9,6 +9,11 @@ export const soulMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.soul.audios.index',
+        title: 'Медитации',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.soul.audios.filters.index',
         title: 'Фильтры М',
     },
