@@ -1,8 +1,9 @@
 import DishSvg from '@/assets/svgs/dish-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
-import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
+import EntityHeader from '@/components/user/molecules/entity-header';
+import RecipeInfo from '@/components/user/molecules/recipe-info';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
@@ -10,7 +11,6 @@ import { cn } from '@/lib/utils';
 import { Image, Recipe as RecipeType } from '@/types/model';
 import { AcademicCapIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
-import { ZoomIn } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Recipe() {
@@ -22,6 +22,12 @@ export default function Recipe() {
 
     const [zoomedImg, setZoomedImg] = useState<Image | null>(null);
 
+    const handleClick = (image: Image | undefined) => {
+        if (!image) return;
+
+        setZoomedImg(image);
+    };
+
     return (
         <AppLayout
             variant="guest"
@@ -30,26 +36,15 @@ export default function Recipe() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                {isFavorite !== null && (
-                    <LikeBtn
-                        isLiked={isFavorite}
-                        route={route('nutrition.recipes.favorite', recipe.id)}
-                        className="mx-auto my-2 w-fit cursor-pointer md:my-8 lg:my-10"
-                    />
-                )}
-
-                <h1
-                    className={cn(
-                        'text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl',
-                        isFavorite === null && 'mt-10 md:mt-20 xl:mt-30',
+                <EntityHeader
+                    title={recipe.title}
+                    description={recipe.description}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route(
+                        'nutrition.recipes.favorite',
+                        recipe.id,
                     )}
-                >
-                    {recipe.title}
-                </h1>
-
-                <p className="mt-6 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-12 md:text-lg xl:mt-16 xl:text-xl">
-                    {recipe.description}
-                </p>
+                />
 
                 <RecipeStats recipe={recipe} />
 
@@ -58,39 +53,11 @@ export default function Recipe() {
                 <div className="mt-6 md:mt-16 lg:flex lg:items-start lg:gap-13 xl:gap-15">
                     <div className="space-y-5 rounded-4xl bg-card-backdrop-gray p-4 md:space-y-6 md:p-6 lg:order-2">
                         {recipe.infos?.map((info) => (
-                            <div className="relative rounded-3xl bg-white px-4 py-6 text-sm text-text-black md:px-6 md:py-7 md:text-base lg:text-sm xl:text-base">
-                                <h3 className="mb-3 text-xl font-bold tracking-wider text-bright-salad uppercase md:text-2xl lg:text-xl xl:text-2xl">
-                                    {info.title}
-                                </h3>
-
-                                {info.html && (
-                                    <div
-                                        dangerouslySetInnerHTML={{
-                                            __html: info.html,
-                                        }}
-                                    ></div>
-                                )}
-
-                                {info.image && (
-                                    <>
-                                        <LazyImage
-                                            parentClass="aspect-video rounded-2xl"
-                                            img={info.image.path}
-                                            tinyImg={info.image.tiny_path}
-                                            alt={info.image.alt}
-                                        />
-                                        <button
-                                            onClick={() => {
-                                                if (!info.image) return;
-                                                setZoomedImg(info.image);
-                                            }}
-                                            className="absolute right-2 bottom-2 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full bg-bright-salad sm:top-5 sm:right-5"
-                                        >
-                                            <ZoomIn className="size-3/4 text-white" />
-                                        </button>
-                                    </>
-                                )}
-                            </div>
+                            <RecipeInfo
+                                key={info.id}
+                                info={info}
+                                onClick={() => handleClick(info?.image)}
+                            />
                         ))}
                     </div>
                     <LightBox

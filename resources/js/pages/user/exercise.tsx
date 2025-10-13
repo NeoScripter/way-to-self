@@ -1,9 +1,8 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
-import LikeBtn from '@/components/shared/atoms/like-btn';
+import EntityHeader from '@/components/user/molecules/entity-header';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
-import { cn } from '@/lib/utils';
 import { Exercise as ExerciseType } from '@/types/model';
 import { AcademicCapIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
@@ -24,27 +23,15 @@ export default function Exercise() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                {isFavorite !== null && (
-                    <LikeBtn
-                        isLiked={isFavorite}
-                        route={route('body.exercises.favorite', exercise.id)}
-                        className="mx-auto my-2 w-fit cursor-pointer md:my-8 lg:my-10"
-                    />
-                )}
-
-                <h1
-                    className={cn(
-                        'text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl',
-                        isFavorite === null && 'mt-10 md:mt-20 xl:mt-30',
+                <EntityHeader
+                    title={exercise.title}
+                    description={exercise.description}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route(
+                        'body.exercises.favorite',
+                        exercise.id,
                     )}
-                >
-                    {exercise.title}
-                </h1>
-
-                <p className="mt-6 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-12 md:text-lg xl:mt-16 xl:text-xl">
-                    {exercise.description}
-                </p>
-
+                />
                 <ExerciseStats exercise={exercise} />
 
                 {video && (

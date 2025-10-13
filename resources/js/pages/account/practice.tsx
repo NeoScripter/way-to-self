@@ -1,3 +1,4 @@
+import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import LikeBtn from '@/components/shared/atoms/like-btn';
 import VideoPlayer from '@/components/user/molecules/video-player';
@@ -26,15 +27,14 @@ export default function Practice() {
                     labels={labels}
                 />
 
-                <LikeBtn
-                    isLiked={isFavorite}
-                    route={route('soul.practices.favorite', practice.id)}
-                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
+                <EntityHeader
+                    title={practice.title}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route(
+                        'soul.practices.favorite',
+                        practice.id,
+                    )}
                 />
-                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                    {practice.title}
-                </h1>
-
                 {video && (
                     <VideoPlayer
                         src={video}

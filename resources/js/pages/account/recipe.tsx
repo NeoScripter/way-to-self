@@ -1,7 +1,7 @@
 import DishSvg from '@/assets/svgs/dish-black.svg';
 import ClockSvg from '@/assets/svgs/time-black.svg';
+import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
-import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
 import VideoPlayer from '@/components/user/molecules/video-player';
@@ -37,18 +37,21 @@ export default function Recipe() {
                     labels={['Главная', 'Питание', 'Рецепты']}
                 />
 
-                <LikeBtn
-                    isLiked={isFavorite}
-                    route={route('nutrition.recipes.favorite', recipe.id)}
-                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
+                <EntityHeader
+                    title={recipe.title}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route(
+                        'nutrition.recipes.favoriteody.programs.favorite',
+                        recipe.id,
+                    )}
                 />
-                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                    {recipe.title}
-                </h1>
 
-                <p className="mt-3 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-6 md:text-lg xl:mt-16 xl:text-xl">
-                    {recipe.description}
-                </p>
+                <EntityHeader
+                    title={recipe.title}
+                    description={recipe.description}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route('body.programs.favorite', recipe.id)}
+                />
 
                 <RecipeStats recipe={recipe} />
 

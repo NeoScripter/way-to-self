@@ -1,3 +1,4 @@
+import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
@@ -24,15 +25,15 @@ export default function Article() {
                     itemName={`Совет №${article.id}`}
                     labels={labels}
                 />
-                <LikeBtn
-                    isLiked={isFavorite}
-                    route={route('nutrition.articles.favorite', article.id)}
-                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
-                />
-                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                    {article.title}
-                </h1>
 
+                <EntityHeader
+                    title={article.title}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route(
+                        'nutrition.articles.favorite',
+                        article.id,
+                    )}
+                />
                 {article.image && (
                     <LazyImage
                         parentClass="aspect-video rounded-2xl my-9 md:my-12.5 xl:my-15"

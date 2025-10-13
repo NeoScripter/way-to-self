@@ -1,7 +1,6 @@
-import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
+import EntityHeader from '@/components/user/molecules/entity-header';
 import AppLayout from '@/layouts/user/app-layout';
-import { cn } from '@/lib/utils';
 import { Article as ArticleType } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
@@ -19,23 +18,11 @@ export default function Article() {
             headerClass="bg-light-swamp"
         >
             <article className="mx-auto max-w-330">
-                {isFavorite !== null && (
-                    <LikeBtn
-                        isLiked={isFavorite}
-                        route={route('user.articles.favorite', article.id)}
-                        className="mx-auto my-2 w-fit cursor-pointer md:my-8 lg:my-10"
-                    />
-                )}
-
-                <h1
-                    className={cn(
-                        'text-center font-heading text-2xl font-medium text-balance text-text-black uppercase md:text-5xl xl:text-6xl',
-                        isFavorite === null && 'mt-10 md:mt-20 xl:mt-30',
-                    )}
-                >
-                    {article.title}
-                </h1>
-
+                <EntityHeader
+                    title={article.title}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route('user.articles.favorite', article.id)}
+                />
                 {article.image && (
                     <LazyImage
                         parentClass="aspect-video rounded-2xl my-9 md:my-12.5 xl:my-15"

@@ -1,5 +1,5 @@
+import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
-import LikeBtn from '@/components/shared/atoms/like-btn';
 import AudioPlayer from '@/components/user/atoms/audio-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { Audio as AudioType } from '@/types/model';
@@ -24,15 +24,12 @@ export default function Meditation() {
                     itemName={`Медитация №${audio.id}`}
                     labels={labels}
                 />
-                <LikeBtn
-                    isLiked={isFavorite}
-                    route={route('soul.audios.favorite', audio.id)}
-                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
+                <EntityHeader
+                    title={audio.title}
+                    description={audio.description}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route('soul.audios.favorite', audio.id)}
                 />
-                <h1 className="text-center xl:mb-14 font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                    {audio.title}
-                </h1>
-
                 {audio && (
                     <AudioPlayer
                         showTitle={false}

@@ -1,4 +1,5 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
+import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
 import LikeBtn from '@/components/shared/atoms/like-btn';
 import VideoPlayer from '@/components/user/molecules/video-player';
@@ -31,18 +32,15 @@ export default function Exercise() {
                     labels={labels}
                 />
 
-                <LikeBtn
-                    isLiked={isFavorite}
-                    route={route('body.exercises.favorite', exercise.id)}
-                    className="mx-auto mb-2 w-fit cursor-pointer md:mb-8 lg:mb-10"
+                <EntityHeader
+                    title={exercise.title}
+                    description={exercise.description}
+                    isFavorite={isFavorite}
+                    favoriteRoute={route(
+                        'body.exercises.favorite',
+                        exercise.id,
+                    )}
                 />
-                <h1 className="text-center font-heading text-2xl font-medium text-balance text-text-black uppercase sm:text-3xl md:text-5xl xl:text-6xl">
-                    {exercise.title}
-                </h1>
-
-                <p className="mt-6 text-center text-sm text-pretty text-gray-dark sm:text-base md:mt-12 md:text-lg xl:mt-16 xl:text-xl">
-                    {exercise.description}
-                </p>
 
                 <ExerciseStats exercise={exercise} />
 
