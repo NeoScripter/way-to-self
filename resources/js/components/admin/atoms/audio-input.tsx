@@ -1,14 +1,11 @@
-import Placeholder from '@/assets/images/admin/video-placeholder.webp';
-import VideoPlayer from '@/components/user/molecules/video-player';
-import { cn } from '@/lib/utils';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 import type { AxiosProgressEvent } from 'axios';
 import React, { useId, useState } from 'react';
+import { HlsPlayer } from './hls-player';
 import LoadingRing from './loading-ring';
 import UploadFileBtn from './upload-file-btn';
 
-type VideoInputProps = {
+type AudioInputProps = {
     isEdited: boolean;
     onChange: (file: File | null) => void;
     error?: string;
@@ -16,18 +13,18 @@ type VideoInputProps = {
     label?: string;
 };
 
-export default function VideoInput({
+export default function AudioInput({
     isEdited,
     onChange,
     error,
     progress,
     label = 'Видео',
-}: VideoInputProps) {
-    const { video } = usePage<{
-        video: string | undefined;
+}: AudioInputProps) {
+    const { stream } = usePage<{
+        stream: string;
     }>().props;
 
-    const [preview, setPreview] = useState(video);
+    const [preview, setPreview] = useState(stream);
     const id = useId();
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,37 +40,32 @@ export default function VideoInput({
             <p className="mb-2 text-center font-semibold sm:text-lg md:text-left">
                 {label}
             </p>
-            <div className="flex flex-col flex-wrap items-center justify-start gap-10 md:flex-row">
+            <div className="flex max-w-150 flex-col flex-wrap items-center justify-start gap-10 md:flex-row">
                 {isEdited && (
                     <input
                         type="file"
-                        accept="video/*"
+                        accept="audio/*"
                         onChange={handleFile}
                         className="mt-1 hidden"
                         id={id}
-                        name={`video-input-${id}`}
+                        name={`audio-input-${id}`}
                     />
                 )}
 
-                <div className="shrink-0">
+                <div className="mt-2 shrink-0 space-y-4">
                     <UploadFileBtn
                         id={id}
                         disabled={!isEdited}
-                        label="Загрузить видео"
+                        label="Загрузить аудиофайл"
                     />
-                </div>
-                <div>
                     <div className="relative flex max-w-120 items-center justify-center duration-200">
                         {preview ? (
-                            <VideoPlayer
+                            <HlsPlayer
                                 src={preview}
                                 className="h-full w-full rounded object-cover"
                             />
                         ) : (
-                            <img
-                                src={Placeholder}
-                                alt="Нет видео"
-                            />
+                            <span>Нет аудио</span>
                         )}
                     </div>
                     {error && (
@@ -85,7 +77,7 @@ export default function VideoInput({
 
                 <LoadingRing
                     progress={progress}
-                    updated={preview !== video}
+                    updated={preview !== stream}
                 />
             </div>
         </div>

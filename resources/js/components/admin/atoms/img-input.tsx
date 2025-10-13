@@ -3,8 +3,9 @@ import DialogLayout from '@/components/user/molecules/dialog-layout';
 import { cn } from '@/lib/utils';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 import type { AxiosProgressEvent } from 'axios';
-import { Check } from 'lucide-react';
 import React, { useId, useState } from 'react';
+import LoadingRing from './loading-ring';
+import UploadFileBtn from './upload-file-btn';
 
 type ImgInputProps = {
     src?: string;
@@ -42,21 +43,12 @@ export default function ImgInput({
 
     const [showPopup, setShowPopup] = useState(false);
 
-    const showCheckMark =
-        progress &&
-        progress.percentage &&
-        progress.percentage > 98 &&
-        preview !== src;
-    const showLoadingRing =
-        progress &&
-        progress.percentage &&
-        progress.percentage < 98 &&
-        preview !== src;
-
     return (
         <div>
-            <p className="mb-2 text-center md:text-left font-semibold sm:text-lg">{label}</p>
-            <div className="flex max-w-150 flex-col items-center justify-between gap-10 md:flex-row">
+            <p className="mb-2 text-center font-semibold sm:text-lg md:text-left">
+                {label}
+            </p>
+            <div className="flex max-w-150 flex-col items-center justify-start gap-10 md:flex-row">
                 {isEdited && (
                     <input
                         type="file"
@@ -69,16 +61,11 @@ export default function ImgInput({
                 )}
 
                 <div className="shrink-0">
-                    <label
-                        htmlFor={id}
-                        className={cn(
-                            'flex h-fit cursor-pointer items-center gap-2 rounded-md bg-slate-800 px-6 py-3 text-sm text-white transition-opacity duration-200 focus-within:opacity-90 hover:opacity-90',
-                            !isEdited && 'cursor-not-allowed opacity-50',
-                        )}
-                    >
-                        <ArrowDownTrayIcon className="size-5" />
-                        Загрузить фото
-                    </label>
+                    <UploadFileBtn
+                        id={id}
+                        disabled={!isEdited}
+                        label="Загрузить фото"
+                    />
 
                     {isEdited && (
                         <AltInput
@@ -91,7 +78,7 @@ export default function ImgInput({
                 <div>
                     <div
                         onClick={() => setShowPopup(true)}
-                        className="relative transition-scale duration-200 ease-in hover:scale-110 flex size-50 cursor-pointer items-center justify-center"
+                        className="transition-scale relative flex size-50 cursor-pointer items-center justify-center duration-200 ease-in hover:scale-110"
                     >
                         <img
                             src={preview ?? Placeholder}
@@ -100,25 +87,16 @@ export default function ImgInput({
                         />
                     </div>
                     {error && (
-                        <span className="block font-medium max-w-50 text-sm text-red-500">
+                        <span className="block max-w-50 text-sm font-medium text-red-500">
                             {error}
                         </span>
                     )}
                 </div>
 
-                {showCheckMark || showLoadingRing && <div className="relative flex aspect-square size-20 flex-wrap place-content-center text-xs font-bold">
-                    {showLoadingRing && <LoadingRing />}
-
-                    {showLoadingRing && (
-                        <span>{`${progress.percentage}%`}</span>
-                    )}
-
-                    {showCheckMark && (
-                        <div className="flex size-8 animate-fade flex-wrap place-content-center rounded-full bg-bright-salad">
-                            <Check className="text-white" />
-                        </div>
-                    )}
-                </div>}
+                <LoadingRing
+                    progress={progress}
+                    updated={preview !== src}
+                />
             </div>
 
             <DialogLayout
@@ -127,7 +105,7 @@ export default function ImgInput({
                 className="mx-auto w-fit max-w-260"
             >
                 {' '}
-                <div className='w-fit mx-auto'>
+                <div className="mx-auto w-fit">
                     <img
                         src={preview}
                         alt={altText}
@@ -165,23 +143,4 @@ function AltInput({ altText, altError, onAltChange }: AltInputProps) {
             <span className="font-medium text-red-600">{altError}</span>
         </div>
     );
-}
-
-function LoadingRing() {
-    return Array(20)
-        .fill(1)
-        .map((_, i) => {
-            const angle = (i * 360) / 20;
-            return (
-                <span
-                    className="absolute top-1/2 left-1/2 block h-3 w-[3px] -translate-1/2 animate-shimmer bg-black"
-                    style={{
-                        transform: `rotate(${angle}deg) translateY(-${30}px`,
-                        transformOrigin: 'center center',
-                        animationDelay: `${angle * 4}ms`,
-                    }}
-                    key={`bar-${i}`}
-                />
-            );
-        });
 }
