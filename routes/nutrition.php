@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Nutrition\ArticleController;
 use App\Http\Controllers\Admin\Nutrition\CategoryController;
 use App\Http\Controllers\Admin\Nutrition\FAQController;
 use App\Http\Controllers\Admin\Nutrition\FilterController;
+use App\Http\Controllers\Admin\Nutrition\RecipeController;
+use App\Http\Controllers\Admin\Nutrition\RecipeInfoController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth',  'banned', 'tier.access:nutrition'])->prefix('account/nutrition')->name('nutrition.')->group(function () {
@@ -60,11 +62,17 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/nutrit
     });
 
     Route::prefix('/recipes')->name('recipes.')->group(function () {
-        Route::get('/', [ProgramController::class, 'index'])->name('index');
-        Route::post('/store', [ProgramController::class, 'store'])->name('store');
-        Route::post('/{recipe}', [ProgramController::class, 'update'])->name('update');
-        Route::get('/create', [ProgramController::class, 'create'])->name('create');
-        Route::get('/{recipe}', [ProgramController::class, 'show'])->name('show');
-        Route::delete('/{recipe}', [ProgramController::class, 'destroy'])->name('destroy');
+        Route::get('/', [RecipeController::class, 'index'])->name('index');
+        Route::post('/store', [RecipeController::class, 'store'])->name('store');
+        Route::post('/{recipe}', [RecipeController::class, 'update'])->name('update');
+        Route::get('/create', [RecipeController::class, 'create'])->name('create');
+        Route::get('/{recipe}', [RecipeController::class, 'show'])->name('show');
+        Route::delete('/{recipe}', [RecipeController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/infos')->name('infos.')->group(function () {
+        Route::post('/store/{recipe_info}', [RecipeInfoController::class, 'store'])->name('store');
+        Route::post('/{block}', [RecipeInfoController::class, 'update'])->name('update');
+        Route::delete('/{block}', [RecipeInfoController::class, 'destroy'])->name('destroy');
     });
 });

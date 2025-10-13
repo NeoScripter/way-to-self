@@ -25,7 +25,6 @@ class UpdateRecipeRequest extends FormRequest
         return [
             'title' => AdminFieldRules::title(),
             'description' => AdminFieldRules::description(),
-            'body' => AdminFieldRules::body(),
             'duration' => AdminFieldRules::duration(),
             'complexity' => AdminFieldRules::complexity(),
             'filters' => AdminFieldRules::filters(),

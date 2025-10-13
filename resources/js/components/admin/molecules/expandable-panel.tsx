@@ -17,13 +17,13 @@ export default function ExpandablePanel({
     return (
         <div className="space-y-6">
             <div className="mb-4 flex items-center gap-2 md:mb-6">
-                <LightBtn handleClick={() => toggle()}>
+                <LightBtn onClick={() => toggle()}>
                     {label}
                     <ChevronDownIcon className="mt-1 size-5" />
                 </LightBtn>
             </div>
             <Transition show={show}>
-                <div className="max-h-500 list-decimal font-bold transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out">
+                <div className="max-h-2000 list-decimal transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out">
                     {children}
                 </div>
             </Transition>

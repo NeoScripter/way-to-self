@@ -33,7 +33,7 @@ export default function Index() {
                 only={['recipes']}
                 label={'все рецепты'}
                 badge={`${count} ${badge}`}
-                createRoute={route(`admin.body.recipes.create`)}
+                createRoute={route(`admin.nutrition.recipes.create`)}
             />
             <Table
                 meta={recipes}
@@ -57,7 +57,7 @@ export default function Index() {
                     closeDialog={() => setSelectedRecipe(null)}
                     title="Вы точно уверены, что хотите удалить данный рецепт?"
                     routeName={route(
-                        `admin.body.recipes.destroy`,
+                        `admin.nutrition.recipes.destroy`,
                         selectedRecipe,
                     )}
                     methodName="delete"
@@ -82,7 +82,7 @@ function RecipeItem({ recipe, onClick }: RecipeItemProps) {
             )}
         >
             <Link
-                href={route(`admin.body.recipes.show`, recipe.id)}
+                href={route(`admin.nutrition.recipes.show`, recipe.id)}
                 className="transition-scale block cursor-pointer duration-200 hover:scale-105"
                 as="button"
             >
@@ -100,7 +100,7 @@ function RecipeItem({ recipe, onClick }: RecipeItemProps) {
             <span className="">{shortenDescription(recipe.description)}</span>
             <div className="flex items-center justify-end gap-2">
                 <Link
-                    href={route(`admin.body.recipes.show`, recipe.id)}
+                    href={route(`admin.nutrition.recipes.show`, recipe.id)}
                     className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                     as="button"
                 >

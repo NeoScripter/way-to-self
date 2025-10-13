@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Nutrition\StoreRecipeRequest;
 use App\Http\Requests\Admin\Nutrition\UpdateRecipeRequest;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
+use App\Models\ContentCategory;
 use App\Models\Exercise;
 use App\Models\Image;
 use App\Models\Recipe;
@@ -40,7 +41,7 @@ class RecipeController extends Controller
             ->paginate(16)
             ->withQueryString();
 
-        return Inertia::render('admin/body/recipes/index', [
+        return Inertia::render('admin/nutrition/recipes/index', [
             'recipes' => fn() => $recipes,
             'options' => fn() => $options,
             'count' => fn() => $count,
@@ -73,14 +74,26 @@ class RecipeController extends Controller
             ];
         });
 
+        $categories = ContentCategory::select(['id', 'name'])
+            ->where('categorizable_type', Recipe::class)
+            ->get();
+
+        $categories = $categories->map(function ($category) {
+            return [
+                'value' => $category->id,
+                'label' => $category->name,
+            ];
+        })->toArray();
+
         $video = $recipe->video?->hlsVideo();
 
-        return Inertia::render('admin/body/recipes/show', [
+        return Inertia::render('admin/nutrition/recipes/show', [
             'recipe' => fn() => $recipe,
             'count' => fn() => $count,
             'filters' => fn() => $filters,
             'video' => fn() => $video,
             'options' => fn() => $exercises,
+            'categories' => fn() => $categories,
         ]);
     }
 
@@ -100,9 +113,21 @@ class RecipeController extends Controller
             ];
         })->toArray();
 
-        return Inertia::render('admin/body/recipes/create', [
+        $categories = ContentCategory::select(['id', 'name'])
+            ->where('categorizable_type', Recipe::class)
+            ->get();
+
+        $categories = $categories->map(function ($category) {
+            return [
+                'value' => $category->id,
+                'label' => $category->name,
+            ];
+        })->toArray();
+
+        return Inertia::render('admin/nutrition/recipes/create', [
             'count' => $count,
             'filters' => fn() => $filters,
+            'categories' => fn() => $categories,
         ]);
     }
 
@@ -110,7 +135,7 @@ class RecipeController extends Controller
     {
         $validated = $request->validated();
 
-        $recipe = Recipe::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
+        $recipe = Recipe::create(Arr::except($validated, ['image', 'category_id', 'filters', 'image_alt', 'video']));
 
         $recipe->filters()->sync($validated['filters']);
 
@@ -128,12 +153,12 @@ class RecipeController extends Controller
             $tempPath = $request->file('video')->store('temp_videos');
             ProcessAndAttachVideo::dispatch($recipe, $tempPath);
             return redirect()
-                ->route('admin.body.recipes.index')
+                ->route('admin.nutrition.recipes.index')
                 ->with('message', 'Рецепт успешно создан. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.body.recipes.index')
+            ->route('admin.nutrition.recipes.index')
             ->with('message', 'Рецепт успешно создан.');
     }
 
@@ -141,14 +166,14 @@ class RecipeController extends Controller
     {
         $recipe->delete();
 
-        return redirect()->route('admin.body.recipes.index')->with('message', 'Рецепт успешно удален');
+        return redirect()->route('admin.nutrition.recipes.index')->with('message', 'Рецепт успешно удален');
     }
 
     public function update(Recipe $recipe, UpdateRecipeRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        $recipe->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
+        $recipe->update(Arr::except($validated, ['image', 'category_id', 'filters', 'image_alt', 'video']));
 
         $recipe->filters()->sync($validated['filters']);
 

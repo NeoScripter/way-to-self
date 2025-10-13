@@ -5,11 +5,13 @@ import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
-import { Option } from '../atoms/select-box';
+import SelectBox, { Option } from '../atoms/select-box';
 import TagPicker from '../atoms/tag-picker';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
+import InputLabel from '../atoms/input-label';
+import InputError from '../atoms/input-error';
 
 type RecipeForm = {
     title: string;
@@ -18,6 +20,7 @@ type RecipeForm = {
     image_alt: string;
     duration: number;
     complexity: number;
+    category_id: number | null;
     video: File | null;
     filters: number[];
 };
@@ -30,9 +33,15 @@ type RecipeUpsertProps = {
 export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
     const [infoEdited, setInfoEdited] = useState(recipe == null);
 
-    const { filters } = usePage<{
+    const { categories, filters } = usePage<{
+        categories: Option<number>[];
         filters: Option<number>[];
     }>().props;
+
+    const categoryId =
+        recipe?.category?.id || categories.length > 0
+            ? categories[0]?.value
+            : null;
 
     const recipeFilters = recipe?.filters?.map((filter) => filter.id) || [];
 
@@ -55,6 +64,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
         complexity: recipe?.complexity || 0,
         duration: recipe?.duration || 0,
         video: null,
+        category_id: categoryId,
         filters: recipeFilters,
     });
 
@@ -124,7 +134,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                     </TextWidget>
                 </div>
 
-                <div className="grid max-w-200 gap-4 sm:grid-cols-2">
+                <div className="grid max-w-200 gap-4 md:grid-cols-3 sm:grid-cols-2">
                     <TextWidget
                         label="Продолжительность (мин)"
                         key="Продолжительность"
@@ -176,6 +186,25 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                             }
                         />
                     </TextWidget>
+
+                    {data.category_id && (
+                        <div className="grid content-start gap-4">
+                            <InputLabel htmlFor="category_id">
+                                Тип упражнения
+                            </InputLabel>
+                            <SelectBox
+                                value={data.category_id}
+                                onChange={(val) => setData('category_id', val)}
+                                options={categories}
+                                className="mt-1"
+                                disabled={!infoEdited}
+                            />
+                            <InputError
+                                className="mt-2"
+                                message={errors.category_id}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div>

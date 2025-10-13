@@ -1,29 +1,29 @@
 import Input from '@/components/admin/atoms/input';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
-import { ProgramBlock } from '@/types/model';
+import { RecipeInfo } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 
-type BlockForm = {
+type RecipeInfoForm = {
     title: string;
     description: string;
 };
 
-type BlockUpsertProps = {
-    block?: ProgramBlock;
+type RecipeInfoUpsertProps = {
+    info?: RecipeInfo;
     routeName: string;
     onClick?: () => void;
 };
 
-export default function BlockUpsert({
-    block,
+export default function RecipeInfoUpsert({
+    info,
     routeName,
     onClick,
-}: BlockUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(block == null);
+}: RecipeInfoUpsertProps) {
+    const [infoEdited, setInfoEdited] = useState(info == null);
 
     const {
         data,
@@ -35,9 +35,9 @@ export default function BlockUpsert({
         processing,
         setDefaults,
         recentlySuccessful,
-    } = useForm<BlockForm>({
-        title: block?.title || '',
-        description: block?.description || '',
+    } = useForm<RecipeInfoForm>({
+        title: info?.title || '',
+        description: info?.description || '',
     });
 
     const handleCancelClick = () => {
@@ -77,7 +77,7 @@ export default function BlockUpsert({
                     >
                         <Input
                             id="title"
-                            className="mt-1 block w-full text-left"
+                            className="mt-1 info w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
                             placeholder="Подзаголовок программы"
@@ -91,12 +91,12 @@ export default function BlockUpsert({
                         edit={infoEdited}
                         error={errors.description}
                         fallback={data.description}
-                        fbClass="block py-2 min-h-40 text-left"
+                        fbClass="info py-2 min-h-40 text-left"
                     >
                         <TextArea
                             id="description"
                             placeholder="Текст программы"
-                            className="mt-1 block w-full"
+                            className="mt-1 info w-full"
                             value={data.description}
                             onChange={(e) =>
                                 setData('description', e.target.value)
@@ -106,7 +106,7 @@ export default function BlockUpsert({
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
-                    {block != null && (
+                    {info != null && (
                         <EditBtn
                             onClick={handleCancelClick}
                             disabled={processing}

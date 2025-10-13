@@ -1,7 +1,7 @@
-import BlockUpsert from '@/components/admin/molecules/block-upsert';
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ExpandablePanel from '@/components/admin/molecules/expandable-panel';
 import ItemPicker, { Option } from '@/components/admin/molecules/item-picker';
+import RecipeInfoUpsert from '@/components/admin/molecules/recipe-info-upsert';
 import RecipeUpsert from '@/components/admin/molecules/recipe-upsert';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { Recipe, RecipeBlock } from '@/types/model';
@@ -24,11 +24,11 @@ export default function Show() {
         >
             <ExpandablePanel
                 key={'recipe-upsert'}
-                label="Редактировать программу"
+                label="Редактировать рецепт"
             >
                 <RecipeUpsert
                     recipe={recipe}
-                    routeName={route(`admin.body.recipes.update`, recipe.id)}
+                    routeName={route(`admin.nutrition.recipes.update`, recipe.id)}
                 />
             </ExpandablePanel>
 
@@ -37,49 +37,49 @@ export default function Show() {
             </h3>
 
             <ExpandablePanel
-                key="create-block-form"
+                key="create-info-form"
                 label="Создать новый блок"
             >
-                <BlockUpsert
-                    routeName={route('admin.body.blocks.store', recipe.id)}
+                <RecipeInfoUpsert
+                    routeName={route('admin.nutrition.infos.store', recipe.id)}
                 />
             </ExpandablePanel>
-            {recipe.blocks?.map((block, idx) => (
+            {recipe.infos?.map((info, idx) => (
                 <ExpandablePanel
-                    key={block.id}
+                    key={info.id}
                     label={`Блок ${idx + 1}`}
                 >
                     <BlockEntry
-                        block={block}
-                        onClick={() => setSelectedBlock(block)}
+                        info={info}
+                        onClick={() => setSelectedBlock(info)}
                     />
                 </ExpandablePanel>
             ))}
 
-            {selectedBlock != null && (
-                <ConfirmationDialog
-                    show={selectedBlock != null}
-                    closeDialog={() => setSelectedBlock(null)}
-                    title="Вы точно уверены, что хотите удалить данный блок?"
-                    routeName={route(`admin.body.blocks.destroy`, selectedBlock)}
-                    methodName="delete"
-                    confirmBtnLabel="Удалить"
-                    cancelBtnLabel="Отмена"
-                />
-            )}
+            {/* {selectedBlock != null && ( */}
+            {/*     <ConfirmationDialog */}
+            {/*         show={selectedBlock != null} */}
+            {/*         closeDialog={() => setSelectedBlock(null)} */}
+            {/*         title="Вы точно уверены, что хотите удалить данный блок?" */}
+            {/*         routeName={route(`admin.nutrition.blocks.destroy`, selectedBlock)} */}
+            {/*         methodName="delete" */}
+            {/*         confirmBtnLabel="Удалить" */}
+            {/*         cancelBtnLabel="Отмена" */}
+            {/*     /> */}
+            {/* )} */}
         </EditingLayout>
     );
 }
 
 type BlockEntryProps = {
-    block: RecipeBlock;
+    info: RecipeBlock;
     onClick: () => void;
 };
 
-function BlockEntry({ block, onClick }: BlockEntryProps) {
+function BlockEntry({ info, onClick }: BlockEntryProps) {
     let { options } = usePage<{ options: Option[] }>().props;
 
-    const selected = block?.exercises?.map((e) => {
+    const selected = info?.exercises?.map((e) => {
         return {
             id: e.id,
             image: e.image?.path,
@@ -92,20 +92,20 @@ function BlockEntry({ block, onClick }: BlockEntryProps) {
     return (
         <div>
             <BlockUpsert
-                routeName={route('admin.body.blocks.update', block.id)}
-                block={block}
+                routeName={route('admin.nutrition.blocks.update', info.id)}
+                info={info}
                 onClick={onClick}
             />
 
-            {block.exercises && (
+            {info.exercises && (
                 <ItemPicker
                     label="Выбор упражнения"
                     placeholder="Название упражнения"
-                    onAdd="admin.body.exercise.toggle"
-                    onRemove="admin.body.exercise.toggle"
+                    onAdd="admin.nutrition.exercise.toggle"
+                    onRemove="admin.nutrition.exercise.toggle"
                     selected={selected ?? []}
                     options={options}
-                    payload={{ block_id: [block.id] }}
+                    payload={{ block_id: [info.id] }}
                 />
             )}
         </div>
