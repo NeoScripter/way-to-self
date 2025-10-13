@@ -24,7 +24,7 @@ class StreamAudioController extends Controller
         $playlist = file_get_contents($playlistPath);
 
         $playlist = preg_replace_callback(
-            '/(index\d+\.ts)/',
+            '/([\w\-]+\.ts)/',
             fn($matches) => route('audio.segment', [
                 'audio' => $audio->id,
                 'file'  => $matches[1],

@@ -27,6 +27,8 @@ export default function AudioInput({
     const [preview, setPreview] = useState(stream);
     const id = useId();
 
+    console.log(stream)
+
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;
         if (!file) return;

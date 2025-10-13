@@ -58,8 +58,7 @@ final class HomeController extends Controller
 
         $audio = Audio::with(['image'])
             ->free()
-            ->first()
-            ->makeHidden(['audio_path', 'hls_path']);
+            ->first();
 
         $video = Video::whereIn('videoable_id', $recipes->pluck('id'))
             ->first()
@@ -74,6 +73,7 @@ final class HomeController extends Controller
             'exercises' => $exercises,
             'video' => $video->hlsVideo(),
             'audio' => $audio,
+            'stream' => route('audio.stream', ['audio' => $audio->id]),
             'prefix' => 'user.articles.show'
         ]);
     }
