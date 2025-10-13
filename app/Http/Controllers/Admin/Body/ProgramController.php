@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin\Body;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Body\StoreProgramRequest;
+use App\Http\Requests\Admin\Body\UpdateProgramRequest;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
 use App\Models\Exercise;
 use App\Models\Image;
 use App\Models\Program;
+use App\Support\SortAndSearchHelper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -19,20 +22,12 @@ class ProgramController extends Controller
 {
     public function index(Request $request)
     {
-        $validated = $request->validate([
-            'sort_by' => 'nullable|in:title,updated_at',
-            'order' => 'nullable|in:asc,desc',
-            'search' => 'nullable|string'
-        ]);
+        $sorting = SortAndSearchHelper::extract($request);
 
-        $sortBy = $validated['sort_by'] ?? 'title';
-        $order = $validated['order'] ?? 'asc';
-        $search = $validated['search'] ?? null;
-
-        $options = [
-            ['value' => 'title',  'label' => 'По названию'],
-            ['value' => 'updated_at', 'label' => 'По дате изменения'],
-        ];
+        $sortBy = $sorting['sort_by'];
+        $order = $sorting['order'];
+        $search = $sorting['search'];
+        $options = $sorting['options'];
 
         $count = Program::all()->count();
 
@@ -111,20 +106,9 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProgramRequest $request)
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body'        => 'required|string|max:64000',
-            'duration'    => 'required|numeric|min:1|max:200',
-            'complexity'  => 'required|numeric|min:1|max:10',
-            'filters' => 'required|array',
-            'filters.*' => 'numeric|exists:category_filters,id',
-            'image_alt'   => 'required|string|max:400',
-            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'video'       => ['required', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
-        ]);
+        $validated = $request->validated();
 
         $program = Program::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
 
@@ -160,20 +144,9 @@ class ProgramController extends Controller
         return redirect()->route('admin.body.programs.index')->with('message', 'Программа успешно удалена');
     }
 
-    public function update(Program $program, Request $request): RedirectResponse
+    public function update(Program $program, UpdateProgramRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body'        => 'required|string|max:64000',
-            'duration'    => 'required|numeric|min:1|max:200',
-            'complexity'  => 'required|numeric|min:1|max:10',
-            'filters' => 'required|array',
-            'filters.*' => 'numeric|exists:category_filters,id',
-            'image_alt'   => 'nullable|string|max:400',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'video'       => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
-        ]);
+        $validated = $request->validated();
 
         $program->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video']));
 

@@ -6,6 +6,7 @@ use App\Enums\ArticleType;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Article;
+use App\Support\SortAndSearchHelper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -16,20 +17,12 @@ class ArticleController extends Controller
 {
     public function index(Request $request)
     {
-        $validated = $request->validate([
-            'sort_by' => 'nullable|in:title,updated_at',
-            'order' => 'nullable|in:asc,desc',
-            'search' => 'nullable|string'
-        ]);
+        $sorting = SortAndSearchHelper::extract($request);
 
-        $sortBy = $validated['sort_by'] ?? 'title';
-        $order = $validated['order'] ?? 'asc';
-        $search = $validated['search'] ?? null;
-
-        $options = [
-            ['value' => 'title',  'label' => 'По названию'],
-            ['value' => 'updated_at', 'label' => 'По дате изменения'],
-        ];
+        $sortBy = $sorting['sort_by'];
+        $order = $sorting['order'];
+        $search = $sorting['search'];
+        $options = $sorting['options'];
 
         $count = Article::all()->count();
 

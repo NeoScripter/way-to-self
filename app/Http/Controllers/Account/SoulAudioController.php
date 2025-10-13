@@ -42,8 +42,7 @@ class SoulAudioController extends Controller
     {
         $user = Auth::user();
 
-        $audio->load(['image'])
-            ->makeHidden(['audio_path', 'hls_path']);
+        $audio->load(['image']);
 
         $isFavorite = $audio
             ->favoritedBy()
@@ -53,7 +52,8 @@ class SoulAudioController extends Controller
         return Inertia::render('account/meditation', [
             'audio' => $audio,
             'isFavorite' => $isFavorite,
-            'labels' => ['Главная', 'Душа', 'Медитации']
+            'labels' => ['Главная', 'Душа', 'Медитации'],
+            'stream' => route('audio.stream', ['audio' => $audio->id]),
         ]);
     }
 

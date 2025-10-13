@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin\Soul;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Soul\StoreAudioRequest;
+use App\Http\Requests\Admin\Soul\UpdateAudioRequest;
 use App\Jobs\ConvertAudioToHls;
 use App\Jobs\ProcessAndAttachAudio;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
 use App\Models\Image;
 use App\Models\Audio;
+use App\Support\SortAndSearchHelper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -21,20 +24,12 @@ class AudioController extends Controller
 {
     public function index(Request $request)
     {
-        $validated = $request->validate([
-            'sort_by' => 'nullable|in:title,updated_at',
-            'order' => 'nullable|in:asc,desc',
-            'search' => 'nullable|string'
-        ]);
+        $sorting = SortAndSearchHelper::extract($request);
 
-        $sortBy = $validated['sort_by'] ?? 'title';
-        $order = $validated['order'] ?? 'asc';
-        $search = $validated['search'] ?? null;
-
-        $options = [
-            ['value' => 'title',  'label' => 'По названию'],
-            ['value' => 'updated_at', 'label' => 'По дате изменения'],
-        ];
+        $sortBy = $sorting['sort_by'];
+        $order = $sorting['order'];
+        $search = $sorting['search'];
+        $options = $sorting['options'];
 
         $count = Audio::all()->count();
 
@@ -103,20 +98,9 @@ class AudioController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreAudioRequest $request)
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body'        => 'required|string|max:64000',
-            'duration'    => 'required|numeric|min:1|max:200',
-            'complexity'  => 'required|numeric|min:1|max:10',
-            'filters' => 'required|array',
-            'filters.*' => 'numeric|exists:category_filters,id',
-            'image_alt'   => 'required|string|max:400',
-            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'audio'       => ['required', 'file', 'mimetypes:audio/mpeg,audio/mp3,audio/wav,audio/x-m4a,audio/aac'],
-        ]);
+        $validated = $request->validated();
 
         $validated['audio_path'] = $validated['audio'];
         $audio = Audio::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'audio']));
@@ -156,20 +140,9 @@ class AudioController extends Controller
         return redirect()->route('admin.soul.audios.index')->with('message', 'Медитация успешно удалена');
     }
 
-    public function update(Audio $audio, Request $request): RedirectResponse
+    public function update(Audio $audio, UpdateAudioRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body'        => 'required|string|max:64000',
-            'duration'    => 'required|numeric|min:1|max:200',
-            'complexity'  => 'required|numeric|min:1|max:10',
-            'filters' => 'required|array',
-            'filters.*' => 'numeric|exists:category_filters,id',
-            'image_alt'   => 'nullable|string|max:400',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'audio'       => ['required', 'file', 'mimetypes:audio/mpeg,audio/mp3,audio/wav,audio/x-m4a,audio/aac'],
-        ]);
+        $validated = $request->validated();
 
         $audio->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'audio']));
 

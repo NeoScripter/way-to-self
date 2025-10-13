@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Admin\Body;
 
 use App\Enums\CategoryType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Body\StoreExerciseRequest;
+use App\Http\Requests\Admin\Body\UpdateExerciseRequest;
 use App\Jobs\ProcessAndAttachVideo;
 use App\Models\CategoryFilter;
 use App\Models\ContentCategory;
 use App\Models\Image;
 use App\Models\Exercise;
+use App\Support\SortAndSearchHelper;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -19,20 +22,12 @@ class ExerciseController extends Controller
 {
     public function index(Request $request)
     {
-        $validated = $request->validate([
-            'sort_by' => 'nullable|in:title,updated_at',
-            'order' => 'nullable|in:asc,desc',
-            'search' => 'nullable|string'
-        ]);
+        $sorting = SortAndSearchHelper::extract($request);
 
-        $sortBy = $validated['sort_by'] ?? 'title';
-        $order = $validated['order'] ?? 'asc';
-        $search = $validated['search'] ?? null;
-
-        $options = [
-            ['value' => 'title',  'label' => 'По названию'],
-            ['value' => 'updated_at', 'label' => 'По дате изменения'],
-        ];
+        $sortBy = $sorting['sort_by'];
+        $order = $sorting['order'];
+        $search = $sorting['search'];
+        $options = $sorting['options'];
 
         $count = Exercise::all()->count();
 
@@ -127,21 +122,9 @@ class ExerciseController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreExerciseRequest $request)
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body'        => 'required|string|max:64000',
-            'duration'    => 'required|numeric|min:1|max:200',
-            'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'nullable|numeric|exists:content_categories,id',
-            'filters' => 'required|array',
-            'filters.*' => 'numeric|exists:category_filters,id',
-            'image_alt'   => 'required|string|max:400',
-            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'video'       => ['required', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
-        ]);
+        $validated = $request->validated();
 
         $exercise = Exercise::create(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 
@@ -166,12 +149,12 @@ class ExerciseController extends Controller
             $tempPath = $request->file('video')->store('temp_videos');
             ProcessAndAttachVideo::dispatch($exercise, $tempPath);
             return redirect()
-                ->route('admin.body.exercises.index')
+                ->route('admin.exercises.index')
                 ->with('message', 'Упражнение успешно создано. Ожидайте окончания обработки видео в течение часа.');
         }
 
         return redirect()
-            ->route('admin.body.exercises.index')
+            ->route('admin.exercises.index')
             ->with('message', 'Упражнение успешно создано.');
     }
 
@@ -179,24 +162,12 @@ class ExerciseController extends Controller
     {
         $exercise->delete();
 
-        return redirect()->route('admin.body.exercises.index')->with('message', 'Упражнение успешно удалено');
+        return redirect()->route('admin.exercises.index')->with('message', 'Упражнение успешно удалено');
     }
 
-    public function update(Exercise $exercise, Request $request): RedirectResponse
+    public function update(Exercise $exercise, UpdateExerciseRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body'        => 'required|string|max:64000',
-            'duration'    => 'required|numeric|min:1|max:200',
-            'complexity'  => 'required|numeric|min:1|max:10',
-            'category_id' => 'nullable|numeric|exists:content_categories,id',
-            'filters' => 'required|array',
-            'filters.*' => 'numeric|exists:category_filters,id',
-            'image_alt'   => 'nullable|string|max:400',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'video'       => ['nullable', 'file', 'mimetypes:video/mp4,video/quicktime,video/x-matroska'],
-        ]);
+        $validated = $request->validated();
 
         $exercise->update(Arr::except($validated, ['image', 'filters', 'image_alt', 'video', 'category_id']));
 

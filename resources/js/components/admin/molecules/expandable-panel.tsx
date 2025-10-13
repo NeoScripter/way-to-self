@@ -1,7 +1,7 @@
-import DarkBtn from '@/components/user/atoms/dark-btn';
 import useToggle from '@/hooks/use-toggle';
 import { Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import LightBtn from '../atoms/light-btn';
 
 type ExpandablePanelProps = {
     label: string;
@@ -17,19 +17,13 @@ export default function ExpandablePanel({
     return (
         <div className="space-y-6">
             <div className="mb-4 flex items-center gap-2 md:mb-6">
-                <DarkBtn
-                    type='button'
-                    className="w-100 rounded-sm flex max-w-full justify-between"
-                    onClick={() => toggle()}
-                >
+                <LightBtn handleClick={() => toggle()}>
                     {label}
-                    <ChevronDownIcon className="size-5 mt-1" />
-                </DarkBtn>
+                    <ChevronDownIcon className="mt-1 size-5" />
+                </LightBtn>
             </div>
             <Transition show={show}>
-                <div
-                    className="max-h-500 list-decimal font-bold transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out"
-                >
+                <div className="max-h-500 list-decimal font-bold transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out">
                     {children}
                 </div>
             </Transition>
