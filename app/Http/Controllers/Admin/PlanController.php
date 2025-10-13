@@ -15,7 +15,7 @@ class PlanController extends Controller
 {
     public function index()
     {
-        $count = Plan::all()->count();
+        $count = Plan::count();
         $plans = Plan::latest()->with(['image'])->paginate(16);
 
         return Inertia::render('admin/plans/index', [
@@ -27,7 +27,7 @@ class PlanController extends Controller
 
     public function show(Plan $plan)
     {
-        $count = Plan::all()->count();
+        $count = Plan::count();
         $plan->load('image');
 
         return Inertia::render('admin/plans/show', [
@@ -38,7 +38,7 @@ class PlanController extends Controller
 
     public function create()
     {
-        $count = Plan::all()->count();
+        $count = Plan::count();
 
         return Inertia::render('admin/plans/create', [
             'count' => $count,

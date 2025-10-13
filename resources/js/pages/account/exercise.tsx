@@ -34,7 +34,6 @@ export default function Exercise() {
 
                 <EntityHeader
                     title={exercise.title}
-                    description={exercise.description}
                     isFavorite={isFavorite}
                     favoriteRoute={route(
                         'body.exercises.favorite',

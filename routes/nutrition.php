@@ -58,4 +58,13 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/nutrit
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
+
+    Route::prefix('/recipes')->name('recipes.')->group(function () {
+        Route::get('/', [ProgramController::class, 'index'])->name('index');
+        Route::post('/store', [ProgramController::class, 'store'])->name('store');
+        Route::post('/{recipe}', [ProgramController::class, 'update'])->name('update');
+        Route::get('/create', [ProgramController::class, 'create'])->name('create');
+        Route::get('/{recipe}', [ProgramController::class, 'show'])->name('show');
+        Route::delete('/{recipe}', [ProgramController::class, 'destroy'])->name('destroy');
+    });
 });

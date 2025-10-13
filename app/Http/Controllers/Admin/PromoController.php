@@ -29,7 +29,7 @@ class PromoController extends Controller
             ['value' => 'expires_at', 'label' => 'По сроку действия'],
         ];
 
-        $count = Promo::all()->count();
+        $count = Promo::count();
 
         $promos = Promo::when($search, function ($query, $search) {
             $query->where(function ($q) use ($search) {
@@ -50,7 +50,7 @@ class PromoController extends Controller
 
     public function show(Promo $promo)
     {
-        $count = Promo::all()->count();
+        $count = Promo::count();
         $options = [
             ['value' => 'percent',  'label' => 'Процент'],
             ['value' => 'currency', 'label' => 'Рубли'],
@@ -65,7 +65,7 @@ class PromoController extends Controller
 
     public function create()
     {
-        $count = Promo::all()->count();
+        $count = Promo::count();
 
         $options = [
             ['value' => 'percent',  'label' => 'Процент'],

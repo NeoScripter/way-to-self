@@ -31,7 +31,7 @@ class AudioController extends Controller
         $search = $sorting['search'];
         $options = $sorting['options'];
 
-        $count = Audio::all()->count();
+        $count = Audio::count();
 
         $audios = Audio::with(['image'])
             ->when($search, function ($query, $search) {
@@ -52,7 +52,7 @@ class AudioController extends Controller
 
     public function show(Audio $audio)
     {
-        $count = Audio::all()->count();
+        $count = Audio::count();
         $audio->load(['image', 'filters']);
 
         $filters = CategoryFilter::select(['id', 'name'])
@@ -78,7 +78,7 @@ class AudioController extends Controller
 
     public function create()
     {
-        $count = Audio::all()->count();
+        $count = Audio::count();
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')

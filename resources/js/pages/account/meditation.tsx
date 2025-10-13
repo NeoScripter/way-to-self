@@ -26,7 +26,6 @@ export default function Meditation() {
                 />
                 <EntityHeader
                     title={audio.title}
-                    description={audio.description}
                     isFavorite={isFavorite}
                     favoriteRoute={route('soul.audios.favorite', audio.id)}
                 />

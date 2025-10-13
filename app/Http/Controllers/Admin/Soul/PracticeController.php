@@ -28,7 +28,7 @@ class PracticeController extends Controller
         $search = $sorting['search'];
         $options = $sorting['options'];
 
-        $count = Practice::all()->count();
+        $count = Practice::count();
 
         $practices = Practice::with(['image'])
             ->when($search, function ($query, $search) {
@@ -49,7 +49,7 @@ class PracticeController extends Controller
 
     public function show(Practice $practice)
     {
-        $count = Practice::all()->count();
+        $count = Practice::count();
         $practice->load(['image', 'filters']);
 
         $filters = CategoryFilter::select(['id', 'name'])
@@ -76,7 +76,7 @@ class PracticeController extends Controller
 
     public function create()
     {
-        $count = Practice::all()->count();
+        $count = Practice::count();
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')

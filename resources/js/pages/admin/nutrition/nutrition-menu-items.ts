@@ -9,6 +9,11 @@ export const nutritionMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.nutrition.recipes.index',
+        title: 'Рецепты',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.nutrition.categories.index',
         title: 'Категории Р',
     },
@@ -17,36 +22,6 @@ export const nutritionMenuItems: BarMenuItem[] = [
         route: 'admin.nutrition.filters.index',
         title: 'Фильтры',
     },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Душа',
-    // },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Упражнения',
-    // },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Рецепты',
-    // },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Душа',
-    // },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Упражнения',
-    // },
-    // {
-    //     id: v4uuid(),
-    //     route: 'admin.dashboard',
-    //     title: 'Рецепты',
-    // },
     {
         id: v4uuid(),
         route: 'admin.nutrition.articles.index',

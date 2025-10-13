@@ -33,7 +33,6 @@ export default function Program() {
 
                 <EntityHeader
                     title={program.title}
-                    description={program.description}
                     isFavorite={isFavorite}
                     favoriteRoute={route('body.programs.favorite', program.id)}
                 />

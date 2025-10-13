@@ -29,7 +29,7 @@ class ExerciseController extends Controller
         $search = $sorting['search'];
         $options = $sorting['options'];
 
-        $count = Exercise::all()->count();
+        $count = Exercise::count();
 
         $exercises = Exercise::with(['image'])
             ->when($search, function ($query, $search) {
@@ -50,7 +50,7 @@ class ExerciseController extends Controller
 
     public function show(Exercise $exercise)
     {
-        $count = Exercise::all()->count();
+        $count = Exercise::count();
         $exercise->load(['image', 'filters']);
 
         $filters = CategoryFilter::select(['id', 'name'])
@@ -89,7 +89,7 @@ class ExerciseController extends Controller
 
     public function create()
     {
-        $count = Exercise::all()->count();
+        $count = Exercise::count();
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')

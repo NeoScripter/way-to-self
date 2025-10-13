@@ -26,7 +26,7 @@ class ArticleController extends Controller
         $search = $sorting['search'];
         $options = $sorting['options'];
 
-        $count = Article::all()->count();
+        $count = Article::count();
 
         $articles = Article::with(['thumbnail'])
             ->when($search, function ($query, $search) {
@@ -48,7 +48,7 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        $count = Article::all()->count();
+        $count = Article::count();
         $article->load(['image', 'thumbnail']);
 
         return Inertia::render('admin/articles/show', [
@@ -60,7 +60,7 @@ class ArticleController extends Controller
 
     public function create()
     {
-        $count = Article::all()->count();
+        $count = Article::count();
 
         return Inertia::render('admin/articles/create', [
             'count' => $count,
