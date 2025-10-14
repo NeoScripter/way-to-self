@@ -52,7 +52,7 @@ class BodyProgramController extends Controller
 
         return Inertia::render('account/program', [
             'program' => $program,
-            'video' => $program->video->hlsVideo(),
+            'video' => $program->video?->hlsVideo(),
             'isFavorite' => $isFavorite,
             'labels' => ['Главная', 'Тело', 'Программы']
         ]);

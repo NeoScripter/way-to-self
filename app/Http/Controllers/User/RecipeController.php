@@ -20,7 +20,7 @@ class RecipeController extends Controller
 
         return Inertia::render('user/recipe', [
             'recipe' => $recipe,
-            'video' => $recipe->video->hlsVideo(),
+            'video' => $recipe->video?->hlsVideo(),
             'isFavorite' => $isFavorite,
         ]);
     }

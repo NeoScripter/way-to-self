@@ -2,6 +2,7 @@ import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { useEffect } from 'react';
 import LightBtn from '../atoms/light-btn';
 
 type ExpandablePanelProps = {
@@ -15,6 +16,35 @@ export default function ExpandablePanel({
 }: ExpandablePanelProps) {
     const [show, toggle] = useToggle(false);
 
+    const collapseAllAccordions = () => {
+        document.dispatchEvent(new CustomEvent('accordion:collapseAll'));
+    };
+
+    const handleToggle = () => {
+        if (!show) {
+            // If currently closed, open this one and close others
+            collapseAllAccordions();
+            toggle(true);
+        } else {
+            // If currently open, just close this one
+            toggle(false);
+        }
+    };
+
+    useEffect(() => {
+        const handleAccordionCollapse = () => toggle(false);
+
+        document.addEventListener(
+            'accordion:collapseAll',
+            handleAccordionCollapse,
+        );
+        return () =>
+            document.removeEventListener(
+                'accordion:collapseAll',
+                handleAccordionCollapse,
+            );
+    }, []);
+
     return (
         <div
             className={cn(
@@ -24,7 +54,7 @@ export default function ExpandablePanel({
             )}
         >
             <div className="mb-4 flex items-center gap-2 md:mb-6">
-                <LightBtn onClick={() => toggle()}>
+                <LightBtn onClick={handleToggle}>
                     {label}
                     <ChevronDownIcon className="mt-1 size-5" />
                 </LightBtn>

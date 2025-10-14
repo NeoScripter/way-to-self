@@ -110,7 +110,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                             className="mt-1 block w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Название программы"
+                            placeholder="Название"
                         />
                     </TextWidget>
 
@@ -125,7 +125,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                     >
                         <TextArea
                             id="description"
-                            placeholder="Описание программы"
+                            placeholder="Описание"
                             className="mt-1 block w-full"
                             value={data.description}
                             onChange={(e) =>
@@ -191,7 +191,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                     {data.category_id && (
                         <div className="grid content-start gap-4">
                             <InputLabel htmlFor="category_id">
-                                Тип упражнения
+                                Тип рецепта
                             </InputLabel>
                             <SelectBox
                                 value={data.category_id}

@@ -71,7 +71,7 @@ final class HomeController extends Controller
             'plans' => $plans,
             'recipes' => $recipes,
             'exercises' => $exercises,
-            'video' => $video->hlsVideo(),
+            'video' => $video?->hlsVideo(),
             'audio' => $audio,
             'stream' => route('audio.stream', ['audio' => $audio->id]),
             'prefix' => 'user.articles.show'

@@ -53,7 +53,7 @@ class BodyExerciseController extends Controller
 
         return Inertia::render('account/exercise', [
             'exercise' => $exercise,
-            'video' => $exercise->video->hlsVideo(),
+            'video' => $exercise->video?->hlsVideo(),
             'isFavorite' => $isFavorite,
             'labels' => ['Главная', 'Тело', 'Упражнения']
         ]);

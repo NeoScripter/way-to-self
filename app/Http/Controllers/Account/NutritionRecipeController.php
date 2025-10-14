@@ -53,7 +53,7 @@ class NutritionRecipeController extends Controller
 
         return Inertia::render('account/recipe', [
             'recipe' => $recipe,
-            'video' => $recipe->video->hlsVideo(),
+            'video' => $recipe->video?->hlsVideo(),
             'isFavorite' => $isFavorite
         ]);
     }
