@@ -32,7 +32,7 @@ type AudioUpsertProps = {
 };
 
 export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(audio == null);
+    const [isEdited, setIsEdited] = useState(audio == null);
 
     const { filters } = usePage<{
         filters: Option<number>[];
@@ -64,7 +64,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -77,7 +77,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

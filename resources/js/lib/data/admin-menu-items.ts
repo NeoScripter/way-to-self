@@ -78,13 +78,13 @@ export const adminMenu: AdminMenuList[] = [
         id: uuidv4(),
         title: 'Управление',
         items: [
-            // {
-            //     id: uuidv4(),
-            //     title: 'Главная',
-            //     route: 'admin.dashboard',
-            //     icon: Home,
-            //     allowed: ['admin', 'editor'],
-            // },
+            {
+                id: uuidv4(),
+                title: 'Главная',
+                route: 'admin.home.overview.show',
+                icon: Home,
+                allowed: ['admin', 'editor'],
+            },
             {
                 id: uuidv4(),
                 title: 'Питание',
@@ -108,7 +108,7 @@ export const adminMenu: AdminMenuList[] = [
             },
             {
                 id: uuidv4(),
-                title: 'Новости',
+                title: 'Статьи',
                 route: 'admin.news.articles.index',
                 icon: Articles,
                 allowed: ['admin', 'editor'],

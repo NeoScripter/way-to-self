@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ContentType;
 use App\HasFilterSearch;
+use App\HasVideos;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Exercise extends Model
 {
     /** @use HasFactory<\Database\Factories\ExerciseFactory> */
-    use HasFactory, ConvertsMarkdownToHtml, HasFilterSearch;
+    use HasVideos, HasFactory, ConvertsMarkdownToHtml, HasFilterSearch;
 
     protected $with = ['category'];
 

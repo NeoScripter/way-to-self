@@ -34,8 +34,8 @@ export default function ImgInput({
     useEffect(() => {
         const resetImage = () => setPreview(src);
 
-        document.addEventListener('image:clear', resetImage);
-        return () => document.removeEventListener('image:clear', resetImage);
+        document.addEventListener('media:clear', resetImage);
+        return () => document.removeEventListener('media:clear', resetImage);
     }, [src]);
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {

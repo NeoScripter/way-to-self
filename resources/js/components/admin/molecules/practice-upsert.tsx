@@ -35,7 +35,7 @@ export default function PracticeUpsert({
     routeName,
     practice,
 }: PracticeUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(practice == null);
+    const [isEdited, setIsEdited] = useState(practice == null);
 
     const { filters } = usePage<{
         filters: Option<number>[];
@@ -67,7 +67,7 @@ export default function PracticeUpsert({
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -80,7 +80,7 @@ export default function PracticeUpsert({
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

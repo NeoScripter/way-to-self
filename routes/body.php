@@ -76,7 +76,8 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
         Route::post('/store', [CategoryController::class, 'store'])->name('store');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
-        Route::prefix('/exercises')->name('exercises.')->group(function () {
+
+    Route::prefix('/exercises')->name('exercises.')->group(function () {
         Route::get('/', [ExerciseController::class, 'index'])->name('index');
         Route::post('/store', [ExerciseController::class, 'store'])->name('store');
         Route::post('/{exercise}', [ExerciseController::class, 'update'])->name('update');
@@ -102,4 +103,3 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/body')
 
     Route::patch('/{id}', [BlockExerciseController::class, 'update'])->name('exercise.toggle');
 });
-

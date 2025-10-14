@@ -35,7 +35,7 @@ export default function ProgramUpsert({
     routeName,
     program,
 }: ProgramUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(program == null);
+    const [isEdited, setIsEdited] = useState(program == null);
 
     const { filters } = usePage<{
         filters: Option<number>[];
@@ -67,7 +67,7 @@ export default function ProgramUpsert({
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -80,7 +80,7 @@ export default function ProgramUpsert({
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

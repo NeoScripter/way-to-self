@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\AdminEditorController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\Home\FAQController;
+use App\Http\Controllers\Admin\Home\OverviewController;
+use App\Http\Controllers\Admin\Home\ReviewController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
@@ -60,5 +63,31 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::get('/{article}', [ArticleController::class, 'show'])->name('show');
         Route::post('/{article}', [ArticleController::class, 'update'])->name('update');
         Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
+    });
+});
+
+Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/home')->name('admin.home.')->group(function () {
+
+    Route::prefix('/faqs')->name('faqs.')->group(function () {
+        Route::post('/store', [FAQController::class, 'store'])->name('store');
+        Route::get('/', [FAQController::class, 'index'])->name('index');
+        Route::post('/{faq}', [FAQController::class, 'update'])->name('update');
+        Route::delete('/{faq}', [FAQController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/overview')->name('overview.')->group(function () {
+        Route::get('/', [OverviewController::class, 'show'])->name('show');
+        Route::post('/store', [OverviewController::class, 'store'])->name('store');
+        Route::post('/{overview}', [OverviewController::class, 'update'])->name('update');
+        Route::delete('/', [OverviewController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/reviews')->name('reviews.')->group(function () {
+        Route::get('/', [ReviewController::class, 'index'])->name('index');
+        Route::post('/store', [ReviewController::class, 'store'])->name('store');
+        Route::post('/{review}', [ReviewController::class, 'update'])->name('update');
+        Route::get('/create', [ReviewController::class, 'create'])->name('create');
+        Route::get('/{review}', [ReviewController::class, 'show'])->name('show');
+        Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('destroy');
     });
 });

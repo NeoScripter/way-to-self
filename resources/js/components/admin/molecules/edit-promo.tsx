@@ -46,7 +46,7 @@ type EditPromoProps = {
 export default function EditPromo({ routeName, promo }: EditPromoProps) {
     const { options } = usePage<{ options: Option<string>[] }>().props;
 
-    const [isEdited, setInfoEdited] = useState(false);
+    const [isEdited, setIsEdited] = useState(false);
 
     const {
         data,
@@ -67,7 +67,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -98,7 +98,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
             preserveScroll: true,
             preserveState: false,
             onSuccess: () => {
-                setInfoEdited(false);
+                setIsEdited(false);
                 notify('Данные успешно изменены!');
                 setDefaults();
             },

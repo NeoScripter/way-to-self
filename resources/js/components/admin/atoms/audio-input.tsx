@@ -1,6 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import type { AxiosProgressEvent } from 'axios';
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import { HlsPlayer } from './hls-player';
 import LoadingRing from './loading-ring';
 import UploadFileBtn from './upload-file-btn';
@@ -27,7 +27,12 @@ export default function AudioInput({
     const [preview, setPreview] = useState(stream);
     const id = useId();
 
-    console.log(stream)
+    useEffect(() => {
+        const resetImage = () => setPreview(stream);
+
+        document.addEventListener('media:clear', resetImage);
+        return () => document.removeEventListener('media:clear', resetImage);
+    }, [stream]);
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;

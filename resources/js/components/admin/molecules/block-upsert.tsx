@@ -24,7 +24,7 @@ export default function BlockUpsert({
     routeName,
     onClick,
 }: BlockUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(block == null);
+    const [isEdited, setIsEdited] = useState(block == null);
 
     const {
         data,
@@ -42,7 +42,7 @@ export default function BlockUpsert({
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -55,7 +55,7 @@ export default function BlockUpsert({
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use App\HasFilterSearch;
-
+use App\HasVideos;
 
 class Practice extends Model
 {
     /** @use HasFactory<\Database\Factories\PracticeFactory> */
-    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
+    use HasVideos, HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
 
     public function image(): MorphOne
     {

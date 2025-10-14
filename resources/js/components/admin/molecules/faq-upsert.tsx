@@ -28,7 +28,7 @@ export default function FaqItemUpsert({
     faq,
     closeForm,
 }: FaqItemUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(faq == null);
+    const [isEdited, setIsEdited] = useState(faq == null);
 
     const isCreateForm = onDeleteClick == null;
 
@@ -51,7 +51,7 @@ export default function FaqItemUpsert({
         if (closeForm) {
             closeForm();
         } else {
-            setInfoEdited((o) => !o);
+            setIsEdited((o) => !o);
         }
         reset();
         clearErrors();
@@ -66,7 +66,7 @@ export default function FaqItemUpsert({
             onSuccess: () => {
                 notify('Сохранено!');
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
                 if (closeForm) {
                     closeForm();
                 }

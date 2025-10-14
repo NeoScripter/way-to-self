@@ -52,7 +52,7 @@ export const navConfig: Record<string, { route: string; forms: string[] }> = {
         forms: ['медитация', 'медитации', 'медитаций'],
     },
     reviews: {
-        route: 'admin.reviews.index',
+        route: 'admin.home.reviews.index',
         forms: ['отзыв', 'отзыва', 'отзывов'],
     },
 };

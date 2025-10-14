@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 import type { AxiosProgressEvent } from 'axios';
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import LoadingRing from './loading-ring';
 import UploadFileBtn from './upload-file-btn';
 
@@ -29,6 +29,13 @@ export default function VideoInput({
 
     const [preview, setPreview] = useState(video);
     const id = useId();
+
+    useEffect(() => {
+        const resetImage = () => setPreview(video);
+
+        document.addEventListener('media:clear', resetImage);
+        return () => document.removeEventListener('media:clear', resetImage);
+    }, [video]);
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;

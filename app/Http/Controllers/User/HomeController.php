@@ -10,6 +10,7 @@ use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\FaqItem;
+use App\Models\Overview;
 use App\Models\Plan;
 use App\Models\Recipe;
 use App\Models\Review;
@@ -60,9 +61,8 @@ final class HomeController extends Controller
             ->free()
             ->first();
 
-        $video = Video::whereIn('videoable_id', $recipes->pluck('id'))
-            ->first()
-            ->makeHidden(['video_path']);
+        $overview = Overview::first();
+        $video = $overview?->video?->hlsVideo();
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,
@@ -71,7 +71,7 @@ final class HomeController extends Controller
             'plans' => $plans,
             'recipes' => $recipes,
             'exercises' => $exercises,
-            'video' => $video?->hlsVideo(),
+            'video' => $video,
             'audio' => $audio,
             'stream' => route('audio.stream', ['audio' => $audio->id]),
             'prefix' => 'user.articles.show'

@@ -29,7 +29,7 @@ export default function ArticleUpsert({
     routeName,
     article,
 }: ArticleUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(article == null);
+    const [isEdited, setIsEdited] = useState(article == null);
 
     const {
         data,
@@ -53,7 +53,7 @@ export default function ArticleUpsert({
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -67,7 +67,7 @@ export default function ArticleUpsert({
             onSuccess: () => {
                 notify('Сохранено!');
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\ArticleType;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreArticleRequest;
+use App\Http\Requests\Admin\UpdateArticleRequest;
 use App\Models\Image;
 use App\Models\Article;
 use App\Support\SortAndSearchHelper;
@@ -66,20 +68,11 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body' => 'required|string|max:64000',
-            'image_alt'         => 'required|string|max:400',
-            'thumbnail_alt'         => 'required|string|max:400',
-            'image'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'thumbnail'       => 'required|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-        ]);
+        $validated = $request->validated();
 
         $validated['type'] = ArticleType::NEWS;
-
 
         $article = Article::create(Arr::except($validated, ['image', 'image_alt', 'thumbnail', 'thumbnail_alt']));
 
@@ -106,17 +99,9 @@ class ArticleController extends Controller
         return redirect()->route('admin.news.articles.index')->with('message', 'Статья успешно удалена');
     }
 
-    public function update(Article $article, Request $request): RedirectResponse
+    public function update(Article $article, UpdateArticleRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
-            'body' => 'required|string|max:64000',
-            'image_alt'         => 'required|string|max:400',
-            'thumbnail_alt'         => 'required|string|max:400',
-            'image'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-            'thumbnail'       => 'nullable|mimes:jpg,jpeg,png,bmp,webp,svg|max:20480',
-        ]);
+        $validated = $request->validated();
 
         $validated['type'] = ArticleType::NEWS;
 

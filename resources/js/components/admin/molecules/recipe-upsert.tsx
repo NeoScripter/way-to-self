@@ -1,17 +1,15 @@
 import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import { Recipe } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
+import InputError from '../atoms/input-error';
+import InputLabel from '../atoms/input-label';
 import SelectBox, { Option } from '../atoms/select-box';
 import TagPicker from '../atoms/tag-picker';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
-import InputLabel from '../atoms/input-label';
-import InputError from '../atoms/input-error';
 import { ActionBtns } from './action-btns';
 
 type RecipeForm = {
@@ -32,7 +30,7 @@ type RecipeUpsertProps = {
 };
 
 export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(recipe == null);
+    const [isEdited, setIsEdited] = useState(recipe == null);
 
     const { categories, filters } = usePage<{
         categories: Option<number>[];
@@ -70,7 +68,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -83,7 +81,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };
@@ -135,7 +133,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                     </TextWidget>
                 </div>
 
-                <div className="grid max-w-200 gap-4 md:grid-cols-3 sm:grid-cols-2">
+                <div className="grid max-w-200 gap-4 sm:grid-cols-2 md:grid-cols-3">
                     <TextWidget
                         label="Продолжительность (мин)"
                         key="Продолжительность"

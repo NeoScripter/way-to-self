@@ -20,7 +20,7 @@ export function ActionBtns({
 }: ActionBtnsProps) {
 
     const clearImageField = () => {
-        document.dispatchEvent(new CustomEvent('image:clear'));
+        document.dispatchEvent(new CustomEvent('media:clear'));
     };
 
     const handleCancel = () => {

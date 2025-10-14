@@ -41,7 +41,7 @@ type ProfileInfoProps = {
 };
 
 export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
-    const [isEdited, setInfoEdited] = useState(false);
+    const [isEdited, setIsEdited] = useState(false);
 
     const {
         data,
@@ -62,7 +62,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -91,7 +91,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
             preserveScroll: true,
             preserveState: false,
             onSuccess: () => {
-                setInfoEdited(false);
+                setIsEdited(false);
                 notify('Данные успешно изменены!');
                 setDefaults();
             },

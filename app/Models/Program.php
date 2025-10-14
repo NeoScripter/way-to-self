@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\HasFilterSearch;
+use App\HasVideos;
 use App\Models\Concerns\ConvertsMarkdownToHtml;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Program extends Model
 {
     /** @use HasFactory<\Database\Factories\ProgramFactory> */
-    use HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
+    use HasVideos, HasFactory, HasFilterSearch, ConvertsMarkdownToHtml;
 
     public function image(): MorphOne
     {

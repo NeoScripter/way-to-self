@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ContentType;
 use App\HasFilterSearch;
+use App\HasVideos;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Recipe extends Model
 {
     /** @use HasFactory<\Database\Factories\RecipeFactory> */
-    use HasFactory, HasFilterSearch;
+    use HasFactory, HasFilterSearch, HasVideos;
 
     protected $with = ['category'];
 

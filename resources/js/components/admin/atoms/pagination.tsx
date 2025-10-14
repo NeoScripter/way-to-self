@@ -132,7 +132,7 @@ function PaginationBtn({
             'ring-transparent gap-1 pb-1.5 sm:pb-1 sm:size-9':
                 isNavigationButton,
             // Disabled state
-            'opacity-50': !link.url,
+            'opacity-50 cursor-not-allowed': !link.url,
         },
     );
 

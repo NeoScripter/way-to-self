@@ -25,7 +25,7 @@ export default function FilterUpsert({
     filter,
     closeForm,
 }: FilterUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(filter == null);
+    const [isEdited, setIsEdited] = useState(filter == null);
 
     const isCreateForm = onDeleteClick == null;
 
@@ -46,7 +46,7 @@ export default function FilterUpsert({
         if (closeForm) {
             closeForm();
         } else {
-            setInfoEdited((o) => !o);
+            setIsEdited((o) => !o);
         }
         reset();
         clearErrors();
@@ -61,7 +61,7 @@ export default function FilterUpsert({
             onSuccess: () => {
                 notify('Сохранено!');
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
                 if (closeForm) {
                     closeForm();
                 }

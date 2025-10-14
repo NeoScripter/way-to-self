@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use AhoCorasick\MultiStringMatcher;
+use App\Models\HeroVideo;
+use App\Models\Overview;
 use App\Models\Plan;
 
 class AppServiceProvider extends ServiceProvider
@@ -50,6 +52,7 @@ class AppServiceProvider extends ServiceProvider
             'exercise' => Exercise::class,
             'recipe_info' => RecipeInfo::class,
             'recipe_step' => RecipeStep::class,
+            'overview' => Overview::class,
         ]);
     }
 }

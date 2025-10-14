@@ -29,7 +29,7 @@ export default function RecipeInfoUpsert({
     routeName,
     onClick,
 }: RecipeInfoUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(info == null);
+    const [isEdited, setIsEdited] = useState(info == null);
     const [infoType, setInfoType] = useState<'text' | 'image'>(() =>
         info?.image != null ? 'image' : 'text',
     );
@@ -54,7 +54,7 @@ export default function RecipeInfoUpsert({
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -72,7 +72,7 @@ export default function RecipeInfoUpsert({
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

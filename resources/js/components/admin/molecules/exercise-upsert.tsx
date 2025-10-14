@@ -39,7 +39,7 @@ export default function ExerciseUpsert({
     routeName,
     exercise,
 }: ExerciseUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(exercise == null);
+    const [isEdited, setIsEdited] = useState(exercise == null);
 
     const { categories, filters } = usePage<{
         categories: Option<number>[];
@@ -86,7 +86,7 @@ export default function ExerciseUpsert({
     }, []);
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -100,7 +100,7 @@ export default function ExerciseUpsert({
             onSuccess: () => {
                 // notify('Сохранено!');
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
             },
         });
     };

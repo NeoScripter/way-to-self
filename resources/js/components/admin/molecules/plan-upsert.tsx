@@ -25,7 +25,7 @@ type PlanUpsertProps = {
 };
 
 export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
-    const [isEdited, setInfoEdited] = useState(plan == null);
+    const [isEdited, setIsEdited] = useState(plan == null);
 
     const {
         data,
@@ -48,7 +48,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -60,7 +60,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
             preserveScroll: true,
             preserveState: false,
             onSuccess: () => {
-                setInfoEdited(false);
+                setIsEdited(false);
                 notify('Сохранено!');
                 setDefaults();
             },

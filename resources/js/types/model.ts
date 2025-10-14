@@ -24,7 +24,7 @@ export type Audio = {
     type: string;
     created_at?: string;
     updated_at?: string;
-    original_url: any;
+    audio_url: any;
     hls_url: any;
     stream_path: any;
     image?: Image;
@@ -89,6 +89,10 @@ export type Image = {
     created_at?: string;
     updated_at?: string;
     imageable?: any;
+};
+export type Overview = {
+    id: number;
+    video?: Video;
 };
 export type Plan = {
     id: number;

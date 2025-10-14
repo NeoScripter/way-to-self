@@ -42,7 +42,7 @@ export default function ProfileInfo() {
         auth: { user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'> };
     }>().props;
 
-    const [isEdited, setInfoEdited] = useState(false);
+    const [isEdited, setIsEdited] = useState(false);
 
     const {
         data,
@@ -63,7 +63,7 @@ export default function ProfileInfo() {
     });
 
     const handleCancelClick = () => {
-        setInfoEdited((o) => !o);
+        setIsEdited((o) => !o);
         reset();
         clearErrors();
     };
@@ -92,7 +92,7 @@ export default function ProfileInfo() {
             preserveScroll: true,
             onSuccess: () => {
                 setDefaults();
-                setInfoEdited(false);
+                setIsEdited(false);
                 notify('Данные успешно изменены!');
             },
         });
