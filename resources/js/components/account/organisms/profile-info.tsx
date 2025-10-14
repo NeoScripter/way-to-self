@@ -42,7 +42,7 @@ export default function ProfileInfo() {
         auth: { user: Pick<User, 'name' | 'surname' | 'email' | 'telegram'> };
     }>().props;
 
-    const [infoEdited, setInfoEdited] = useState(false);
+    const [isEdited, setInfoEdited] = useState(false);
 
     const {
         data,
@@ -71,7 +71,7 @@ export default function ProfileInfo() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        if (!infoEdited) return;
+        if (!isEdited) return;
 
         const result = schema.safeParse(data);
         if (!result.success) {
@@ -110,7 +110,7 @@ export default function ProfileInfo() {
                         <div className="grid content-start gap-2">
                             <Label htmlFor="name">Имя</Label>
 
-                            {infoEdited ? (
+                            {isEdited ? (
                                 <Input
                                     id="name"
                                     className="mt-1 block w-full"
@@ -134,7 +134,7 @@ export default function ProfileInfo() {
                         <div className="grid content-start gap-2">
                             <Label htmlFor="name">Фамилия</Label>
 
-                            {infoEdited ? (
+                            {isEdited ? (
                                 <Input
                                     id="surname"
                                     className="mt-1 block w-full"
@@ -159,7 +159,7 @@ export default function ProfileInfo() {
                         <div className="grid content-start gap-2">
                             <Label htmlFor="email">Email</Label>
 
-                            {infoEdited ? (
+                            {isEdited ? (
                                 <Input
                                     id="email"
                                     type="email"
@@ -185,7 +185,7 @@ export default function ProfileInfo() {
                         <div className="grid content-start gap-2">
                             <Label htmlFor="telegram">Логин в телеграм</Label>
 
-                            {infoEdited ? (
+                            {isEdited ? (
                                 <Input
                                     id="telegram"
                                     type="telegram"
@@ -215,12 +215,12 @@ export default function ProfileInfo() {
                             className="cursor-pointer rounded-full px-6 py-3 text-sm sm:text-base"
                             disabled={processing}
                         >
-                            {infoEdited ? 'Отменить' : 'Редактировать'}
+                            {isEdited ? 'Отменить' : 'Редактировать'}
                         </Button>
 
                         <NeutralBtn
                             className="px-8 py-3 sm:px-12"
-                            disabled={processing || !infoEdited}
+                            disabled={processing || !isEdited}
                         >
                             {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
                         </NeutralBtn>

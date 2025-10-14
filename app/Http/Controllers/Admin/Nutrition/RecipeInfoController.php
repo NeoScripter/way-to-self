@@ -3,21 +3,31 @@
 namespace App\Http\Controllers\Admin\Nutrition;
 
 use App\Http\Controllers\Controller;
-use App\Models\Program;
+use App\Models\Image;
+use App\Models\Recipe;
 use App\Models\RecipeInfo;
+use App\Rules\AdminFieldRules;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class RecipeInfoController extends Controller
 {
-    public function store(Request $request, Program $program)
+    public function store(Request $request, Recipe $recipe)
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:400',
-            'description' => 'required|string|max:4000',
+            'title'       => AdminFieldRules::title(),
+            'body'       => AdminFieldRules::body(false),
+            'image'       => AdminFieldRules::image(false),
+            'image_alt'       => AdminFieldRules::imageAlt(false),
+            'order' => AdminFieldRules::order(),
         ]);
 
-        $program->infos()->create($validated);
+        $info = $recipe->infos()->create(Arr::except($validated, ['image', 'image_alt']));
+
+        if ($request->hasFile('image')) {
+            Image::attachTo($info, $request->file('image'), $validated['image_alt'], 720, 'image');
+        }
 
         return redirect()
             ->back()
@@ -36,11 +46,21 @@ class RecipeInfoController extends Controller
     public function update(RecipeInfo $info, Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'       => 'nullable|string|max:400',
-            'description' => 'nullable|string|max:4000',
+            'title'       => AdminFieldRules::title(),
+            'body'       => AdminFieldRules::body(false),
+            'image'       => AdminFieldRules::image(false),
+            'image_alt'       => AdminFieldRules::imageAlt(false),
+            'order' => AdminFieldRules::order(),
         ]);
 
-        $info->update($validated);
+        $info->update(Arr::except($validated, ['image', 'image_alt']));
+
+        if ($request->hasFile('image')) {
+            if ($info->image) {
+                $info->image->delete();
+            }
+            Image::attachTo($info, $request->file('image'), $validated['image_alt'], 720, 'image');
+        }
 
         return redirect()->back()->with('message', 'Блок успешно обновлен!');
     }

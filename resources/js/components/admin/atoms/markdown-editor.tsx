@@ -80,7 +80,7 @@ function MarkdownBtn({
                 title={title}
                 onClick={() => onClick(editor)}
                 className={cn(
-                    'cursor-pointer rounded p-2 transition-colors hover:bg-indigo-400/60',
+                    'cursor-pointer rounded p-2 transition-colors hover:bg-bright-salad/60',
                     isActive && 'bg-bright-salad text-white',
                 )}
             >

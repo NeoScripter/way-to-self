@@ -52,7 +52,7 @@ class RecipeController extends Controller
     public function show(Recipe $recipe)
     {
         $count = Recipe::count();
-        $recipe->load(['image', 'filters']);
+        $recipe->load(['image', 'filters', 'infos']);
 
         $filters = CategoryFilter::select(['id', 'name'])
             ->whereNotNull('name')

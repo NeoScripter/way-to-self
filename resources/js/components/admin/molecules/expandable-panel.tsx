@@ -1,4 +1,5 @@
 import useToggle from '@/hooks/use-toggle';
+import { cn } from '@/lib/utils';
 import { Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import LightBtn from '../atoms/light-btn';
@@ -15,7 +16,13 @@ export default function ExpandablePanel({
     const [show, toggle] = useToggle(false);
 
     return (
-        <div className="space-y-6">
+        <div
+            className={cn(
+                'space-y-6 rounded-md transition-[padding] duration-200 ease-in',
+                show &&
+                    'sm:border sm:border-dark-green sm:p-4 sm:shadow-md md:p-8',
+            )}
+        >
             <div className="mb-4 flex items-center gap-2 md:mb-6">
                 <LightBtn onClick={() => toggle()}>
                     {label}

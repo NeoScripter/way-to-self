@@ -15,6 +15,7 @@ import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
 import ExpandablePanel from './expandable-panel';
+import { ActionBtns } from './action-btns';
 
 type ExerciseForm = {
     title: string;
@@ -38,7 +39,7 @@ export default function ExerciseUpsert({
     routeName,
     exercise,
 }: ExerciseUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(exercise == null);
+    const [isEdited, setInfoEdited] = useState(exercise == null);
 
     const { categories, filters } = usePage<{
         categories: Option<number>[];
@@ -116,7 +117,7 @@ export default function ExerciseUpsert({
                         label="Название"
                         key="Название"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -134,7 +135,7 @@ export default function ExerciseUpsert({
                         label="Описание"
                         key="Описание"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -156,7 +157,7 @@ export default function ExerciseUpsert({
                         label="Продолжительность (мин)"
                         key="Продолжительность"
                         htmlFor="duration"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.duration}
                         fallback={data.duration}
                     >
@@ -182,7 +183,7 @@ export default function ExerciseUpsert({
                         label="Сложность (1-10)"
                         key="Сложность (1-10)"
                         htmlFor="complexity"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.complexity}
                         fallback={data.complexity}
                     >
@@ -214,7 +215,7 @@ export default function ExerciseUpsert({
                                 onChange={(val) => setData('category_id', val)}
                                 options={categories}
                                 className="mt-1"
-                                disabled={!infoEdited}
+                                disabled={!isEdited}
                             />
                             <InputError
                                 className="mt-2"
@@ -228,7 +229,7 @@ export default function ExerciseUpsert({
                     <ImgInput
                         key="image-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('image', file)}
                         src={exercise?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
@@ -241,7 +242,7 @@ export default function ExerciseUpsert({
                     <VideoInput
                         key="video-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('video', file)}
                         error={errors.video}
                     />
@@ -250,7 +251,7 @@ export default function ExerciseUpsert({
                 <TagPicker
                     className="mb-15"
                     value={data.filters}
-                    disabled={!infoEdited}
+                    disabled={!isEdited}
                     onChange={(v) => setData('filters', v)}
                     error={errors.filters}
                     options={filters}
@@ -262,7 +263,7 @@ export default function ExerciseUpsert({
                             label="Содержание"
                             key="Содержание"
                             htmlFor="body"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.body}
                             fallback={
                                 <span
@@ -282,22 +283,13 @@ export default function ExerciseUpsert({
                     </ExpandablePanel>
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {exercise != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-                </div>
+                <ActionBtns
+                    isCreate={exercise == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                />
             </form>
         </div>
     );

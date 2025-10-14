@@ -35,7 +35,7 @@ export default function FaqItems({ namespace }: FaqItemsProps) {
                 <Transition show={showCreatePanel}>
                     <li
                         key={`create-faq-item`}
-                        className="max-h-500 list-decimal font-bold transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out"
+                        className="max-h-500 list-decimal transition-all duration-500 ease-in data-closed:max-h-0 data-closed:opacity-0 data-closed:ease-out"
                     >
                         <FaqItemUpsert
                             closeForm={() => toggleCreatePanel(false)}
@@ -46,7 +46,7 @@ export default function FaqItems({ namespace }: FaqItemsProps) {
                 {faqs?.map((faq) => (
                     <li
                         key={`faq-${faq.id}`}
-                        className="list-decimal font-bold"
+                        className="list-decimal"
                     >
                         <FaqItemUpsert
                             onDeleteClick={() => setSelectedFaq(faq)}

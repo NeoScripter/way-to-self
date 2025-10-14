@@ -1,15 +1,14 @@
 import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { cn } from '@/lib/utils';
 import { FaqItem } from '@/types/model';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import EditBtn from '../atoms/edit-btn';
 import MarkdownEditor from '../atoms/markdown-editor';
 import { TextWidget } from '../atoms/text-widget';
 import TrashBtn from '../atoms/trash-btn';
+import { ActionBtns } from './action-btns';
 
 type FaqItemForm = {
     title: string;
@@ -29,7 +28,7 @@ export default function FaqItemUpsert({
     faq,
     closeForm,
 }: FaqItemUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(faq == null);
+    const [isEdited, setInfoEdited] = useState(faq == null);
 
     const isCreateForm = onDeleteClick == null;
 
@@ -91,11 +90,11 @@ export default function FaqItemUpsert({
                             label="Вопрос"
                             key="Вопрос"
                             htmlFor="title"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.title}
                             fallback={data.title}
-                            fbClass="text-left sm:text-lg md:text-lg shadow-none justify-start border-none"
-                            labelClass={cn(infoEdited ? '' : 'hidden')}
+                            fbClass="text-left font-bold sm:text-lg md:text-lg shadow-none justify-start border-none"
+                            labelClass={cn(isEdited ? '' : 'hidden')}
                             className="flex-1 shrink-0"
                         >
                             <Input
@@ -109,7 +108,7 @@ export default function FaqItemUpsert({
                             />
                         </TextWidget>
 
-                        {faq != null && !infoEdited && !isCreateForm && (
+                        {faq != null && !isEdited && !isCreateForm && (
                             <div className="flex items-center justify-end gap-2">
                                 <button
                                     type="button"
@@ -131,7 +130,7 @@ export default function FaqItemUpsert({
                         label="Ответ"
                         key="Ответ"
                         htmlFor="body"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.body}
                         fallback={
                             <span
@@ -142,8 +141,8 @@ export default function FaqItemUpsert({
                             />
                         }
                         fbClass="block py-2 shadow-none min-h-20 h-auto text-left border-none px-3"
-                        labelClass={cn(infoEdited ? '' : 'hidden')}
-                        className={cn(infoEdited ? 'mt-4' : '')}
+                        labelClass={cn(isEdited ? '' : 'hidden')}
+                        className={cn(isEdited ? 'mt-4' : '')}
                     >
                         <MarkdownEditor
                             value={data.body}
@@ -152,20 +151,13 @@ export default function FaqItemUpsert({
                     </TextWidget>
                 </div>
 
-                {infoEdited && (
-                    <div className="mt-8 flex flex-col items-center justify-center gap-2 font-normal sm:flex-row sm:gap-4 md:mt-12 md:justify-end">
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                        <NeutralBtn
-                            className="px-8 py-3 sm:px-12"
-                            disabled={processing || !infoEdited}
-                        >
-                            {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                        </NeutralBtn>
-                    </div>
+                {isEdited && (
+                    <ActionBtns
+                        edited={isEdited}
+                        onCancel={handleCancelClick}
+                        saved={recentlySuccessful}
+                        loading={processing}
+                    />
                 )}
             </form>
         </div>

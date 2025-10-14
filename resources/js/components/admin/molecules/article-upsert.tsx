@@ -1,14 +1,13 @@
 import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { Article } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
 import MarkdownEditor from '../atoms/markdown-editor';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
+import { ActionBtns } from './action-btns';
 import ExpandablePanel from './expandable-panel';
 
 type ArticleForm = {
@@ -30,7 +29,7 @@ export default function ArticleUpsert({
     routeName,
     article,
 }: ArticleUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(article == null);
+    const [isEdited, setInfoEdited] = useState(article == null);
 
     const {
         data,
@@ -85,7 +84,7 @@ export default function ArticleUpsert({
                         label="Название"
                         key="Название"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -103,7 +102,7 @@ export default function ArticleUpsert({
                         label="Описание"
                         key="Описание"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -124,7 +123,7 @@ export default function ArticleUpsert({
                             label="Содержание"
                             key="Содержание"
                             htmlFor="body"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.body}
                             fallback={
                                 <span
@@ -148,7 +147,7 @@ export default function ArticleUpsert({
                     <ImgInput
                         key="image-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('image', file)}
                         src={article?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
@@ -162,7 +161,7 @@ export default function ArticleUpsert({
                     <ImgInput
                         key="thumbnail-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('thumbnail', file)}
                         src={article?.thumbnail?.path}
                         onAltChange={(val) => setData('thumbnail_alt', val)}
@@ -173,22 +172,13 @@ export default function ArticleUpsert({
                     />
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {article != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-                </div>
+                <ActionBtns
+                    isCreate={article == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                />
             </form>
         </div>
     );

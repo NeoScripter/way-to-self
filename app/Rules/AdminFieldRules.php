@@ -11,14 +11,20 @@ class AdminFieldRules
         return ['required', 'string', 'max:400'];
     }
 
-    public static function description(): array
+    public static function description(bool $required = true): array
     {
-        return ['required', 'string', 'max:4000'];
+        return array_merge(
+            $required ? ['required'] : ['nullable'],
+            ['string', 'max:4000']
+        );
     }
 
-    public static function body(): array
+    public static function body(bool $required = true): array
     {
-        return ['required', 'string', 'max:64000'];
+        return array_merge(
+            $required ? ['required'] : ['nullable'],
+            ['string', 'max:64000']
+        );
     }
 
     public static function duration(): array
@@ -38,7 +44,7 @@ class AdminFieldRules
 
     public static function categoryId(): array
     {
-        return ['nullable','numeric', Rule::exists('content_categories', 'id')];
+        return ['nullable', 'numeric', Rule::exists('content_categories', 'id')];
     }
 
     public static function filtersEach(): array
@@ -46,11 +52,13 @@ class AdminFieldRules
         return ['numeric', Rule::exists('category_filters', 'id')];
     }
 
-    public static function imageAlt(): array
+    public static function imageAlt(bool $required = true): array
     {
-        return ['required', 'string', 'max:400'];
+        return array_merge(
+            $required ? ['required'] : ['nullable'],
+            ['string', 'max:400']
+        );
     }
-
     public static function image(bool $required = true): array
     {
         return array_merge(
@@ -64,6 +72,14 @@ class AdminFieldRules
         return array_merge(
             $required ? ['required'] : ['nullable'],
             ['file', 'mimetypes:audio/mpeg,audio/mp3,audio/wav,audio/x-m4a,audio/aac']
+        );
+    }
+
+    public static function order(bool $required = true): array
+    {
+        return array_merge(
+            $required ? ['required'] : ['nullable'],
+            ['numeric', 'min:0']
         );
     }
 

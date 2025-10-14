@@ -12,6 +12,7 @@ import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import ExpandablePanel from './expandable-panel';
 import AudioInput from '../atoms/audio-input';
+import { ActionBtns } from './action-btns';
 
 type AudioForm = {
     title: string;
@@ -31,7 +32,7 @@ type AudioUpsertProps = {
 };
 
 export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(audio == null);
+    const [isEdited, setInfoEdited] = useState(audio == null);
 
     const { filters } = usePage<{
         filters: Option<number>[];
@@ -93,7 +94,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                         label="Название"
                         key="Название"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -111,7 +112,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                         label="Описание"
                         key="Описание"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -133,7 +134,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                         label="Продолжительность (мин)"
                         key="Продолжительность"
                         htmlFor="duration"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.duration}
                         fallback={data.duration}
                     >
@@ -159,7 +160,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                         label="Сложность (1-10)"
                         key="Сложность (1-10)"
                         htmlFor="complexity"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.complexity}
                         fallback={data.complexity}
                     >
@@ -186,7 +187,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                     <ImgInput
                         key="image-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('image', file)}
                         src={audio?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
@@ -200,7 +201,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                         label='Аудио'
                         key="audio-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('audio', file)}
                         error={errors.audio}
                     />
@@ -209,7 +210,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                 <TagPicker
                     className="mb-15"
                     value={data.filters}
-                    disabled={!infoEdited}
+                    disabled={!isEdited}
                     onChange={(v) => setData('filters', v)}
                     error={errors.filters}
                     options={filters}
@@ -221,7 +222,7 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                             label="Содержание"
                             key="Содержание"
                             htmlFor="body"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.body}
                             fallback={
                                 <span
@@ -241,22 +242,13 @@ export default function AudioUpsert({ routeName, audio }: AudioUpsertProps) {
                     </ExpandablePanel>
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {audio != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-                </div>
+                <ActionBtns
+                    isCreate={audio == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                />
             </form>
         </div>
     );

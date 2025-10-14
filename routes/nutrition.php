@@ -71,8 +71,8 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/nutrit
     });
 
     Route::prefix('/infos')->name('infos.')->group(function () {
-        Route::post('/store/{recipe_info}', [RecipeInfoController::class, 'store'])->name('store');
-        Route::post('/{block}', [RecipeInfoController::class, 'update'])->name('update');
-        Route::delete('/{block}', [RecipeInfoController::class, 'destroy'])->name('destroy');
+        Route::post('/store/{recipe}', [RecipeInfoController::class, 'store'])->name('store');
+        Route::post('/{info}', [RecipeInfoController::class, 'update'])->name('update');
+        Route::delete('/{info}', [RecipeInfoController::class, 'destroy'])->name('destroy');
     });
 });

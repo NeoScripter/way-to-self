@@ -46,7 +46,7 @@ type EditPromoProps = {
 export default function EditPromo({ routeName, promo }: EditPromoProps) {
     const { options } = usePage<{ options: Option<string>[] }>().props;
 
-    const [infoEdited, setInfoEdited] = useState(false);
+    const [isEdited, setInfoEdited] = useState(false);
 
     const {
         data,
@@ -114,7 +114,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                             label="Название промокода"
                             key="Название промокода"
                             htmlFor="name"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.name}
                             fallback={data.name}
                         >
@@ -133,7 +133,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                             label="Дата окончания"
                             key="Дата окончания"
                             htmlFor="expires_at"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.expires_at}
                             fallback={data.expires_at}
                         >
@@ -152,7 +152,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                             label="Скидка"
                             key="Скидка"
                             htmlFor="discount"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.discount}
                             fallback={data.discount}
                         >
@@ -178,7 +178,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                             label="Тип скидки"
                             key="Тип скидки"
                             htmlFor="discount_type"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.discount_type}
                             fallback={data.discount_type}
                         >
@@ -189,7 +189,7 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                                 }
                                 options={options}
                                 className="mt-1"
-                                disabled={!infoEdited}
+                                disabled={!isEdited}
                             />
                         </TextWidget>
                     </div>
@@ -198,12 +198,12 @@ export default function EditPromo({ routeName, promo }: EditPromoProps) {
                         <EditBtn
                             onClick={handleCancelClick}
                             disabled={processing}
-                            isEdited={infoEdited}
+                            isEdited={isEdited}
                         />
 
                         <NeutralBtn
                             className="px-8 py-3 sm:px-12"
-                            disabled={processing || !infoEdited}
+                            disabled={processing || !isEdited}
                         >
                             {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
                         </NeutralBtn>

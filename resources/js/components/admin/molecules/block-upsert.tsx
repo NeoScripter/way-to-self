@@ -6,6 +6,7 @@ import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
+import { ActionBtns } from './action-btns';
 
 type BlockForm = {
     title: string;
@@ -23,7 +24,7 @@ export default function BlockUpsert({
     routeName,
     onClick,
 }: BlockUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(block == null);
+    const [isEdited, setInfoEdited] = useState(block == null);
 
     const {
         data,
@@ -70,7 +71,7 @@ export default function BlockUpsert({
                         label="Подзаголовок"
                         key="Подзаголовок"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -88,7 +89,7 @@ export default function BlockUpsert({
                         label="Текст"
                         key="Текст"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -105,32 +106,14 @@ export default function BlockUpsert({
                     </TextWidget>
                 </div>
 
-                <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
-                    {block != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-
-                    {onClick && (
-                        <NeutralBtn
-                            onClick={onClick}
-                            className="px-8 bg-red-700 hover:bg-red-600 py-3 sm:px-12"
-                            disabled={!(processing || !infoEdited)}
-                        >
-                            Удалить
-                        </NeutralBtn>
-                    )}
-                </div>
+                <ActionBtns
+                    isCreate={block == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                    onDelete={onClick}
+                />
             </form>
         </div>
     );

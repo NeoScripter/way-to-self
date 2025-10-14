@@ -25,7 +25,7 @@ export default function FilterUpsert({
     filter,
     closeForm,
 }: FilterUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(filter == null);
+    const [isEdited, setInfoEdited] = useState(filter == null);
 
     const isCreateForm = onDeleteClick == null;
 
@@ -83,7 +83,7 @@ export default function FilterUpsert({
                         >
                             Заголовок фильтра
                         </label>
-                        {infoEdited ? (
+                        {isEdited ? (
                             <Input
                                 id="title"
                                 className="mt-1 block w-full text-left"
@@ -104,7 +104,7 @@ export default function FilterUpsert({
                         />
                     </div>
 
-                    {!infoEdited && !isCreateForm && (
+                    {!isEdited && !isCreateForm && (
                         <div className="flex shrink-0 items-center justify-end gap-2">
                             <button
                                 type="button"
@@ -121,10 +121,10 @@ export default function FilterUpsert({
                         </div>
                     )}
 
-                    {infoEdited && (
+                    {isEdited && (
                         <div className="flex shrink-0 items-center justify-end gap-2">
                             <button
-                                disabled={processing || !infoEdited}
+                                disabled={processing || !isEdited}
                                 className="ease cursor-pointer text-dark-green transition-colors duration-200 hover:text-light-swamp"
                             >
                                 <Save className="size-7 text-bright-salad transition-colors duration-200 hover:text-lime-700" />

@@ -8,6 +8,7 @@ import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
+import { ActionBtns } from './action-btns';
 
 type PlanForm = {
     title: string;
@@ -24,7 +25,7 @@ type PlanUpsertProps = {
 };
 
 export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(plan == null);
+    const [isEdited, setInfoEdited] = useState(plan == null);
 
     const {
         data,
@@ -78,7 +79,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         label="Название"
                         key="Название"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -96,7 +97,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         label="Описание"
                         key="Описание"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -117,7 +118,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         label="Цена"
                         key="Цена"
                         htmlFor="price"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.price}
                         fallback={data.price}
                         fbClass="text-left justify-start"
@@ -146,7 +147,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         label="Количество разделов"
                         key="Количество разделов"
                         htmlFor="tier_count"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.tier_count}
                         fallback={data.tier_count}
                         fbClass="text-left justify-start"
@@ -173,7 +174,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                 <div>
                     <ImgInput
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('image', file)}
                         src={plan?.image?.path}
                         onAltChange={(val) => setData('alt', val)}
@@ -182,22 +183,13 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                     />
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {plan != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-                </div>
+                <ActionBtns
+                    isCreate={plan == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                />
             </form>
         </div>
     );

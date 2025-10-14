@@ -41,7 +41,7 @@ type ProfileInfoProps = {
 };
 
 export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
-    const [infoEdited, setInfoEdited] = useState(false);
+    const [isEdited, setInfoEdited] = useState(false);
 
     const {
         data,
@@ -70,7 +70,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        if (!infoEdited) return;
+        if (!isEdited) return;
 
         const result = schema.safeParse(data);
         if (!result.success) {
@@ -107,7 +107,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                             label="Имя"
                             key="Имя"
                             htmlFor="name"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.name}
                             fallback={data.name}
                         >
@@ -126,7 +126,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                         <TextWidget
                             label="Фамилия"
                             htmlFor="surname"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.surname}
                             fallback={data.surname}
                         >
@@ -145,7 +145,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                         <TextWidget
                             label="Email"
                             htmlFor="email"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.email}
                             fallback={data.email}
                         >
@@ -165,7 +165,7 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                         <TextWidget
                             label="Логин в телеграм"
                             htmlFor="telegram"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.telegram}
                             fallback={data.telegram}
                         >
@@ -186,12 +186,12 @@ export default function ProfileInfo({ routeName, user }: ProfileInfoProps) {
                         <EditBtn
                             onClick={handleCancelClick}
                             disabled={processing}
-                            isEdited={infoEdited}
+                            isEdited={isEdited}
                         />
 
                         <NeutralBtn
                             className="px-8 py-3 sm:px-12"
-                            disabled={processing || !infoEdited}
+                            disabled={processing || !isEdited}
                         >
                             {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
                         </NeutralBtn>

@@ -4,7 +4,7 @@ import ItemPicker, { Option } from '@/components/admin/molecules/item-picker';
 import RecipeInfoUpsert from '@/components/admin/molecules/recipe-info-upsert';
 import RecipeUpsert from '@/components/admin/molecules/recipe-upsert';
 import EditingLayout from '@/layouts/admin/editing-layout';
-import { Recipe, RecipeBlock } from '@/types/model';
+import { Recipe, RecipeInfo } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -13,9 +13,7 @@ export default function Show() {
         recipe: Recipe;
     }>().props;
 
-    const [selectedBlock, setSelectedBlock] = useState<RecipeBlock | null>(
-        null,
-    );
+    const [selectedBlock, setSelectedBlock] = useState<RecipeInfo | null>(null);
 
     return (
         <EditingLayout
@@ -28,7 +26,10 @@ export default function Show() {
             >
                 <RecipeUpsert
                     recipe={recipe}
-                    routeName={route(`admin.nutrition.recipes.update`, recipe.id)}
+                    routeName={route(
+                        `admin.nutrition.recipes.update`,
+                        recipe.id,
+                    )}
                 />
             </ExpandablePanel>
 
@@ -41,27 +42,37 @@ export default function Show() {
                 label="Создать новый блок"
             >
                 <RecipeInfoUpsert
+                    order={recipe.infos?.length ?? 0}
                     routeName={route('admin.nutrition.infos.store', recipe.id)}
                 />
             </ExpandablePanel>
-            {recipe.infos?.map((info, idx) => (
-                <ExpandablePanel
-                    key={info.id}
-                    label={`Блок ${idx + 1}`}
-                >
-                    <BlockEntry
-                        info={info}
-                        onClick={() => setSelectedBlock(info)}
-                    />
-                </ExpandablePanel>
-            ))}
+            {recipe.infos
+                ?.sort((i1, i2) => i1.order - i2.order)
+                .map((info, idx) => (
+                    <ExpandablePanel
+                        key={info.id}
+                        label={`Блок ${idx + 1}`}
+                    >
+                        <RecipeInfoUpsert
+                            info={info}
+                            routeName={route(
+                                'admin.nutrition.infos.update',
+                                info.id,
+                            )}
+                            onClick={() => setSelectedBlock(info)}
+                        />
+                    </ExpandablePanel>
+                ))}
 
             {selectedBlock != null && (
                 <ConfirmationDialog
                     show={selectedBlock != null}
                     closeDialog={() => setSelectedBlock(null)}
                     title="Вы точно уверены, что хотите удалить данный блок?"
-                    routeName={route(`admin.nutrition.infos.destroy`, selectedBlock)}
+                    routeName={route(
+                        `admin.nutrition.infos.destroy`,
+                        selectedBlock,
+                    )}
                     methodName="delete"
                     confirmBtnLabel="Удалить"
                     cancelBtnLabel="Отмена"
@@ -72,7 +83,7 @@ export default function Show() {
 }
 
 type BlockEntryProps = {
-    info: RecipeBlock;
+    info: RecipeInfo;
     onClick: () => void;
 };
 

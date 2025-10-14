@@ -12,6 +12,7 @@ import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
 import ExpandablePanel from './expandable-panel';
+import { ActionBtns } from './action-btns';
 
 type ProgramForm = {
     title: string;
@@ -34,7 +35,7 @@ export default function ProgramUpsert({
     routeName,
     program,
 }: ProgramUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(program == null);
+    const [isEdited, setInfoEdited] = useState(program == null);
 
     const { filters } = usePage<{
         filters: Option<number>[];
@@ -96,7 +97,7 @@ export default function ProgramUpsert({
                         label="Название"
                         key="Название"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -114,7 +115,7 @@ export default function ProgramUpsert({
                         label="Описание"
                         key="Описание"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -136,7 +137,7 @@ export default function ProgramUpsert({
                         label="Продолжительность (мин)"
                         key="Продолжительность"
                         htmlFor="duration"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.duration}
                         fallback={data.duration}
                     >
@@ -162,7 +163,7 @@ export default function ProgramUpsert({
                         label="Сложность (1-10)"
                         key="Сложность (1-10)"
                         htmlFor="complexity"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.complexity}
                         fallback={data.complexity}
                     >
@@ -189,7 +190,7 @@ export default function ProgramUpsert({
                     <ImgInput
                         key="image-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('image', file)}
                         src={program?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
@@ -202,7 +203,7 @@ export default function ProgramUpsert({
                     <VideoInput
                         key="video-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('video', file)}
                         error={errors.video}
                     />
@@ -211,7 +212,7 @@ export default function ProgramUpsert({
                 <TagPicker
                     className="mb-15"
                     value={data.filters}
-                    disabled={!infoEdited}
+                    disabled={!isEdited}
                     onChange={(v) => setData('filters', v)}
                     error={errors.filters}
                     options={filters}
@@ -223,7 +224,7 @@ export default function ProgramUpsert({
                             label="Содержание"
                             key="Содержание"
                             htmlFor="body"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.body}
                             fallback={
                                 <span
@@ -243,22 +244,13 @@ export default function ProgramUpsert({
                     </ExpandablePanel>
                 </div>
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {program != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-                </div>
+                <ActionBtns
+                    isCreate={program == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                />
             </form>
         </div>
     );

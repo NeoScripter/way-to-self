@@ -12,6 +12,7 @@ import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
 import InputLabel from '../atoms/input-label';
 import InputError from '../atoms/input-error';
+import { ActionBtns } from './action-btns';
 
 type RecipeForm = {
     title: string;
@@ -31,7 +32,7 @@ type RecipeUpsertProps = {
 };
 
 export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(recipe == null);
+    const [isEdited, setInfoEdited] = useState(recipe == null);
 
     const { categories, filters } = usePage<{
         categories: Option<number>[];
@@ -99,7 +100,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                         label="Название"
                         key="Название"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -117,7 +118,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                         label="Описание"
                         key="Описание"
                         htmlFor="description"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
                         fbClass="block py-2 min-h-40 text-left"
@@ -139,7 +140,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                         label="Продолжительность (мин)"
                         key="Продолжительность"
                         htmlFor="duration"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.duration}
                         fallback={data.duration}
                     >
@@ -165,7 +166,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                         label="Сложность (1-10)"
                         key="Сложность (1-10)"
                         htmlFor="complexity"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.complexity}
                         fallback={data.complexity}
                     >
@@ -197,7 +198,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                                 onChange={(val) => setData('category_id', val)}
                                 options={categories}
                                 className="mt-1"
-                                disabled={!infoEdited}
+                                disabled={!isEdited}
                             />
                             <InputError
                                 className="mt-2"
@@ -211,7 +212,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                     <ImgInput
                         key="image-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('image', file)}
                         src={recipe?.image?.path}
                         onAltChange={(val) => setData('image_alt', val)}
@@ -224,7 +225,7 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                     <VideoInput
                         key="video-input"
                         progress={progress}
-                        isEdited={infoEdited}
+                        isEdited={isEdited}
                         onChange={(file) => setData('video', file)}
                         error={errors.video}
                     />
@@ -233,28 +234,19 @@ export default function RecipeUpsert({ routeName, recipe }: RecipeUpsertProps) {
                 <TagPicker
                     className="mb-15"
                     value={data.filters}
-                    disabled={!infoEdited}
+                    disabled={!isEdited}
                     onChange={(v) => setData('filters', v)}
                     error={errors.filters}
                     options={filters}
                 />
 
-                <div className="mt-16 flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4 md:mt-20">
-                    {recipe != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-                </div>
+                <ActionBtns
+                    isCreate={recipe == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                />
             </form>
         </div>
     );

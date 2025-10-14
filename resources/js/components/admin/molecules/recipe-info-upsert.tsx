@@ -8,6 +8,7 @@ import ImgInput from '../atoms/img-input';
 import LightBtn from '../atoms/light-btn';
 import MarkdownEditor from '../atoms/markdown-editor';
 import { TextWidget } from '../atoms/text-widget';
+import { ActionBtns } from './action-btns';
 
 type RecipeInfoForm = {
     title: string;
@@ -26,12 +27,14 @@ type RecipeInfoUpsertProps = {
 
 export default function RecipeInfoUpsert({
     info,
-    order = 1,
+    order = 0,
     routeName,
     onClick,
 }: RecipeInfoUpsertProps) {
-    const [infoEdited, setInfoEdited] = useState(info == null);
-    const [infoType, setInfoType] = useState<'text' | 'image'>('text');
+    const [isEdited, setInfoEdited] = useState(info == null);
+    const [infoType, setInfoType] = useState<'text' | 'image'>(() =>
+        info?.image != null ? 'image' : 'text',
+    );
 
     const {
         data,
@@ -59,7 +62,7 @@ export default function RecipeInfoUpsert({
     };
 
     const handleSwitchType = (newType: 'image' | 'text') => {
-        reset('image', 'image_alt', 'body');
+        // reset('image', 'image_alt', 'body');
         setInfoType(newType);
     };
 
@@ -87,7 +90,7 @@ export default function RecipeInfoUpsert({
                         label="Заголовок"
                         key="Заголовок"
                         htmlFor="title"
-                        edit={infoEdited}
+                        edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
                         fbClass="text-left justify-start"
@@ -101,7 +104,7 @@ export default function RecipeInfoUpsert({
                         />
                     </TextWidget>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-start">
                         <LightBtn
                             className="max-w-40 justify-center"
                             onClick={() => handleSwitchType('image')}
@@ -122,7 +125,7 @@ export default function RecipeInfoUpsert({
                             <ImgInput
                                 key="image-input"
                                 progress={progress}
-                                isEdited={infoEdited}
+                                isEdited={isEdited}
                                 onChange={(file) => setData('image', file)}
                                 src={info?.image?.path}
                                 onAltChange={(val) => setData('image_alt', val)}
@@ -136,7 +139,7 @@ export default function RecipeInfoUpsert({
                             label="Содержание"
                             key="Содержание"
                             htmlFor="body"
-                            edit={infoEdited}
+                            edit={isEdited}
                             error={errors.body}
                             fallback={
                                 <span
@@ -156,32 +159,14 @@ export default function RecipeInfoUpsert({
                     )}
                 </div>
 
-                <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
-                    {info != null && (
-                        <EditBtn
-                            onClick={handleCancelClick}
-                            disabled={processing}
-                            isEdited={infoEdited}
-                        />
-                    )}
-
-                    <NeutralBtn
-                        className="px-8 py-3 sm:px-12"
-                        disabled={processing || !infoEdited}
-                    >
-                        {recentlySuccessful ? 'Сохранено' : 'Сохранить'}
-                    </NeutralBtn>
-
-                    {onClick && (
-                        <NeutralBtn
-                            onClick={onClick}
-                            className="bg-red-700 px-8 py-3 hover:bg-red-600 sm:px-12"
-                            disabled={!(processing || !infoEdited)}
-                        >
-                            Удалить
-                        </NeutralBtn>
-                    )}
-                </div>
+                <ActionBtns
+                    isCreate={info == null}
+                    edited={isEdited}
+                    onCancel={handleCancelClick}
+                    saved={recentlySuccessful}
+                    loading={processing}
+                    onDelete={onClick}
+                />
             </form>
         </div>
     );
