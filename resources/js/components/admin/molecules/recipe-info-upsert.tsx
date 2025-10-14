@@ -4,26 +4,34 @@ import { RecipeInfo } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import EditBtn from '../atoms/edit-btn';
-import TextArea from '../atoms/text-area';
+import ImgInput from '../atoms/img-input';
+import LightBtn from '../atoms/light-btn';
+import MarkdownEditor from '../atoms/markdown-editor';
 import { TextWidget } from '../atoms/text-widget';
 
 type RecipeInfoForm = {
     title: string;
-    description: string;
+    body: string;
+    order: number;
+    image: File | null;
+    image_alt: string;
 };
 
 type RecipeInfoUpsertProps = {
     info?: RecipeInfo;
+    order?: number;
     routeName: string;
     onClick?: () => void;
 };
 
 export default function RecipeInfoUpsert({
     info,
+    order = 1,
     routeName,
     onClick,
 }: RecipeInfoUpsertProps) {
     const [infoEdited, setInfoEdited] = useState(info == null);
+    const [infoType, setInfoType] = useState<'text' | 'image'>('text');
 
     const {
         data,
@@ -32,18 +40,27 @@ export default function RecipeInfoUpsert({
         clearErrors,
         setData,
         errors,
+        progress,
         processing,
         setDefaults,
         recentlySuccessful,
     } = useForm<RecipeInfoForm>({
         title: info?.title || '',
-        description: info?.description || '',
+        order: info?.order || order,
+        body: info?.body || '',
+        image: null,
+        image_alt: info?.image?.alt || '',
     });
 
     const handleCancelClick = () => {
         setInfoEdited((o) => !o);
         reset();
         clearErrors();
+    };
+
+    const handleSwitchType = (newType: 'image' | 'text') => {
+        reset('image', 'image_alt', 'body');
+        setInfoType(newType);
     };
 
     const submit: FormEventHandler = (e) => {
@@ -62,13 +79,13 @@ export default function RecipeInfoUpsert({
     return (
         <div className="relative z-50 py-4">
             <form
-                className="space-y-8"
+                className="space-y-8 font-normal"
                 onSubmit={submit}
             >
-                <div className="grid gap-8 font-normal md:gap-10">
+                <div className="grid gap-8 md:gap-10">
                     <TextWidget
-                        label="Подзаголовок"
-                        key="Подзаголовок"
+                        label="Заголовок"
+                        key="Заголовок"
                         htmlFor="title"
                         edit={infoEdited}
                         error={errors.title}
@@ -77,32 +94,66 @@ export default function RecipeInfoUpsert({
                     >
                         <Input
                             id="title"
-                            className="mt-1 info w-full text-left"
+                            className="info mt-1 w-full text-left"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Подзаголовок программы"
+                            placeholder="Заголовок"
                         />
                     </TextWidget>
 
-                    <TextWidget
-                        label="Текст"
-                        key="Текст"
-                        htmlFor="description"
-                        edit={infoEdited}
-                        error={errors.description}
-                        fallback={data.description}
-                        fbClass="info py-2 min-h-40 text-left"
-                    >
-                        <TextArea
-                            id="description"
-                            placeholder="Текст программы"
-                            className="mt-1 info w-full"
-                            value={data.description}
-                            onChange={(e) =>
-                                setData('description', e.target.value)
+                    <div className="flex items-center gap-3">
+                        <LightBtn
+                            className="max-w-40 justify-center"
+                            onClick={() => handleSwitchType('image')}
+                            isActive={infoType === 'image'}
+                        >
+                            Фотогорафия
+                        </LightBtn>
+                        <LightBtn
+                            className="max-w-40 justify-center"
+                            onClick={() => handleSwitchType('text')}
+                            isActive={infoType === 'text'}
+                        >
+                            Текст
+                        </LightBtn>
+                    </div>
+                    {infoType === 'image' ? (
+                        <div>
+                            <ImgInput
+                                key="image-input"
+                                progress={progress}
+                                isEdited={infoEdited}
+                                onChange={(file) => setData('image', file)}
+                                src={info?.image?.path}
+                                onAltChange={(val) => setData('image_alt', val)}
+                                altError={errors.image_alt}
+                                altText={data.image_alt}
+                                error={errors.image}
+                            />
+                        </div>
+                    ) : (
+                        <TextWidget
+                            label="Содержание"
+                            key="Содержание"
+                            htmlFor="body"
+                            edit={infoEdited}
+                            error={errors.body}
+                            fallback={
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: info?.html || '',
+                                    }}
+                                    className="prose prose-sm block max-w-full"
+                                />
                             }
-                        />
-                    </TextWidget>
+                            fbClass="block py-2 min-h-40 h-auto text-left px-3"
+                        >
+                            <MarkdownEditor
+                                value={data.body}
+                                onChange={(e) => setData('body', e)}
+                            />
+                        </TextWidget>
+                    )}
                 </div>
 
                 <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:gap-4">
@@ -124,7 +175,7 @@ export default function RecipeInfoUpsert({
                     {onClick && (
                         <NeutralBtn
                             onClick={onClick}
-                            className="px-8 bg-red-700 hover:bg-red-600 py-3 sm:px-12"
+                            className="bg-red-700 px-8 py-3 hover:bg-red-600 sm:px-12"
                             disabled={!(processing || !infoEdited)}
                         >
                             Удалить

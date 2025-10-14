@@ -33,7 +33,7 @@ export default function Show() {
             </ExpandablePanel>
 
             <h3 className="text-lg font-bold uppercase sm:text-xl">
-                Блоки упражнений
+                Информация (блок справа)
             </h3>
 
             <ExpandablePanel
@@ -56,17 +56,17 @@ export default function Show() {
                 </ExpandablePanel>
             ))}
 
-            {/* {selectedBlock != null && ( */}
-            {/*     <ConfirmationDialog */}
-            {/*         show={selectedBlock != null} */}
-            {/*         closeDialog={() => setSelectedBlock(null)} */}
-            {/*         title="Вы точно уверены, что хотите удалить данный блок?" */}
-            {/*         routeName={route(`admin.nutrition.blocks.destroy`, selectedBlock)} */}
-            {/*         methodName="delete" */}
-            {/*         confirmBtnLabel="Удалить" */}
-            {/*         cancelBtnLabel="Отмена" */}
-            {/*     /> */}
-            {/* )} */}
+            {selectedBlock != null && (
+                <ConfirmationDialog
+                    show={selectedBlock != null}
+                    closeDialog={() => setSelectedBlock(null)}
+                    title="Вы точно уверены, что хотите удалить данный блок?"
+                    routeName={route(`admin.nutrition.infos.destroy`, selectedBlock)}
+                    methodName="delete"
+                    confirmBtnLabel="Удалить"
+                    cancelBtnLabel="Отмена"
+                />
+            )}
         </EditingLayout>
     );
 }
@@ -91,8 +91,8 @@ function BlockEntry({ info, onClick }: BlockEntryProps) {
 
     return (
         <div>
-            <BlockUpsert
-                routeName={route('admin.nutrition.blocks.update', info.id)}
+            <RecipeInfoUpsert
+                routeName={route('admin.nutrition.infos.update', info.id)}
                 info={info}
                 onClick={onClick}
             />
