@@ -1,8 +1,9 @@
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ExpandablePanel from '@/components/admin/molecules/expandable-panel';
-import ItemPicker, { Option } from '@/components/admin/molecules/item-picker';
 import RecipeInfoUpsert from '@/components/admin/molecules/recipe-info-upsert';
 import RecipeUpsert from '@/components/admin/molecules/recipe-upsert';
+import RecipeInfos from '@/components/admin/orgamisms/recipe-infos';
+import RecipeSteps from '@/components/admin/orgamisms/recipe-steps';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { Recipe, RecipeInfo } from '@/types/model';
 import { usePage } from '@inertiajs/react';
@@ -12,8 +13,6 @@ export default function Show() {
     const { recipe } = usePage<{
         recipe: Recipe;
     }>().props;
-
-    const [selectedBlock, setSelectedBlock] = useState<RecipeInfo | null>(null);
 
     return (
         <EditingLayout
@@ -33,92 +32,18 @@ export default function Show() {
                 />
             </ExpandablePanel>
 
-            <h3 className="text-lg font-bold uppercase sm:text-xl">
-                Информация (блок справа)
-            </h3>
+            <RecipeInfos
+                key={'recipe-infos'}
+                infos={recipe.infos}
+                recipeId={recipe.id}
+            />
 
-            <ExpandablePanel
-                key="create-info-form"
-                label="Создать новый блок"
-            >
-                <RecipeInfoUpsert
-                    order={recipe.infos?.length ?? 0}
-                    routeName={route('admin.nutrition.infos.store', recipe.id)}
-                />
-            </ExpandablePanel>
-            {recipe.infos
-                ?.sort((i1, i2) => i1.order - i2.order)
-                .map((info, idx) => (
-                    <ExpandablePanel
-                        key={info.id}
-                        label={`Блок ${idx + 1}`}
-                    >
-                        <RecipeInfoUpsert
-                            info={info}
-                            routeName={route(
-                                'admin.nutrition.infos.update',
-                                info.id,
-                            )}
-                            onClick={() => setSelectedBlock(info)}
-                        />
-                    </ExpandablePanel>
-                ))}
-
-            {selectedBlock != null && (
-                <ConfirmationDialog
-                    show={selectedBlock != null}
-                    closeDialog={() => setSelectedBlock(null)}
-                    title="Вы точно уверены, что хотите удалить данный блок?"
-                    routeName={route(
-                        `admin.nutrition.infos.destroy`,
-                        selectedBlock,
-                    )}
-                    methodName="delete"
-                    confirmBtnLabel="Удалить"
-                    cancelBtnLabel="Отмена"
-                />
-            )}
+            <RecipeSteps
+                key={'recipe-steps'}
+                steps={recipe.steps}
+                recipeId={recipe.id}
+            />
         </EditingLayout>
     );
 }
 
-type BlockEntryProps = {
-    info: RecipeInfo;
-    onClick: () => void;
-};
-
-function BlockEntry({ info, onClick }: BlockEntryProps) {
-    let { options } = usePage<{ options: Option[] }>().props;
-
-    const selected = info?.exercises?.map((e) => {
-        return {
-            id: e.id,
-            image: e.image?.path,
-            title: e.title,
-            description: e.description,
-        };
-    });
-    options = options.filter((o) => !selected?.find((e) => e.id === o.id));
-
-    return (
-        <div>
-            <RecipeInfoUpsert
-                routeName={route('admin.nutrition.infos.update', info.id)}
-                info={info}
-                onClick={onClick}
-            />
-
-            {info.exercises && (
-                <ItemPicker
-                    label="Выбор упражнения"
-                    placeholder="Название упражнения"
-                    onAdd="admin.nutrition.exercise.toggle"
-                    onRemove="admin.nutrition.exercise.toggle"
-                    selected={selected ?? []}
-                    options={options}
-                    payload={{ block_id: [info.id] }}
-                />
-            )}
-        </div>
-    );
-}

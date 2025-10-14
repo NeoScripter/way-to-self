@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Nutrition\FAQController;
 use App\Http\Controllers\Admin\Nutrition\FilterController;
 use App\Http\Controllers\Admin\Nutrition\RecipeController;
 use App\Http\Controllers\Admin\Nutrition\RecipeInfoController;
+use App\Http\Controllers\Admin\Nutrition\RecipeStepController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth',  'banned', 'tier.access:nutrition'])->prefix('account/nutrition')->name('nutrition.')->group(function () {
@@ -74,5 +75,11 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/nutrit
         Route::post('/store/{recipe}', [RecipeInfoController::class, 'store'])->name('store');
         Route::post('/{info}', [RecipeInfoController::class, 'update'])->name('update');
         Route::delete('/{info}', [RecipeInfoController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/steps')->name('steps.')->group(function () {
+        Route::post('/store/{recipe}', [RecipeStepController::class, 'store'])->name('store');
+        Route::post('/{step}', [RecipeStepController::class, 'update'])->name('update');
+        Route::delete('/{step}', [RecipeStepController::class, 'destroy'])->name('destroy');
     });
 });

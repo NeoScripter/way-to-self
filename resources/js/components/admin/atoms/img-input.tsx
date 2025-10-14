@@ -1,9 +1,7 @@
 import Placeholder from '@/assets/images/shared/placeholder.webp';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
-import { cn } from '@/lib/utils';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 import type { AxiosProgressEvent } from 'axios';
-import React, { useId, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import LoadingRing from './loading-ring';
 import UploadFileBtn from './upload-file-btn';
 
@@ -32,6 +30,13 @@ export default function ImgInput({
 }: ImgInputProps) {
     const [preview, setPreview] = useState(src);
     const id = useId();
+
+    useEffect(() => {
+        const resetImage = () => setPreview(src);
+
+        document.addEventListener('image:clear', resetImage);
+        return () => document.removeEventListener('image:clear', resetImage);
+    }, [src]);
 
     const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] ?? null;

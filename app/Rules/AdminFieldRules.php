@@ -52,13 +52,11 @@ class AdminFieldRules
         return ['numeric', Rule::exists('category_filters', 'id')];
     }
 
-    public static function imageAlt(bool $required = true): array
+    public static function imageAlt(string $type = 'image'): array
     {
-        return array_merge(
-            $required ? ['required'] : ['nullable'],
-            ['string', 'max:400']
-        );
+        return ['nullable', 'string', 'max:400', 'required_with:' . $type];
     }
+
     public static function image(bool $required = true): array
     {
         return array_merge(

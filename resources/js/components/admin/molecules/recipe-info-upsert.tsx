@@ -1,9 +1,7 @@
 import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import { RecipeInfo } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
 import LightBtn from '../atoms/light-btn';
 import MarkdownEditor from '../atoms/markdown-editor';

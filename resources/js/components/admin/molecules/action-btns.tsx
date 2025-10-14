@@ -18,11 +18,23 @@ export function ActionBtns({
     onDelete,
     onCancel,
 }: ActionBtnsProps) {
+
+    const clearImageField = () => {
+        document.dispatchEvent(new CustomEvent('image:clear'));
+    };
+
+    const handleCancel = () => {
+        if (edited) {
+            clearImageField();
+        }
+        onCancel();
+    };
+
     return (
         <div className="flex flex-col flex-wrap items-center justify-center gap-2 sm:flex-row sm:gap-4">
             {!isCreate && (
                 <EditBtn
-                    onClick={onCancel}
+                    onClick={handleCancel}
                     disabled={loading}
                     isEdited={edited}
                 />

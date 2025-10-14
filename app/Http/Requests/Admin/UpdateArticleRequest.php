@@ -27,7 +27,7 @@ class UpdateArticleRequest extends FormRequest
             'description' => AdminFieldRules::description(),
             'body' => AdminFieldRules::body(),
             'image_alt' => AdminFieldRules::imageAlt(),
-            'thumbnail_alt' => AdminFieldRules::imageAlt(),
+            'thumbnail_alt' => AdminFieldRules::imageAlt('thumbnail'),
             'image' => AdminFieldRules::image(false),
             'thumbnail' => AdminFieldRules::image(false),
         ];
