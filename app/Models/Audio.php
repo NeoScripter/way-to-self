@@ -34,12 +34,6 @@ class Audio extends Model
         return $this->morphToMany(User::class, 'favorable', 'favorites');
     }
 
-    #[Scope]
-    public function free(Builder $query): void
-    {
-        $query->where('type', ContentType::FREE);
-    }
-
     public function getAudioUrlAttribute(): string
     {
         return asset(str_replace('private/', 'storage/', $this->audio_path));
@@ -88,5 +82,17 @@ class Audio extends Model
                 Storage::disk('local')->deleteDirectory($hlsDir);
             }
         });
+    }
+
+    #[Scope]
+    public function free(Builder $query): void
+    {
+        $query->where('type', ContentType::FREE);
+    }
+
+    #[Scope]
+    public function paid(Builder $query): void
+    {
+        $query->where('type', ContentType::PAID);
     }
 }

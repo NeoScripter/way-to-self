@@ -1,28 +1,24 @@
-import Input from '@/components/admin/atoms/input';
-import { ProgramBlock } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import { ActionBtns } from './action-btns';
+import { HomeEntry } from '@/types/model';
 
-type BlockForm = {
-    title: string;
+type HomeForm = {
     description: string;
 };
 
-type BlockUpsertProps = {
-    block?: ProgramBlock;
+type HomeUpsertProps = {
+    entry?: HomeEntry;
     routeName: string;
-    onClick?: () => void;
 };
 
-export default function BlockUpsert({
-    block,
+export default function HomeUpsert({
+    entry,
     routeName,
-    onClick,
-}: BlockUpsertProps) {
-    const [isEdited, setIsEdited] = useState(block == null);
+}: HomeUpsertProps) {
+    const [isEdited, setIsEdited] = useState(entry == null);
 
     const {
         data,
@@ -34,9 +30,8 @@ export default function BlockUpsert({
         processing,
         setDefaults,
         recentlySuccessful,
-    } = useForm<BlockForm>({
-        title: block?.title || '',
-        description: block?.description || '',
+    } = useForm<HomeForm>({
+        description: entry?.description || '',
     });
 
     const handleCancelClick = () => {
@@ -66,36 +61,18 @@ export default function BlockUpsert({
             >
                 <div className="grid gap-8 font-normal md:gap-10">
                     <TextWidget
-                        label="Подзаголовок"
-                        key="Подзаголовок"
-                        htmlFor="title"
-                        edit={isEdited}
-                        error={errors.title}
-                        fallback={data.title}
-                        fbClass="text-left justify-start"
-                    >
-                        <Input
-                            id="title"
-                            className="mt-1 block w-full text-left"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
-                            placeholder="Подзаголовок программы"
-                        />
-                    </TextWidget>
-
-                    <TextWidget
                         label="Текст"
                         key="Текст"
                         htmlFor="description"
                         edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
-                        fbClass="block py-2 min-h-40 text-left"
+                        fbClass="entry py-2 min-h-40 text-left"
                     >
                         <TextArea
                             id="description"
-                            placeholder="Текст программы"
-                            className="mt-1 block w-full"
+                            placeholder="Текст"
+                            className="mt-1 entry w-full"
                             value={data.description}
                             onChange={(e) =>
                                 setData('description', e.target.value)
@@ -105,12 +82,11 @@ export default function BlockUpsert({
                 </div>
 
                 <ActionBtns
-                    isCreate={block == null}
+                    isCreate={entry == null}
                     edited={isEdited}
                     onCancel={handleCancelClick}
                     saved={recentlySuccessful}
                     loading={processing}
-                    onDelete={onClick}
                 />
             </form>
         </div>

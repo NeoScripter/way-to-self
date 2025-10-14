@@ -9,6 +9,21 @@ export const homeMenuItems: BarMenuItem[] = [
     },
     {
         id: v4uuid(),
+        route: 'admin.home.recipes.index',
+        title: 'Питание',
+    },
+    {
+        id: v4uuid(),
+        route: 'admin.home.audios.index',
+        title: 'Душа',
+    },
+    {
+        id: v4uuid(),
+        route: 'admin.home.exercises.index',
+        title: 'Тело',
+    },
+    {
+        id: v4uuid(),
         route: 'admin.home.reviews.index',
         title: 'Отзывы',
     },

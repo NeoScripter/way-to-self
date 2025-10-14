@@ -1,27 +1,27 @@
 import Input from '@/components/admin/atoms/input';
-import { ProgramBlock } from '@/types/model';
+import { ProgramHome } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import { ActionBtns } from './action-btns';
 
-type BlockForm = {
+type HomeForm = {
     title: string;
     description: string;
 };
 
-type BlockUpsertProps = {
-    block?: ProgramBlock;
+type HomeUpsertProps = {
+    block?: ProgramHome;
     routeName: string;
     onClick?: () => void;
 };
 
-export default function BlockUpsert({
+export default function HomeUpsert({
     block,
     routeName,
     onClick,
-}: BlockUpsertProps) {
+}: HomeUpsertProps) {
     const [isEdited, setIsEdited] = useState(block == null);
 
     const {
@@ -34,7 +34,7 @@ export default function BlockUpsert({
         processing,
         setDefaults,
         recentlySuccessful,
-    } = useForm<BlockForm>({
+    } = useForm<HomeForm>({
         title: block?.title || '',
         description: block?.description || '',
     });

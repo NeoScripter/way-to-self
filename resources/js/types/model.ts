@@ -78,6 +78,13 @@ export type FaqItem = {
     created_at?: string;
     updated_at?: string;
 };
+export type HomeEntry = {
+    id: number;
+    key: string;
+    description: string;
+    created_at?: string;
+    updated_at?: string;
+};
 export type Image = {
     id: number;
     path: string;
@@ -92,6 +99,8 @@ export type Image = {
 };
 export type Overview = {
     id: number;
+    created_at?: string;
+    updated_at?: string;
     video?: Video;
 };
 export type Plan = {

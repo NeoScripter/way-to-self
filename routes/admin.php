@@ -5,12 +5,17 @@ use App\Http\Controllers\Admin\AdminEditorController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\Home\AudioController;
+use App\Http\Controllers\Admin\Home\ExerciseController;
 use App\Http\Controllers\Admin\Home\FAQController;
+use App\Http\Controllers\Admin\Home\HomeEntryController;
 use App\Http\Controllers\Admin\Home\OverviewController;
+use App\Http\Controllers\Admin\Home\RecipeController;
 use App\Http\Controllers\Admin\Home\ReviewController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
+use App\Models\HomeEntry;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
@@ -89,5 +94,24 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/home')
         Route::get('/create', [ReviewController::class, 'create'])->name('create');
         Route::get('/{review}', [ReviewController::class, 'show'])->name('show');
         Route::delete('/{review}', [ReviewController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('/entry')->name('entry.')->group(function () {
+        Route::post('/{entry}', [HomeEntryController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/exercises')->name('exercises.')->group(function () {
+        Route::get('/', [ExerciseController::class, 'index'])->name('index');
+        Route::patch('/{exercise}', [ExerciseController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/recipes')->name('recipes.')->group(function () {
+        Route::get('/', [RecipeController::class, 'index'])->name('index');
+        Route::patch('/{recipe}', [RecipeController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/audios')->name('audios.')->group(function () {
+        Route::get('/', [AudioController::class, 'index'])->name('index');
+        Route::patch('/{audio}', [AudioController::class, 'update'])->name('update');
     });
 });

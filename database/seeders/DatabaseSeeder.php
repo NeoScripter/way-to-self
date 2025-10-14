@@ -28,5 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AudioCategoryFilterSeeder::class);
         $this->call(ExerciseCategoryFilterSeeder::class);
         $this->call(ProgramCategoryFilterSeeder::class);
+        $this->call(HomeEntrySeeder::class);
     }
 }

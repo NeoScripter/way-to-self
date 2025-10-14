@@ -18,7 +18,7 @@ export type Option = {
     image?: string;
 };
 
-type Props = {
+type ItemPickerProps = {
     label?: string;
     selected: Item[];
     options: Option[];
@@ -36,7 +36,7 @@ export default function ItemPicker({
     onRemove,
     onAdd,
     payload,
-}: Props) {
+}: ItemPickerProps) {
     const [term, setTerm] = useState('');
     const [focused, setFocused] = useState(false);
 

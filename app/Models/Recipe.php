@@ -65,4 +65,10 @@ class Recipe extends Model
     {
         $query->where('type', ContentType::FREE);
     }
+
+    #[Scope]
+    public function paid(Builder $query): void
+    {
+        $query->where('type', ContentType::PAID);
+    }
 }
