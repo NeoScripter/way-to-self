@@ -76,7 +76,7 @@ final class HomeController extends Controller
             'exercises' => $exercises,
             'video' => $video,
             'audio' => $audio,
-            'stream' => route('audio.stream', ['audio' => $audio?->id]),
+            'stream' => $audio ? route('audio.stream', ['audio' => $audio->id]) : null,
             'prefix' => 'user.articles.show',
             'entries' => $entries,
         ]);
