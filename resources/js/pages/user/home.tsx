@@ -1,5 +1,6 @@
 import BellPepper from '@/assets/images/home/veggies/bell-pepper.webp';
 import Laurel from '@/assets/images/home/veggies/laurel.webp';
+import ErrorFallback from '@/components/shared/molecules/error-fallback';
 import FAQSection from '@/components/shared/organisms/faq-section';
 import ArtLayer from '@/components/user/atoms/art-layer';
 import AudioPlayer from '@/components/user/atoms/audio-player';
@@ -15,6 +16,7 @@ import ReviewsSection from '@/components/user/organisms/reviews-section';
 import AppLayout from '@/layouts/user/app-layout';
 import { soulCardData } from '@/lib/data/card-data';
 import { cn } from '@/lib/utils';
+import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Home() {
     return (
@@ -106,17 +108,20 @@ type AppSectionProps = {
     children: React.ReactNode;
     ariaLabelledBy?: string;
 };
-
 function AppSection({ className, children, ariaLabelledBy }: AppSectionProps) {
     return (
-        <section
-            {...(ariaLabelledBy ? { 'aria-labelledby': ariaLabelledBy } : {})}
-            className={cn(
-                'my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40',
-                className,
-            )}
-        >
-            {children}
-        </section>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <section
+                {...(ariaLabelledBy
+                    ? { 'aria-labelledby': ariaLabelledBy }
+                    : {})}
+                className={cn(
+                    'my-11 sm:my-14 md:my-20 lg:my-26 xl:my-40',
+                    className,
+                )}
+            >
+                {children}
+            </section>
+        </ErrorBoundary>
     );
 }

@@ -1,5 +1,6 @@
 import NavMenu from '@/components/admin/molecules/nav-menu';
 import AdminHeader from '@/components/admin/orgamisms/admin-header';
+import ErrorFallback from '@/components/shared/molecules/error-fallback';
 import FlashMessage from '@/components/user/atoms/flash-message';
 import useToggle from '@/hooks/use-toggle';
 import { BarMenuItem } from '@/lib/data/admin-top-bar-items';
@@ -7,6 +8,7 @@ import markLastRow from '@/lib/helpers/markLastRow';
 import { cn } from '@/lib/utils';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 type AdminLayoutProps = {
     children: React.ReactNode;
@@ -37,7 +39,7 @@ export default function AdminLayout({
 
     useEffect(() => {
         document.documentElement.style.overflowY = showMenu ? 'hidden' : '';
-    }, [showMenu])
+    }, [showMenu]);
 
     useEffect(() => {
         if (ulRef.current) {
@@ -53,7 +55,10 @@ export default function AdminLayout({
     }, []);
 
     return (
-        <div onClick={handleClick}   className={cn('min-h-screen bg-light-bg', layoutClass)}>
+        <div
+            onClick={handleClick}
+            className={cn('min-h-screen bg-light-bg', layoutClass)}
+        >
             {flash.message && <FlashMessage message={flash.message} />}
 
             <AdminHeader
@@ -69,7 +74,7 @@ export default function AdminLayout({
                         <nav>
                             <ul
                                 ref={ulRef}
-                                className="grid-auto admin-navbar gap-x-0.5 [--min:100px] [--max:140px] sm:[--min:120px] sm:[--max:160px] lg:[--min:140px]"
+                                className="grid-auto admin-navbar gap-x-0.5 [--max:140px] [--min:100px] sm:[--max:160px] sm:[--min:120px] lg:[--min:140px]"
                             >
                                 {topMenuItems.map((item) => (
                                     <TopBarLink
@@ -88,7 +93,9 @@ export default function AdminLayout({
                             !hasMenu && 'rounded-t-3xl',
                         )}
                     >
-                        {children}
+                        <ErrorBoundary FallbackComponent={ErrorFallback}>
+                            {children}
+                        </ErrorBoundary>
                     </div>
                 </div>
             </main>
@@ -108,11 +115,11 @@ function TopBarLink({ item }: TopBarLinkProps) {
     );
 
     return (
-        <li className='select-none'>
+        <li className="select-none">
             <Link
                 href={route(item.route)}
                 className={cn(
-                    'flex cursor-pointer text-center items-center justify-center rounded-t-[2.25rem] bg-pale-olive px-2 sm:px-4 py-2 text-xs text-white sm:text-sm lg:text-base',
+                    'flex cursor-pointer items-center justify-center rounded-t-[2.25rem] bg-pale-olive px-2 py-2 text-center text-xs text-white sm:px-4 sm:text-sm lg:text-base',
                     isCurrent
                         ? 'bg-bright-salad'
                         : 'transition-colors duration-200 ease-in-out hover:bg-light-swamp',

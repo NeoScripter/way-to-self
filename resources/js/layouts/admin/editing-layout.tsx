@@ -4,6 +4,8 @@ import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { usePage } from '@inertiajs/react';
 import AdminLayout from './admin-layout';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '@/components/shared/molecules/error-fallback';
 
 type EditingLayoutProps = {
     navKey: keyof typeof navConfig;
@@ -53,7 +55,9 @@ export default function EditingLayout({
                 </h3>
             )}
 
-            {children}
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+                {children}
+            </ErrorBoundary>
 
             {updatedAt && (
                 <p className="mt-8 text-center text-sm font-semibold sm:text-base">

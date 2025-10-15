@@ -1,5 +1,5 @@
 import ItemCard from '@/components/user/atoms/item-card';
-import NoItems from '@/components/user/atoms/no-items';
+import QueryFeedback from '@/components/user/atoms/query-feedback';
 import Pagination from '@/components/user/atoms/pagination';
 import { menuItems } from '@/lib/data/account-menu-items';
 import { PaginationMeta } from '@/lib/types/pagination';
@@ -70,7 +70,7 @@ export default function FavoriteList() {
                         />
                     </>
                 ) : (
-                    <NoItems />
+                    <QueryFeedback />
                 )}
             </div>
         </div>
