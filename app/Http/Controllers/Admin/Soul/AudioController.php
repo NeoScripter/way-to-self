@@ -72,7 +72,7 @@ class AudioController extends Controller
             'count' => fn() => $count,
             'filters' => fn() => $filters,
             'audio' => fn() => $audio,
-            'stream' => route('audio.stream', ['audio' => $audio->id]),
+            'stream' => route('audio.stream', ['audio' => $audio?->id]),
         ]);
     }
 

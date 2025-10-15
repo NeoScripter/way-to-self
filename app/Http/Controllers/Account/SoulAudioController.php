@@ -53,7 +53,7 @@ class SoulAudioController extends Controller
             'audio' => $audio,
             'isFavorite' => $isFavorite,
             'labels' => ['Главная', 'Душа', 'Медитации'],
-            'stream' => route('audio.stream', ['audio' => $audio->id]),
+            'stream' => route('audio.stream', ['audio' => $audio?->id]),
         ]);
     }
 
