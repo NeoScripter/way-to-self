@@ -1,3 +1,7 @@
+import BottomWholeChilli from '@/assets/images/home/veggies/bottom-whole-chilli.webp';
+import MiddleWholeChilli from '@/assets/images/home/veggies/middle-whole-chilli.webp';
+import TopWholeChilli from '@/assets/images/home/veggies/top-whole-chilli.webp';
+import ArtLayer from '@/components/user/atoms/art-layer';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
@@ -28,10 +32,12 @@ export default function FAQSection({ short = false }: FAQSectionProps) {
                     text="вопросы"
                     className="mt-[0.1em] bg-very-bright-salad text-[4rem] text-black sm:text-[8rem]"
                 />
-                {!short && <SpanHighlight
-                    text="о портале"
-                    className="mt-[0.1em] bg-very-bright-salad text-[4rem] text-black sm:text-[8rem]"
-                />}
+                {!short && (
+                    <SpanHighlight
+                        text="о портале"
+                        className="mt-[0.1em] bg-very-bright-salad text-[4rem] text-black sm:text-[8rem]"
+                    />
+                )}
             </h3>
 
             <span
@@ -51,6 +57,19 @@ export default function FAQSection({ short = false }: FAQSectionProps) {
                     />
                 ))}
             </ul>
+
+            <ArtLayer
+                img={TopWholeChilli}
+                className="-top-15 -left-5 w-15 md:w-20 lg:-top-40 3xl:-left-30"
+            />
+            <ArtLayer
+                img={MiddleWholeChilli}
+                className="-top-15 left-5 w-25 md:w-40 lg:-top-40 3xl:-left-10"
+            />
+            <ArtLayer
+                img={BottomWholeChilli}
+                className="-top-0 left-15 w-15 md:w-20 lg:-top-30 3xl:-left-10"
+            />
         </>
     );
 }

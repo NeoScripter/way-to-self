@@ -1,4 +1,4 @@
-import ContentCard from '@/components/user/atoms/content-card';
+import ItemCard from '@/components/user/atoms/item-card';
 import NoItems from '@/components/user/atoms/no-items';
 import Pagination from '@/components/user/atoms/pagination';
 import { menuItems } from '@/lib/data/account-menu-items';
@@ -32,7 +32,7 @@ export default function FavoriteList() {
                     <>
                         <ul className="grid w-full shrink-0 gap-6 sm:grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] xl:grid-cols-3">
                             {favorites.data.map((item) => (
-                                <ContentCard
+                                <ItemCard
                                     key={`${item.id}-${item.favorite_type}`}
                                     type={''}
                                     className="mx-auto w-full max-w-80"

@@ -1,62 +1,31 @@
+import ItemsGrid from '@/layouts/user/items-grid';
 import { foodCardData } from '@/lib/data/card-data';
 import { Recipe } from '@/types/model';
 import { usePage } from '@inertiajs/react';
-import SpanHighlight from '../atoms/span-highlight';
-import InfoCard from '../atoms/info-card';
-import SecondaryHeading from '../atoms/secondary-heading';
-import ContentCard from '../atoms/content-card';
+import ItemCard from '../atoms/item-card';
+import EntryIntro from './entry-intro';
+import BerryLeaves from '@/assets/images/home/veggies/berry-leaves.webp';
+import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
+import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
+import ArtLayer from '@/components/user/atoms/art-layer';
 
 export default function FoodSection() {
-    const { recipes } = usePage<{ recipes: Recipe[] }>().props;
+    const { recipes } = usePage<{
+        recipes: Recipe[];
+    }>().props;
 
     return (
         <>
-            <h3
-                id="nutrition-section-title"
-                className="relative z-11 mb-11 xl:mb-14"
-            >
-                <SpanHighlight
-                    text='Раздел "Питание"'
-                    className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[8rem]"
-                />
-            </h3>
-
-            <p className="relative z-11 mx-auto mb-17 block text-center text-sm font-semibold sm:text-base lg:max-w-3/4 2xl:text-xl">
-                Питание — это не про ограничения. Это про поддержку, энергию и
-                уважение к себе. В этом разделе вы найдете рецепты, которые не
-                требуют часов у плиты, рекомендации, которые легко встроить в
-                реальную жизнь, и главное — подход без вины и диет. Здесь нет
-                запретов, подсчёта калорий и жёстких рамок. Только осознанный
-                выбор, гибкость и возможность слушать своё тело, а не следовать
-                чужим правилам. Раздел постоянно пополняется.
-            </p>
-
-            <ul
-                className="relative z-11 mb-17 grid gap-11 sm:grid-cols-2 xl:grid-cols-4"
-                role="list"
-            >
-                {foodCardData.map((card) => (
-                    <InfoCard
-                        html={card.text}
-                        key={card.id}
-                        img={card.img}
-                        tinyImg={card.tinyImg}
-                        alt={card.alt}
-                    />
-                ))}
-            </ul>
-
-            <SecondaryHeading
-                text="Примеры рецептов"
-                className="mb-17"
+            <EntryIntro
+                entryKey={'nutrition'}
+                cards={foodCardData}
+                title='Раздел "Питание"'
+                heading="Примеры рецептов"
             />
 
-            <ul
-                className="relative z-11 mb-17 grid grid-cols-[repeat(auto-fit,_minmax(20rem,_1fr))] gap-11 md:mx-auto md:max-w-200 2xl:max-w-full"
-                role="list"
-            >
+            <ItemsGrid>
                 {recipes.map((recipe) => (
-                    <ContentCard
+                    <ItemCard
                         key={recipe.id}
                         type="recipe"
                         className="mx-auto"
@@ -73,7 +42,20 @@ export default function FoodSection() {
                         }}
                     />
                 ))}
-            </ul>
+            </ItemsGrid>
+
+            <ArtLayer
+                img={CutChili}
+                className="top-50 -right-10 z-10 w-3/5 max-w-105 min-w-60 sm:top-10 xl:-top-50 xl:-right-20 2xl:-right-40"
+            />
+            <ArtLayer
+                img={Tomatoes}
+                className="right-5 hidden w-100 xl:bottom-40 xl:block"
+            />
+            <ArtLayer
+                img={BerryLeaves}
+                className="top-1/4 -right-1/3 w-full max-w-140 sm:top-1/2 lg:top-auto lg:right-auto lg:-bottom-80 lg:-left-20"
+            />
         </>
     );
 }

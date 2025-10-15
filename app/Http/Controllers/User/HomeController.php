@@ -10,6 +10,7 @@ use App\Models\Article;
 use App\Models\Audio;
 use App\Models\Exercise;
 use App\Models\FaqItem;
+use App\Models\HomeEntry;
 use App\Models\Overview;
 use App\Models\Plan;
 use App\Models\Recipe;
@@ -40,29 +41,31 @@ final class HomeController extends Controller
             ->free()
             ->with(['thumbnail'])
             ->latest()
-            ->limit(4)
             ->get();
 
         $recipes = Recipe::select(['id', 'title', 'duration', 'complexity', 'type', 'description'])
             ->free()
             ->with(['image'])
             ->latest()
-            ->limit(4)
             ->get();
 
         $exercises = Exercise::select(['id', 'title', 'duration', 'complexity', 'type', 'description'])
             ->free()
             ->with(['image'])
             ->latest()
-            ->limit(4)
             ->get();
 
-        $audio = Audio::with(['image'])
+        $audio = Audio::with('image')
             ->free()
+            ->inRandomOrder()
             ->first();
 
         $overview = Overview::first();
         $video = $overview?->video?->hlsVideo();
+
+        $entries = HomeEntry::all()
+            ->map(fn($entry) => [$entry->key => $entry->description])
+            ->collapse();
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,
@@ -74,7 +77,8 @@ final class HomeController extends Controller
             'video' => $video,
             'audio' => $audio,
             'stream' => route('audio.stream', ['audio' => $audio->id]),
-            'prefix' => 'user.articles.show'
+            'prefix' => 'user.articles.show',
+            'entries' => $entries,
         ]);
     }
 }

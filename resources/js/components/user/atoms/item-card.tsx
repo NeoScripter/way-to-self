@@ -23,19 +23,19 @@ type SharedCardProps = {
     category: string | undefined;
 };
 
-type ContentCardProps = {
+type ItemCardProps = {
     type: string;
     data: SharedCardProps;
     className?: string;
     isFavorite?: boolean;
 };
 
-export default function ContentCard({
+export default function ItemCard({
     type,
     data,
     className,
     isFavorite = false,
-}: ContentCardProps) {
+}: ItemCardProps) {
     const {
         href,
         name,

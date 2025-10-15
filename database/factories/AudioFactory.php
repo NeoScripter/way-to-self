@@ -26,7 +26,6 @@ class AudioFactory extends Factory
             'complexity' => fake()->numberBetween(2, 10),
             'audio_path' => "private/models/audios/{$filename}",
             'hls_path' => null,
-            'type' => ContentType::FREE,
         ];
     }
 }

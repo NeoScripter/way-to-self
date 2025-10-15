@@ -84,6 +84,11 @@ class Audio extends Model
         });
     }
 
+    public function isFree(): bool
+    {
+        return $this->type === ContentType::FREE->value;
+    }
+
     #[Scope]
     public function free(Builder $query): void
     {

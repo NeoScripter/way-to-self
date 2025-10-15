@@ -25,6 +25,7 @@ class AudioController extends Controller
 
         return Inertia::render('admin/home/home-entries', [
             'namespace' => fn() => 'audios',
+            'item' => fn() => 'медитаций',
             'entry' => fn() => $entry,
             'selected' => fn() => $free,
             'options' => fn() => $paid,

@@ -1,7 +1,7 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
-import ContentCard from '@/components/user/atoms/content-card';
+import ItemCard from '@/components/user/atoms/item-card';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';
@@ -83,7 +83,7 @@ function Block({ block }: BlockProps) {
             <ul className="grid w-full shrink-0 gap-6 sm:grid-cols-[repeat(auto-fit,_minmax(18.75rem,_1fr))] xl:grid-cols-3">
                 {block.exercises &&
                     block.exercises.map((item) => (
-                        <ContentCard
+                        <ItemCard
                             key={item.id}
                             type="exercises"
                             className="mx-auto w-full max-w-80"

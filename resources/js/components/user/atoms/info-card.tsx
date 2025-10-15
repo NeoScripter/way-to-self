@@ -2,7 +2,7 @@ import LazyImage from './lazy-image';
 
 type InfoCardProps = {
     img: string;
-    tinyImg: string;
+    tinyImg?: string;
     alt: string;
     html: string;
 };
@@ -21,7 +21,7 @@ export default function InfoCard({ img, tinyImg, alt, html }: InfoCardProps) {
 
             <LazyImage
                 img={img}
-                tinyImg={tinyImg}
+                tinyImg={tinyImg ?? img}
                 alt={alt}
                 parentClass="aspect-square w-full overflow-clip rounded-full"
                 imgClass="size-full object-center object-cover"

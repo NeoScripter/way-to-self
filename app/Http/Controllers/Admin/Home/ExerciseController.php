@@ -25,6 +25,7 @@ class ExerciseController extends Controller
 
         return Inertia::render('admin/home/home-entries', [
             'namespace' => fn() => 'exercises',
+            'item' => fn() => 'упражнений',
             'entry' => fn() => $entry,
             'selected' => fn() => $free,
             'options' => fn() => $paid,

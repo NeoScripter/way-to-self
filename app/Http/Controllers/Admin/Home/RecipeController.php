@@ -25,6 +25,7 @@ class RecipeController extends Controller
 
         return Inertia::render('admin/home/home-entries', [
             'namespace' => fn() => 'recipes',
+            'item' => fn() => 'рецептов',
             'entry' => fn() => $entry,
             'selected' => fn() => $free,
             'options' => fn() => $paid,

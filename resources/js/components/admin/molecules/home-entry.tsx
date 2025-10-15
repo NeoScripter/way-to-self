@@ -11,10 +11,11 @@ type Item = {
 };
 
 export default function HomeEntry() {
-    let { options, selected, namespace, entry } = usePage<{
+    let { options, selected, namespace, item = 'елемента', entry } = usePage<{
         options: Option[];
         selected: Item[];
         namespace: string;
+        item?: string;
         entry: HomeEntryType;
     }>().props;
 
@@ -26,8 +27,8 @@ export default function HomeEntry() {
             />
 
             <ItemPicker
-                label="Выбор упражнения"
-                placeholder="Название упражнения"
+                label={`Выбор ${item}`}
+                placeholder={`Название ${item}`}
                 onAdd={`admin.home.${namespace}.update`}
                 onRemove={`admin.home.${namespace}.update`}
                 selected={selected ?? []}
