@@ -1,6 +1,6 @@
 import ItemCard from '@/components/user/atoms/item-card';
-import QueryFeedback from '@/components/user/atoms/query-feedback';
 import Pagination from '@/components/user/atoms/pagination';
+import QueryFeedback from '@/components/user/atoms/query-feedback';
 import { menuItems } from '@/lib/data/account-menu-items';
 import { PaginationMeta } from '@/lib/types/pagination';
 import { Article, Audio, Exercise, Recipe } from '@/types/model';
@@ -76,7 +76,6 @@ export default function FavoriteList() {
         </div>
     );
 }
-
 
 function getHref(item: Favorite) {
     switch (item.favorite_type) {

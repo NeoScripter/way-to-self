@@ -61,10 +61,10 @@ export default function TierSignUp({ className, isCart }: TierSignUpProps) {
         if (isCart) return;
 
         const result = schema.safeParse(data);
-            console.log(result)
+        console.log(result);
         if (!result.success) {
             const fieldErrors = result.error.flatten().fieldErrors;
-            console.log(fieldErrors)
+            console.log(fieldErrors);
 
             const inertiaErrors: Record<keyof RegisterForm, string> = {
                 email: fieldErrors.email?.[0] ?? '',

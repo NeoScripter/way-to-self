@@ -1,19 +1,19 @@
+import TinyMobileBg from '@/assets/images/account/account-settings-bg-mobile-tiny.webp';
+import MobileBg from '@/assets/images/account/account-settings-bg-mobile.webp';
+import TinyDesktopBg from '@/assets/images/account/account-settings-bg-tiny.webp';
+import DesktopBg from '@/assets/images/account/account-settings-bg.webp';
 import NotebookTiny from '@/assets/images/account/notebook-tiny.webp';
 import Notebook from '@/assets/images/account/notebook.webp';
 import TinyPen from '@/assets/images/account/pen-tiny.webp';
 import Pen from '@/assets/images/account/pen.webp';
 import StapleTiny from '@/assets/images/account/stampes-tiny.webp';
 import Staple from '@/assets/images/account/stampes.webp';
-import { cn } from '@/lib/utils';
-import TinyMobileBg from '@/assets/images/account/account-settings-bg-mobile-tiny.webp';
-import MobileBg from '@/assets/images/account/account-settings-bg-mobile.webp';
-import TinyDesktopBg from '@/assets/images/account/account-settings-bg-tiny.webp';
-import DesktopBg from '@/assets/images/account/account-settings-bg.webp';
 import ProfileInfo from '@/components/account/organisms/profile-info';
 import ProfilePassword from '@/components/account/organisms/profile-password';
 import BgImage from '@/components/shared/atoms/bg-image';
 import ArtLayer from '@/components/user/atoms/art-layer';
 import AppLayout from '@/layouts/user/app-layout';
+import { cn } from '@/lib/utils';
 
 export default function Profile() {
     return (
@@ -27,8 +27,8 @@ export default function Profile() {
                 desktopTinyPath={TinyDesktopBg}
                 mobilePath={MobileBg}
                 mobileTinyPath={TinyMobileBg}
-                pictureClass='size-full object-cover object-center'
-                imageClass='size-full object-cover object-left-top'
+                pictureClass="size-full object-cover object-center"
+                imageClass="size-full object-cover object-left-top"
             />
 
             <ArtLayer

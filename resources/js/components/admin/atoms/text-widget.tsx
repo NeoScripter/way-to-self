@@ -1,8 +1,8 @@
+import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
 import InputError from './input-error';
 import InputLabel from './input-label';
 import InputSpan from './input-span';
-import { cn } from '@/lib/utils';
 
 type TextWidgetProps = {
     label: string;
@@ -28,7 +28,7 @@ export function TextWidget({
     error,
 }: TextWidgetProps) {
     return (
-        <div className={cn("grid content-start gap-4", className)}>
+        <div className={cn('grid content-start gap-4', className)}>
             <InputLabel
                 className={labelClass}
                 htmlFor={htmlFor}

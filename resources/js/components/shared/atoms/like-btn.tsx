@@ -1,10 +1,10 @@
+import LikeSound from '@/assets/audio/like.wav';
+import DislikeSound from '@/assets/audio/unlike.wav';
 import useToggle from '@/hooks/use-toggle';
+import { playAudio } from '@/lib/helpers/playAudio';
 import { cn } from '@/lib/utils';
 import { router } from '@inertiajs/react';
 import { useState } from 'react';
-import DislikeSound from '@/assets/audio/unlike.wav';
-import LikeSound from '@/assets/audio/like.wav';
-import { playAudio } from '@/lib/helpers/playAudio';
 
 type LikeBtnProps = {
     isLiked: boolean;
@@ -69,4 +69,3 @@ export default function LikeBtn({ isLiked, route, className }: LikeBtnProps) {
         </div>
     );
 }
-

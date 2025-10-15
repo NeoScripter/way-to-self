@@ -8,7 +8,9 @@ type VideoPlayerProps = {
 
 export default function VideoPlayer({ className, src }: VideoPlayerProps) {
     return (
-        <div className={cn("aspect-video overflow-clip rounded-2xl", className)}>
+        <div
+            className={cn('aspect-video overflow-clip rounded-2xl', className)}
+        >
             <ReactPlayer
                 src={src}
                 controls

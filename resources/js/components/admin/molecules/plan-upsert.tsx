@@ -1,10 +1,8 @@
 import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { Plan } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';

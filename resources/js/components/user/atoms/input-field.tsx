@@ -24,9 +24,14 @@ export default function InputField({
 }: InputFieldProps) {
     return (
         <Field className={cn('block w-full', className)}>
-            <Label htmlFor={id} className="sr-only">{label}</Label>
+            <Label
+                htmlFor={id}
+                className="sr-only"
+            >
+                {label}
+            </Label>
             <Input
-                className="ease h-full w-full rounded-full border-2 border-slate-200 bg-white px-5 py-2 text-sm md:text-base text-slate-700 shadow-sm transition duration-300 placeholder:text-gray-500 hover:border-light-swamp focus:border-light-swamp focus:shadow focus:outline-none sm:text-base"
+                className="ease h-full w-full rounded-full border-2 border-slate-200 bg-white px-5 py-2 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-gray-500 hover:border-light-swamp focus:border-light-swamp focus:shadow focus:outline-none sm:text-base md:text-base"
                 id={id}
                 disabled={disabled}
                 placeholder={placeholder}
@@ -34,7 +39,9 @@ export default function InputField({
                 onChange={onChange}
             />
             {error != null && (
-                <div className="mt-2 text-red-500 text-sm md:text-base px-2">{error}</div>
+                <div className="mt-2 px-2 text-sm text-red-500 md:text-base">
+                    {error}
+                </div>
             )}{' '}
         </Field>
     );

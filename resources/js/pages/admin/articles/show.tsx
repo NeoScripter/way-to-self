@@ -17,7 +17,10 @@ export default function Show() {
         >
             <ArticleUpsert
                 article={article}
-                routeName={route(`admin.${namespace}.articles.update`, article.id)}
+                routeName={route(
+                    `admin.${namespace}.articles.update`,
+                    article.id,
+                )}
             />
         </EditingLayout>
     );

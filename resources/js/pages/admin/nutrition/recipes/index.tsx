@@ -21,9 +21,7 @@ export default function Index() {
         namespace: string;
     }>().props;
 
-    const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(
-        null,
-    );
+    const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
 
     const badge = pluralizeRu(count, 'рецепта', 'рецепта', 'рецептов');
 

@@ -1,15 +1,15 @@
-import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
-import { FormEventHandler } from 'react';
+import { Input } from '@/components/user/atoms/input';
+import InputError from '@/components/user/atoms/input-error';
+import { Label } from '@/components/user/atoms/label';
 import NeutralBtn from '@/components/user/atoms/neutral-btn';
+import PasswordInput from '@/components/user/atoms/password-input';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
+import { Head, useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
+import { FormEventHandler } from 'react';
 import z from 'zod';
-import { Input } from '@/components/user/atoms/input';
-import PasswordInput from '@/components/user/atoms/password-input';
-import { Label } from '@/components/user/atoms/label';
-import InputError from '@/components/user/atoms/input-error';
 
 interface ResetPasswordProps {
     token: string;

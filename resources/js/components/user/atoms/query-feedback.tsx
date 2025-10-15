@@ -6,7 +6,10 @@ type QueryFeedbackProps = {
     status?: string;
 };
 
-export default function QueryFeedback({ className, status = 'empty' }: QueryFeedbackProps) {
+export default function QueryFeedback({
+    className,
+    status = 'empty',
+}: QueryFeedbackProps) {
     const message =
         status === 'error'
             ? 'К сожалению, произошла непредвиденная ошибка'
@@ -15,7 +18,7 @@ export default function QueryFeedback({ className, status = 'empty' }: QueryFeed
     return (
         <div
             className={cn(
-                'mx-auto flex w-fit flex-col items-center gap-4 sm:gap-7 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 p-2 px-9 py-7 text-white backdrop-blur-sm sm:flex-row',
+                'mx-auto flex w-fit flex-col items-center gap-4 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 p-2 px-9 py-7 text-white backdrop-blur-sm sm:flex-row sm:gap-7',
                 className,
             )}
         >
@@ -27,7 +30,9 @@ export default function QueryFeedback({ className, status = 'empty' }: QueryFeed
                     className="size-full object-contain object-center"
                 />
             </div>
-            <p className="text-center text-balance sm:text-xl sm:text-left">{message}</p>
+            <p className="text-center text-balance sm:text-left sm:text-xl">
+                {message}
+            </p>
         </div>
     );
 }

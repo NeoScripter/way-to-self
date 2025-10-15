@@ -1,5 +1,6 @@
 import ConfirmationDialog from '@/components/admin/molecules/confirmation-dialog';
 import ExpandablePanel from '@/components/admin/molecules/expandable-panel';
+import { useDragDrop } from '@/hooks/use-drag-drop';
 import { RecipeStep } from '@/types/model';
 import { useState } from 'react';
 import RecipeStepUpsert from '../molecules/recipe-step-upsert';
@@ -11,6 +12,9 @@ type RecipeStepsProps = {
 
 export default function RecipeSteps({ steps, recipeId }: RecipeStepsProps) {
     const [selectedStep, setSelectedStep] = useState<RecipeStep | null>(null);
+
+    const { DndContext, Draggable, Droppable, handleDragEnd, sensors } =
+        useDragDrop({ namespace: 'admin.nutrition.steps' });
 
     return (
         <>
@@ -27,21 +31,30 @@ export default function RecipeSteps({ steps, recipeId }: RecipeStepsProps) {
                     routeName={route('admin.nutrition.steps.store', recipeId)}
                 />
             </ExpandablePanel>
-            {steps?.map((step, idx) => (
-                <ExpandablePanel
-                    key={step.id}
-                    label={`Блок ${idx + 1}`}
-                >
-                    <RecipeStepUpsert
-                        step={step}
-                        routeName={route(
-                            'admin.nutrition.steps.update',
-                            step.id,
-                        )}
-                        onClick={() => setSelectedStep(step)}
-                    />
-                </ExpandablePanel>
-            ))}
+            <DndContext
+                sensors={sensors}
+                onDragEnd={handleDragEnd}
+            >
+                {steps?.map((step, idx) => (
+                    <Draggable id={step.id}>
+                        <Droppable id={step.id}>
+                            <ExpandablePanel
+                                key={step.id}
+                                label={`Блок ${idx + 1}`}
+                            >
+                                <RecipeStepUpsert
+                                    step={step}
+                                    routeName={route(
+                                        'admin.nutrition.steps.update',
+                                        step.id,
+                                    )}
+                                    onClick={() => setSelectedStep(step)}
+                                />
+                            </ExpandablePanel>
+                        </Droppable>
+                    </Draggable>
+                ))}
+            </DndContext>
             {selectedStep != null && (
                 <ConfirmationDialog
                     show={selectedStep != null}

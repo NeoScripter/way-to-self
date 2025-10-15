@@ -20,9 +20,7 @@ export default function AudioHls({ src }: AudioHlsProps) {
             return () => {
                 hls.destroy();
             };
-        }
-
-        else {
+        } else {
             audio.src = src;
         }
     }, [src]);
@@ -31,7 +29,7 @@ export default function AudioHls({ src }: AudioHlsProps) {
         <audio
             ref={audioRef}
             controls
-            className='w-100 mx-auto'
+            className="mx-auto w-100"
         />
     );
 }

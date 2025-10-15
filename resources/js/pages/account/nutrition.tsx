@@ -27,7 +27,7 @@ export default function Nutrition() {
             />
 
             <BgImage
-                containerClass='-z-10'
+                containerClass="-z-10"
                 desktopPath={SandDesktopBg}
                 desktopTinyPath={SandDesktopTinyBg}
                 mobilePath={SandDesktopBg}

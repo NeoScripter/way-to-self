@@ -25,7 +25,7 @@ export default function Dashboard() {
 
     return (
         <AdminLayout pageClass="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-            <ul className="grid gap-6 lg:grid-cols-3 lg:gap-12 lg:col-span-3 xl:gap-13.5">
+            <ul className="grid gap-6 lg:col-span-3 lg:grid-cols-3 lg:gap-12 xl:gap-13.5">
                 {userData.map((item) => (
                     <UserMetrics
                         key={item.id}

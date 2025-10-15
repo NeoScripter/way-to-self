@@ -61,7 +61,10 @@ export default function Show() {
                     show={selectedBlock != null}
                     closeDialog={() => setSelectedBlock(null)}
                     title="Вы точно уверены, что хотите удалить данный блок?"
-                    routeName={route(`admin.body.blocks.destroy`, selectedBlock)}
+                    routeName={route(
+                        `admin.body.blocks.destroy`,
+                        selectedBlock,
+                    )}
                     methodName="delete"
                     confirmBtnLabel="Удалить"
                     cancelBtnLabel="Отмена"

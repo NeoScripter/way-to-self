@@ -12,7 +12,11 @@ type AdminHeaderProps = {
     show: boolean;
 };
 
-export default function AdminHeader({ className, show, onClick }: AdminHeaderProps) {
+export default function AdminHeader({
+    className,
+    show,
+    onClick,
+}: AdminHeaderProps) {
     const { auth } = usePage<{ auth: Auth }>().props;
 
     return (

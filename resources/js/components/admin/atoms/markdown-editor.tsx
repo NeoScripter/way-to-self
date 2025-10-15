@@ -41,7 +41,7 @@ export default function MarkdownEditor({
                 className,
             )}
         >
-            <menu className="mb-4 sticky top-15 sm:top-25 md:top-30 bg-white z-10 flex items-center flex-wrap rounded-md p-2 shadow-md">
+            <menu className="sticky top-15 z-10 mb-4 flex flex-wrap items-center rounded-md bg-white p-2 shadow-md sm:top-25 md:top-30">
                 {markdownBtns.map((btn, i) => (
                     <MarkdownBtn
                         key={btn.title}

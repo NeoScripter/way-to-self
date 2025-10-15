@@ -91,13 +91,15 @@ export default function FilterPanel({
 
             <div className="flex flex-wrap gap-2">
                 {items &&
-                    items.filter(item => item.name != null).map((item) => (
-                        <Filter
-                            key={item.id}
-                            item={item}
-                            namespace={namespace}
-                        />
-                    ))}
+                    items
+                        .filter((item) => item.name != null)
+                        .map((item) => (
+                            <Filter
+                                key={item.id}
+                                item={item}
+                                namespace={namespace}
+                            />
+                        ))}
             </div>
         </div>
     );

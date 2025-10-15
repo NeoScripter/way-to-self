@@ -118,7 +118,7 @@ export default function DeleteUserDialog({
                         <NeutralBtn
                             className="flex-1 border border-white bg-red-purple hover:bg-red-700"
                             disabled={processing}
-                            type='submit'
+                            type="submit"
                         >
                             Удалить
                         </NeutralBtn>

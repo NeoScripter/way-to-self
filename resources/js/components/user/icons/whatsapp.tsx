@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type WhatsappProps = {
     className?: string;
-}
+};
 
 export default function Whatsapp({ className }: WhatsappProps) {
     return (
@@ -12,7 +12,10 @@ export default function Whatsapp({ className }: WhatsappProps) {
             viewBox="0 0 19 18"
             width="19"
             xmlns="http://www.w3.org/2000/svg"
-            className={cn("text-[#6EA441] transition-colors duration-200 ease-in", className)}
+            className={cn(
+                'text-[#6EA441] transition-colors duration-200 ease-in',
+                className,
+            )}
         >
             <g clipPath="url(#clip0_664_72)">
                 <path

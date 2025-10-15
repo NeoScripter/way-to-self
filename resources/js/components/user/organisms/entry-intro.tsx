@@ -1,8 +1,8 @@
 import { CardData } from '@/lib/data/card-data';
 import { usePage } from '@inertiajs/react';
 import InfoCard from '../atoms/info-card';
-import SpanHighlight from '../atoms/span-highlight';
 import SecondaryHeading from '../atoms/secondary-heading';
+import SpanHighlight from '../atoms/span-highlight';
 
 type EntryIntroProps = {
     title: string;
@@ -15,7 +15,7 @@ export default function EntryIntro({
     title,
     entryKey,
     cards,
-    heading
+    heading,
 }: EntryIntroProps) {
     const { entries } = usePage<{
         entries: Record<string, string>;

@@ -1,15 +1,15 @@
 import DesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
 import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
-import Cinnamon from '@/assets/images/soul/practice-cinnamon.webp';
-import TinyCinnamon from '@/assets/images/soul/practice-cinnamon-tiny.webp';
-import TinyTopAnis from '@/assets/images/soul/practice-anise-top-tiny.webp';
-import TopAnis from '@/assets/images/soul/practice-anise-top.webp';
 import TinyBottomAnis from '@/assets/images/soul/practice-anise-bottom-tiny.webp';
 import BottomAnis from '@/assets/images/soul/practice-anise-bottom.webp';
+import TinyTopAnis from '@/assets/images/soul/practice-anise-top-tiny.webp';
+import TopAnis from '@/assets/images/soul/practice-anise-top.webp';
 import TinyBroom from '@/assets/images/soul/practice-broom-tiny.webp';
 import Broom from '@/assets/images/soul/practice-broom.webp';
 import TinyCandle from '@/assets/images/soul/practice-candle-tiny.webp';
 import Candle from '@/assets/images/soul/practice-candle.webp';
+import TinyCinnamon from '@/assets/images/soul/practice-cinnamon-tiny.webp';
+import Cinnamon from '@/assets/images/soul/practice-cinnamon.webp';
 import SearchBox from '@/components/account/atoms/search-box';
 import CategoryFilters from '@/components/account/molecules/category-filters';
 import CategoryList from '@/components/account/molecules/category-list';
@@ -52,17 +52,17 @@ export default function Practices() {
             <ArtLayer
                 img={Candle}
                 tinyImg={TinyCandle}
-                className="bottom-160 -left-10 z-10 w-2/5 sm:bottom-220 max-w-60 min-w-20 xl:bottom-240 2xl:bottom-260"
+                className="bottom-160 -left-10 z-10 w-2/5 max-w-60 min-w-20 sm:bottom-220 xl:bottom-240 2xl:bottom-260"
             />
             <ArtLayer
                 img={TopAnis}
                 tinyImg={TinyTopAnis}
-                className="top-20 right-20 hidden w-1/5 max-w-75 lg:block md:w-100"
+                className="top-20 right-20 hidden w-1/5 max-w-75 md:w-100 lg:block"
             />
             <ArtLayer
                 img={BottomAnis}
                 tinyImg={TinyBottomAnis}
-                className="top-45 right-15 hidden w-1/5 max-w-55 lg:block md:w-100"
+                className="top-45 right-15 hidden w-1/5 max-w-55 md:w-100 lg:block"
             />
             <ArtLayer
                 img={Cinnamon}

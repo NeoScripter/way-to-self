@@ -1,7 +1,6 @@
 import ClockSvg from '@/assets/svgs/clock.svg';
 import DishSvg from '@/assets/svgs/dish.svg';
 import PulseSvg from '@/assets/svgs/pulse.svg';
-import StarSvg from '@/assets/svgs/star.svg';
 import { roundDuration } from '@/lib/helpers/roundDuration';
 import { shortenDescription } from '@/lib/helpers/shortenDescription';
 import { cn } from '@/lib/utils';

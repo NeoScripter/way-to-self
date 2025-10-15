@@ -13,7 +13,7 @@ export default function Breadcrumbs({
     labels,
     itemName,
     className,
-    highlightClass
+    highlightClass,
 }: BreadcrumbsProps) {
     const { url } = usePage();
     let path = url;
@@ -34,9 +34,9 @@ export default function Breadcrumbs({
     return (
         <nav
             aria-label="Breadcrumb"
-            className={cn('mx-auto w-fit relative z-10', className)}
+            className={cn('relative z-10 mx-auto w-fit', className)}
         >
-            <ol className="flex items-center text-text-black gap-2 text-xs sm:text-sm md:text-lg lg:text-xl">
+            <ol className="flex items-center gap-2 text-xs text-text-black sm:text-sm md:text-lg lg:text-xl">
                 {items.map((item, i) => {
                     const isLast = i === items.length - 1;
                     return (
@@ -44,7 +44,8 @@ export default function Breadcrumbs({
                             key={i}
                             className={cn(
                                 'flex items-center gap-2',
-                                item.href === url && (highlightClass || 'text-bright-salad'),
+                                item.href === url &&
+                                    (highlightClass || 'text-bright-salad'),
                             )}
                         >
                             {isLast ? (
@@ -59,7 +60,7 @@ export default function Breadcrumbs({
                                     as="button"
                                     href={item.href}
                                     prefetch
-                                    className="cursor-pointer z-10 hover:underline"
+                                    className="z-10 cursor-pointer hover:underline"
                                 >
                                     {item.label}
                                 </Link>

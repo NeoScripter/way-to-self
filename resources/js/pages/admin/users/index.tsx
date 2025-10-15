@@ -63,7 +63,11 @@ function UserItem({ user }: UserItemProps) {
             <span className="w-2/7">{user.email}</span>
             <span className="">{user.telegram}</span>
             <span className="ml-auto text-right">
-                {isDeleted ? 'Удален' : user.banned ? 'Заблокирован' : 'Активен'}
+                {isDeleted
+                    ? 'Удален'
+                    : user.banned
+                      ? 'Заблокирован'
+                      : 'Активен'}
             </span>
         </div>
     );

@@ -1,5 +1,4 @@
 import Input from '@/components/admin/atoms/input';
-import { ProgramHome } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import TextArea from '../atoms/text-area';

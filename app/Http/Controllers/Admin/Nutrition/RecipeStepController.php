@@ -62,4 +62,19 @@ class RecipeStepController extends Controller
 
         return redirect()->back()->with('message', 'Блок успешно обновлен!');
     }
+
+    public function reorder(RecipeStep $from, Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'id' => 'required|numeric|exists:recipe_steps,id',
+        ]);
+
+        $to = RecipeStep::find($data['id']);
+        $toOrder = $to->order;
+
+        $to->update(['order' => $from->order]);
+        $from->update(['order' => $toOrder]);
+
+        return redirect()->back();
+    }
 }

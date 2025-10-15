@@ -65,7 +65,6 @@ export default function Show() {
             title="Личные данные пользователя"
             updatedAt={user.updated_at}
         >
-
             <ProfileInfo
                 user={user}
                 routeName={route('admin.users.update', user.id)}

@@ -1,6 +1,6 @@
 import AdminLayout from '@/layouts/admin/admin-layout';
-import { nutritionMenuItems } from './nutrition-menu-items';
 import Filters from '../filters';
+import { nutritionMenuItems } from './nutrition-menu-items';
 
 export default function RecipeFilters() {
     return (

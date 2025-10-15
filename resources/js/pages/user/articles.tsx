@@ -7,7 +7,10 @@ import { Article } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 
 export default function Articles() {
-    const { articles, prefix } = usePage<{ articles: PaginationMeta<Article>, prefix: string }>().props;
+    const { articles, prefix } = usePage<{
+        articles: PaginationMeta<Article>;
+        prefix: string;
+    }>().props;
 
     return (
         <AppLayout

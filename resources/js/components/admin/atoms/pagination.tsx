@@ -26,12 +26,12 @@ export default function Pagination({
     const renderLinkContent = (link: PaginationLink, index: number) => {
         if (isFirstLink(index)) {
             return (
-                <ChevronLeftIcon className="size-4 md:size-5 mt-0.5 -ml-1 sm:ml-0 text-slate-400" />
+                <ChevronLeftIcon className="mt-0.5 -ml-1 size-4 text-slate-400 sm:ml-0 md:size-5" />
             );
         }
         if (isLastLink(index)) {
             return (
-                <ChevronRightIcon className="size-4 md:size-5 mt-0.5 -mr-1 sm:mr-0 text-slate-400" />
+                <ChevronRightIcon className="mt-0.5 -mr-1 size-4 text-slate-400 sm:mr-0 md:size-5" />
             );
         }
         return link.label;
@@ -41,12 +41,7 @@ export default function Pagination({
         isFirstLink(index) || isLastLink(index);
 
     return (
-        <div
-            className={cn(
-                'flex items-center justify-between',
-                className,
-            )}
-        >
+        <div className={cn('flex items-center justify-between', className)}>
             <div className="flex flex-1 justify-between sm:hidden">
                 <PaginationBtn
                     key="prev-mobile-pagination-btn-0"
@@ -121,7 +116,7 @@ function PaginationBtn({
     scrollElementId,
 }: PaginationBtnProps) {
     const baseClasses = cn(
-        'relative justify-center ease-in transition-outline flex cursor-pointer items-center rounded-md border-2 border-slate-200 bg-white px-2 py-1 text-sm text-slate-500 shadow-sm outline-slate-200/60 duration-100 sm:size-9 md:text-base hover:outline-2 focus:shadow focus:outline-2 focus:outline-none',
+        'transition-outline relative flex cursor-pointer items-center justify-center rounded-md border-2 border-slate-200 bg-white px-2 py-1 text-sm text-slate-500 shadow-sm outline-slate-200/60 duration-100 ease-in hover:outline-2 focus:shadow focus:outline-2 focus:outline-none sm:size-9 md:text-base',
         {
             // Active state
             'bg-bright-salad text-white ring-transparent': link.active,
@@ -129,10 +124,10 @@ function PaginationBtn({
             'glow-shadow-inherit cursor-pointer ring-inherit ring-inset':
                 !link.active && link.url,
             // Navigation buttons (prev/next)
-            'ring-transparent gap-1 pb-1.5 sm:pb-1 sm:size-9':
+            'gap-1 pb-1.5 ring-transparent sm:size-9 sm:pb-1':
                 isNavigationButton,
             // Disabled state
-            'opacity-50 cursor-not-allowed': !link.url,
+            'cursor-not-allowed opacity-50': !link.url,
         },
     );
 

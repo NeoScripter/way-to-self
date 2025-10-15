@@ -4,11 +4,16 @@ import { ComponentProps } from 'react';
 
 type LinkProps = ComponentProps<typeof Link>;
 
-export default function TextLink({ className = '', children, ...props }: LinkProps) {
+export default function TextLink({
+    className = '',
+    children,
+    ...props
+}: LinkProps) {
     return (
-        <Link as="button"
+        <Link
+            as="button"
             className={cn(
-                'text-white cursor-pointer underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500',
+                'cursor-pointer text-white underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500',
                 className,
             )}
             {...props}
@@ -17,4 +22,3 @@ export default function TextLink({ className = '', children, ...props }: LinkPro
         </Link>
     );
 }
-

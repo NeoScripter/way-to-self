@@ -1,3 +1,7 @@
+import Avocado from '@/assets/images/home/veggies/avocado.webp';
+import BottomRadish from '@/assets/images/home/veggies/bottom-radish.webp';
+import MiddleRadish from '@/assets/images/home/veggies/middle-radish.webp';
+import RightRadish from '@/assets/images/home/veggies/right-radish.webp';
 import ItemsGrid from '@/layouts/user/items-grid';
 import { bodyCardData } from '@/lib/data/card-data';
 import { Exercise } from '@/types/model';
@@ -5,10 +9,6 @@ import { usePage } from '@inertiajs/react';
 import ArtLayer from '../atoms/art-layer';
 import ItemCard from '../atoms/item-card';
 import EntryIntro from './entry-intro';
-import Avocado from '@/assets/images/home/veggies/avocado.webp';
-import BottomRadish from '@/assets/images/home/veggies/bottom-radish.webp';
-import MiddleRadish from '@/assets/images/home/veggies/middle-radish.webp';
-import RightRadish from '@/assets/images/home/veggies/right-radish.webp';
 
 export default function BodySection() {
     const { exercises } = usePage<{

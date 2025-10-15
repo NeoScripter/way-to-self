@@ -3,9 +3,9 @@ import { Review } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import ImgInput from '../atoms/img-input';
+import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import { ActionBtns } from './action-btns';
-import TextArea from '../atoms/text-area';
 
 type ReviewForm = {
     author: string;

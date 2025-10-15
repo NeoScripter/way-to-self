@@ -1,16 +1,9 @@
 import MenuBg from '@/assets/images/home/home-nav-bg.webp';
 import MobileBtnSvg from '@/assets/svgs/mobile-btn.svg';
-import DarkBtn from '@/components/user/atoms/dark-btn';
 import Logo from '@/components/user/atoms/logo';
-import PrimaryBtn from '@/components/user/atoms/primary-btn';
-import RedBtn from '@/components/user/atoms/red-btn';
 import useToggle from '@/hooks/use-toggle';
 import { cn } from '@/lib/utils';
-import {
-    ArrowRightStartOnRectangleIcon,
-    Cog6ToothIcon,
-} from '@heroicons/react/24/solid';
-import { Link, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
 
 type AccountHeaderProps = {
@@ -92,7 +85,6 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                 </button>
             </header>
             <Logo className="my-[5vw] text-center text-[18vw] sm:text-8xl md:hidden" />
-
         </div>
     );
 }

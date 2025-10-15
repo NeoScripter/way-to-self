@@ -9,7 +9,13 @@ type LinkCardProps = {
     route: string;
 };
 
-export default function LinkCard({ img, tinyImg, route, alt, html }: LinkCardProps) {
+export default function LinkCard({
+    img,
+    tinyImg,
+    route,
+    alt,
+    html,
+}: LinkCardProps) {
     return (
         <li
             className="transition-scale relative flex h-67 w-71 shrink-0 flex-col items-center rounded-[4rem] bg-card-backdrop-gray p-10 pb-12.5 duration-300 ease-in hover:scale-110"

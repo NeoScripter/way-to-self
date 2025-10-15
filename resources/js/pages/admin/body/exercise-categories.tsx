@@ -1,6 +1,6 @@
 import AdminLayout from '@/layouts/admin/admin-layout';
-import { bodyMenuItems } from './body-menu-items';
 import Categories from '../categories';
+import { bodyMenuItems } from './body-menu-items';
 
 export default function ExerciseCategories() {
     return (

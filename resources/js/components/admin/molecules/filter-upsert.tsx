@@ -75,7 +75,7 @@ export default function FilterUpsert({
                 className="space-y-8"
                 onSubmit={submit}
             >
-                <div className="flex items-center justify-between gap-8 [width:min(100%,_500px)]">
+                <div className="flex [width:min(100%,_500px)] items-center justify-between gap-8">
                     <div className="flex-1">
                         <label
                             className="sr-only"

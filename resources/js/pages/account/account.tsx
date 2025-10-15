@@ -33,8 +33,7 @@ export default function Account() {
     }>().props;
 
     const isAdmin =
-        auth.roles.includes('admin') ||
-        auth.roles.includes('editor');
+        auth.roles.includes('admin') || auth.roles.includes('editor');
 
     const [showMenu, toggleMenu] = useToggle(false);
 
@@ -157,7 +156,6 @@ function TierCard({
     className,
     purchased,
 }: TierCardProps) {
-
     const hasAccess = purchased != null || isAdmin;
 
     return (

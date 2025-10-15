@@ -58,7 +58,7 @@ export default function Dropdown({
                                 )}
                                 data={{
                                     ...paramObj,
-                                    ['sort_by']: value
+                                    ['sort_by']: value,
                                 }}
                                 href=""
                                 {...(only ? { only } : {})}

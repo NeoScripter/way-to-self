@@ -1,7 +1,5 @@
 import Placeholder from '@/assets/images/admin/video-placeholder.webp';
 import VideoPlayer from '@/components/user/molecules/video-player';
-import { cn } from '@/lib/utils';
-import { ArrowDownTrayIcon } from '@heroicons/react/24/solid';
 import { usePage } from '@inertiajs/react';
 import type { AxiosProgressEvent } from 'axios';
 import React, { useEffect, useId, useState } from 'react';

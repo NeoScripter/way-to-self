@@ -13,7 +13,7 @@ export default function HomeBackground() {
     return (
         <div
             aria-hidden="true"
-            className="pointer-events-none select-none absolute inset-0 -z-5 overflow-clip bg-main-page-bg"
+            className="pointer-events-none absolute inset-0 -z-5 overflow-clip bg-main-page-bg select-none"
         >
             <picture
                 className={cn(

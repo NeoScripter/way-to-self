@@ -1,11 +1,11 @@
 import NavReturn from '@/components/admin/atoms/nav-return';
+import ErrorFallback from '@/components/shared/molecules/error-fallback';
 import { navConfig } from '@/lib/data/nav-config';
 import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { usePage } from '@inertiajs/react';
-import AdminLayout from './admin-layout';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from '@/components/shared/molecules/error-fallback';
+import AdminLayout from './admin-layout';
 
 type EditingLayoutProps = {
     navKey: keyof typeof navConfig;

@@ -67,7 +67,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
     return (
         <div
             className={cn(
-                'fixed top-0 right-0 left-0 z-10 h-200 max-h-screen overflow-y-auto md:overflow-y-visible bg-light-swamp bg-cover !bg-bottom-left transition-transform duration-500 ease-in-out md:static md:flex md:h-auto md:flex-1 md:items-center md:justify-between md:gap-5 md:bg-transparent md:!bg-none',
+                'fixed top-0 right-0 left-0 z-10 h-200 max-h-screen overflow-y-auto bg-light-swamp bg-cover !bg-bottom-left transition-transform duration-500 ease-in-out md:static md:flex md:h-auto md:flex-1 md:items-center md:justify-between md:gap-5 md:overflow-y-visible md:bg-transparent md:!bg-none',
                 className,
                 show ? 'translate-x-0' : 'translate-x-full md:translate-x-0',
             )}

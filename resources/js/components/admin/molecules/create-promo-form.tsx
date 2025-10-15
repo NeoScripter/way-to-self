@@ -41,7 +41,7 @@ type CreatePromoFormProps = {
 };
 
 export default function CreatePromoForm({ routeName }: CreatePromoFormProps) {
-    const { options } = usePage<{options: Option<string>[] }>().props;
+    const { options } = usePage<{ options: Option<string>[] }>().props;
     const {
         data,
         setData,
@@ -167,7 +167,7 @@ export default function CreatePromoForm({ routeName }: CreatePromoFormProps) {
                                     setData('discount_type', val)
                                 }
                                 options={options}
-                                className='mt-1'
+                                className="mt-1"
                             />
                             <InputError
                                 className="mt-2"

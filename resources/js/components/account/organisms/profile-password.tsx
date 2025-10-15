@@ -92,7 +92,7 @@ export default function ProfilePassword() {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
-                notify("Данные успешно изменены!");
+                notify('Данные успешно изменены!');
             },
             onError: (errors) => {
                 if (errors.password) {

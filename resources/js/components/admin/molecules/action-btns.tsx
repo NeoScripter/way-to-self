@@ -18,7 +18,6 @@ export function ActionBtns({
     onDelete,
     onCancel,
 }: ActionBtnsProps) {
-
     const clearImageField = () => {
         document.dispatchEvent(new CustomEvent('media:clear'));
     };

@@ -1,6 +1,6 @@
 import ItemCard from '@/components/user/atoms/item-card';
-import QueryFeedback from '@/components/user/atoms/query-feedback';
 import Pagination from '@/components/user/atoms/pagination';
+import QueryFeedback from '@/components/user/atoms/query-feedback';
 import { PaginationMeta } from '@/lib/types/pagination';
 
 type BaseItem = {
@@ -38,7 +38,6 @@ export default function CategoryList<T extends BaseItem>({
     scrollElementId = 'favorites',
     type,
 }: CategoryListProps<T>) {
-
     return (
         <div
             id={scrollElementId}

@@ -29,7 +29,6 @@ export default function Show() {
             title="Редактировать данные редактора"
             updatedAt={user.updated_at}
         >
-
             <ProfileInfo
                 user={user}
                 routeName={route('admin.editors.update', user.id)}

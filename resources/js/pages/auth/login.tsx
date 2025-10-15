@@ -2,6 +2,8 @@ import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
+import InputError from '@/components/shared/atoms/input-error';
+import TextLink from '@/components/shared/atoms/text-link';
 import { Checkbox } from '@/components/user/atoms/checkbox';
 import { Input } from '@/components/user/atoms/input';
 import { Label } from '@/components/user/atoms/label';
@@ -11,8 +13,6 @@ import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
-import TextLink from '@/components/shared/atoms/text-link';
-import InputError from '@/components/shared/atoms/input-error';
 
 type LoginForm = {
     email: string;

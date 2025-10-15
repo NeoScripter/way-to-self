@@ -11,7 +11,13 @@ type Item = {
 };
 
 export default function HomeEntry() {
-    let { options, selected, namespace, item = 'елемента', entry } = usePage<{
+    let {
+        options,
+        selected,
+        namespace,
+        item = 'елемента',
+        entry,
+    } = usePage<{
         options: Option[];
         selected: Item[];
         namespace: string;

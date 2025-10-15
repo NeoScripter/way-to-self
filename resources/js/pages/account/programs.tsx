@@ -1,11 +1,11 @@
+import TinyTumbler from '@/assets/images/body/account-body-cup-tiny.webp';
+import Tumbler from '@/assets/images/body/account-body-cup.webp';
+import TinyMat from '@/assets/images/body/account-body-mat-tiny.webp';
+import Mat from '@/assets/images/body/account-body-mat.webp';
+import TinyTape from '@/assets/images/body/account-body-tape-tiny.webp';
+import Tape from '@/assets/images/body/account-body-tape.webp';
 import DesktopTinyBg from '@/assets/images/food/nutrition-recipe-bg-tiny.webp';
 import DesktopBg from '@/assets/images/food/nutrition-recipe-bg.webp';
-import Mat from '@/assets/images/body/account-body-mat.webp';
-import TinyMat from '@/assets/images/body/account-body-mat-tiny.webp';
-import Tape from '@/assets/images/body/account-body-tape.webp';
-import TinyTape from '@/assets/images/body/account-body-tape-tiny.webp';
-import Tumbler from '@/assets/images/body/account-body-cup.webp';
-import TinyTumbler from '@/assets/images/body/account-body-cup-tiny.webp';
 import SearchBox from '@/components/account/atoms/search-box';
 import CategoryFilters from '@/components/account/molecules/category-filters';
 import CategoryList from '@/components/account/molecules/category-list';
@@ -53,7 +53,7 @@ export default function Programs() {
             <ArtLayer
                 img={Tumbler}
                 tinyImg={TinyTumbler}
-                className="bottom-40 left-0 z-10 max-w-2/5 w-75 sm:w-100 min-w-30"
+                className="bottom-40 left-0 z-10 w-75 max-w-2/5 min-w-30 sm:w-100"
             />
             <ArtLayer
                 img={Tape}

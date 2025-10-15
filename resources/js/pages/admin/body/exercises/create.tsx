@@ -2,7 +2,6 @@ import ExerciseUpsert from '@/components/admin/molecules/exercise-upsert';
 import EditingLayout from '@/layouts/admin/editing-layout';
 
 export default function Create() {
-
     return (
         <EditingLayout
             navKey="exercises"

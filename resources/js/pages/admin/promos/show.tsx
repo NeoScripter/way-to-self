@@ -8,7 +8,6 @@ import AdminLayout from '@/layouts/admin/admin-layout';
 import { formatDate } from '@/lib/helpers/formatDate';
 import pluralizeRu from '@/lib/helpers/pluralize';
 import { Promo } from '@/types/model';
-import { TrashIcon } from '@heroicons/react/24/solid';
 import { router, usePage } from '@inertiajs/react';
 
 export default function Show() {

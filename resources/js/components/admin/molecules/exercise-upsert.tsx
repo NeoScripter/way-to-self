@@ -1,10 +1,8 @@
 import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { Exercise } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useEffect, useState } from 'react';
-import EditBtn from '../atoms/edit-btn';
 import ImgInput from '../atoms/img-input';
 import InputError from '../atoms/input-error';
 import InputLabel from '../atoms/input-label';
@@ -14,8 +12,8 @@ import TagPicker from '../atoms/tag-picker';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import VideoInput from '../atoms/video-input';
-import ExpandablePanel from './expandable-panel';
 import { ActionBtns } from './action-btns';
+import ExpandablePanel from './expandable-panel';
 
 type ExerciseForm = {
     title: string;

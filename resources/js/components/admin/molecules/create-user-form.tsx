@@ -1,10 +1,8 @@
 import Input from '@/components/admin/atoms/input';
 import InputError from '@/components/admin/atoms/input-error';
-import InputSpan from '@/components/admin/atoms/input-span';
 import NeutralBtn from '@/components/admin/atoms/neutral-btn';
-import { Button } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler } from 'react';
 import { z } from 'zod';
 import InputLabel from '../atoms/input-label';
 
@@ -40,7 +38,6 @@ type CreateUserFormProps = {
 };
 
 export default function CreateUserForm({ routeName }: CreateUserFormProps) {
-
     const {
         data,
         setData,
@@ -85,17 +82,17 @@ export default function CreateUserForm({ routeName }: CreateUserFormProps) {
                         <div className="grid content-start gap-4">
                             <InputLabel htmlFor="name">Имя</InputLabel>
 
-                                <Input
-                                    id="name"
-                                    className="mt-1 block w-full"
-                                    value={data.name}
-                                    onChange={(e) =>
-                                        setData('name', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="name"
-                                    placeholder="Имя"
-                                />
+                            <Input
+                                id="name"
+                                className="mt-1 block w-full"
+                                value={data.name}
+                                onChange={(e) =>
+                                    setData('name', e.target.value)
+                                }
+                                required
+                                autoComplete="name"
+                                placeholder="Имя"
+                            />
 
                             <InputError
                                 className="mt-2"
@@ -105,17 +102,17 @@ export default function CreateUserForm({ routeName }: CreateUserFormProps) {
                         <div className="grid content-start gap-4">
                             <InputLabel htmlFor="name">Фамилия</InputLabel>
 
-                                <Input
-                                    id="surname"
-                                    className="mt-1 block w-full"
-                                    value={data.surname}
-                                    onChange={(e) =>
-                                        setData('surname', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="surname"
-                                    placeholder="Фамилия"
-                                />
+                            <Input
+                                id="surname"
+                                className="mt-1 block w-full"
+                                value={data.surname}
+                                onChange={(e) =>
+                                    setData('surname', e.target.value)
+                                }
+                                required
+                                autoComplete="surname"
+                                placeholder="Фамилия"
+                            />
 
                             <InputError
                                 className="mt-2"
@@ -126,18 +123,18 @@ export default function CreateUserForm({ routeName }: CreateUserFormProps) {
                         <div className="grid content-start gap-4">
                             <InputLabel htmlFor="email">Email</InputLabel>
 
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    className="mt-1 block w-full"
-                                    value={data.email}
-                                    onChange={(e) =>
-                                        setData('email', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="email"
-                                    placeholder="Email"
-                                />
+                            <Input
+                                id="email"
+                                type="email"
+                                className="mt-1 block w-full"
+                                value={data.email}
+                                onChange={(e) =>
+                                    setData('email', e.target.value)
+                                }
+                                required
+                                autoComplete="email"
+                                placeholder="Email"
+                            />
 
                             <InputError
                                 className="mt-2"
@@ -150,18 +147,18 @@ export default function CreateUserForm({ routeName }: CreateUserFormProps) {
                                 Логин в телеграм
                             </InputLabel>
 
-                                <Input
-                                    id="telegram"
-                                    type="telegram"
-                                    className="mt-1 block w-full"
-                                    value={data.telegram}
-                                    onChange={(e) =>
-                                        setData('telegram', e.target.value)
-                                    }
-                                    required
-                                    autoComplete="telegram"
-                                    placeholder="Telegram"
-                                />
+                            <Input
+                                id="telegram"
+                                type="telegram"
+                                className="mt-1 block w-full"
+                                value={data.telegram}
+                                onChange={(e) =>
+                                    setData('telegram', e.target.value)
+                                }
+                                required
+                                autoComplete="telegram"
+                                placeholder="Telegram"
+                            />
                             <InputError
                                 className="mt-2"
                                 message={errors.telegram}

@@ -1,7 +1,6 @@
 import ClockSvg from '@/assets/svgs/time-black.svg';
 import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
-import LikeBtn from '@/components/shared/atoms/like-btn';
 import VideoPlayer from '@/components/user/molecules/video-player';
 import AppLayout from '@/layouts/user/app-layout';
 import { roundDuration } from '@/lib/helpers/roundDuration';

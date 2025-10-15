@@ -1,9 +1,9 @@
+import { HomeEntry } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import { ActionBtns } from './action-btns';
-import { HomeEntry } from '@/types/model';
 
 type HomeForm = {
     description: string;
@@ -14,10 +14,7 @@ type HomeUpsertProps = {
     routeName: string;
 };
 
-export default function HomeUpsert({
-    entry,
-    routeName,
-}: HomeUpsertProps) {
+export default function HomeUpsert({ entry, routeName }: HomeUpsertProps) {
     const [isEdited, setIsEdited] = useState(entry == null);
 
     const {
@@ -67,12 +64,12 @@ export default function HomeUpsert({
                         edit={isEdited}
                         error={errors.description}
                         fallback={data.description}
-                        fbClass="entry py-2 min-h-40 text-left"
+                        fbClass="entry items-start py-2 min-h-40 text-left"
                     >
                         <TextArea
                             id="description"
                             placeholder="Текст"
-                            className="mt-1 entry w-full"
+                            className="entry mt-1 w-full"
                             value={data.description}
                             onChange={(e) =>
                                 setData('description', e.target.value)

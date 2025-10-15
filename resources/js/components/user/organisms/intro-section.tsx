@@ -3,10 +3,10 @@ import Intro from '@/assets/images/home/home-intro.webp';
 import CarrotBottom from '@/assets/images/home/veggies/bottom-carrot.webp';
 import CarrotMiddle from '@/assets/images/home/veggies/middle-carrot.webp';
 import CarrotTop from '@/assets/images/home/veggies/top-carrot.webp';
+import ArtLayer from '../atoms/art-layer';
 import LazyImage from '../atoms/lazy-image';
 import PrimaryBtn from '../atoms/primary-btn';
 import SpanHighlight from '../atoms/span-highlight';
-import ArtLayer from '../atoms/art-layer';
 
 export default function IntroSection() {
     return (

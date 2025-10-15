@@ -51,7 +51,7 @@ export default function ItemPicker({
             {label && <h4 className="mb-4 font-bold">{label}</h4>}
 
             <div className="rounded-md border border-text-black p-4 font-normal md:p-10">
-                <div className="relative mb-10 max-w-100 mx-auto">
+                <div className="relative mx-auto mb-10 max-w-100">
                     <Input
                         placeholder={placeholder}
                         className=""
@@ -81,7 +81,7 @@ export default function ItemPicker({
                     </Transition>
                 </div>
 
-                <ul className="grid place-content-center grid-cols-[repeat(auto-fit,_10rem)] gap-6">
+                <ul className="grid grid-cols-[repeat(auto-fit,_10rem)] place-content-center gap-6">
                     {selected.map((item) => (
                         <SelectedItem
                             key={item.id}
@@ -137,7 +137,7 @@ type SelectedItemProps = {
 
 function SelectedItem({ item, onRemove, payload }: SelectedItemProps) {
     return (
-        <li className="relative space-y-2 max-w-40">
+        <li className="relative max-w-40 space-y-2">
             {item.image && (
                 <div className="size-40 overflow-clip rounded-xl">
                     <img

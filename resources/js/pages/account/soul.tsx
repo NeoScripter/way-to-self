@@ -53,7 +53,7 @@ export default function Soul() {
                 </h1>
 
                 <ul
-                    className="relative z-11 mt-40 mb-31 grid sm:grid-cols-2 mx-auto w-fit justify-center gap-x-8 xl:grid-cols-4 gap-y-31 sm:gap-y-35"
+                    className="relative z-11 mx-auto mt-40 mb-31 grid w-fit justify-center gap-x-8 gap-y-31 sm:grid-cols-2 sm:gap-y-35 xl:grid-cols-4"
                     role="list"
                 >
                     {accountSoulCards.map((card) => (

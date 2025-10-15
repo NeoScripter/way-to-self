@@ -64,4 +64,19 @@ class RecipeInfoController extends Controller
 
         return redirect()->back()->with('message', 'Блок успешно обновлен!');
     }
+
+    public function reorder(RecipeInfo $from, Request $request): RedirectResponse
+    {
+        $data = $request->validate([
+            'id' => 'required|numeric|exists:recipe_infos,id',
+        ]);
+
+        $to = RecipeInfo::find($data['id']);
+        $toOrder = $to->order;
+
+        $to->update(['order' => $from->order]);
+        $from->update(['order' => $toOrder]);
+
+        return redirect()->back();
+    }
 }

@@ -34,7 +34,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     className="mt-2.5 mb-2 ml-1 text-3xl sm:mt-5 sm:mb-4 sm:text-5xl md:mt-7 md:mb-5 md:text-6xl"
                     aria-label="Логотип компании"
                 />
-                <div className="flex shrink-0 items-center gap-2 text-xs sm:mr-4 sm:gap-10 md:text-base md:mr-6 xl:text-lg">
+                <div className="flex shrink-0 items-center gap-2 text-xs sm:mr-4 sm:gap-10 md:mr-6 md:text-base xl:text-lg">
                     <RedBtn
                         href={route('shop')}
                         className="rounded-full p-1.5 sm:px-[1.25em] sm:py-[0.3rem]"
@@ -52,7 +52,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
                     <Link
                         as="button"
                         href={route('home')}
-                        className="cursor-pointer transition-all duration-200 ease-in hover:underline underline-offset-3"
+                        className="cursor-pointer underline-offset-3 transition-all duration-200 ease-in hover:underline"
                     >
                         <div className="glow-shadow size-6.5 transition duration-200 ease-in hover:scale-105 sm:hidden">
                             <img

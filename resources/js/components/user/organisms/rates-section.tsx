@@ -1,13 +1,13 @@
+import CutBellPepper from '@/assets/images/home/veggies/cut-bell-pepper.webp';
+import MiddleRadish from '@/assets/images/home/veggies/middle-radish.webp';
+import RightRadish from '@/assets/images/home/veggies/right-radish.webp';
+import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
 import { Plan } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 import ArtLayer from '../atoms/art-layer';
 import PlanCard from '../atoms/plan-card';
 import PrimaryBtn from '../atoms/primary-btn';
 import SpanHighlight from '../atoms/span-highlight';
-import CutBellPepper from '@/assets/images/home/veggies/cut-bell-pepper.webp';
-import MiddleRadish from '@/assets/images/home/veggies/middle-radish.webp';
-import RightRadish from '@/assets/images/home/veggies/right-radish.webp';
-import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
 
 export default function RatesSection() {
     const { plans } = usePage<{ plans: Plan[] }>().props;

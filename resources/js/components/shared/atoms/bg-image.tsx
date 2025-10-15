@@ -25,7 +25,10 @@ export default function BgImage({
     return (
         <div
             aria-hidden="true"
-            className={cn("pointer-events-none absolute inset-0 -z-5 overflow-clip", containerClass)}
+            className={cn(
+                'pointer-events-none absolute inset-0 -z-5 overflow-clip',
+                containerClass,
+            )}
         >
             <picture
                 className={cn(

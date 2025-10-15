@@ -16,7 +16,7 @@ export default function TrashBtn({
 }: TrashBtnProps) {
     return (
         <button
-            type='button'
+            type="button"
             onClick={onClick}
             className={cn(
                 'ease flex cursor-pointer items-center gap-1 text-red-700 transition-colors duration-200 hover:text-red-500',

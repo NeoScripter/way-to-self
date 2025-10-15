@@ -91,25 +91,25 @@ function SearchItem({ item }: SearchItemProps) {
         routeName = '';
     switch (item.itemType) {
         case 'nutrition.article':
-            ((label = 'статьи'), (routeName = 'nutrition.articles.show'));
+            (label = 'статьи'), (routeName = 'nutrition.articles.show');
             break;
         case 'recipe':
-            ((label = 'рецепты'), (routeName = 'nutrition.recipes.show'));
+            (label = 'рецепты'), (routeName = 'nutrition.recipes.show');
             break;
         case 'audio':
-            ((label = 'медитации'), (routeName = 'soul.audios.show'));
+            (label = 'медитации'), (routeName = 'soul.audios.show');
             break;
         case 'soul.article':
-            ((label = 'статьи'), (routeName = 'soul.articles.show'));
+            (label = 'статьи'), (routeName = 'soul.articles.show');
             break;
         case 'practice':
-            ((label = 'духовные практики'), (routeName = 'soul.practices.show'));
+            (label = 'духовные практики'), (routeName = 'soul.practices.show');
             break;
         case 'program':
-            ((label = 'программы'), (routeName = 'body.programs.show'));
+            (label = 'программы'), (routeName = 'body.programs.show');
             break;
         case 'exercise':
-            ((label = 'упражнения'), (routeName = 'body.exercises.show'));
+            (label = 'упражнения'), (routeName = 'body.exercises.show');
             break;
     }
     return (

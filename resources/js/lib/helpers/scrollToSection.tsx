@@ -3,5 +3,9 @@ export default function scrollToSection(selector: string) {
 
     if (!element) return;
 
-    element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: "nearest" });
+    element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+    });
 }

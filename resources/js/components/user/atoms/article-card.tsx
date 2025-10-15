@@ -8,7 +8,11 @@ type ArticleCardProps = {
     prefix: string;
 };
 
-export default function ArticleCard({ prefix, article, className }: ArticleCardProps) {
+export default function ArticleCard({
+    prefix,
+    article,
+    className,
+}: ArticleCardProps) {
     const articleUrl = route(prefix, article.id);
 
     return (
@@ -34,7 +38,7 @@ export default function ArticleCard({ prefix, article, className }: ArticleCardP
                 <div className="space-y-2">
                     <h4
                         id={`article-title-${article.id}`}
-                        className="mb-2 text-lg text-balance leading-tight font-medium"
+                        className="mb-2 text-lg leading-tight font-medium text-balance"
                     >
                         {article.title}
                     </h4>

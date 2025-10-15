@@ -1,6 +1,5 @@
 import EntityHeader from '@/components/account/molecules/entity-header';
 import Breadcrumbs from '@/components/shared/atoms/breadcrumbs';
-import LikeBtn from '@/components/shared/atoms/like-btn';
 import LazyImage from '@/components/user/atoms/lazy-image';
 import AppLayout from '@/layouts/user/app-layout';
 import { Article as ArticleType } from '@/types/model';

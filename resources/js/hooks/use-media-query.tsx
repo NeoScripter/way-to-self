@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useEventListener from './use-event-listener';
 
 export default function useMediaQuery(mediaQuery: string): boolean {
     const [isMatch, setIsMatch] = useState(false);
     const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList | null>(
-        null
+        null,
     );
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function useMediaQuery(mediaQuery: string): boolean {
     useEventListener(
         'change',
         (e: Event) => setIsMatch((e as MediaQueryListEvent).matches),
-        mediaQueryList ?? undefined
+        mediaQueryList ?? undefined,
     );
 
     return isMatch;

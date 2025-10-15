@@ -18,7 +18,7 @@ export default function AudioPlayer({
     className,
     showTitle = true,
 }: AudioPlayerProps) {
-    const { audio, stream } = usePage<{ audio: Audio, stream: string; }>().props;
+    const { audio, stream } = usePage<{ audio: Audio; stream: string }>().props;
     const src = stream;
 
     const audioRef = useRef<HTMLAudioElement | null>(null);

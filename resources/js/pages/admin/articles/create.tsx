@@ -12,7 +12,9 @@ export default function Create() {
             navKey="articles"
             title="Создать статью"
         >
-            <ArticleUpsert routeName={route(`admin.${namespace}.articles.store`)} />
+            <ArticleUpsert
+                routeName={route(`admin.${namespace}.articles.store`)}
+            />
         </EditingLayout>
     );
 }

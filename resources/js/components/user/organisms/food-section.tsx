@@ -1,13 +1,13 @@
+import BerryLeaves from '@/assets/images/home/veggies/berry-leaves.webp';
+import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
+import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
+import ArtLayer from '@/components/user/atoms/art-layer';
 import ItemsGrid from '@/layouts/user/items-grid';
 import { foodCardData } from '@/lib/data/card-data';
 import { Recipe } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 import ItemCard from '../atoms/item-card';
 import EntryIntro from './entry-intro';
-import BerryLeaves from '@/assets/images/home/veggies/berry-leaves.webp';
-import CutChili from '@/assets/images/home/veggies/cut-chilli.webp';
-import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
-import ArtLayer from '@/components/user/atoms/art-layer';
 
 export default function FoodSection() {
     const { recipes } = usePage<{

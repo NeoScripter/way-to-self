@@ -33,14 +33,11 @@ export default function Show() {
             title="Редактировать тариф"
             updatedAt={plan.updated_at}
         >
-
             <div className="my-10 flex flex-col items-center justify-between gap-10 md:my-16 md:flex-row xl:my-20">
                 <ToggleBtn
                     color="data-checked:bg-red-700"
                     label={
-                        plan.enabled
-                            ? 'Тариф активен'
-                            : 'Тариф деактивирован'
+                        plan.enabled ? 'Тариф активен' : 'Тариф деактивирован'
                     }
                     checked={!plan.enabled}
                     handleChange={handleChange}

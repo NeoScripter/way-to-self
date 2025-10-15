@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 type EmailProps = {
     className?: string;
-}
+};
 
 export default function Email({ className }: EmailProps) {
     return (
@@ -12,7 +12,10 @@ export default function Email({ className }: EmailProps) {
             viewBox="0 0 19 18"
             width="19"
             xmlns="http://www.w3.org/2000/svg"
-            className={cn("text-[#6EA441] transition-colors duration-200 ease-in", className)}
+            className={cn(
+                'text-[#6EA441] transition-colors duration-200 ease-in',
+                className,
+            )}
         >
             <g clipPath="url(#clip0_664_77)">
                 <path
@@ -30,5 +33,6 @@ export default function Email({ className }: EmailProps) {
                     />
                 </clipPath>
             </defs>
-        </svg>);
+        </svg>
+    );
 }

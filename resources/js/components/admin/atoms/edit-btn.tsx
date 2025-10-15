@@ -1,4 +1,4 @@
-import { Button } from "@headlessui/react";
+import { Button } from '@headlessui/react';
 
 type EditBtnProps = {
     onClick: () => void;
@@ -6,7 +6,11 @@ type EditBtnProps = {
     isEdited: boolean;
 };
 
-export default function EditBtn({onClick, disabled = false, isEdited}: EditBtnProps) {
+export default function EditBtn({
+    onClick,
+    disabled = false,
+    isEdited,
+}: EditBtnProps) {
     return (
         <Button
             type="button"

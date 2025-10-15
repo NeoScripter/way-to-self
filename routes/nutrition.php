@@ -75,11 +75,13 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/nutrit
         Route::post('/store/{recipe}', [RecipeInfoController::class, 'store'])->name('store');
         Route::post('/{info}', [RecipeInfoController::class, 'update'])->name('update');
         Route::delete('/{info}', [RecipeInfoController::class, 'destroy'])->name('destroy');
+        Route::patch('/{from}', [RecipeInfoController::class, 'reorder'])->name('reorder');
     });
 
     Route::prefix('/steps')->name('steps.')->group(function () {
         Route::post('/store/{recipe}', [RecipeStepController::class, 'store'])->name('store');
         Route::post('/{step}', [RecipeStepController::class, 'update'])->name('update');
         Route::delete('/{step}', [RecipeStepController::class, 'destroy'])->name('destroy');
+        Route::patch('/{from}', [RecipeStepController::class, 'reorder'])->name('reorder');
     });
 });

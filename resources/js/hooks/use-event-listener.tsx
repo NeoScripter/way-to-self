@@ -1,11 +1,11 @@
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from 'react';
 
 function useEventListener<
     KW extends keyof WindowEventMap,
     KH extends keyof HTMLElementEventMap,
     KM extends keyof MediaQueryListEventMap,
     KD extends keyof DocumentEventMap,
-    T extends EventTarget = Window
+    T extends EventTarget = Window,
 >(
     eventName: KW | KH | KM | KD,
     handler: (
@@ -14,10 +14,10 @@ function useEventListener<
             | HTMLElementEventMap[KH]
             | MediaQueryListEventMap[KM]
             | DocumentEventMap[KD]
-            | Event
+            | Event,
     ) => void,
     element?: RefObject<T> | T,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
 ) {
     const savedHandler = useRef(handler);
 
@@ -27,7 +27,9 @@ function useEventListener<
 
     useEffect(() => {
         const targetElement: EventTarget | null =
-            element && "current" in element ? element.current : element ?? window;
+            element && 'current' in element
+                ? element.current
+                : (element ?? window);
 
         if (!targetElement?.addEventListener) return;
 

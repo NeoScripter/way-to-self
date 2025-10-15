@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
-import { ArrowLongUpIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { cn } from '@/lib/utils';
+import { ArrowLongUpIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState } from 'react';
 
 type BackToTopBtnProps = {
     className?: string;
-}
+};
 
 export default function BackToTopBtn({ className }: BackToTopBtnProps) {
     const [show, setShow] = useState(true);
@@ -26,15 +26,21 @@ export default function BackToTopBtn({ className }: BackToTopBtnProps) {
     function handleClick() {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: 'smooth',
         });
     }
 
     if (!show) return null;
 
     return (
-        <button onClick={handleClick} className={cn("hidden md:flex rounded-full z-50 border border-white/20 cursor-pointer bg-card-backdrop-gray items-center justify-center size-30 fixed bottom-10 right-10 2xl:right-25 2xl:bottom-25 transition duration-200 ease-in hover:scale-110 glow-shadow", className)}>
-            <ArrowLongUpIcon className="text-white size-20" />
+        <button
+            onClick={handleClick}
+            className={cn(
+                'glow-shadow fixed right-10 bottom-10 z-50 hidden size-30 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-card-backdrop-gray transition duration-200 ease-in hover:scale-110 md:flex 2xl:right-25 2xl:bottom-25',
+                className,
+            )}
+        >
+            <ArrowLongUpIcon className="size-20 text-white" />
         </button>
-    )
+    );
 }

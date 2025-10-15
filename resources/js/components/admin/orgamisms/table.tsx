@@ -17,7 +17,7 @@ export default function Table({
     width,
     columns,
     isEmpty = false,
-    columnClass
+    columnClass,
 }: TableProps) {
     const params = new URLSearchParams(window.location.search);
     const emptyBox =
@@ -37,7 +37,10 @@ export default function Table({
                     {columns.map((column, idx) => (
                         <span
                             key={idx}
-                            className={cn("text-center first-of-type:text-left last-of-type:text-right", columnClass)}
+                            className={cn(
+                                'text-center first-of-type:text-left last-of-type:text-right',
+                                columnClass,
+                            )}
                         >
                             {column}
                         </span>
@@ -45,7 +48,9 @@ export default function Table({
                 </div>
 
                 {isEmpty ? (
-                    <div className="text-balance text-sm md:text-base">{emptyBox}</div>
+                    <div className="text-sm text-balance md:text-base">
+                        {emptyBox}
+                    </div>
                 ) : (
                     <div className={cn('space-y-4', width)}>{children}</div>
                 )}
