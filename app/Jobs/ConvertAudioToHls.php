@@ -20,7 +20,7 @@ class ConvertAudioToHls implements ShouldQueue
 
     public function __construct(
         public Audio $audio,
-               public string $tempPath
+        public UploadedFile $file
     ) {}
 
     public function handle(): void
@@ -29,7 +29,7 @@ class ConvertAudioToHls implements ShouldQueue
         $file = $this->file;
 
         // Prepare directories and filenames
-        $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '-' . uniqid();
+        // $filename = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '-' . uniqid();
         $hlsDir = storage_path("app/private/audios/{$audio->id}");
         File::ensureDirectoryExists($hlsDir, 0755, true);
 
