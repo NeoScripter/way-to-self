@@ -1,5 +1,4 @@
 import LikeSound from '@/assets/audio/like.wav';
-import DislikeSound from '@/assets/audio/unlike.wav';
 import useToggle from '@/hooks/use-toggle';
 import { playAudio } from '@/lib/helpers/playAudio';
 import { cn } from '@/lib/utils';
@@ -22,8 +21,6 @@ export default function LikeBtn({ isLiked, route, className }: LikeBtnProps) {
 
         setDisabled(true);
         if (!liked) {
-            playAudio(DislikeSound);
-        } else {
             playAudio(LikeSound);
         }
         toggleAnimating(!liked);
