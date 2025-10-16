@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use AhoCorasick\MultiStringMatcher;
 use Illuminate\Http\Request;
 use App\Services\BotService;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 
 class BotController extends Controller
@@ -18,6 +19,11 @@ class BotController extends Controller
 
     public function webhook(Request $request)
     {
+        Log::info('Telegram webhook hit', [
+            'headers' => $request->headers->all(),
+            'body' => $request->all(),
+        ]);
+
         $update = app(Api::class)->getWebhookUpdate();
         $this->botService->handleUpdate($update);
 
