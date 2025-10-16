@@ -12,7 +12,7 @@ export default function SecondaryHeading({
     return (
         <h4
             className={cn(
-                'text-center font-heading text-5xl text-dark-swamp sm:text-6xl',
+                'text-center relative z-11 font-heading text-5xl text-dark-swamp sm:text-6xl',
                 className,
             )}
         >

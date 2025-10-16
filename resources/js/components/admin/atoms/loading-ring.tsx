@@ -8,9 +8,9 @@ type LoadingRingProps = {
 
 export default function LoadingRing({ progress, updated }: LoadingRingProps) {
     const showCheckMark =
-        progress && progress.percentage && progress.percentage > 98 && updated;
+        progress && progress.percentage && progress.percentage > 99 && updated;
     const showLoadingRing =
-        progress && progress.percentage && progress.percentage < 98 && updated;
+        progress && progress.percentage && progress.percentage < 99 && progress.percentage >= 1 && updated;
 
     return (
         <>
