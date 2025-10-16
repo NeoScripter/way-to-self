@@ -94,22 +94,22 @@ class BotService
                         'text'    => "Данный пользователь был перманентно заблокирован за нарушения правил группы",
                     ]);
 
-                    $this->telegram->banChatMember([
-                        'chat_id' => $chatId,
-                        'user_id' => $userId,
-                        'banned_until_date' => 0,
-                    ]);
+                    // $this->telegram->banChatMember([
+                    //     'chat_id' => $chatId,
+                    //     'user_id' => $userId,
+                    //     'banned_until_date' => 0,
+                    // ]);
                 } elseif ($currentCount === 2) {
                     $this->telegram->sendMessage([
                         'chat_id' => $chatId,
                         'text'    => "Данный пользователь был временно заблокирован за нарушения правил группы",
                     ]);
 
-                    $this->telegram->banChatMember([
-                        'chat_id' => $chatId,
-                        'user_id' => $userId,
-                        'banned_until_date' => now()->addDays(7)->timestamp,
-                    ]);
+                    // $this->telegram->banChatMember([
+                    //     'chat_id' => $chatId,
+                    //     'user_id' => $userId,
+                    //     'banned_until_date' => now()->addDays(7)->timestamp,
+                    // ]);
                 } else {
                     $this->telegram->sendMessage([
                         'chat_id' => $chatId,
