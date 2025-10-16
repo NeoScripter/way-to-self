@@ -16,6 +16,7 @@
     --font-cursive: 'Disruptors Script', 'Brush Script MT';
     --font-heading: 'Bodoni', 'Georgia';
 
+    --breakpoint-xs: 22.5rem;
     --breakpoint-3xl: 110rem;
 
     --animate-shimmer: shimmer 2s ease-in-out infinite;

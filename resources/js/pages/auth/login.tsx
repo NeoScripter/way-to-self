@@ -92,15 +92,15 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                     подписку.
                 </TextLink>
             </p>
-            <p className="mx-auto my-8 w-4/5 text-center text-sm tracking-wider text-balance text-white sm:text-base">
-                <TextLink
-                    href={route('dev.login')}
-                    className="ml-1"
-                    onClick={() => router.flushAll()}
-                >
-                    Вход (только для Ильи)
-                </TextLink>
-            </p>
+            {/* <p className="mx-auto my-8 w-4/5 text-center text-sm tracking-wider text-balance text-white sm:text-base"> */}
+            {/*     <TextLink */}
+            {/*         href={route('dev.login')} */}
+            {/*         className="ml-1" */}
+            {/*         onClick={() => router.flushAll()} */}
+            {/*     > */}
+            {/*         Вход (только для Ильи) */}
+            {/*     </TextLink> */}
+            {/* </p> */}
 
             <form
                 className="flex flex-col gap-6 text-text-black"
@@ -157,8 +157,8 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                         <InputError message={errors.password} />
                     </div>
 
-                    <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-white">
-                        <div className="flex items-center space-x-2">
+                    <div className="mt-1 flex flex-wrap flex-col xs:flex-row items-center justify-between gap-2 text-white">
+                        <div className="flex items-center space-x-2 mr-7 xs:mr-0">
                             <Checkbox
                                 id="remember"
                                 name="remember"

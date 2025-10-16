@@ -25,6 +25,7 @@ export default function AdminNavLink({ item }: AdminNavLinkProps) {
         >
             <Link
                 href={route(item.route)}
+                prefetch
                 as="button"
                 className="absolute inset-0 cursor-pointer"
             ></Link>
