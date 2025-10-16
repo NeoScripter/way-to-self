@@ -65,11 +65,11 @@ export default function AudioInput({
                         disabled={!isEdited}
                         label="Загрузить аудиофайл"
                     />
-                    <div className="relative flex max-w-120 items-center justify-center duration-200">
+                    <div className="relative flex max-w-160 items-center justify-center duration-200">
                         {preview ? (
                             <HlsPlayer
                                 src={preview}
-                                className="h-full w-full rounded object-cover"
+                                className="w-140 max-w-full"
                             />
                         ) : (
                             <span>Нет аудио</span>

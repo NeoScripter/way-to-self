@@ -22,7 +22,7 @@ class FaqItemSeeder extends Seeder
 
         $types->each(function (ArticleType $type) {
             FaqItem::factory()
-                ->count(6)
+                ->count(3)
                 ->state(['type' => $type])
                 ->withFixture()
                 ->create();

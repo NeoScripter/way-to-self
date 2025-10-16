@@ -72,7 +72,7 @@ export default function VideoInput({
                         {preview ? (
                             <VideoPlayer
                                 src={preview}
-                                className="h-full w-full rounded object-cover"
+                                className="w-140 max-w-full"
                             />
                         ) : (
                             <img

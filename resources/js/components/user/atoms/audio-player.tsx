@@ -21,11 +21,12 @@ export default function AudioPlayer({
     const { audio, stream } = usePage<{ audio: Audio; stream: string }>().props;
     const src = stream;
 
+    if (stream == null) return null;
+
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(0);
     const [progress, setProgress] = useState(0);
-    const [volume, setVolume] = useState(1);
 
     useEffect(() => {
         const audio = audioRef.current;

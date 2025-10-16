@@ -20,7 +20,7 @@ class ProgramSeeder extends Seeder
     {
         $programData = ProgramFixtures::getFixtures();
 
-        $programData->each(function (array $raw) {
+        $programData->slice(0, 1)->each(function (array $raw) {
             Program::factory(
                 [
                     'title' => $raw['title'],

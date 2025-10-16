@@ -20,7 +20,7 @@ class ExerciseSeeder extends Seeder
         $exerciseData = ExerciseFixtures::getFixtures();
 
         for ($i = 0; $i < 1; $i++) {
-            $exerciseData->each(function (array $raw) {
+            $exerciseData->slice(0, 2)->each(function (array $raw) {
                 Exercise::factory(
                     [
                         'title' => $raw['title'],

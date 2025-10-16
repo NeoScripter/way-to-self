@@ -23,8 +23,9 @@ class UserSeeder extends Seeder
         $editorRole = Role::where('name', 'editor')->first();
 
         $admin = User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
+            'name' => 'Мария',
+            'surname' => 'Юданова',
+            'email' => 'client-vremyavspyat@ya.ru',
         ]);
         $admin->roles()->sync([$adminRole->id]);
 
@@ -33,9 +34,9 @@ class UserSeeder extends Seeder
             $editor->roles()->sync([$editorRole->id])
         );
 
-        $regularUsers = User::factory(94)->create();
+        $regularUsers = User::factory(15)->create();
 
-        $withSubscriptions = $regularUsers->random(40);
+        $withSubscriptions = $regularUsers->random(10);
 
         $tiers = Tier::all();
 
@@ -48,40 +49,40 @@ class UserSeeder extends Seeder
             $randomTiers->each(function ($tier) use ($user, $pivotData) {
                 $user->tiers()->attach($tier->id, $pivotData);
 
-                if ($tier->route === 'soul') {
-                    $audio = Audio::first();
-                    User::toggleFavorite($user, Audio::class, $audio->id);
+                // if ($tier->route === 'soul') {
+                //     $audio = Audio::first();
+                //     User::toggleFavorite($user, Audio::class, $audio->id);
 
-                    $articles = Article::where('type', ArticleType::SOUL)->latest()->limit(4)->get();
+                //     $articles = Article::where('type', ArticleType::SOUL)->latest()->limit(4)->get();
 
-                    $articles->each(function ($article) use ($user) {
-                        User::toggleFavorite($user, Article::class, $article->id);
-                    });
-                } else if ($tier->route === 'food') {
-                    $recipes = Recipe::latest()->limit(4)->get();
+                //     $articles->each(function ($article) use ($user) {
+                //         User::toggleFavorite($user, Article::class, $article->id);
+                //     });
+                // } else if ($tier->route === 'food') {
+                //     $recipes = Recipe::latest()->limit(4)->get();
 
-                    $recipes->each(function ($recipe) use ($user) {
-                        User::toggleFavorite($user, Recipe::class, $recipe->id);
-                    });
+                //     $recipes->each(function ($recipe) use ($user) {
+                //         User::toggleFavorite($user, Recipe::class, $recipe->id);
+                //     });
 
-                    $articles = Article::where('type', ArticleType::NUTRITION)->latest()->limit(4)->get();
+                //     $articles = Article::where('type', ArticleType::NUTRITION)->latest()->limit(4)->get();
 
-                    $articles->each(function ($article) use ($user) {
-                        User::toggleFavorite($user, Article::class, $article->id);
-                    });
-                } else {
-                    $exercises = Exercise::latest()->limit(4)->get();
+                //     $articles->each(function ($article) use ($user) {
+                //         User::toggleFavorite($user, Article::class, $article->id);
+                //     });
+                // } else {
+                //     $exercises = Exercise::latest()->limit(4)->get();
 
-                    $exercises->each(function ($exercise) use ($user) {
-                        User::toggleFavorite($user, Exercise::class, $exercise->id);
-                    });
+                //     $exercises->each(function ($exercise) use ($user) {
+                //         User::toggleFavorite($user, Exercise::class, $exercise->id);
+                //     });
 
-                    $articles = Article::where('type', ArticleType::EXERCISE)->latest()->limit(4)->get();
+                //     $articles = Article::where('type', ArticleType::EXERCISE)->latest()->limit(4)->get();
 
-                    $articles->each(function ($article) use ($user) {
-                        User::toggleFavorite($user, Article::class, $article->id);
-                    });
-                }
+                //     $articles->each(function ($article) use ($user) {
+                //         User::toggleFavorite($user, Article::class, $article->id);
+                //     });
+                // }
             });
         }
     }

@@ -11,23 +11,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(FaqItemSeeder::class);
-        $this->call(ReviewSeeder::class);
-        $this->call(ArticleSeeder::class);
-        $this->call(RecipeSeeder::class);
-        $this->call(ExerciseSeeder::class);
-        $this->call(AudioSeeder::class);
+        // $this->call(FaqItemSeeder::class);
+        // $this->call(ReviewSeeder::class);
+        // $this->call(ArticleSeeder::class);
+        // $this->call(RecipeSeeder::class);
+        // $this->call(ExerciseSeeder::class);
+        // $this->call(AudioSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(PlanSeeder::class);
         $this->call(TierSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(PracticeSeeder::class);
-        $this->call(ProgramSeeder::class);
-        $this->call(RecipeCategoryFilterSeeder::class);
-        $this->call(PracticeCategoryFilterSeeder::class);
-        $this->call(AudioCategoryFilterSeeder::class);
-        $this->call(ExerciseCategoryFilterSeeder::class);
-        $this->call(ProgramCategoryFilterSeeder::class);
+        // $this->call(PracticeSeeder::class);
+        // $this->call(ProgramSeeder::class);
+        // $this->call(RecipeCategoryFilterSeeder::class);
+        // $this->call(PracticeCategoryFilterSeeder::class);
+        // $this->call(AudioCategoryFilterSeeder::class);
+        // $this->call(ExerciseCategoryFilterSeeder::class);
+        // $this->call(ProgramCategoryFilterSeeder::class);
         $this->call(HomeEntrySeeder::class);
     }
 }
