@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use AhoCorasick\MultiStringMatcher;
 use Illuminate\Http\Request;
 use App\Services\BotService;
 use Telegram\Bot\Api;
@@ -10,9 +11,9 @@ class BotController extends Controller
 {
     protected $botService;
 
-    public function __construct(Api $telegram)
+    public function __construct(Api $telegram, MultiStringMatcher $matcher)
     {
-        $this->botService = new BotService($telegram);
+        $this->botService = new BotService($telegram, $matcher);
     }
 
     public function webhook(Request $request)
