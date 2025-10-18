@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Support\UserRoles;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -34,8 +35,13 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
+        $route = 'account.edit';
+        if (UserRoles::isAdmin() || UserRoles::isEditor()) {
+            $route = 'admin.profile';
+        }
 
         return redirect()
-            ->route('account.edit');
+            ->route($route)
+            ->with('message', 'Добро пожаловать!');
     }
 }
