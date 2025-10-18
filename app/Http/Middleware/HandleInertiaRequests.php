@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Support\UserRoles;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        [$message, $author] = str(Inspiring::quotes()->random())->explode('-');
+        $admin = User::select(['name', 'surname', 'email'])->admin()->first();
 
         return [
             ...parent::share($request),
@@ -46,7 +47,11 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn() => $request->session()->pull('message')
             ],
             'name' => config('app.name'),
-            'quote' => ['message' => trim($message), 'author' => trim($author)],
+            'admin' => [
+                'name' => $admin['name'],
+                'surname' =>$admin['surname'],
+                'email' => $admin['email'],
+            ],
             'auth' => [
                 'user' => $request->user(),
                 'roles' => UserRoles::all(),
@@ -55,7 +60,6 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
     }
 }

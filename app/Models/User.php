@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RoleEnum;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
@@ -111,6 +113,14 @@ class User extends Authenticatable
             ->roles()
             ->where('roles.name', RoleEnum::ADMIN->value)
             ->exists();
+    }
+
+    #[Scope]
+    public function scopeAdmin(Builder $query): void
+    {
+        $query->whereHas('roles', function ($q) {
+            $q->where('roles.name', RoleEnum::ADMIN->value);
+        });
     }
 
     public function isEditor(): bool
