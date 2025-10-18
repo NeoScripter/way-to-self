@@ -74,7 +74,7 @@ export default function ReviewUpsert({ routeName, review }: ReviewUpsertProps) {
                         edit={isEdited}
                         error={errors.author}
                         fallback={data.author}
-                        fbClass="text-left justify-start"
+                        fbClass="block text-left justify-start"
                     >
                         <Input
                             id="author"

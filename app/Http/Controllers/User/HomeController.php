@@ -15,7 +15,7 @@ use App\Models\Overview;
 use App\Models\Plan;
 use App\Models\Recipe;
 use App\Models\Review;
-use App\Models\Video;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 final class HomeController extends Controller
@@ -34,25 +34,29 @@ final class HomeController extends Controller
             ->get();
 
         $plans = Plan::with(['image'])
+            ->active()
             ->latest()
             ->get();
 
         $articles = Article::select(['id', 'description', 'title'])
             ->free()
             ->with(['thumbnail'])
-            ->latest()
+            ->inRandomOrder()
+            ->limit(5)
             ->get();
 
         $recipes = Recipe::select(['id', 'title', 'duration', 'complexity', 'type', 'description'])
             ->free()
             ->with(['image'])
-            ->latest()
+            ->inRandomOrder()
+            ->limit(4)
             ->get();
 
         $exercises = Exercise::select(['id', 'title', 'duration', 'complexity', 'type', 'description'])
             ->free()
             ->with(['image'])
-            ->latest()
+            ->inRandomOrder()
+            ->limit(4)
             ->get();
 
         $audio = Audio::with('image')
@@ -63,9 +67,13 @@ final class HomeController extends Controller
         $overview = Overview::first();
         $video = $overview?->video?->hlsVideo();
 
-        $entries = HomeEntry::all()
-            ->map(fn($entry) => [$entry->key => $entry->description])
-            ->collapse();
+        $entries = Cache::flexible('home_entries', [2 * 30, 10 * 60], function () {
+            $entries = HomeEntry::all()
+                ->map(fn($entry) => [$entry->key => $entry->description])
+                ->collapse();
+
+            return $entries;
+        });
 
         return Inertia::render('user/home', [
             'faqs' => $faqs,

@@ -118,7 +118,7 @@ export default function ExerciseUpsert({
                         edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
-                        fbClass="text-left justify-start"
+                        fbClass="block text-left justify-start"
                     >
                         <Input
                             id="title"

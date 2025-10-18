@@ -25,7 +25,7 @@ export default function RatesSection() {
             </h3>
 
             <ul
-                className="relative z-11 mt-30 grid gap-30 sm:mt-44 sm:gap-40 xl:grid-cols-3 xl:gap-9"
+                className="relative z-11 mt-30 grid gap-30 place-content-center sm:mt-44 sm:gap-40 xl:grid-cols-[repeat(auto-fit,_31.25rem)] xl:gap-9"
                 role="list"
             >
                 {plans.map((card) => (

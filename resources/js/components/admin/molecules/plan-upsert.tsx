@@ -80,7 +80,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         edit={isEdited}
                         error={errors.title}
                         fallback={data.title}
-                        fbClass="text-left justify-start"
+                        fbClass="block text-left justify-start"
                     >
                         <Input
                             id="title"
@@ -119,7 +119,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         edit={isEdited}
                         error={errors.price}
                         fallback={data.price}
-                        fbClass="text-left justify-start"
+                        fbClass="block text-left justify-start"
                     >
                         <Input
                             id="price"
@@ -148,7 +148,7 @@ export default function PlanUpsert({ routeName, plan }: PlanUpsertProps) {
                         edit={isEdited}
                         error={errors.tier_count}
                         fallback={data.tier_count}
-                        fbClass="text-left justify-start"
+                        fbClass="block text-left justify-start"
                     >
                         <Input
                             id="price"

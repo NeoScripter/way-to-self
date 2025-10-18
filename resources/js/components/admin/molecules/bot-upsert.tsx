@@ -1,25 +1,24 @@
-import { HomeEntry } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
-import TextArea from '../atoms/text-area';
 import { TextWidget } from '../atoms/text-widget';
 import { ActionBtns } from './action-btns';
+import MarkdownEditor from '../atoms/markdown-editor';
 
-type HomeForm = {
-    description: string;
+type BotForm = {
+    tg_greet: string;
 };
 
-type HomeUpsertProps = {
-    entry?: HomeEntry;
+type BotUpsertProps = {
+    tg_greet?: string;
     routeName: string;
 };
 
-export default function HomeUpsert({ entry, routeName }: HomeUpsertProps) {
-    const [isEdited, setIsEdited] = useState(entry == null);
+export default function BotUpsert({ tg_greet, routeName }: BotUpsertProps) {
+    const [isEdited, setIsEdited] = useState(tg_greet == null);
 
     const {
         data,
-        post,
+        patch,
         reset,
         clearErrors,
         setData,
@@ -27,8 +26,8 @@ export default function HomeUpsert({ entry, routeName }: HomeUpsertProps) {
         processing,
         setDefaults,
         recentlySuccessful,
-    } = useForm<HomeForm>({
-        description: entry?.description || '',
+    } = useForm<BotForm>({
+        tg_greet: tg_greet || '',
     });
 
     const handleCancelClick = () => {
@@ -40,7 +39,7 @@ export default function HomeUpsert({ entry, routeName }: HomeUpsertProps) {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(routeName, {
+        patch(routeName, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: () => {
@@ -60,26 +59,21 @@ export default function HomeUpsert({ entry, routeName }: HomeUpsertProps) {
                     <TextWidget
                         label="Текст"
                         key="Текст"
-                        htmlFor="description"
+                        htmlFor="tg_greet"
                         edit={isEdited}
-                        error={errors.description}
-                        fallback={data.description}
+                        error={errors.tg_greet}
+                        fallback={data.tg_greet}
                         fbClass="block items-start py-2 min-h-40 text-left"
                     >
-                        <TextArea
-                            id="description"
-                            placeholder="Текст"
-                            className="entry mt-1 w-full"
-                            value={data.description}
-                            onChange={(e) =>
-                                setData('description', e.target.value)
-                            }
+                        <MarkdownEditor
+                            value={data.tg_greet}
+                            onChange={(e) => setData('tg_greet', e)}
                         />
                     </TextWidget>
                 </div>
 
                 <ActionBtns
-                    isCreate={entry == null}
+                    isCreate={tg_greet == null}
                     edited={isEdited}
                     onCancel={handleCancelClick}
                     saved={recentlySuccessful}

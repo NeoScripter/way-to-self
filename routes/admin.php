@@ -5,6 +5,9 @@ use App\Http\Controllers\Admin\AdminEditorController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\Bot\BodyBotController;
+use App\Http\Controllers\Admin\Bot\NutritionBotController;
+use App\Http\Controllers\Admin\Bot\SoulBotController;
 use App\Http\Controllers\Admin\Home\AudioController;
 use App\Http\Controllers\Admin\Home\ExerciseController;
 use App\Http\Controllers\Admin\Home\FAQController;
@@ -15,7 +18,6 @@ use App\Http\Controllers\Admin\Home\ReviewController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
-use App\Models\HomeEntry;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
@@ -113,5 +115,22 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/home')
     Route::prefix('/audios')->name('audios.')->group(function () {
         Route::get('/', [AudioController::class, 'index'])->name('index');
         Route::patch('/{audio}', [AudioController::class, 'update'])->name('update');
+    });
+});
+
+Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin/bot')->name('admin.bot.')->group(function () {
+
+    Route::prefix('/soul')->name('soul.')->group(function () {
+        Route::get('/', [SoulBotController::class, 'index'])->name('index');
+        Route::patch('/', [SoulBotController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('/body')->name('body.')->group(function () {
+        Route::get('/', [BodyBotController::class, 'index'])->name('index');
+        Route::patch('/', [BodyBotController::class, 'update'])->name('update');
+    });
+    Route::prefix('/nutrition')->name('nutrition.')->group(function () {
+        Route::get('/', [NutritionBotController::class, 'index'])->name('index');
+        Route::patch('/', [NutritionBotController::class, 'update'])->name('update');
     });
 });

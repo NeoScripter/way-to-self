@@ -9,6 +9,7 @@ import Profile from '@/assets/svgs/admin/admin-profile.svg';
 import Promo from '@/assets/svgs/admin/admin-promo.svg';
 import Soul from '@/assets/svgs/admin/admin-soul.svg';
 import Users from '@/assets/svgs/admin/admin-users.svg';
+import Bot from '@/assets/svgs/bot.svg';
 import { v4 as uuidv4 } from 'uuid';
 
 export type AdminMenuList = {
@@ -70,6 +71,13 @@ export const adminMenu: AdminMenuList[] = [
                 title: 'Тарифы',
                 route: 'admin.plans.index',
                 icon: Plans,
+                allowed: ['admin', 'editor'],
+            },
+            {
+                id: uuidv4(),
+                title: 'Телеграм-бот',
+                route: 'admin.bot.soul.index',
+                icon: Bot,
                 allowed: ['admin', 'editor'],
             },
         ],

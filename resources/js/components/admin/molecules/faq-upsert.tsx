@@ -93,7 +93,7 @@ export default function FaqItemUpsert({
                             edit={isEdited}
                             error={errors.title}
                             fallback={data.title}
-                            fbClass="text-left font-bold sm:text-lg md:text-lg shadow-none justify-start border-none"
+                            fbClass="block text-left font-bold sm:text-lg md:text-lg shadow-none justify-start border-none"
                             labelClass={cn(isEdited ? '' : 'hidden')}
                             className="flex-1 shrink-0"
                         >
