@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react';
 import { Link } from '@inertiajs/react';
 import { X } from 'lucide-react';
 import { useState } from 'react';
-import Input from '../atoms/input';
+import Input from '@/components/shared/atoms/input';
 
 export type Item = {
     id: number;
