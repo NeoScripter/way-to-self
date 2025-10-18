@@ -1,8 +1,8 @@
-import { Input } from '@/components/user/atoms/input';
-import InputError from '@/components/user/atoms/input-error';
-import InputSpan from '@/components/user/atoms/input-span';
+import Input from '@/components/shared/atoms/input';
+import InputError from '@/components/shared/atoms/input-error';
+import InputSpan from '@/components/shared/atoms/input-span';
+import NeutralBtn from '@/components/shared/atoms/neutral-btn';
 import { Label } from '@/components/user/atoms/label';
-import NeutralBtn from '@/components/user/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { User } from '@/types';
 import { Button } from '@headlessui/react';
@@ -113,7 +113,7 @@ export default function ProfileInfo() {
                             {isEdited ? (
                                 <Input
                                     id="name"
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full rounded-full border-none"
                                     value={data.name}
                                     onChange={(e) =>
                                         setData('name', e.target.value)
@@ -123,7 +123,9 @@ export default function ProfileInfo() {
                                     placeholder="Ваше имя"
                                 />
                             ) : (
-                                <InputSpan>{data.name}</InputSpan>
+                                <InputSpan className="rounded-full border-none">
+                                    {data.name}
+                                </InputSpan>
                             )}
 
                             <InputError
@@ -137,7 +139,7 @@ export default function ProfileInfo() {
                             {isEdited ? (
                                 <Input
                                     id="surname"
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full rounded-full border-none"
                                     value={data.surname}
                                     onChange={(e) =>
                                         setData('surname', e.target.value)
@@ -147,7 +149,9 @@ export default function ProfileInfo() {
                                     placeholder="Ваша фамилия"
                                 />
                             ) : (
-                                <InputSpan>{data.surname}</InputSpan>
+                                <InputSpan className="rounded-full border-none">
+                                    {data.surname}
+                                </InputSpan>
                             )}
 
                             <InputError
@@ -163,7 +167,7 @@ export default function ProfileInfo() {
                                 <Input
                                     id="email"
                                     type="email"
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full rounded-full border-none"
                                     value={data.email}
                                     onChange={(e) =>
                                         setData('email', e.target.value)
@@ -173,7 +177,9 @@ export default function ProfileInfo() {
                                     placeholder="Email"
                                 />
                             ) : (
-                                <InputSpan>{data.email}</InputSpan>
+                                <InputSpan className="rounded-full border-none">
+                                    {data.email}
+                                </InputSpan>
                             )}
 
                             <InputError
@@ -189,7 +195,7 @@ export default function ProfileInfo() {
                                 <Input
                                     id="telegram"
                                     type="telegram"
-                                    className="mt-1 block w-full"
+                                    className="mt-1 block w-full rounded-full border-none"
                                     value={data.telegram}
                                     onChange={(e) =>
                                         setData('telegram', e.target.value)
@@ -199,7 +205,9 @@ export default function ProfileInfo() {
                                     placeholder="Telegram"
                                 />
                             ) : (
-                                <InputSpan>{data.telegram}</InputSpan>
+                                <InputSpan className="rounded-full border-none">
+                                    {data.telegram}
+                                </InputSpan>
                             )}
                             <InputError
                                 className="mt-2"

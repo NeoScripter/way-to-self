@@ -1,7 +1,7 @@
-import InputError from '@/components/user/atoms/input-error';
+import InputError from '@/components/shared/atoms/input-error';
 import { Label } from '@/components/user/atoms/label';
-import NeutralBtn from '@/components/user/atoms/neutral-btn';
-import PasswordInput from '@/components/user/atoms/password-input';
+import NeutralBtn from '@/components/shared/atoms/neutral-btn';
+import PasswordInput from '@/components/shared/atoms/password-input';
 import DialogLayout from '@/components/user/molecules/dialog-layout';
 import { cn } from '@/lib/utils';
 import { useForm } from '@inertiajs/react';

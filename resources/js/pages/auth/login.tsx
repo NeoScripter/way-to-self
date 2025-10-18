@@ -5,14 +5,14 @@ import { FormEventHandler } from 'react';
 import InputError from '@/components/shared/atoms/input-error';
 import TextLink from '@/components/shared/atoms/text-link';
 import { Checkbox } from '@/components/user/atoms/checkbox';
-import { Input } from '@/components/user/atoms/input';
 import { Label } from '@/components/user/atoms/label';
-import NeutralBtn from '@/components/user/atoms/neutral-btn';
-import PasswordInput from '@/components/user/atoms/password-input';
+import NeutralBtn from '@/components/shared/atoms/neutral-btn';
+import PasswordInput from '@/components/shared/atoms/password-input';
 import SpanHighlight from '@/components/user/atoms/span-highlight';
 import AuthLayout from '@/layouts/auth/auth-layout';
 import { cn } from '@/lib/utils';
 import { z } from 'zod';
+import Input from '@/components/shared/atoms/input';
 
 type LoginForm = {
     email: string;

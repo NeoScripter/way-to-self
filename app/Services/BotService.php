@@ -55,9 +55,17 @@ class BotService
             if (! $user) {
                 return;
             }
+
+            $tier = $user->tiers()->where('telegram_chat_id', $chatId)->first();
+            if (! $tier) {
+                continue;
+            }
+
+            $greeting = TelegramText::sanitizeForMarkdown($tier->tg_greet_html ?? '');
+
             $this->telegram->sendMessage([
                 'chat_id' => $chatId,
-                'text'    => "Вы написали " . $text,
+                'text'    => "Вы написали " . $greeting,
             ]);
 
             if ($this->matcher->searchIn($text)) {

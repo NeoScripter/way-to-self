@@ -1,4 +1,4 @@
-import Input from '@/components/admin/atoms/input';
+import Input from '@/components/shared/atoms/input';
 import notify from '@/components/user/atoms/notify';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { useForm } from '@inertiajs/react';

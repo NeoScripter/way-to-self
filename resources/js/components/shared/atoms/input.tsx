@@ -12,7 +12,7 @@ export default function Input({
             data-slot="input"
             className={cn(
                 'flex h-12 w-full min-w-0 rounded-lg border border-text-black bg-white px-4 py-1 text-center text-sm shadow-xs transition-[color,box-shadow] outline-none selection:bg-bright-salad selection:text-white placeholder:text-gray-500 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-base',
-                'focus-visible:border-ring focus-visible:ring-[1px] focus-visible:ring-dark-swamp/80',
+                'focus-visible:border-ring focus-visible:ring-[1px] focus-visible:ring-gray-600/20',
                 'aria-invalid:border-red-600 aria-invalid:ring-red-600/20',
                 className,
             )}

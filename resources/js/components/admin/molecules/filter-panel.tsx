@@ -1,4 +1,4 @@
-import Input from '@/components/admin/atoms/input';
+import Input from '@/components/shared/atoms/input';
 import capitalize from '@/lib/helpers/capitalize';
 import { CategoryFilter } from '@/types/model';
 import { Link, useForm } from '@inertiajs/react';

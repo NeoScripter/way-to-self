@@ -3,10 +3,10 @@ import { Head, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
-import InputError from '@/components/user/atoms/input-error';
+import InputError from '@/components/shared/atoms/input-error';
 import { Label } from '@/components/user/atoms/label';
-import NeutralBtn from '@/components/user/atoms/neutral-btn';
-import PasswordInput from '@/components/user/atoms/password-input';
+import NeutralBtn from '@/components/shared/atoms/neutral-btn';
+import PasswordInput from '@/components/shared/atoms/password-input';
 import AuthLayout from '@/layouts/auth/auth-layout';
 
 export default function ConfirmPassword() {

@@ -1,5 +1,5 @@
-import Input from '@/components/admin/atoms/input';
-import InputError from '@/components/user/atoms/input-error';
+import Input from '@/components/shared/atoms/input';
+import InputError from '@/components/shared/atoms/input-error';
 import capitalize from '@/lib/helpers/capitalize';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Plus, X } from 'lucide-react';

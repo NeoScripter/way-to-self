@@ -1,7 +1,7 @@
-import Input from '@/components/admin/atoms/input';
-import InputError from '@/components/admin/atoms/input-error';
+import Input from '@/components/shared/atoms/input';
+import InputError from '@/components/shared/atoms/input-error';
 import InputLabel from '@/components/admin/atoms/input-label';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
+import NeutralBtn from '@/components/shared/atoms/neutral-btn';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { z } from 'zod';

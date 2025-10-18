@@ -1,5 +1,5 @@
-import Input from '@/components/admin/atoms/input';
-import NeutralBtn from '@/components/admin/atoms/neutral-btn';
+import Input from '@/components/shared/atoms/input';
+import NeutralBtn from '@/components/shared/atoms/neutral-btn';
 import notify from '@/components/user/atoms/notify';
 import { User } from '@/types';
 import { useForm } from '@inertiajs/react';

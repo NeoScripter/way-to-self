@@ -1,4 +1,5 @@
 import ProfileInfo from '@/components/admin/molecules/profile-info';
+import ProfilePassword from '@/components/admin/molecules/profile-password';
 import AdminLayout from '@/layouts/admin/admin-layout';
 import { formatDate } from '@/lib/helpers/formatDate';
 import { Auth } from '@/types';
@@ -18,7 +19,13 @@ export default function Profile() {
                 user={auth.user}
                 routeName={route('profile.update')}
             />
-            <p className="mt-8 text-center text-sm font-semibold sm:text-base">
+            <h3 className="mb-6 mt-10 text-center text-xl font-bold sm:mb-8 sm:mt-16 sm:text-2xl lg:mb-10 lg:mt-22 lg:text-3xl">
+                Изменение пароля
+            </h3>
+
+            <ProfilePassword />
+
+            <p className="mt-10 text-center text-sm font-semibold sm:text-base">
                 Дата последнего изменения: {formatDate(auth.user.updated_at)}
             </p>
         </AdminLayout>

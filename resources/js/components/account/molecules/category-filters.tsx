@@ -64,6 +64,8 @@ export default function CategoryFilters({
 }: CategoryFiltersProps) {
     const { url } = usePage();
 
+    if (items.length === 0) return null;
+
     return (
         <div
             className={cn(

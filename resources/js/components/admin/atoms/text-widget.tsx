@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils';
 import { ReactNode } from 'react';
-import InputError from './input-error';
 import InputLabel from './input-label';
-import InputSpan from './input-span';
+import InputSpan from '@/components/shared/atoms/input-span';
+import InputError from '@/components/shared/atoms/input-error';
 
 type TextWidgetProps = {
     label: string;

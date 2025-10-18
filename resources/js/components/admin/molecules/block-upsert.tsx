@@ -1,4 +1,4 @@
-import Input from '@/components/admin/atoms/input';
+import Input from '@/components/shared/atoms/input';
 import { ProgramBlock } from '@/types/model';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';

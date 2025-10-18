@@ -1,5 +1,5 @@
-import EditBtn from '../atoms/edit-btn';
-import NeutralBtn from '../atoms/neutral-btn';
+import NeutralBtn from "@/components/shared/atoms/neutral-btn";
+import EditBtn from "../atoms/edit-btn";
 
 type ActionBtnsProps = {
     isCreate?: boolean;

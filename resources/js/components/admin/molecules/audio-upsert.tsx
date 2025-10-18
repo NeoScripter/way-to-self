@@ -1,4 +1,4 @@
-import Input from '@/components/admin/atoms/input';
+import Input from '@/components/shared/atoms/input';
 import { Audio } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';

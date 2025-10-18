@@ -1,14 +1,11 @@
-import DeleteUserDialog from '@/components/account/molecules/delete-user-dialog';
-import InputError from '@/components/shared/atoms/input-error';
 import NeutralBtn from '@/components/shared/atoms/neutral-btn';
 import PasswordInput from '@/components/shared/atoms/password-input';
-import { Label } from '@/components/user/atoms/label';
 import notify from '@/components/user/atoms/notify';
 import useToggle from '@/hooks/use-toggle';
 import { useForm } from '@inertiajs/react';
-import { X } from 'lucide-react';
-import { FormEventHandler, useRef } from 'react';
+import { FormEventHandler, useRef, useState } from 'react';
 import { z } from 'zod';
+import { TextWidget } from '../atoms/text-widget';
 
 type ProfileForm = {
     current_password: string;
@@ -52,6 +49,8 @@ export const schema = z
 export default function ProfilePassword() {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
+
+    const [isEdited, setIsEdited] = useState(false);
 
     const [showModal, toggleModal] = useToggle(false);
 
@@ -111,17 +110,16 @@ export default function ProfilePassword() {
     return (
         <div className="relative z-50 pt-4">
             <div className="mx-auto max-w-177.5 space-y-6">
-                <h3 className="mb-6 block font-heading font-medium sm:text-lg md:text-xl lg:mb-8 lg:text-2xl">
-                    Изменение пароля
-                </h3>
-
                 <form onSubmit={updatePassword}>
                     <div className="grid gap-6">
-                        <div className="grid gap-2">
-                            <Label htmlFor="current_password">
-                                Текущий пароль
-                            </Label>
-
+                        <TextWidget
+                            label="Текущий пароль"
+                            key="Текущий пароль"
+                            htmlFor="current_password"
+                            edit={true}
+                            error={errors.current_password}
+                            fallback={data.current_password}
+                        >
                             <PasswordInput
                                 id="current_password"
                                 ref={currentPasswordInput}
@@ -129,19 +127,20 @@ export default function ProfilePassword() {
                                 onChange={(e) =>
                                     setData('current_password', e.target.value)
                                 }
-                                className="mt-1 block w-full rounded-full border-none"
+                                className="mt-1 block w-full rounded-md"
                                 autoComplete="current-password"
                                 placeholder="Текущий пароль"
                             />
+                        </TextWidget>
 
-                            <InputError
-                                className="mt-2"
-                                message={errors.current_password}
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="password">Новый пароль</Label>
-
+                        <TextWidget
+                            label="Новый пароль"
+                            key="Новый пароль"
+                            htmlFor="password"
+                            edit={true}
+                            error={errors.password}
+                            fallback={data.password}
+                        >
                             <PasswordInput
                                 id="password"
                                 ref={passwordInput}
@@ -149,21 +148,20 @@ export default function ProfilePassword() {
                                 onChange={(e) =>
                                     setData('password', e.target.value)
                                 }
-                                className="mt-1 block w-full rounded-full border-none"
+                                className="mt-1 block w-full rounded-md"
                                 autoComplete="new-password"
                                 placeholder="Новый пароль"
                             />
-                            <InputError
-                                className="mt-2"
-                                message={errors.password}
-                            />
-                        </div>
+                        </TextWidget>
 
-                        <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">
-                                Подтвердите новый пароль
-                            </Label>
-
+                        <TextWidget
+                            label="Подтвердите новый пароль"
+                            key="Подтвердите новый пароль"
+                            htmlFor="password_confirmation"
+                            edit={true}
+                            error={errors.password_confirmation}
+                            fallback={data.password_confirmation}
+                        >
                             <PasswordInput
                                 id="password_confirmation"
                                 value={data.password_confirmation}
@@ -173,27 +171,14 @@ export default function ProfilePassword() {
                                         e.target.value,
                                     )
                                 }
-                                className="mt-1 block w-full rounded-full border-none"
+                                className="mt-1 block w-full rounded-md"
                                 autoComplete="new-password"
                                 placeholder="Подтвердите новый пароль"
                             />
-
-                            <InputError
-                                className="mt-2"
-                                message={errors.password_confirmation}
-                            />
-                        </div>
+                        </TextWidget>
                     </div>
 
-                    <div className="mt-12 flex items-center justify-between gap-2 sm:gap-4">
-                        <button
-                            type="button"
-                            onClick={() => toggleModal(true)}
-                            className="flex cursor-pointer items-center gap-1 text-sm text-gray-500 sm:gap-2 sm:text-base md:text-lg"
-                        >
-                            <X className="size-5 text-gray-500 sm:size-6" />
-                            Удалить аккаунт
-                        </button>
+                    <div className="mt-12 flex items-center justify-center gap-2 sm:gap-4">
                         <NeutralBtn
                             className="px-8 py-3 sm:px-12"
                             disabled={processing}
@@ -202,11 +187,6 @@ export default function ProfilePassword() {
                         </NeutralBtn>
                     </div>
                 </form>
-
-                <DeleteUserDialog
-                    show={showModal}
-                    closeDialog={() => toggleModal(false)}
-                />
             </div>
         </div>
     );

@@ -1,3 +1,4 @@
+import InputError from '@/components/shared/atoms/input-error';
 import PrimaryBtn from '@/components/user/atoms/primary-btn';
 import formatCurrency from '@/lib/helpers/formatCurrency';
 import { cn } from '@/lib/utils';
@@ -5,7 +6,6 @@ import { Field, Input, Label } from '@headlessui/react';
 import { useForm, usePage } from '@inertiajs/react';
 import confetti from 'canvas-confetti';
 import { Check, Tag } from 'lucide-react';
-import InputError from '../atoms/input-error';
 
 type DiscountFieldProps = {
     className?: string;

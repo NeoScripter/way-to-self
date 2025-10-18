@@ -1,4 +1,4 @@
-import Input from '@/components/admin/atoms/input';
+import Input from '@/components/shared/atoms/input';
 import notify from '@/components/user/atoms/notify';
 import { cn } from '@/lib/utils';
 import { FaqItem } from '@/types/model';
