@@ -3,6 +3,7 @@ import { FormEventHandler, useState } from 'react';
 import { TextWidget } from '../atoms/text-widget';
 import { ActionBtns } from './action-btns';
 import MarkdownEditor from '../atoms/markdown-editor';
+import notify from '@/components/user/atoms/notify';
 
 type BotForm = {
     tg_greet: string;
@@ -44,6 +45,7 @@ export default function BotUpsert({ tg_greet, routeName }: BotUpsertProps) {
             preserveState: true,
             onSuccess: () => {
                 setDefaults();
+                notify("Сохранено");
                 setIsEdited(false);
             },
         });
