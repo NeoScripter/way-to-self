@@ -4,8 +4,8 @@ import { PencilIcon } from '@heroicons/react/24/solid';
 import { useForm } from '@inertiajs/react';
 import { Save, X } from 'lucide-react';
 import { FormEventHandler, useState } from 'react';
-import InputError from '../atoms/input-error';
-import InputSpan from '../atoms/input-span';
+import InputError from '@/components/shared/atoms/input-error';
+import InputSpan from '@/components/shared/atoms/input-span';
 import TrashBtn from '../atoms/trash-btn';
 
 type FilterForm = {

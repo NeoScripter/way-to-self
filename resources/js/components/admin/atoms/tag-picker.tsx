@@ -8,7 +8,7 @@ import {
 } from '@headlessui/react';
 import { ChevronsUpDown, X } from 'lucide-react';
 import { Fragment } from 'react';
-import InputError from './input-error';
+import InputError from '@/components/shared/atoms/input-error';
 import InputLabel from './input-label';
 
 export type TagPickerOption = {

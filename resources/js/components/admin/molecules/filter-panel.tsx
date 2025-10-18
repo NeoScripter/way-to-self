@@ -4,7 +4,7 @@ import { CategoryFilter } from '@/types/model';
 import { Link, useForm } from '@inertiajs/react';
 import { Plus, X } from 'lucide-react';
 import { FormEventHandler } from 'react';
-import InputError from '../atoms/input-error';
+import InputError from '@/components/shared/atoms/input-error';
 
 type FilterForm = {
     title: string;

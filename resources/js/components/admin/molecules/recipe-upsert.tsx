@@ -3,7 +3,7 @@ import { Recipe } from '@/types/model';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
 import ImgInput from '../atoms/img-input';
-import InputError from '../atoms/input-error';
+import InputError from '@/components/shared/atoms/input-error';
 import InputLabel from '../atoms/input-label';
 import SelectBox, { Option } from '../atoms/select-box';
 import TagPicker from '../atoms/tag-picker';
