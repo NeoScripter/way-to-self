@@ -61,7 +61,7 @@ export default function ConfirmationDialog({
                     <NeutralBtn
                         onClick={handleClick}
                         key={'confirm-btn'}
-                        className="flex-1 border border-white bg-red-purple hover:bg-red-700"
+                        className="flex-1 border rounded-full border-white bg-red-purple hover:bg-red-700"
                         type="submit"
                     >
                         {confirmBtnLabel}
@@ -69,7 +69,7 @@ export default function ConfirmationDialog({
 
                     <NeutralBtn
                         key={'cancel-btn'}
-                        className="flex-1 border border-white"
+                        className="flex-1 rounded-full border border-white"
                         onClick={closeModal}
                         type="button"
                     >

@@ -116,7 +116,7 @@ export default function DeleteUserDialog({
 
                     <div className="flex items-center gap-10">
                         <NeutralBtn
-                            className="flex-1 border border-white bg-red-purple hover:bg-red-700"
+                            className="flex-1 rounded-full border border-white bg-red-purple hover:bg-red-700"
                             disabled={processing}
                             type="submit"
                         >
@@ -124,7 +124,7 @@ export default function DeleteUserDialog({
                         </NeutralBtn>
 
                         <NeutralBtn
-                            className="flex-1 border border-white"
+                            className="flex-1 border rounded-full border-white"
                             onClick={closeModal}
                             type="button"
                         >
