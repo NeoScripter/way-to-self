@@ -16,7 +16,7 @@ import AppLayout from '@/layouts/user/app-layout';
 import { menuItems } from '@/lib/data/account-menu-items';
 import { cn } from '@/lib/utils';
 import { Auth } from '@/types';
-import { Tier } from '@/types/model';
+import { Article, Tier } from '@/types/model';
 import { Link, usePage } from '@inertiajs/react';
 
 type PurchaseType = {
@@ -26,10 +26,11 @@ type PurchaseType = {
 };
 
 export default function Account() {
-    const { auth, tiers, purchased } = usePage<{
+    const { auth, tiers, purchased, articles } = usePage<{
         tiers: Tier[];
         auth: Auth;
         purchased: PurchaseType[];
+        articles: Article[];
     }>().props;
 
     const isAdmin =
@@ -40,7 +41,7 @@ export default function Account() {
     return (
         <AppLayout
             variant="account"
-            layoutClass="text-white bg-main-page-bg"
+            layoutClass="text-white bg-dark-swamp"
             pageClass="px-4 pb-27 sm:pb-34 lg:pb-40 xl:pb-75 sm:px-11 2xl:px-25 3xl:px-40"
         >
             <BgImage
@@ -117,13 +118,15 @@ export default function Account() {
 
                     <FavoriteList />
 
-                    <div className="mt-15 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:mt-20 md:px-10 xl:mt-30">
-                        <ArticlesSection
-                            articleClass="text-white"
-                            titleClass="text-4xl sm:text-5xl text-white"
-                            subtitleClass="text-white"
-                        />
-                    </div>
+                    {articles.length > 0 && (
+                        <div className="mt-15 rounded-4xl border-2 border-white/20 bg-card-backdrop-gray/50 px-8 pt-12 backdrop-blur-sm md:mt-20 md:px-10 xl:mt-30">
+                            <ArticlesSection
+                                articleClass="text-white"
+                                titleClass="text-4xl sm:text-5xl text-white"
+                                subtitleClass="text-white"
+                            />
+                        </div>
+                    )}
                 </section>
             </div>
             <SlideLayout

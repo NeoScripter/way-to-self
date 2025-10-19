@@ -16,9 +16,16 @@ import ReviewsSection from '@/components/user/organisms/reviews-section';
 import AppLayout from '@/layouts/user/app-layout';
 import { soulCardData } from '@/lib/data/card-data';
 import { cn } from '@/lib/utils';
+import { Article, Review } from '@/types/model';
+import { usePage } from '@inertiajs/react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 export default function Home() {
+    const { articles, reviews } = usePage<{
+        articles: Article[];
+        reviews: Review[];
+    }>().props;
+
     return (
         <AppLayout
             variant="guest"
@@ -82,12 +89,14 @@ export default function Home() {
                 <RatesSection />
             </AppSection>
 
-            <AppSection
-                className="-mx-4 text-text-black sm:-mx-11 2xl:-mx-25 3xl:-mx-40"
-                ariaLabelledBy="reviews-section-title"
-            >
-                <ReviewsSection />
-            </AppSection>
+            {reviews.length > 0 && (
+                <AppSection
+                    className="-mx-4 text-text-black sm:-mx-11 2xl:-mx-25 3xl:-mx-40"
+                    ariaLabelledBy="reviews-section-title"
+                >
+                    <ReviewsSection />
+                </AppSection>
+            )}
 
             <AppSection
                 className="relative text-text-black"
@@ -96,9 +105,11 @@ export default function Home() {
                 <FAQSection />
             </AppSection>
 
-            <AppSection ariaLabelledBy="articles-section-title">
-                <ArticlesSection articleClass="text-dark-green" />
-            </AppSection>
+            {articles.length > 0 && (
+                <AppSection ariaLabelledBy="articles-section-title">
+                    <ArticlesSection articleClass="text-dark-green" />
+                </AppSection>
+            )}
         </AppLayout>
     );
 }
