@@ -4,7 +4,7 @@ import Logo from '@/components/user/atoms/logo';
 import Email from '@/components/user/icons/email';
 import { cn } from '@/lib/utils';
 import { Admin } from '@/types/admin';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 type FooterProps = {
     className?: string;
@@ -38,32 +38,16 @@ const SocialLinks = () => (
         aria-label="Социальные сети"
     >
         <ul className="flex items-center justify-center gap-1.5 sm:justify-start lg:gap-2.5">
-            <li>
-                <a
-                    href=""
-                    className="flex size-7.5 items-center justify-center rounded-sm bg-bright-salad transition-colors duration-200 ease-in hover:bg-very-bright-salad lg:size-10.5"
-                    aria-label="Facebook"
-                >
-                    <img
-                        src={Facebook}
-                        alt="Facebook"
-                        className="size-3/5 lg:size-2/3"
-                    />
-                </a>
-            </li>
-            <li>
-                <a
-                    href=""
-                    className="flex size-7.5 items-center justify-center rounded-sm bg-bright-salad transition-colors duration-200 ease-in hover:bg-very-bright-salad lg:size-10.5"
-                    aria-label="Instagram"
-                >
-                    <img
-                        src={Instagram}
-                        alt="Instagram"
-                        className="size-3/5 lg:size-4/5"
-                    />
-                </a>
-            </li>
+            <InfoIcon
+                key={'Facebook'}
+                image={Facebook}
+                alt="Facebook"
+            />
+            <InfoIcon
+                key={'Instagram'}
+                image={Instagram}
+                alt="Instagram"
+            />
         </ul>
     </nav>
 );
@@ -87,18 +71,71 @@ export default function Footer({ className }: FooterProps) {
 
             <SocialLinks />
 
-            <p
-                className="text-center text-xs sm:text-left sm:text-base lg:text-lg"
-                role="contentinfo"
-            >
-                {admin.name} {admin.surname} © Все права защищены
-            </p>
-            <p
-                className="text-center text-xs sm:text-left sm:text-base lg:text-lg"
-                role="contentinfo"
-            >
-                ИНН: 112121212121
-            </p>
+            <div className="space-y-2">
+                <InfoText>
+                    {admin.name} {admin.surname} © Все права защищены
+                </InfoText>
+                <InfoText>ИНН: 772573178009</InfoText>
+            </div>
+
+            <div className="mt-4 flex flex-col sm:flex-row items-center gap-x-5 gap-y-2">
+                <InfoLink
+                    routeName={route('legal.offer')}
+                    label="Публичная оферта"
+                />
+                <InfoLink
+                    routeName={route('legal.policy')}
+                    label="Политика конфиденциальности"
+                />
+            </div>
         </footer>
     );
 }
+
+const InfoText: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    return (
+        <p
+            className="text-center text-xs sm:text-left sm:text-base lg:text-lg"
+            role="contentinfo"
+        >
+            {children}
+        </p>
+    );
+};
+
+const InfoLink: React.FC<{ routeName: string; label: string }> = ({
+    label,
+    routeName,
+}) => {
+    return (
+        <Link
+            prefetch
+            href={routeName}
+            className="ease text-center text-xs underline underline-offset-3 transition-colors duration-200 hover:text-bright-salad sm:text-left sm:text-base lg:text-lg"
+        >
+            {label}
+        </Link>
+    );
+};
+
+const InfoIcon: React.FC<{
+    routeName?: string;
+    image: string;
+    alt: string;
+}> = ({ image, alt, routeName = '' }) => {
+    return (
+        <li>
+            <a
+                href={routeName}
+                className="flex size-7.5 items-center justify-center rounded-sm bg-bright-salad transition-colors duration-200 ease-in hover:bg-very-bright-salad lg:size-10.5"
+                aria-label="Facebook"
+            >
+                <img
+                    src={image}
+                    alt={alt}
+                    className="size-3/5 lg:size-2/3"
+                />
+            </a>
+        </li>
+    );
+};

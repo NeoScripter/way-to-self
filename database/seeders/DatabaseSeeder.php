@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(ExerciseCategoryFilterSeeder::class);
         // $this->call(ProgramCategoryFilterSeeder::class);
         $this->call(HomeEntrySeeder::class);
+        $this->call(LegalInfoSeeder::class);
     }
 }

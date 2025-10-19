@@ -44,7 +44,7 @@ export default function CheckboxInput({
                         />
                     </svg>
                 </Checkbox>
-                <Label className="block w-full">{children}</Label>
+                <Label className="flex items-center flex-wrap gap-1.5 w-full">{children}</Label>
             </Field>
             {error != null && (
                 <div className="mt-2 px-2 text-sm text-red-500 md:text-base">

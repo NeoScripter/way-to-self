@@ -8,6 +8,9 @@ use App\Http\Controllers\BotController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\Legal\ConsentController;
+use App\Http\Controllers\User\Legal\OfferController;
+use App\Http\Controllers\User\Legal\PolicyController;
 use App\Http\Controllers\User\RecipeController;
 use App\Http\Controllers\User\StreamAudioController;
 use App\Http\Controllers\User\TierCartController;
@@ -45,8 +48,6 @@ Route::get('/audio/{audio}/segments/{file}', [StreamAudioController::class, 'seg
     ->where('file', '.*')
     ->name('audio.segment');
 
-// Route::get('/dev-login', [AuthenticatedSessionController::class, 'dev'])->name('dev.login');
-
 Route::middleware(['auth', 'banned'])->group(function () {
     Route::get('account', [AccountController::class, 'index'])->name('account');
 
@@ -55,27 +56,18 @@ Route::middleware(['auth', 'banned'])->group(function () {
     });
 });
 
+Route::prefix('legal')->name('legal.')->group(function () {
+    Route::get('/consent', ConsentController::class)->name('consent');
+    Route::get('/policy', PolicyController::class)->name('policy');
+    Route::get('/offer', OfferController::class)->name('offer');
+
+});
+
+
 // Route::get('/preview-payment', function () {
 //     return Inertia::render('user/payment', [
 //         'status' => 'success'
 //     ]);
-// });
-// Route::get('/preview-email', function () {
-
-//     $user = \App\Models\User::first();
-//     $notification = new SendPasswordNotification('SamplePass123');
-
-//     return $notification->toMail($user);
-// });
-
-// Route::get('/preview-email2', function () {
-//     $user = \App\Models\User::first();
-
-//     // Example: Password reset
-//     $token = Password::broker()->createToken($user);
-//     $notification = (new \Illuminate\Auth\Notifications\VerifyEmail($token))->locale('ru');
-
-//     return $notification->toMail($user);
 // });
 
 

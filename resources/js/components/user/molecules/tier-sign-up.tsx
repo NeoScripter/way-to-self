@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import z from 'zod';
 import CheckboxInput from '../atoms/checkbox-input';
@@ -140,7 +140,11 @@ export default function TierSignUp({ className, isCart }: TierSignUpProps) {
                     checkboxClassName="size-7"
                     error={errors.agreedData}
                 >
-                    Даю согласие на обработку персональных данных
+                    Даю согласие на
+                    <InfoLink
+                        label="обработку персональных данных"
+                        routeName={route('legal.offer')}
+                    />
                 </CheckboxInput>
                 <CheckboxInput
                     checked={data.agreedPolicy}
@@ -148,9 +152,33 @@ export default function TierSignUp({ className, isCart }: TierSignUpProps) {
                     checkboxClassName="size-7"
                     error={errors.agreedPolicy}
                 >
-                    Принимаю политику конфиденциальности
+                    Принимаю
+                    <InfoLink
+                        label="политику конфиденциальности"
+                        routeName={route('legal.policy')}
+                    />
+                    и
+                    <InfoLink
+                        label="согласие на обработку персональных данных"
+                        routeName={route('legal.consent')}
+                    />
                 </CheckboxInput>{' '}
             </div>
         </form>
     );
 }
+
+const InfoLink: React.FC<{ routeName: string; label: string }> = ({
+    label,
+    routeName,
+}) => {
+    return (
+        <Link
+            prefetch
+            href={routeName}
+            className="ease underline underline-offset-3 transition-colors duration-200 hover:text-dark-swamp"
+        >
+            {label}
+        </Link>
+    );
+};
