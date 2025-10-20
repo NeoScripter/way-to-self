@@ -23,7 +23,6 @@ jobs:
           script: |
             cd /var/www/way-to-self && \
             git pull origin main && \
-            npm install --no-optional && \
             npm run build && \
             php artisan config:clear && \
             php artisan view:clear && \
