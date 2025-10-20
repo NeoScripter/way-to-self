@@ -57,7 +57,7 @@ export default function AdminLayout({
     return (
         <div
             onClick={handleClick}
-            className={cn('min-h-screen bg-light-bg', layoutClass)}
+            className={cn('min-h-screen bg-light-bg overflow-clip', layoutClass)}
         >
             {flash.message && <FlashMessage message={flash.message} />}
 

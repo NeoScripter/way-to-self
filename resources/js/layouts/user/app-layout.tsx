@@ -25,7 +25,7 @@ export default function AppLayout({
     const { flash } = usePage<{ flash: { message: string | null } }>().props;
 
     return (
-        <div className={cn('relative z-5', layoutClass)}>
+        <div className={cn('relative z-5 overflow-clip', layoutClass)}>
             <Header
                 variant={variant}
                 className={headerClass}
