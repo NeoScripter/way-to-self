@@ -149,13 +149,13 @@ function MenuItem({ type, label, propName }: MenuItemProps) {
                 preserveState
                 onClick={() => dispatchSyncSearchEvent(url)}
                 only={[propName]}
-                className="flex items-center gap-2"
+                className="flex cursor-pointer items-center gap-2"
             >
                 <Checkbox
                     name={type}
                     id={type}
                     checked={types.includes(type)}
-                    className="group size-4 shrink-0 rounded-xs border border-white/20 shadow-xs ring-[1px] data-checked:bg-bright-salad"
+                    className="group pointer-events-none size-4 shrink-0 rounded-xs border border-white/20 shadow-xs ring-[1px] data-checked:bg-bright-salad"
                 >
                     <svg
                         className="stroke-white opacity-0 group-data-checked:opacity-100"

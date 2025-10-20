@@ -1,5 +1,6 @@
 import Facebook from '@/assets/svgs/facebook.svg';
 import Instagram from '@/assets/svgs/instagram.svg';
+import YouTube from '@/assets/svgs/youtube.svg';
 import Logo from '@/components/user/atoms/logo';
 import Email from '@/components/user/icons/email';
 import { cn } from '@/lib/utils';
@@ -47,6 +48,11 @@ const SocialLinks = () => (
                 key={'Instagram'}
                 image={Instagram}
                 alt="Instagram"
+            />
+            <InfoIcon
+                key={'YouTube'}
+                image={YouTube}
+                alt="YouTube"
             />
         </ul>
     </nav>
