@@ -73,7 +73,7 @@ export default function Tiers() {
                 />
                 <span
                     className={cn(
-                        'lx:mt-5 mx-auto mt-2 block w-max overflow-hidden bg-gray-text-bg px-3 text-center font-heading text-xl transition-[max-height] duration-1000 ease-in-out md:mt-4 md:text-4xl xl:text-5xl',
+                        'lx:mt-5 mx-auto mt-2 block w-fit max-w-full overflow-hidden bg-gray-text-bg px-3 text-center font-heading text-xl transition-[max-height] duration-1000 ease-in-out md:mt-4 md:text-4xl xl:text-5xl',
                         isCart ? 'max-h-100 py-1' : 'max-h-0',
                     )}
                 >
