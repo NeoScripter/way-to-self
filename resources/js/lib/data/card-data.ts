@@ -162,7 +162,7 @@ export const nutritionCardData: AccountCard[] = [
         img: FoodCard4,
         tinyImg: TinyFoodCard4,
         alt: 'Радостная девушка в жёлтой футболке и джинсовом комбинезоне смотрит в телефон и поднимает кулак вверх',
-        route: route('nutrition.index'),
+        route: 'https://t.me/+zQD2ho-mLfA5YjQy',
     },
 ];
 
@@ -197,7 +197,7 @@ export const accountSoulCards: AccountCard[] = [
         img: SoulCard4,
         tinyImg: TinySoulCard4,
         alt: 'Рука держит смартфон на фоне размытых огней и зелёных украшений',
-        route: route('soul.index'),
+        route: 'https://t.me/+f1yL11zkO80zMzAy'
     },
 ];
 
@@ -232,6 +232,6 @@ export const accountBodyCards: AccountCard[] = [
         img: BodyCard6,
         tinyImg: TinyBodyCard6,
         alt: 'Женский торс в белой одежде, обмотанный измерительной лентой для измерения талии',
-        route: route('body.index'),
+        route: 'https://t.me/+oFnE4iHOj6QwMmEy'
     },
 ];

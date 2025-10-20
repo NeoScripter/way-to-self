@@ -16,17 +16,27 @@ export default function LinkCard({
     alt,
     html,
 }: LinkCardProps) {
+    const isAnchor = route.includes('//t.me/');
+
     return (
         <li
             className="transition-scale relative flex h-67 w-71 shrink-0 flex-col items-center rounded-[4rem] bg-card-backdrop-gray p-10 pb-12.5 duration-300 ease-in hover:scale-110"
             role="listitem"
         >
-            <Link
-                href={route}
-                className="absolute inset-0 z-10 cursor-pointer"
-                as="button"
-                prefetch
-            ></Link>
+            {isAnchor ? (
+                <a
+                    href={route}
+                    target="_blank"
+                    className="absolute inset-0 z-10 cursor-pointer"
+                />
+            ) : (
+                <Link
+                    href={route}
+                    className="absolute inset-0 z-10 cursor-pointer"
+                    as="button"
+                    prefetch
+                />
+            )}
             <div
                 className="mt-auto text-sm font-semibold"
                 aria-label="Описание карточки"
