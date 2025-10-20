@@ -60,7 +60,6 @@ Route::prefix('legal')->name('legal.')->group(function () {
     Route::get('/consent', ConsentController::class)->name('consent');
     Route::get('/policy', PolicyController::class)->name('policy');
     Route::get('/offer', OfferController::class)->name('offer');
-
 });
 
 

@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\Home\HomeEntryController;
 use App\Http\Controllers\Admin\Home\OverviewController;
 use App\Http\Controllers\Admin\Home\RecipeController;
 use App\Http\Controllers\Admin\Home\ReviewController;
+use App\Http\Controllers\Admin\Legal\ConsentController;
+use App\Http\Controllers\Admin\Legal\OfferController;
+use App\Http\Controllers\Admin\Legal\PolicyController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
@@ -70,6 +73,22 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::get('/{article}', [ArticleController::class, 'show'])->name('show');
         Route::post('/{article}', [ArticleController::class, 'update'])->name('update');
         Route::delete('/{article}', [ArticleController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('legal')->name('legal.')->group(function () {
+        Route::prefix('/consent')->name('consent.')->group(function () {
+            Route::get('/', [ConsentController::class, 'index'])->name('index');
+            Route::patch('/', [ConsentController::class, 'update'])->name('update');
+        });
+
+        Route::prefix('/policy')->name('policy.')->group(function () {
+            Route::get('/', [PolicyController::class, 'index'])->name('index');
+            Route::patch('/', [PolicyController::class, 'update'])->name('update');
+        });
+        Route::prefix('/offer')->name('offer.')->group(function () {
+            Route::get('/', [OfferController::class, 'index'])->name('index');
+            Route::patch('/', [OfferController::class, 'update'])->name('update');
+        });
     });
 });
 

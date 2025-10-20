@@ -97,6 +97,15 @@ export type Image = {
     updated_at?: string;
     imageable?: any;
 };
+export type LegalInfo = {
+    id: number;
+    key: string;
+    title: string;
+    body: string;
+    html: string;
+    created_at?: string;
+    updated_at?: string;
+};
 export type Overview = {
     id: number;
     created_at?: string;
@@ -248,6 +257,7 @@ export type TierUser = {
     tier_id: number;
     user_id: number;
     warning_count: number;
+    auto_renew: any;
     expires_at?: string;
     created_at?: string;
     updated_at?: string;
@@ -292,6 +302,16 @@ export enum ContentType {
 export enum DiscountType {
     PERCENT = "percent",
     CURRENCY = "currency"
+}
+export enum EntryKeys {
+    SOUL = "soul",
+    BODY = "body",
+    NUTRITION = "nutrition"
+}
+export enum LegalInfoKeys {
+    POLICY = "policy",
+    CONSENT = "consent",
+    OFFER = "offer"
 }
 export enum RoleEnum {
     USER = "user",
