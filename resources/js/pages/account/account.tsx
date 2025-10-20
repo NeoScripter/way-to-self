@@ -88,7 +88,7 @@ export default function Account() {
                                 isAdmin={isAdmin}
                                 className={cn(
                                     idx === 0 &&
-                                        'account-card-b pt-28 xl:flex-col xl:text-center',
+                                        'account-card-b pt-28 xl:flex-col xl:justify-center xl:text-center',
                                     idx === 1 && 'account-card-a sm:gap-10',
                                     idx === 2 && 'account-card-c pt-28',
                                 )}
