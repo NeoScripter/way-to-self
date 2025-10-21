@@ -46,8 +46,6 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
     <link rel="preload" href="{{ asset('fonts/DisruptorsScript-Regular.woff2') }}" as="font" type="font/woff2"
         crossorigin>
     <link rel="preload" href="{{ asset('fonts/BodoniFLF-Roman.woff2') }}" as="font" type="font/woff2" crossorigin>
