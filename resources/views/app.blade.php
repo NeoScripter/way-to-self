@@ -43,10 +43,6 @@
     <!-- Favicon and Icons -->
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
-
-    <link rel="canonical" href="{{ url()->current() }}">
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
