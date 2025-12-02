@@ -2,6 +2,7 @@ import CutBellPepper from '@/assets/images/home/veggies/cut-bell-pepper.webp';
 import MiddleRadish from '@/assets/images/home/veggies/middle-radish.webp';
 import RightRadish from '@/assets/images/home/veggies/right-radish.webp';
 import Tomatoes from '@/assets/images/home/veggies/tomatoes.webp';
+import { cn } from '@/lib/utils';
 import { Plan } from '@/types/model';
 import { usePage } from '@inertiajs/react';
 import ArtLayer from '../atoms/art-layer';
@@ -25,27 +26,31 @@ export default function RatesSection() {
             </h3>
 
             <ul
-                className="relative z-11 mt-30 grid gap-30 place-content-center sm:mt-44 sm:gap-40 xl:grid-cols-[repeat(auto-fit,_31.25rem)] xl:gap-9"
+                className="relative z-11 mt-30 grid place-content-center gap-30 sm:mt-44 sm:gap-40 xl:grid-cols-[repeat(auto-fit,_31.25rem)] xl:gap-x-9"
                 role="list"
             >
-                {plans.map((card) => (
+                {plans.map((card, idx) => (
                     <PlanCard
                         key={card.id}
                         image={card.image}
                         title={card.title}
                         description={card.description}
-                        className="mx-auto"
+                        className={cn(
+                            'mx-auto',
+                            idx === 2 &&
+                                'lg:col-span-2 lg:w-[31.25rem] lg:justify-self-center',
+                        )}
                         price={card.price}
                     />
                 ))}
             </ul>
 
             <p className="relative z-11 mx-auto my-14 block text-center text-sm font-semibold sm:text-base lg:max-w-3/4 2xl:my-17 2xl:text-xl">
-                Мы сделали несколько вариантов подписки — чтобы вы могли выбрать тот,
-                который подходит именно вам. Хочется начать с малого? Или сразу
-                погрузиться в целостный подход? Всё возможно! Главное — начать.
-                Вы всегда сможете расширить доступ при необходимости. Подписка
-                дает доступ к ресурсу на год с момента оформления.
+                Мы сделали несколько вариантов подписки — чтобы вы могли выбрать
+                тот, который подходит именно вам. Хочется начать с малого? Или
+                сразу погрузиться в целостный подход? Всё возможно! Главное —
+                начать. Вы всегда сможете расширить доступ при необходимости.
+                Подписка дает доступ к ресурсу на год с момента оформления.
             </p>
 
             <PrimaryBtn

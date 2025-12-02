@@ -18,7 +18,7 @@ class ArticleSeeder extends Seeder
 
         for ($i = 0; $i < 6; $i++) {
             $articleData->each(function (array $raw) {
-                article::factory(
+                Article::factory(
                     [
                         'title' => $raw['title'],
                         'description' => $raw['description'],
