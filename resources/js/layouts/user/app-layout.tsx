@@ -6,6 +6,7 @@ import FlashMessage from '@/components/user/atoms/flash-message';
 import { cn } from '@/lib/utils';
 import { usePage } from '@inertiajs/react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { route } from 'ziggy-js'
 
 type AppLayoutProps = {
     children: React.ReactNode;
