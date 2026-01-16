@@ -15,13 +15,13 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: 85.142.89.188
+          host: 144.31.192.146
           port: 22
           username: ilya
           key: ${{ secrets.PRIVATE_KEY }}
           script_stop: true
           script: |
-            cd /var/www/way-to-self && \
+            cd www/way-to-self && \
             git pull origin main && \
             # npm install && \
             npm run build && \
@@ -31,4 +31,4 @@ jobs:
             php artisan config:cache && \
             php artisan route:cache && \
             php artisan view:cache && \
-            sudo /usr/local/bin/reload-php-opcache.sh
+            sudo service php8.3-fpm reload
