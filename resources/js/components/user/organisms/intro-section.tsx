@@ -74,6 +74,7 @@ export default function IntroSection() {
                     <PrimaryBtn
                         href={route('tiers.index')}
                         className="mx-auto border border-white"
+                        prefetch={false}
                     >
                         Получить доступ
                     </PrimaryBtn>

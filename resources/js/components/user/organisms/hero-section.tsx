@@ -49,7 +49,10 @@ export default function HeroSection() {
             </p>
 
             <div className="flex flex-wrap items-center gap-4.5 text-sm sm:gap-7.5 sm:text-base xl:gap-9 2xl:text-xl">
-                <SecondaryBtn href={route('tiers.index')}>
+                <SecondaryBtn
+                    href={route('tiers.index')}
+                    prefetch={false}
+                >
                     Получить доступ
                 </SecondaryBtn>
 

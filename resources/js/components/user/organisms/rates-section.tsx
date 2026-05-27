@@ -55,6 +55,7 @@ export default function RatesSection() {
 
             <PrimaryBtn
                 href={route('tiers.index')}
+                prefetch={false}
                 className="mx-auto 2xl:text-xl"
             >
                 Получить доступ

@@ -5,6 +5,7 @@ type SecondaryBtnProps = {
     href?: string;
     children: React.ReactNode;
     onClick?: () => void;
+    prefetch?: boolean;
     className?: string;
 };
 
@@ -12,6 +13,7 @@ export default function SecondaryBtn({
     children,
     href,
     onClick,
+    prefetch = true,
     className,
 }: SecondaryBtnProps) {
     const baseClass = cn(
@@ -24,6 +26,7 @@ export default function SecondaryBtn({
             <Link
                 as="button"
                 href={href}
+                {...(prefetch ? { prefetch } : {})}
                 className={baseClass}
             >
                 {children}

@@ -5,6 +5,7 @@ type PrimaryBtnProps = {
     href?: string;
     children: React.ReactNode;
     onClick?: () => void;
+    prefetch?: boolean;
     className?: string;
     type?: 'button' | 'submit' | 'reset' | undefined;
     form?: string;
@@ -15,6 +16,7 @@ export default function PrimaryBtn({
     href,
     onClick,
     className,
+    prefetch = true,
     type,
     form,
 }: PrimaryBtnProps) {
@@ -28,7 +30,7 @@ export default function PrimaryBtn({
             <Link
                 as="button"
                 href={href}
-                prefetch
+                {...(prefetch ? { prefetch } : {})}
                 className={baseClass}
             >
                 {children}

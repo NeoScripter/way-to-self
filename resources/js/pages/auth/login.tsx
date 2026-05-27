@@ -87,6 +87,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                 Доступ к ресурсу возможен только для пользователей, оформивших
                 <TextLink
                     href={route('tiers.index')}
+                    prefetch={false}
                     className="ml-1"
                 >
                     подписку.

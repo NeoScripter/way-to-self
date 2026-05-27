@@ -5,6 +5,7 @@ type DarkBtnProps = {
     children: React.ReactNode;
     className?: string;
     href?: string;
+    prefetch?: boolean;
     onClick?: () => void;
     type?: 'button' | 'submit' | 'reset' | undefined;
 };
@@ -14,6 +15,7 @@ export default function DarkBtn({
     href,
     onClick,
     className,
+    prefetch = true,
     type,
 }: DarkBtnProps) {
     const baseClass = cn(
@@ -26,7 +28,7 @@ export default function DarkBtn({
             <Link
                 as="button"
                 href={href}
-                prefetch
+                {...(prefetch ? { prefetch } : {})}
                 className={baseClass}
             >
                 {children}

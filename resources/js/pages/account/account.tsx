@@ -97,6 +97,7 @@ export default function Account() {
                     </ul>
 
                     <DarkBtn
+                        prefetch={false}
                         href={route('tiers.index')}
                         className="mx-auto my-15 border border-white px-[2em] text-sm md:my-20 md:text-base xl:my-30 xl:text-lg"
                     >

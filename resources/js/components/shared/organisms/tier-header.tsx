@@ -116,7 +116,7 @@ function NavMenu({ className, close, show }: NavMenuProps) {
                     </NavLink>
                     <NavLink>
                         <Link
-                            prefetch
+                            prefetch={false}
                             as="button"
                             className={cn(
                                 url === '/tiers'
