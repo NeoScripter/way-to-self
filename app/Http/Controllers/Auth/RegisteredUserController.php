@@ -63,9 +63,11 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        session([
-            'payment_user_id' => $user->id,
-        ]);
+        Auth::login($user);
+
+        // session([
+        //     'payment_user_id' => $user->id,
+        // ]);
 
         return redirect()->route('payment.process');
     }

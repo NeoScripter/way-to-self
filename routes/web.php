@@ -5,6 +5,7 @@ use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\ProdamusController;
 use App\Http\Controllers\User\ArticleController;
 use App\Http\Controllers\User\ExerciseController;
 use App\Http\Controllers\User\HomeController;
@@ -29,8 +30,8 @@ Route::post('/tier-cart/{tier}', [TierCartController::class, 'update'])->name('c
 Route::post('/tier-cart-promo', [TierCartController::class, 'store'])->name('cart.tiers.store');
 Route::post('/empty-cart', [TierCartController::class, 'empty'])->name('cart.tiers.empty');
 
-Route::get('/payment/process', [RegisteredUserController::class, 'processPayment'])
-    ->name('payment.process');
+// Route::get('/payment/process', [RegisteredUserController::class, 'processPayment'])
+//     ->name('payment.process');
 
 Route::name('user.')->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
@@ -62,6 +63,9 @@ Route::prefix('legal')->name('legal.')->group(function () {
     Route::get('/offer', OfferController::class)->name('offer');
 });
 
+Route::get('/pay', [ProdamusController::class, 'pay'])->name('payment.process');
+Route::get('/prodamus/success', [ProdamusController::class, 'success'])->name('payment.success');
+Route::post('/prodamus/webhook', [ProdamusController::class, 'webhook']);
 
 // Route::get('/preview-payment', function () {
 //     return Inertia::render('user/payment', [
