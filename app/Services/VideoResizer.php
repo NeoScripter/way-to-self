@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -30,11 +29,6 @@ class VideoResizer
             mkdir($outputDir, 0775, true);
         }
 
-        // FFmpeg command
-        // -c:v libvpx-vp9 : use VP9 codec (better compression for web)
-        // -b:v 0 and -crf N : quality/size balance (lower CRF = higher quality)
-        // -vf scale=WIDTH:-1 : resize keeping aspect ratio
-        // -c:a libopus : modern audio codec for WebM
         $command = [
             'ffmpeg',
             '-y', // overwrite output
