@@ -45,7 +45,7 @@ class ProdamusController extends Controller
             'customer_email' => $user->email,
             'products' => $cart->tiers->map(function ($tier) use ($promo) {
                 return [
-                    'name' => 'Тариф "' . mb_convert_case($tier->name, MB_CASE_TITLE, 'UTF-8') . '"',
+                    'name' => 'Раздел "' . mb_convert_case($tier->name, MB_CASE_TITLE, 'UTF-8') . '"',
                     'price' => (string) $tier->getDiscountedPrice($promo),
                     'quantity' => '1',
                 ];
@@ -58,6 +58,8 @@ class ProdamusController extends Controller
         if ($request->input('do') === 'link') {
             return response()->json(['payment_url' => $url]);
         }
+
+        $cart->clear();
 
         return Inertia::location($url);
     }
@@ -145,7 +147,6 @@ class ProdamusController extends Controller
                         'plan' => $tier->name
                     ]);
                 });
-
             });
 
             return response('OK', 200);
