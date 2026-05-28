@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\DiscountType;
 use Illuminate\Http\Request;
-use App\Models\Plan;
-use App\Models\Subscription;
 use App\Models\Tier;
 use App\Models\User;
 use Carbon\Carbon;
