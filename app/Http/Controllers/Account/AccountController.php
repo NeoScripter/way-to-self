@@ -14,7 +14,6 @@ use App\Models\Tier;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AccountController extends Controller
@@ -68,7 +67,7 @@ class AccountController extends Controller
             'programs'  => [Program::class,  ['programs.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'recipes'   => [Recipe::class,   ['recipes.id', 'title', 'duration', 'complexity', 'type', 'description']],
             'audio'     => [Audio::class,    ['audio.id', 'title', 'duration', 'complexity', 'type', 'description']],
-            'practices' => [Practice::class, ['practices.id', 'title', 'rating', 'duration', 'type', 'description']],
+            'practices' => [Practice::class, ['practices.id', 'title', 'complexity', 'duration', 'type', 'description']],
         ];
 
         $selectedTypes = $validated['types'] ?? array_keys($map);
