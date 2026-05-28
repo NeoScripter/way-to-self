@@ -46,9 +46,11 @@ class ProdamusController extends Controller
             ) . '-' . time(),
             'customer_email' => $user->email,
             'products' => [
-                'name' => 'Тариф "' . mb_convert_case($plan->title, MB_CASE_TITLE, 'UTF-8') . '"',
-                'price' => (string) $cart->total(),
-                'quantity' => '1',
+                [
+                    'name' => 'Тариф "' . mb_convert_case($plan->title, MB_CASE_TITLE, 'UTF-8') . '"',
+                    'price' => (string) $cart->total(),
+                    'quantity' => '1',
+                ]
             ],
         ];
 
