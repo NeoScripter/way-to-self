@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\Account\AccountController;
 use App\Http\Controllers\Account\ProfileController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\ProdamusController;
 use App\Http\Controllers\User\ArticleController;

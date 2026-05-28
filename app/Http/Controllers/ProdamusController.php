@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Models\Tier;
 use App\Models\User;
@@ -30,7 +31,8 @@ class ProdamusController extends Controller
             return redirect()->back()->with('message', 'Корзина пустая');
         }
 
-        $promo = $cart->promo;
+        $count = $cart->tiers()->count();
+        $plan = Plan::select('price', 'enabled')->where('tier_count', '=', $count)->first();
 
         $data = [
             'do' => $request->input('do', 'pay'),
@@ -43,13 +45,11 @@ class ProdamusController extends Controller
                     ->toArray()
             ) . '-' . time(),
             'customer_email' => $user->email,
-            'products' => $cart->tiers->map(function ($tier) use ($promo) {
-                return [
-                    'name' => 'Раздел "' . mb_convert_case($tier->name, MB_CASE_TITLE, 'UTF-8') . '"',
-                    'price' => (string) $tier->getDiscountedPrice($promo),
-                    'quantity' => '1',
-                ];
-            })->values()->toArray(),
+            'products' => [
+                'name' => 'Тариф "' . mb_convert_case($plan->title, MB_CASE_TITLE, 'UTF-8') . '"',
+                'price' => (string) $cart->total(),
+                'quantity' => '1',
+            ],
         ];
 
         $data['signature'] = $this->sign($data);
