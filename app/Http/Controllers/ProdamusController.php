@@ -29,7 +29,7 @@ class ProdamusController extends Controller
         $user = Auth::user();
         $cart = $user->cart;
 
-        if ($cart->isEmpty()) {
+        if (! $cart || $cart->isEmpty()) {
             return redirect()->back()->with('message', 'Корзина пустая');
         }
 

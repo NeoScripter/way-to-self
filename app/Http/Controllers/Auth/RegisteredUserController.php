@@ -49,6 +49,12 @@ class RegisteredUserController extends Controller
             'agreedPolicy' => 'required|accepted',
         ]);
 
+        $cart = TierCart::getCart();
+
+        if ($cart->isEmpty()) {
+            return redirect()->route('tiers.index')->with('message', 'Корзина пустая');
+        }
+
         $randomPassword = Str::random(12);
 
         $user = User::create([
@@ -63,11 +69,10 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        $cart->update(['user_id' => $user->id]);
+        $cart->save();
 
-        // session([
-        //     'payment_user_id' => $user->id,
-        // ]);
+        Auth::login($user);
 
         return redirect()->route('payment.process');
     }
@@ -108,8 +113,8 @@ class RegisteredUserController extends Controller
                 ->with('message', 'Подписка успешно продлена!');
         } else {
             $adminEmail = User::whereHas('roles', function ($query) {
-                    $query->where('name', RoleEnum::ADMIN->value);
-                })
+                $query->where('name', RoleEnum::ADMIN->value);
+            })
                 ->pluck('email')
                 ->first();
 

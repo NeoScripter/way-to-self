@@ -48,10 +48,10 @@ const schema = z.object({
 export default function TierSignUp({ className, isCart }: TierSignUpProps) {
     const { data, setError, setData, post, processing, errors, reset } =
         useForm<Required<RegisterForm>>({
-            name: '',
-            surname: '',
-            email: '',
-            telegram: '',
+            name: 'Ilya',
+            surname: 'Andreev',
+            email: 'test@gmail.com',
+            telegram: '@ilya',
             agreedData: false,
             agreedPolicy: false,
         });
