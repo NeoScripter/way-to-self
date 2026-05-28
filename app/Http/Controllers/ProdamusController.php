@@ -6,6 +6,7 @@ use App\Enums\DiscountType;
 use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\Subscription;
+use App\Models\Tier;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,14 @@ class ProdamusController extends Controller
 
         $data = [
             'do' => $request->input('do', 'pay'),
-            'order_id' => (string) ($cart->id . '-' . time()),
+            'order_id' => (string) implode(
+                '|',
+                ($cart->tiers->map(
+                    fn($tier) => $tier->id
+                ))
+                    ->values()
+                    ->toArray()
+            ) . '-' . time(),
             'customer_email' => $user->email,
             'products' => $cart->tiers->map(function ($tier) use ($promo) {
                 return [
@@ -65,7 +73,6 @@ class ProdamusController extends Controller
         $signature = $request->header('Sign');
         $signature = preg_replace('/^Sign:\s*/', '', $signature);
 
-        // Verify signature first
         if (!$this->verify($data, $signature)) {
             Log::error('Invalid signature', ['data' => $data]);
             return response('Invalid signature', 400);
@@ -79,82 +86,69 @@ class ProdamusController extends Controller
 
         if ($orderId == null) {
             Log::warning('Order id is not found', ['status' => $paymentStatus]);
-            return response('OK', 200); // Return 200 to acknowledge receipt
+            return response('OK', 200);
         }
-        // Get plan_id from order_id or products
+
         $orderNum = $data['order_num'] ?? null;
         $parts = explode('-', $orderNum);
-        $planId = $parts[0] ?? null;
+        $tierIds = $parts[0] ?? null;
 
         // Validate required fields
         if ($paymentStatus !== 'success') {
             Log::warning('Payment not successful', ['status' => $paymentStatus, 'order_id' => $orderId]);
-            return response('OK', 200); // Return 200 to acknowledge receipt
+            return response('OK', 200);
         }
 
         if (!$customerEmail) {
             Log::error('Customer email missing', ['order_id' => $orderId]);
-            return response('OK', 200); // Return 200 to stop retries
+            return response('OK', 200);
         }
 
-        if (!$planId) {
+        if (!$tierIds) {
             Log::error('Plan ID missing', ['order_id' => $orderId, 'data' => $data]);
             return response('OK', 200);
         }
 
-        // Find user and plan
         $user = User::where('email', $customerEmail)->first();
-        $plan = Plan::find($planId);
+        $tiers = Tier::whereIn('id', explode('|', $tierIds))->get();
 
         if (!$user) {
             Log::error('User not found', ['email' => $customerEmail, 'order_id' => $orderId]);
             return response('OK', 200);
         }
 
-        if (!$plan) {
-            Log::error('Plan not found', ['plan_id' => $planId, 'order_id' => $orderId]);
+        if ($tiers->empty()) {
+            Log::error('Tiers not found', ['tier_ids' => $tierIds, 'order_id' => $orderId]);
             return response('OK', 200);
         }
 
-        // Use database transaction
         try {
-            DB::transaction(function () use ($user, $plan, $orderId) {
-                if (!$user->subscription) {
-                    // Create new subscription
-                    Subscription::create([
-                        'user_id' => $user->id,
-                        'title' => $plan->title,
-                        'starts_at' => now(),
-                        'ends_at' => now()->addDays($plan->duration_in_days),
-                    ]);
-                } else {
-                    // Extend existing subscription
-                    $subscription = $user->subscription;
+            DB::transaction(function () use ($user, $tiers, $orderId) {
 
-                    $endsAt = $subscription->ends_at instanceof Carbon
-                        ? $subscription->ends_at
-                        : Carbon::parse($subscription->ends_at);
+                $tiers->each(function ($tier) use ($user, $orderId) {
 
-                    // If subscription already expired, start from now
-                    if ($endsAt->isPast()) {
-                        $subscription->ends_at = now()->addDays($plan->duration_in_days);
+                    $current = $user->tiers()->find($tier->id);
+
+                    if (! $current) {
+                        $expires = now()->addYear();
                     } else {
-                        // Otherwise extend from current end date
-                        $subscription->ends_at = $endsAt->addDays($plan->duration_in_days);
+                        $end = Carbon::parse($current->pivot->expires_at);
+                        $expires = $end->isFuture()
+                            ? $end->addYear()
+                            : now()->addYear();
                     }
 
-                    $subscription->save();
+                    $user->tiers()->syncWithoutDetaching([
+                        $tier->id => ['expires_at' => $expires],
+                    ]);
 
-                    $subscription->events()->each(
-                        fn($event) => $event->update(['is_notified' => false])
-                    );
-                }
+                    Log::info('Subscription processed successfully', [
+                        'email' => $user->email,
+                        'order_id' => $orderId,
+                        'plan' => $tier->name
+                    ]);
+                });
 
-                Log::info('Subscription processed successfully', [
-                    'email' => $user->email,
-                    'order_id' => $orderId,
-                    'plan' => $plan->title
-                ]);
             });
 
             return response('OK', 200);
