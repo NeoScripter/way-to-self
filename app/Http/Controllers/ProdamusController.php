@@ -118,7 +118,7 @@ class ProdamusController extends Controller
             return response('OK', 200);
         }
 
-        if ($tiers->empty()) {
+        if ($tiers->isEmpty()) {
             Log::error('Tiers not found', ['tier_ids' => $tierIds, 'order_id' => $orderId]);
             return response('OK', 200);
         }
