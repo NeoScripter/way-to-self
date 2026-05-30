@@ -32,7 +32,9 @@ class ProdamusController extends Controller
         }
 
         $count = $cart->tiers()->count();
-        $plan = Plan::select('price', 'enabled')->where('tier_count', '=', $count)->first();
+        $plan = Plan::select('price', 'enabled', 'title')
+            ->where('tier_count', '=', $count)
+            ->first();
 
         $data = [
             'do' => $request->input('do', 'pay'),
