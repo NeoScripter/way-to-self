@@ -22,20 +22,20 @@ export default function FAQSection({ short = false }: FAQSectionProps) {
             <h3 className="relative z-11 mb-11 flex flex-wrap items-center justify-center sm:mb-16 xl:mb-20">
                 <SpanHighlight
                     text="Ответы"
-                    className="mt-[0.1em] bg-very-bright-salad text-[2.5rem] text-black sm:text-[4rem]"
+                    className="bg-very-bright-salad text-black"
                 />
                 <SpanHighlight
                     text="на популярные"
-                    className="mt-[0.1em] bg-very-bright-salad text-[2.5rem] text-black sm:text-[4rem]"
+                    className="bg-very-bright-salad text-black"
                 />
                 <SpanHighlight
                     text="вопросы"
-                    className="mt-[0.1em] bg-very-bright-salad text-[2.5rem] text-black sm:text-[4rem]"
+                    className="bg-very-bright-salad text-black"
                 />
                 {!short && (
                     <SpanHighlight
                         text="о портале"
-                        className="mt-[0.1em] bg-very-bright-salad text-[2.5rem] text-black sm:text-[4rem]"
+                        className="bg-very-bright-salad text-black"
                     />
                 )}
             </h3>

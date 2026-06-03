@@ -33,7 +33,7 @@ export default function HeroSection() {
                     <br />
                     <SpanHighlight
                         text="путь к себе"
-                        className="mt-[0.1em] ml-auto text-[2.5rem] sm:text-[4rem] 2xl:text-[6rem]"
+                        className="ml-auto"
                     />
                 </h1>
             </header>

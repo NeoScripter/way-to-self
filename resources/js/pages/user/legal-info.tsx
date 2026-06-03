@@ -61,7 +61,6 @@ export default function LegalInfo({ title, html }: LegalInfoProps) {
                     <SpanHighlight
                         key={`titile-${idx}`}
                         text={word}
-                        className="mt-[0.1em] text-[2.5rem] text-white sm:text-[4rem]"
                     />
                 ))}
             </h1>

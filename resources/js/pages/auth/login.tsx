@@ -75,11 +75,11 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <h1 className="mb-7 flex flex-wrap justify-center gap-y-0.5 font-heading text-4xl text-white sm:mb-10 sm:max-w-full sm:text-6xl 2xl:text-8xl">
                 <SpanHighlight
                     text="Добро"
-                    className="mt-[0.1em] h-[0.6em] text-[2.5rem] sm:text-[4rem] 2xl:text-[6rem]"
+                    className="h-[0.6em]"
                 />
                 <SpanHighlight
                     text="пожаловать!"
-                    className="mt-[0.1em] h-[0.6em] text-[2.5rem] sm:text-[4rem] 2xl:text-[6rem]"
+                    className="h-[0.6em]"
                 />
             </h1>
 

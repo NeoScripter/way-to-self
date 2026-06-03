@@ -33,7 +33,7 @@ export default function Body() {
                 >
                     <SpanHighlight
                         text='Раздел "Тело"'
-                        className="mx-auto mt-[0.1em] text-[2.5rem] text-white sm:text-[4rem] lg:text-[6rem]"
+                        className="mx-auto"
                     />
                     <span
                         className={cn(
