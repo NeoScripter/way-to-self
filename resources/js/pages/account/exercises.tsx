@@ -81,7 +81,7 @@ export default function Exercises() {
                 >
                     <SpanHighlight
                         text="Упражнения"
-                        className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
+                        className="mx-auto mt-[0.1em] text-[2.5rem] text-white sm:text-[4rem] lg:text-[6rem]"
                     />
                 </h1>
 

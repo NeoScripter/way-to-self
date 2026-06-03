@@ -40,7 +40,7 @@ export default function Header({ className, variant }: HeaderProps) {
                 )}
             ></div>
 
-            <Logo className="mt-2.5 mb-2 ml-1 text-4xl sm:mt-5 sm:mb-4 sm:text-6xl md:mt-7 md:mb-5 md:hidden md:text-4xl lg:block xl:text-6xl" />
+            <Logo className="mt-2.5 mb-2 ml-1 text-2xl sm:mt-5 sm:mb-4 sm:text-6xl md:mt-7 md:mb-5 md:hidden md:text-2xl lg:block xl:text-4xl" />
 
             <NavMenu
                 variant={variant}
@@ -88,7 +88,7 @@ function NavMenu({ variant, className, close, show }: NavMenuProps) {
                     <XIcon className="size-full text-gray-100" />
                 </button>
             </header>
-            <Logo className="my-[5vw] text-center text-[18vw] sm:text-8xl md:hidden" />
+            <Logo className="my-[7vw] text-center text-[min(15vw,4rem)] sm:text-6xl md:hidden" />
 
             <HeaderMenu variant={variant} />
         </div>

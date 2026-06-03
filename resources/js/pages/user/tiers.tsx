@@ -69,7 +69,7 @@ export default function Tiers() {
                     text={cn(
                         isCart ? 'Выберите разделы,' : 'Оформление заказа',
                     )}
-                    className="mx-auto mt-[0.1em] text-[3.8rem] text-white sm:text-[6rem] lg:text-[8rem]"
+                    className="mx-auto mt-[0.1em] text-[2.8rem] text-white sm:text-[4rem] lg:text-[6rem]"
                 />
                 <span
                     className={cn(

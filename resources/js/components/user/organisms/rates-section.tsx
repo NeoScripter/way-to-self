@@ -21,7 +21,7 @@ export default function RatesSection() {
             >
                 <SpanHighlight
                     text="Тарифы"
-                    className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[8rem]"
+                    className="mx-auto mt-[0.1em] text-[2.5rem] text-white sm:text-[4rem]"
                 />
             </h3>
 

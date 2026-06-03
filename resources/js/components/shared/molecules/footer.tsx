@@ -71,7 +71,7 @@ export default function Footer({ className }: FooterProps) {
                 className,
             )}
         >
-            <Logo className="text-center text-4xl text-white sm:text-left sm:text-6xl" />
+            <Logo className="text-center text-3xl text-white sm:text-left sm:text-5xl" />
 
             <AddressLinks email={admin.email} />
 

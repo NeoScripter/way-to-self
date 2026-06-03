@@ -28,7 +28,7 @@ export default function Articles() {
             <h1 className="-mx-8 my-13 sm:my-20 lg:my-25">
                 <SpanHighlight
                     text="Советы и рекомендации"
-                    className="mx-auto mt-[0.1em] bg-very-bright-salad text-[4rem] text-text-black sm:text-[6rem] lg:text-[8rem]"
+                    className="mx-auto mt-[0.1em] bg-very-bright-salad text-[2.5rem] text-text-black sm:text-[4rem] lg:text-[6rem]"
                 />
             </h1>
 

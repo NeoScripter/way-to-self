@@ -60,7 +60,7 @@ export default function Account() {
             >
                 <SpanHighlight
                     text="Личный кабинет"
-                    className="mx-auto mt-[0.1em] text-[4rem] text-white sm:text-[6rem] lg:text-[8rem]"
+                    className="mx-auto mt-[0.1em] text-[2.5rem] text-white sm:text-[4rem] lg:text-[6rem]"
                 />
                 <span
                     className={cn(
@@ -108,7 +108,7 @@ export default function Account() {
                 <section>
                     <SpanHighlight
                         text="Избранное"
-                        className="mx-auto mt-[0.1em] mb-15 text-[5rem] text-white sm:text-[6rem] md:mb-20 lg:text-[8rem] xl:mb-25"
+                        className="mx-auto mt-[0.1em] mb-15 text-[5rem] text-white sm:text-[4rem] md:mb-20 lg:text-[6rem] xl:mb-25"
                     />
                     <DarkBtn
                         onClick={() => toggleMenu(true)}
