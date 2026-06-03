@@ -12,6 +12,7 @@ type ConfirmationDialogProps = {
     routeName: string;
     methodName: 'delete' | 'post' | 'patch';
     confirmBtnLabel: string;
+    confirmBtnClass?: string;
     cancelBtnLabel: string;
     payload?: Record<string, any>;
 };
@@ -25,6 +26,7 @@ export default function ConfirmationDialog({
     methodName,
     confirmBtnLabel,
     cancelBtnLabel,
+    confirmBtnClass,
     payload,
 }: ConfirmationDialogProps) {
     const handleClick = () => {
@@ -61,7 +63,10 @@ export default function ConfirmationDialog({
                     <NeutralBtn
                         onClick={handleClick}
                         key={'confirm-btn'}
-                        className="flex-1 border rounded-full border-white bg-red-purple hover:bg-red-700"
+                        className={cn(
+                            'flex-1 rounded-full border border-white bg-red-purple hover:bg-red-700',
+                            confirmBtnClass,
+                        )}
                         type="submit"
                     >
                         {confirmBtnLabel}

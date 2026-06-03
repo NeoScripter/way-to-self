@@ -6,8 +6,9 @@ import useToggle from '@/hooks/use-toggle';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { cn } from '@/lib/utils';
 import { User } from '@/types';
-import { Link, router, usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { Minus, Plus } from 'lucide-react';
+import { useState } from 'react';
 
 type Column = {
     id: string;
@@ -22,6 +23,9 @@ type TierTableProps = {
 
 function TierTable({ columns }: TierTableProps) {
     const { user } = usePage<{ user: User }>().props;
+
+    const [extendTierId, setExtendTierId] = useState<string | null>(null);
+    const [reduceTierId, setReduceTierId] = useState<string | null>(null);
 
     return (
         <>
@@ -40,29 +44,27 @@ function TierTable({ columns }: TierTableProps) {
                                 idx === 0 && 'pointer-events-none opacity-0',
                             )}
                         >
-                            {idx > 0 && (
-                                <Link
-                                    href={route('admin.user-tier.store', {
-                                        user: user.id,
-                                        tierId: column.id,
-                                    })}
-                                    method="post"
+                            {idx > 0 ? (
+                                <button
+                                    type="button"
+                                    onClick={() => setExtendTierId(column.id)}
                                     className="cursor-pointer rounded-sm bg-bright-salad p-0.5 text-white transition-[colors,transform] hover:scale-103 hover:bg-bright-salad/80"
                                 >
                                     <Plus />
-                                </Link>
+                                </button>
+                            ) : (
+                                <span className="block size-7" />
                             )}
-                            {idx > 0 && (
-                                <Link
-                                    href={route('admin.user-tier.destroy', {
-                                        user: user.id,
-                                        tierId: column.id,
-                                    })}
-                                    method="delete"
+                            {idx > 0 ? (
+                                <button
+                                    type="button"
+                                    onClick={() => setReduceTierId(column.id)}
                                     className="cursor-pointer rounded-sm p-0.5 shadow-sm transition-[colors,transform] hover:scale-103"
                                 >
                                     <Minus />
-                                </Link>
+                                </button>
+                            ) : (
+                                <span className="block size-7" />
                             )}
                         </span>
                     </span>
@@ -73,6 +75,39 @@ function TierTable({ columns }: TierTableProps) {
                     <span className="w-full">{column.end}</span>
                 </div>
             ))}
+
+            {extendTierId !== null && (
+                <ConfirmationDialog
+                    show={extendTierId !== null}
+                    closeDialog={() => setExtendTierId(null)}
+                    title="Вы точно уверены, что хотите продлить подписку данного пользователя?"
+                    description="Подписка данного пользователя будет продлена на год"
+                    routeName={route('admin.user-tier.store', {
+                        user: user.id,
+                        tierId: extendTierId,
+                    })}
+                    methodName="post"
+                    confirmBtnLabel="Продлить"
+                    cancelBtnLabel="Отмена"
+                    confirmBtnClass="bg-dark-swamp hover:bg-dark-swamp/80"
+                />
+            )}
+
+            {reduceTierId !== null && (
+                <ConfirmationDialog
+                    show={reduceTierId !== null}
+                    closeDialog={() => setReduceTierId(null)}
+                    title="Вы точно уверены, что хотите сократить подписку данного пользователя?"
+                    description="Подписка будет сокращена на год, либо удалена, если срок ее окончания меньше года"
+                    routeName={route('admin.user-tier.destroy', {
+                        user: user.id,
+                        tierId: reduceTierId,
+                    })}
+                    methodName="delete"
+                    confirmBtnLabel="Сократить"
+                    cancelBtnLabel="Отмена"
+                />
+            )}
         </>
     );
 }
