@@ -14,47 +14,61 @@ type RegisterForm = {
     name: string;
     surname: string;
     email: string;
+    repeatEmail: string;
     telegram: string;
     agreedData: boolean;
     agreedPolicy: boolean;
 };
 
-const schema = z.object({
-    name: z
-        .string()
-        .min(1, 'Введите имя')
-        .max(100, 'Имя не должно превышать 100 символов'),
-    surname: z
-        .string()
-        .min(1, 'Введите фамилию')
-        .max(100, 'Фамилия не должна превышать 100 символов'),
-    email: z
-        .string()
-        .min(1, 'Введите email')
-        .email('Введите правильный email')
-        .max(100, 'Email не должен превышать 100 символов'),
-    telegram: z
-        .string()
-        .min(1, 'Введите ник в телеграм')
-        .max(100, 'Ник не должен превышать 100 символов'),
-    agreedData: z.boolean().refine((val) => val === true, {
-        message: 'Необходимо согласие на обработку данных',
-    }),
-    agreedPolicy: z.boolean().refine((val) => val === true, {
-        message: 'Необходимо принять политику конфиденциальности',
-    }),
-});
+const schema = z
+    .object({
+        name: z
+            .string()
+            .min(1, 'Введите имя')
+            .max(100, 'Имя не должно превышать 100 символов'),
+        surname: z
+            .string()
+            .min(1, 'Введите фамилию')
+            .max(100, 'Фамилия не должна превышать 100 символов'),
+        email: z
+            .string()
+            .min(1, 'Введите email')
+            .email('Введите правильный email')
+            .max(100, 'Email не должен превышать 100 символов'),
+        repeatEmail: z
+            .string()
+            .min(1, 'Введите email')
+            .email('Введите правильный email')
+            .max(100, 'Email не должен превышать 100 символов'),
+        telegram: z
+            .string()
+            .min(1, 'Введите ник в телеграм')
+            .max(100, 'Ник не должен превышать 100 символов'),
+        agreedData: z.boolean().refine((val) => val === true, {
+            message: 'Необходимо согласие на обработку данных',
+        }),
+        agreedPolicy: z.boolean().refine((val) => val === true, {
+            message: 'Необходимо принять политику конфиденциальности',
+        }),
+    })
+    .refine(({ email, repeatEmail }) => email === repeatEmail, {
+        error: "Адреса электронной почты должны совпадать",
+        path: ['email'],
+    });
 
+// () => ({path: ['email'], message: 'Buhaha'})
 export default function TierSignUp({ className, isCart }: TierSignUpProps) {
-    const { data, setError, setData, post, processing, errors } =
-        useForm<Required<RegisterForm>>({
-            name: '',
-            surname: '',
-            email: '',
-            telegram: '',
-            agreedData: false,
-            agreedPolicy: false,
-        });
+    const { data, setError, setData, post, processing, errors } = useForm<
+        Required<RegisterForm>
+    >({
+        name: '',
+        surname: '',
+        email: '',
+        repeatEmail: '',
+        telegram: '',
+        agreedData: false,
+        agreedPolicy: false,
+    });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -64,10 +78,10 @@ export default function TierSignUp({ className, isCart }: TierSignUpProps) {
         console.log(result);
         if (!result.success) {
             const fieldErrors = result.error.flatten().fieldErrors;
-            console.log(fieldErrors);
 
             const inertiaErrors: Record<keyof RegisterForm, string> = {
                 email: fieldErrors.email?.[0] ?? '',
+                repeatEmail: fieldErrors.repeatEmail?.[0] ?? '',
                 name: fieldErrors.name?.[0] ?? '',
                 surname: fieldErrors.surname?.[0] ?? '',
                 telegram: fieldErrors.telegram?.[0] ?? '',
@@ -121,6 +135,15 @@ export default function TierSignUp({ className, isCart }: TierSignUpProps) {
                     placeholder="Ваш Email*"
                     onChange={(e) => setData('email', e.target.value)}
                     error={errors.email}
+                />
+
+                <InputField
+                    id="repeatEmail"
+                    label="Повторите Email"
+                    value={data.repeatEmail}
+                    placeholder="Повторите Email*"
+                    onChange={(e) => setData('repeatEmail', e.target.value)}
+                    error={errors.repeatEmail}
                 />
 
                 <InputField
