@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\Legal\PolicyController;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Settings\UserController;
+use App\Http\Controllers\Settings\UserTierController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->name('admin.')->group(function () {
@@ -44,6 +45,11 @@ Route::middleware(['auth', 'banned', 'role:admin,editor'])->prefix('admin')->nam
         Route::post('/{user}', [UserController::class, 'update'])->name('ban');
         Route::post('/restore/{user}', [UserController::class, 'restore'])->name('restore')->withTrashed();
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy')->withTrashed();
+    });
+
+    Route::prefix('/user-tier')->name('user-tier.')->group(function () {
+        Route::post('/{user}/{tierId}', [UserTierController::class, 'store'])->name('store')->withTrashed();
+        Route::delete('/{user}/{tierId}', [UserTierController::class, 'destroy'])->name('destroy')->withTrashed();
     });
 
     Route::prefix('/promos')->name('promos.')->group(function () {

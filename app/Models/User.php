@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\RoleEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Support\Str;
@@ -139,6 +140,44 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+    public function extendTier(int $tierId): void
+    {
+        $tier = $this->tiers()->find($tierId);
+
+        if (! $tier) {
+            $expires = now()->addYear();
+        } else {
+            $end = Carbon::parse($tier->pivot->expires_at);
+            $expires = $end->addYear();
+        }
+
+        $this->tiers()->syncWithoutDetaching([
+            $tier->id => ['expires_at' => $expires],
+        ]);
+    }
+
+    public function reduceTier(int $tierId): void
+    {
+        $tier = $this->tiers()->find($tierId);
+
+        if (! $tier) {
+            return;
+        }
+
+        $end = Carbon::parse($tier->pivot->expires_at);
+        $start = Carbon::parse($tier->pivot->created_at);
+        $end = $end->subYear();
+
+        if ($end <= $start) {
+            $this->tiers()->detach($tierId);
+            return;
+        }
+
+        $this->tiers()->syncWithoutDetaching([
+            $tier->id => ['expires_at' => $end],
+        ]);
     }
 
     public function setTelegramAttribute(?string $value): void

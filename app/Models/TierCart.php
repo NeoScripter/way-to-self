@@ -96,4 +96,5 @@ class TierCart extends Model
             ]);
         });
     }
+
 }

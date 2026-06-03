@@ -72,11 +72,12 @@ class AdminUserController extends Controller
         )->count();
 
         $columns = $user->tiers()
-            ->select('tiers.name', 'tier_user.created_at', 'tier_user.expires_at')
+            ->select('tiers.id' ,'tiers.name', 'tier_user.created_at', 'tier_user.expires_at')
             ->orderBy('tiers.name')
             ->get()
             ->map(function ($tier) {
                 return [
+                    'id' => $tier->id,
                     'title' => $tier->name,
                     'start' => \Carbon\Carbon::parse($tier->pivot->created_at)->format('d-m-Y'),
                     'end'   => \Carbon\Carbon::parse($tier->pivot->expires_at)->format('d-m-Y'),

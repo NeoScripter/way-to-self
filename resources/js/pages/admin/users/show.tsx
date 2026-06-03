@@ -6,7 +6,8 @@ import useToggle from '@/hooks/use-toggle';
 import EditingLayout from '@/layouts/admin/editing-layout';
 import { cn } from '@/lib/utils';
 import { User } from '@/types';
-import { router, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { Minus, Plus } from 'lucide-react';
 
 type Column = {
     id: string;
@@ -20,6 +21,8 @@ type TierTableProps = {
 };
 
 function TierTable({ columns }: TierTableProps) {
+    const { user } = usePage<{ user: User }>().props;
+
     return (
         <>
             {columns.map((column, idx) => (
@@ -30,8 +33,43 @@ function TierTable({ columns }: TierTableProps) {
                         idx === 0 && 'text-slate-400',
                     )}
                 >
+                    <span className="w-min px-2">
+                        <span
+                            className={cn(
+                                'flex items-center gap-1',
+                                idx === 0 && 'pointer-events-none opacity-0',
+                            )}
+                        >
+                            {idx > 0 && (
+                                <Link
+                                    href={route('admin.user-tier.store', {
+                                        user: user.id,
+                                        tierId: column.id,
+                                    })}
+                                    method="post"
+                                    className="cursor-pointer rounded-sm bg-bright-salad p-0.5 text-white transition-[colors,transform] hover:scale-103 hover:bg-bright-salad/80"
+                                >
+                                    <Plus />
+                                </Link>
+                            )}
+                            {idx > 0 && (
+                                <Link
+                                    href={route('admin.user-tier.destroy', {
+                                        user: user.id,
+                                        tierId: column.id,
+                                    })}
+                                    method="delete"
+                                    className="cursor-pointer rounded-sm p-0.5 shadow-sm transition-[colors,transform] hover:scale-103"
+                                >
+                                    <Minus />
+                                </Link>
+                            )}
+                        </span>
+                    </span>
                     <span className="w-full">{column.title}</span>
-                    <span className="w-full">{column.start}</span>
+                    <span className="hidden w-full xs:inline">
+                        {column.start}
+                    </span>
                     <span className="w-full">{column.end}</span>
                 </div>
             ))}
