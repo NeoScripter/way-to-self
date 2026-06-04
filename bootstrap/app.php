@@ -39,6 +39,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'banned' => CheckUserBanStatus::class,
         ]);
     })
+    ->withSchedule(function ($schedule) {
+        $schedule->command('backup_database')
+            ->weeklyOn(1, '01:00');
+    })
     // ->withEvents(discover: [
     //     __DIR__.'/../app/Listeners',
     // ])
