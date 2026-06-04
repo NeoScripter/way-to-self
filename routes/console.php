@@ -29,7 +29,7 @@ Artisan::command('backup_database', function (): void {
         unlink($path);
     }
 
-    $user = User::where('email', 'sange0337@gmail.com')->first();
+    $user = User::where('email', 'client-vremyavspyat@ya.ru')->first();
 
     if ($user) {
         $user->notify(new SendBackupNotification("{$path}.gz"));
