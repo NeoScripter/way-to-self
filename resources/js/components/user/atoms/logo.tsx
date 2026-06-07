@@ -1,3 +1,4 @@
+import LogoWhite from '@/assets/svgs/logo-white.svg';
 import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 
@@ -16,7 +17,13 @@ export default function Logo({ className }: LogoProps) {
                 rel="home"
             >
                 <span className="sr-only">Время вспять — логотип</span>
-                <span aria-hidden="true">Время вспять</span>
+                <span aria-hidden="true" className='block w-50'>
+                    <img
+                        src={LogoWhite}
+                        alt=""
+                        className='size-full'
+                    />
+                </span>
             </Link>
         </div>
     );
